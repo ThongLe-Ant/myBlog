@@ -58,10 +58,16 @@ export function CategoryBrowser({ categories, categoryCounts }: CategoryBrowserP
                           categoryGradients[index % categoryGradients.length]
                         )}>
                             <div 
-                                className="absolute inset-0 opacity-20"
+                                className="absolute inset-0 opacity-10"
                                 style={{
-                                    backgroundImage: 'repeating-radial-gradient(circle at center, hsla(0,0%,100%,.2), hsla(0,0%,100%,.2) 1px, transparent 1px, transparent 100%)',
-                                    backgroundSize: '2rem 2rem'
+                                    backgroundImage: 
+                                        'radial-gradient(circle at center, hsla(0,0%,100%,.2) 0, transparent 1px), ' +
+                                        'radial-gradient(circle at center, hsla(0,0%,100%,.2) 0, transparent 1px), ' +
+                                        'radial-gradient(circle at center, hsla(0,0%,100%,.1) 0, transparent 2px), ' +
+                                        'radial-gradient(circle at center, hsla(0,0%,100%,.1) 0, transparent 2px)',
+                                    backgroundSize: '20% 20%, 40% 40%, 60% 60%, 80% 80%',
+                                    backgroundPosition: 'center center',
+                                    backgroundRepeat: 'no-repeat'
                                 }}
                             />
                             <div className="relative z-10">
