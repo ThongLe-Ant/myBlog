@@ -12,9 +12,11 @@ import { savePost } from '@/lib/posts';
 import { useRouter } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import dynamic from 'next/dynamic';
 
-import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
+
+const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false });
 
 
 export default function CreatePostPage() {

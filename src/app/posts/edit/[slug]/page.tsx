@@ -23,8 +23,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import SimpleMDE from 'react-simplemde-editor';
+import dynamic from 'next/dynamic';
 import 'easymde/dist/easymde.min.css';
+
+const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false });
 
 export default function EditPostPage() {
   const { slug } = useParams();
@@ -179,7 +181,7 @@ export default function EditPostPage() {
                     id="title"
                     placeholder="e.g., 'My First Blog Post'"
                     value={title}
-                    onChange={(e) => setTitle(e.targe.value)}
+                    onChange={(e) => setTitle(e.target.value)}
                     disabled={isSaving}
                   />
                 </div>
