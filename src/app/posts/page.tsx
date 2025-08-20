@@ -1,61 +1,17 @@
 
-'use client';
-
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { PlusCircle, FilePenLine } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { PlusCircle } from 'lucide-react';
+import Link from 'next/link';
+import { getPosts, Post } from '@/lib/posts';
+import { PostListClient } from './post-list-client';
 
-const mockPosts = [
-  {
-    slug: 'hexagonal-architecture',
-    title: 'Architecture Pattern - Part 7: Hexagonal Architecture',
-    category: 'Architecture',
-    excerpt: 'Hexagonal Architecture is an architectural pattern where every external interaction must go through an Adapter to connect to an Application Port.',
-  },
-  {
-    slug: 'init-py-guide',
-    title: 'The __init__.py file in Python: A Comprehensive Guide',
-    category: 'Technology',
-    excerpt: 'A deep dive into the purpose and usage of the __init__.py file in Python projects.',
-  },
-  {
-    slug: 'high-performance-leaderboard',
-    title: 'High-Performance Leaderboard Design: When to Choose SQL vs. Redis',
-    category: 'Architecture',
-    excerpt: 'Analyzing the trade-offs between SQL and Redis for implementing scalable leaderboards.',
-  },
-  {
-    slug: 'senior-engineer-behaviors',
-    title: 'Behaviors That Distinguish Senior Engineers from the Rest',
-    category: 'Experience',
-    excerpt: 'Exploring the key behaviors and mindsets that define a true senior engineer.',
-  },
-  {
-    slug: 'async-request-reply',
-    title: 'Asynchronous Request-Reply Pattern: A Solution for Heavy Tasks',
-    category: 'Architecture',
-    excerpt: 'How to handle long-running tasks without blocking the user interface.',
-  },
-  {
-    slug: 'intro-to-nextjs',
-    title: 'What is Next.js? Fundamental Next.js Knowledge You Need',
-    category: 'Technology',
-    excerpt: 'A beginner-friendly introduction to the Next.js framework for React.',
-  },
-];
+export const dynamic = 'force-dynamic';
 
-const categories = ['All', 'Architecture', 'Technology', 'Experience'];
-
-export default function PostsListPage() {
-  const [activeTab, setActiveTab] = useState('All');
-  const router = useRouter();
-
-  const filteredPosts = activeTab === 'All'
-    ? mockPosts
-    : mockPosts.filter(post => post.category === activeTab);
+export default async function PostsListPage() {
+  const posts: Post[] = await getPosts();
+  
+  // Extract unique categories
+  const categories = ['All', ...Array.from(new Set(posts.map(p => p.category)))];
 
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -66,41 +22,15 @@ export default function PostsListPage() {
                 Find and manage all your articles here.
             </p>
         </div>
-        <Button size="lg" onClick={() => router.push('/posts/create')}>
-          <PlusCircle className="mr-2 h-5 w-5" />
-          Create New Post
+        <Button size="lg" asChild>
+          <Link href="/posts/create">
+            <PlusCircle className="mr-2 h-5 w-5" />
+            Create New Post
+          </Link>
         </Button>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4 md:w-auto md:inline-flex">
-          {categories.map(category => (
-            <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
-          ))}
-        </TabsList>
-        
-        <div className="mt-8">
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {filteredPosts.map(post => (
-                <Card key={post.slug} className="bg-surface/50 border-border/50 flex flex-col">
-                  <CardHeader>
-                    <CardTitle className="text-foreground text-xl">{post.title}</CardTitle>
-                    <CardDescription>{post.excerpt}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                     <span className="text-sm font-semibold text-primary">{post.category}</span>
-                  </CardContent>
-                  <CardFooter>
-                    <Button variant="outline" onClick={() => router.push(`/posts/edit/${post.slug}`)}>
-                        <FilePenLine className="mr-2 h-4 w-4" />
-                        Edit Post
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-        </div>
-      </Tabs>
+      <PostListClient posts={posts} categories={categories} />
     </div>
   );
 }
