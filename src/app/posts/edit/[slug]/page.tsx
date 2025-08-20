@@ -207,19 +207,19 @@ export default function EditPostPage() {
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
+        <div className="flex justify-start mb-4">
+            <Button variant="outline" size="lg" onClick={() => router.back()}>
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back
+            </Button>
+        </div>
         <Card className="bg-surface/50 border-border/50">
           <CardHeader>
-            <div className="flex justify-between items-center">
-              <div>
-                <CardTitle className="text-primary text-2xl">Edit Post</CardTitle>
-                <CardDescription>
-                  Modify your blog post using the editor below.
-                </CardDescription>
-              </div>
-              <Button variant="outline" size="lg" onClick={() => router.back()}>
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back
-              </Button>
+            <div>
+              <CardTitle className="text-primary text-2xl">Edit Post</CardTitle>
+              <CardDescription>
+                Modify your blog post using the editor below.
+              </CardDescription>
             </div>
           </CardHeader>
           <CardContent>
