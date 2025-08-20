@@ -24,15 +24,6 @@ const content = {
   }
 };
 
-const gradientColors = [
-  "from-blue-500/20 to-cyan-500/20",
-  "from-purple-500/20 to-pink-500/20",
-  "from-green-500/20 to-teal-500/20",
-  "from-yellow-500/20 to-orange-500/20",
-  "from-red-500/20 to-rose-500/20",
-  "from-indigo-500/20 to-violet-500/20",
-];
-
 interface FeaturedPostsProps {
     featuredPosts: Post[];
 }
@@ -64,29 +55,23 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
                 {featuredPosts.map((post, index) => (
                   <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 group">
                       <Link href={`/posts/${post.slug}`} className="block h-full">
-                        <Card className={cn(
-                            "bg-surface h-full flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1 bg-gradient-to-br",
-                            gradientColors[index % gradientColors.length]
-                          )}>
-                            <div className="relative w-full overflow-hidden aspect-[16/10]">
-                                <Image
-                                    src={post.imageUrl!}
-                                    alt={post.title}
-                                    fill
-                                    className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
-                                    data-ai-hint="tech blog"
-                                />
+                        <Card className="relative h-[450px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-xl group-hover:-translate-y-1 rounded-2xl">
+                           <Image
+                                src={post.imageUrl!}
+                                alt={post.title}
+                                fill
+                                className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 -z-10"
+                                data-ai-hint="tech blog"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent -z-10" />
+                            <div className="relative h-full flex flex-col justify-end p-6 text-white">
+                                <div className="flex gap-2 mb-2">
+                                    <Badge variant="secondary" className="bg-white/20 text-white border-none">{post.category}</Badge>
+                                    {post.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
+                                </div>
+                                <h3 className="text-xl font-bold text-white transition-colors">{post.title}</h3>
+                                <p className="mt-2 text-sm text-white/80">{post.excerpt}</p>
                             </div>
-                            <CardHeader>
-                               <div className="flex gap-2 mb-2">
-                                <Badge variant="secondary">{post.category}</Badge>
-                                {post.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
-                              </div>
-                              <CardTitle className="text-foreground text-xl group-hover:text-primary transition-colors">{post.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent className="flex-grow">
-                                <p className="text-muted-foreground text-sm">{post.excerpt}</p>
-                            </CardContent>
                         </Card>
                       </Link>
                   </CarouselItem>

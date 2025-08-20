@@ -15,19 +15,14 @@ import { cn } from '@/lib/utils';
 
 const content = {
   en: {
-    viewAll: "View All"
+    viewAll: "View All",
+    readMore: "Read More"
   },
   vi: {
-    viewAll: "Xem tất cả"
+    viewAll: "Xem tất cả",
+    readMore: "Đọc thêm"
   }
 };
-
-const gradientColors = [
-    "from-purple-500/20 to-pink-500/20",
-    "from-green-500/20 to-teal-500/20",
-    "from-yellow-500/20 to-orange-500/20",
-    "from-red-500/20 to-rose-500/20",
-];
 
 interface CategorySectionProps {
     category: string;
@@ -54,35 +49,30 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
                 {/* Main Post */}
                 <SectionReveal className="group h-full" options={{ delay: 0.1 }}>
                    <Link href={`/posts/${mainPost.slug}`} className="block h-full">
-                       <Card className="bg-surface h-full flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1">
-                            <div className="relative w-full overflow-hidden aspect-[16/10]">
-                                <Image
-                                    src={mainPost.imageUrl!}
-                                    alt={mainPost.title}
-                                    fill
-                                    className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
-                                    data-ai-hint="tech blog"
-                                />
-                            </div>
-                            <CardHeader>
-                              <div className="flex gap-2 mb-2">
-                                <Badge variant="secondary">{mainPost.category}</Badge>
-                                {mainPost.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
-                              </div>
-                              <CardTitle className="text-foreground text-2xl group-hover:text-primary transition-colors">{mainPost.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent className="flex-grow">
-                                <p className="text-muted-foreground text-base">{mainPost.excerpt}</p>
-                            </CardContent>
-                            <CardFooter>
-                               <div className="text-sm font-semibold text-primary group-hover:underline">
-                                   Read More <ArrowRight className="inline-block h-4 w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                       <Card className="relative h-full min-h-[480px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-xl group-hover:-translate-y-1 rounded-2xl">
+                           <Image
+                                src={mainPost.imageUrl!}
+                                alt={mainPost.title}
+                                fill
+                                className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 -z-10"
+                                data-ai-hint="tech blog"
+                           />
+                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent -z-10" />
+                           <div className="relative h-full flex flex-col justify-end p-8 text-white">
+                                <div className="flex gap-2 mb-2">
+                                    <Badge variant="secondary" className="bg-white/20 text-white border-none">{mainPost.category}</Badge>
+                                    {mainPost.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
+                                </div>
+                                <h3 className="text-3xl font-bold text-white transition-colors">{mainPost.title}</h3>
+                                <p className="mt-4 text-base text-white/80">{mainPost.excerpt}</p>
+                                <div className="mt-6 text-sm font-semibold text-white group-hover:underline">
+                                   {c.readMore} <ArrowRight className="inline-block h-4 w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
                                </div>
-                            </CardFooter>
+                           </div>
                         </Card>
                    </Link>
                 </SectionReveal>
@@ -92,21 +82,17 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                     {sidePosts.map((post, index) => (
                         <SectionReveal key={post.slug} className="group" options={{ delay: 0.2 + index * 0.1 }}>
                             <Link href={`/posts/${post.slug}`} className="block h-full">
-                                <Card className={cn(
-                                    "bg-surface h-full flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-lg group-hover:-translate-y-1 bg-gradient-to-br",
-                                    gradientColors[index % gradientColors.length]
-                                  )}>
-                                    <div className="relative w-full overflow-hidden aspect-[16/10]">
-                                        <Image
-                                            src={post.imageUrl!}
-                                            alt={post.title}
-                                            fill
-                                            className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
-                                            data-ai-hint="tech blog"
-                                        />
-                                    </div>
-                                    <div className="p-4 flex-grow flex flex-col">
-                                        <h3 className="font-semibold text-foreground text-md flex-grow group-hover:text-primary transition-colors">{post.title}</h3>
+                                <Card className="relative h-full min-h-[220px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-lg group-hover:-translate-y-1 rounded-2xl">
+                                    <Image
+                                        src={post.imageUrl!}
+                                        alt={post.title}
+                                        fill
+                                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 -z-10"
+                                        data-ai-hint="tech blog"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent -z-10" />
+                                    <div className="relative h-full flex flex-col justify-end p-4 text-white">
+                                        <h3 className="font-semibold text-white text-md flex-grow group-hover:underline transition-all">{post.title}</h3>
                                     </div>
                                 </Card>
                             </Link>
