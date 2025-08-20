@@ -84,7 +84,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                     </div>
                     <div className="w-full overflow-x-auto">
                         <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-                            <TabsList>
+                            <TabsList className="w-full justify-start">
                                 {categories.map(category => (
                                     <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
                                 ))}
