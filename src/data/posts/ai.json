@@ -50,6 +50,7 @@
     "title": "Getting Started with Google's Genkit",
     "category": "AI",
     "published": true,
+    "featured": true,
     "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Genkit is an open-source framework from Google that helps developers build, deploy, and monitor production-ready AI applications.",
     "content": "## Building Production AI\n\nGenkit provides a streamlined workflow for building AI-powered features. It offers integrations with popular models like Gemini, tools for creating flows and prompts, and features for monitoring and tracing your application's execution. This portfolio's AI features are built with Genkit!"
