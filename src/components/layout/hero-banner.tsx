@@ -24,6 +24,11 @@ const content = {
     },
     downloadCV: "Download CV",
     readMore: "Read More",
+    stats: [
+        { value: "10+", label: "Years of Experience" },
+        { value: "20+", label: "Systems Deployed" },
+        { value: "5+", label: "Areas of Expertise" }
+    ],
     contact: {
       hero: {
         email: "thongproleminh@gmail.com",
@@ -40,6 +45,11 @@ const content = {
     },
     downloadCV: "Tải CV",
     readMore: "Xem thêm",
+    stats: [
+        { value: "10+", label: "Năm kinh nghiệm" },
+        { value: "20+", label: "Hệ thống triển khai" },
+        { value: "5+", label: "Lĩnh vực chuyên môn" }
+    ],
     contact: {
       hero: {
         email: "thongproleminh@gmail.com",
@@ -53,9 +63,10 @@ const content = {
 interface HeroBannerProps {
     showContactInfo?: boolean;
     onDownloadCV?: () => void;
+    showStats?: boolean;
 }
 
-export function HeroBanner({ showContactInfo = false, onDownloadCV }: HeroBannerProps) {
+export function HeroBanner({ showContactInfo = false, onDownloadCV, showStats = false }: HeroBannerProps) {
   const { language } = useLanguage();
   const c = content[language];
   const router = useRouter();
@@ -82,6 +93,18 @@ export function HeroBanner({ showContactInfo = false, onDownloadCV }: HeroBanner
                     <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl">{c.hero.title}</h1>
                     <h2 className="mt-2 text-2xl font-semibold text-foreground">{c.hero.subtitle}</h2>
                     <p className="mt-4 text-lg text-muted-foreground">{c.hero.description}</p>
+                    
+                    {showStats && (
+                        <div className="mt-6 grid grid-cols-3 gap-4 text-center">
+                            {c.stats.map(stat => (
+                                <div key={stat.label}>
+                                    <p className="text-3xl font-bold text-primary">{stat.value}</p>
+                                    <p className="text-sm text-muted-foreground">{stat.label}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
                     {showContactInfo && (
                         <div className="mt-6 space-y-3 text-muted-foreground">
                             <div className="flex items-center justify-center lg:justify-start gap-3"><Mail className="w-5 h-5 text-primary"/><span>{c.contact.hero.email}</span></div>
@@ -89,6 +112,7 @@ export function HeroBanner({ showContactInfo = false, onDownloadCV }: HeroBanner
                             <div className="flex items-center justify-center lg:justify-start gap-3"><MapPin className="w-5 h-5 text-primary"/><span>{c.contact.hero.location}</span></div>
                         </div>
                     )}
+
                     <div className="mt-8 flex items-center justify-center lg:justify-start gap-4">
                         {onDownloadCV ? (
                             <Button id="download-cv-btn" size="lg" variant="default" onClick={onDownloadCV}>
