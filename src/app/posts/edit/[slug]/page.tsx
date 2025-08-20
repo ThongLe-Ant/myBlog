@@ -351,7 +351,7 @@ export default function EditPostPage({ params }: EditPostPageProps) {
                   <AlertDialogDescription>
                     This action cannot be undone. This will permanently delete your
                     post and remove your data from our servers.
-                  </D escription>
+                  </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -365,3 +365,5 @@ export default function EditPostPage({ params }: EditPostPageProps) {
     </div>
   );
 }
+
+    
