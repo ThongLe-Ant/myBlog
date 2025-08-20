@@ -102,7 +102,8 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                                     )}
                                     <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
                                     <div className="relative z-20 h-full flex flex-col justify-start p-4 text-white">
-                                        <h3 className="font-semibold text-white text-md flex-grow group-hover:underline transition-all">{post.title}</h3>
+                                        <h3 className="font-semibold text-white text-md group-hover:underline transition-all">{post.title}</h3>
+                                        <p className="mt-2 text-sm text-white/80 flex-grow">{getExcerpt(post.content, 100)}</p>
                                     </div>
                                 </Card>
                             </Link>
