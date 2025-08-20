@@ -24,13 +24,12 @@ export default async function PostPage({ params }: PostPageProps) {
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <Card className="p-6 md:p-8 lg:p-12 bg-surface/50 border-border/50">
+        <div className="mb-8 text-center">
+            <Badge variant="secondary" className="mb-4">{post.category}</Badge>
+            <h1 className="text-primary mb-2 text-3xl md:text-4xl lg:text-5xl font-bold">{post.title}</h1>
+        </div>
         <div className="max-w-4xl mx-auto">
             <article className="prose dark:prose-invert">
-              <div className="mb-8 text-center">
-                  <Badge variant="secondary" className="mb-4">{post.category}</Badge>
-                  <h1 className="text-primary mb-2">{post.title}</h1>
-              </div>
-
               <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
                   components={{
