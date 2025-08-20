@@ -7,12 +7,23 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Save, ArrowLeft } from 'lucide-react';
+import { Save, ArrowLeft, Lightbulb } from 'lucide-react';
 import { savePost } from '@/lib/posts';
 import { useRouter } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
+import { generatePost, GeneratePostInput } from '@/ai/flows/generate-post-flow';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+  DialogClose
+} from "@/components/ui/dialog";
 
 
 export default function CreatePostPage() {
@@ -21,8 +32,41 @@ export default function CreatePostPage() {
   const [category, setCategory] = useState('');
   const [published, setPublished] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [userPrompt, setUserPrompt] = useState('');
   const { toast } = useToast();
   const router = useRouter();
+
+
+  const handleGeneratePost = async () => {
+    if (!title || !userPrompt) {
+        toast({
+            title: 'Title and Prompt Required',
+            description: 'Please provide a title and a prompt to generate content.',
+            variant: 'destructive'
+        });
+        return;
+    }
+    setIsGenerating(true);
+    try {
+        const generatedContent = await generatePost({ title, userPrompt });
+        setContent(generatedContent);
+        toast({
+            title: 'Content Generated!',
+            description: 'The AI has generated the blog post content for you.',
+        });
+    } catch (error) {
+        console.error(error);
+        toast({
+            title: 'Generation Failed',
+            description: 'Could not generate content. Please try again.',
+            variant: 'destructive'
+        });
+    } finally {
+        setIsGenerating(false);
+    }
+  }
+
 
   const handleSave = async () => {
     if (!title || !content || !category) {
@@ -65,7 +109,7 @@ export default function CreatePostPage() {
            <CardHeader>
              <CardTitle className="text-primary text-2xl">Create a New Post</CardTitle>
              <CardDescription>
-               Use the editor below to create a new blog post.
+               Use the editor below to create a new blog post, or use AI to generate one for you.
              </CardDescription>
            </CardHeader>
            <CardContent>
@@ -115,7 +159,53 @@ export default function CreatePostPage() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="content">Content (Markdown)</Label>
+                    <div className="flex justify-between items-center">
+                        <Label htmlFor="content">Content (Markdown)</Label>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button variant="ghost" size="sm">
+                                    <Lightbulb className="mr-2 h-4 w-4" />
+                                    Generate with AI
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Generate Post with AI</DialogTitle>
+                                    <DialogDescription>
+                                       Provide a prompt for the AI to generate the article content. The current title will be used.
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div className="space-y-4 py-4">
+                                     <div className="space-y-2">
+                                        <Label htmlFor="title-ai">Title</Label>
+                                        <Input id="title-ai" value={title} readOnly disabled />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="prompt-ai">Prompt</Label>
+                                        <Textarea 
+                                            id="prompt-ai"
+                                            placeholder="e.g., 'Explain the benefits of using Next.js for web development, focusing on SSR and SEO advantages.'"
+                                            value={userPrompt}
+                                            onChange={(e) => setUserPrompt(e.target.value)}
+                                            rows={5}
+                                        />
+                                    </div>
+                                </div>
+                                <DialogFooter>
+                                    <DialogClose asChild>
+                                      <Button type="button" variant="secondary">
+                                        Cancel
+                                      </Button>
+                                    </DialogClose>
+                                    <DialogClose asChild>
+                                      <Button onClick={handleGeneratePost} disabled={isGenerating}>
+                                        {isGenerating ? 'Generating...' : 'Generate'}
+                                      </Button>
+                                    </DialogClose>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
+                    </div>
                     <Textarea
                         id="content"
                         value={content}

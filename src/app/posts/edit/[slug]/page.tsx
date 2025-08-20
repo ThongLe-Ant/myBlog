@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Save, Trash2, ArrowLeft } from 'lucide-react';
+import { Save, Trash2, ArrowLeft, Lightbulb } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { getPostBySlug, updatePost, deletePost, Post } from '@/lib/posts';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -25,7 +25,17 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Textarea } from '@/components/ui/textarea';
 import { Skeleton } from '@/components/ui/skeleton';
-
+import { generatePost } from '@/ai/flows/generate-post-flow';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+  DialogClose
+} from "@/components/ui/dialog";
 
 export default function EditPostPage() {
   const { slug } = useParams();
@@ -40,6 +50,8 @@ export default function EditPostPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [userPrompt, setUserPrompt] = useState('');
 
   useEffect(() => {
     if (typeof slug !== 'string') {
@@ -79,6 +91,35 @@ export default function EditPostPage() {
 
     fetchPost();
   }, [slug, toast, router]);
+
+  const handleGeneratePost = async () => {
+    if (!title || !userPrompt) {
+        toast({
+            title: 'Title and Prompt Required',
+            description: 'Please provide a title and a prompt to generate content.',
+            variant: 'destructive'
+        });
+        return;
+    }
+    setIsGenerating(true);
+    try {
+        const generatedContent = await generatePost({ title, userPrompt });
+        setContent(generatedContent);
+        toast({
+            title: 'Content Regenerated!',
+            description: 'The AI has regenerated the blog post content for you.',
+        });
+    } catch (error) {
+        console.error(error);
+        toast({
+            title: 'Generation Failed',
+            description: 'Could not generate content. Please try again.',
+            variant: 'destructive'
+        });
+    } finally {
+        setIsGenerating(false);
+    }
+  }
 
   const handleSave = async () => {
     if (!title || !content || !category) {
@@ -218,7 +259,53 @@ export default function EditPostPage() {
                      </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="content">Content (Markdown)</Label>
+                    <div className="flex justify-between items-center">
+                        <Label htmlFor="content">Content (Markdown)</Label>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button variant="ghost" size="sm">
+                                    <Lightbulb className="mr-2 h-4 w-4" />
+                                    Regenerate with AI
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Regenerate Post with AI</DialogTitle>
+                                    <DialogDescription>
+                                       Provide a new prompt for the AI to regenerate the article content based on the current title.
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div className="space-y-4 py-4">
+                                     <div className="space-y-2">
+                                        <Label htmlFor="title-ai">Title</Label>
+                                        <Input id="title-ai" value={title} readOnly disabled />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="prompt-ai">New Prompt</Label>
+                                        <Textarea
+                                            id="prompt-ai"
+                                            placeholder="e.g., 'Rewrite the article to be more beginner-friendly.'"
+                                            value={userPrompt}
+                                            onChange={(e) => setUserPrompt(e.target.value)}
+                                            rows={5}
+                                        />
+                                    </div>
+                                </div>
+                                <DialogFooter>
+                                    <DialogClose asChild>
+                                      <Button type="button" variant="secondary">
+                                        Cancel
+                                      </Button>
+                                    </DialogClose>
+                                    <DialogClose asChild>
+                                      <Button onClick={handleGeneratePost} disabled={isGenerating}>
+                                        {isGenerating ? 'Generating...' : 'Regenerate'}
+                                      </Button>
+                                    </DialogClose>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
+                    </div>
                    <Textarea
                         id="content"
                         value={content}
