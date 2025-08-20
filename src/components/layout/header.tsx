@@ -15,11 +15,11 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 const navLinks = [
-  { href: '#about', label: 'Giới thiệu' },
-  { href: '#skills', label: 'Kỹ năng' },
-  { href: '#experience', label: 'Kinh nghiệm' },
-  { href: '#projects', label: 'Dự án' },
-  { href: '#contact', label: 'Liên hệ' },
+  { href: '#about', label: 'About' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#contact', label: 'Contact' },
 ];
 
 export function Header() {
@@ -56,7 +56,20 @@ export function Header() {
       </nav>
 
       <div className="flex items-center gap-4">
-        <Button>Liên hệ ngay</Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="icon">
+              <Globe className="h-4 w-4" />
+              <span className="sr-only">Change language</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>EN</DropdownMenuItem>
+            <DropdownMenuItem>VI</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        
+        <Button>Contact Me</Button>
         
         <Sheet>
           <SheetTrigger asChild>
@@ -87,5 +100,3 @@ export function Header() {
     </header>
   );
 }
-
-    

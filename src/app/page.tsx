@@ -41,76 +41,76 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 
 const experiences = [
     {
-        company: 'Ngân hàng Á Châu (ACB)',
-        period: '2022 - Hiện tại',
+        company: 'Asia Commercial Bank (ACB)',
+        period: '2022 - Present',
         role: 'Backend Engineer',
-        description: 'Phát triển hệ thống Ngân hàng Số cho một trong những ngân hàng hàng đầu Việt Nam.',
+        description: 'Developing Digital Banking systems for one of the leading banks in Vietnam.',
         tasks: [
-            'SmartPOS: Ứng dụng POS thông minh xây dựng trên nền tảng .NET Core và Docker',
-            'Thanh toán quốc tế: Tích hợp các hệ thống ARP/MoneyGram/Western Union',
+            'SmartPOS: An intelligent POS application built on .NET Core and Docker',
+            'International Payments: Integration with ARP/MoneyGram/Western Union systems',
         ],
-        highlight: 'Xử lý >10.000 giao dịch/ngày',
+        highlight: 'Handles >10,000 transactions/day',
     },
     {
         company: 'MoMo',
         period: '2020 - 2021',
         role: 'Backend Developer',
-        description: 'Phát triển hệ thống CSM & Thanh toán nội bộ cho ví điện tử hàng đầu Việt Nam.',
-        tasks: ['Tối ưu hóa hệ thống giao dịch với Golang & Kafka'],
-        highlight: 'Giảm 20% thời gian xử lý thanh toán',
+        description: 'Developed CSM & Internal Payment systems for Vietnam\'s leading e-wallet.',
+        tasks: ['Optimized transaction systems with Golang & Kafka'],
+        highlight: 'Reduced payment processing time by 20%',
     },
     {
         company: 'FPT Software',
         period: '2018 - 2020',
         role: 'Technical Analyst',
-        description: 'Phát triển các giải pháp ERP cho các khách hàng lớn trong nước và quốc tế.',
+        description: 'Developed ERP solutions for major domestic and international clients.',
         tasks: [
-            'Nguyễn Minh Steel: Hệ thống quản lý sản xuất thép toàn diện',
-            'Sacombank: Giải pháp quản lý kho thiết bị tập trung',
+            'Nguyen Minh Steel: Comprehensive steel production management system',
+            'Sacombank: Centralized equipment warehouse management solution',
         ],
     },
     {
         company: 'SamHo',
         period: '2016 - 2018',
         role: 'ERP Developer',
-        description: 'Phát triển hệ thống ERP cho nhà máy với hơn 5.000 nhân viên.',
-        tasks: ['Module Nhân sự - Tiền lương tích hợp', 'Quản lý sản xuất & BOM sản phẩm'],
+        description: 'Developed an ERP system for a factory with over 5,000 employees.',
+        tasks: ['Integrated HR - Payroll module', 'Production Management & Product BOM'],
     },
 ];
 
 const projects = [
     {
-        title: 'Thanh toán không dùng tiền mặt',
+        title: 'Cashless Payment Solution',
         client: 'MWG',
-        category: 'Bán lẻ',
-        description: 'Giải pháp tích hợp thanh toán điện tử cho chuỗi bán lẻ lớn nhất Việt Nam, xử lý hàng triệu giao dịch mỗi tháng.',
+        category: 'Retail',
+        description: 'Integrated electronic payment solution for Vietnam\'s largest retail chain, processing millions of transactions monthly.',
         tags: ['.NET Core', 'API Gateway', 'MSSQL', 'Docker'],
         imageUrl: 'https://placehold.co/600x400.png',
         aiHint: 'digital payment retail'
     },
     {
-        title: 'Quản lý đặt hàng & tồn kho',
+        title: 'Order & Inventory Management',
         client: 'EOC',
-        category: 'Suất ăn công nghiệp',
-        description: 'Hệ thống quản lý chuỗi cung ứng cho nhà cung cấp suất ăn công nghiệp với hơn 50.000 suất/ngày.',
+        category: 'Industrial Catering',
+        description: 'Supply chain management system for an industrial catering provider with over 50,000 meals/day.',
         tags: ['Python', 'Java', 'Node.js', 'MongoDB'],
         imageUrl: 'https://placehold.co/600x400.png',
         aiHint: 'supply chain food'
     },
     {
-        title: 'IoT quản lý sản xuất',
+        title: 'IoT for Production Management',
         client: 'VCS',
-        category: 'Nông nghiệp',
-        description: 'Giải pháp IoT giám sát và quản lý sản xuất nông nghiệp công nghệ cao trên 500ha.',
+        category: 'Agriculture',
+        description: 'IoT solution for monitoring and managing high-tech agricultural production over 500ha.',
         tags: ['Golang', 'Next.js', 'IoT', 'PostgreSQL'],
         imageUrl: 'https://placehold.co/600x400.png',
         aiHint: 'iot agriculture farm'
     },
     {
-        title: 'Quản lý kho & hải quan',
+        title: 'Warehouse & Customs Management',
         client: 'ZA VN',
-        category: 'Xuất nhập khẩu',
-        description: 'Giải pháp quản lý kho, xuất nhập khẩu và hải quan cho doanh nghiệp logistics, tích hợp quy trình kiểm soát hàng hóa và chứng từ điện tử.',
+        category: 'Logistics',
+        description: 'Warehouse, import/export, and customs management solution for a logistics company, integrating goods control and e-document processes.',
         tags: ['Python', 'React Native'],
         imageUrl: 'https://placehold.co/600x400.png',
         aiHint: 'warehouse logistics customs'
@@ -119,14 +119,14 @@ const projects = [
 
 const skills = {
   domain: [
-    { name: 'Kiến trúc hệ thống', level: 'Chuyên gia' },
-    { name: 'Giải pháp ERP', level: 'Chuyên gia' },
-    { name: 'Hệ thống thanh toán', level: 'Nâng cao' },
-    { name: 'Báo cáo & Dashboard', level: 'Chuyên gia' },
-    { name: 'Tự động hóa', level: 'Nâng cao' },
-    { name: 'Tối ưu hiệu năng', level: 'Chuyên gia' },
-    { name: 'Quản lý dự án', level: 'Nâng cao' },
-    { name: 'Bảo mật hệ thống', level: 'Nâng cao' },
+    { name: 'System Architecture', level: 'Expert' },
+    { name: 'ERP Solutions', level: 'Expert' },
+    { name: 'Payment Systems', level: 'Advanced' },
+    { name: 'Reporting & Dashboards', level: 'Expert' },
+    { name: 'Automation', level: 'Advanced' },
+    { name: 'Performance Tuning', level: 'Expert' },
+    { name: 'Project Management', level: 'Advanced' },
+    { name: 'System Security', level: 'Advanced' },
   ],
   tech: [
     '.NET', 'Golang', 'Python', 'Java', 'Node.js', 'React', 'Next.js', 'TypeScript',
@@ -136,12 +136,12 @@ const skills = {
 };
 
 const expertiseAreas = [
-  'Hệ thống ERP', 'Quản lý sản xuất', 'Nhân sự & Tiền lương', 'Quản lý kho & Mua hàng', 'Hệ thống thanh toán'
+  'ERP Systems', 'Production Management', 'HR & Payroll', 'Warehouse & Procurement', 'Payment Systems'
 ];
 
 const keyResults = [
-  'Xử lý >10.000 giao dịch/ngày', 'Giảm 30% thời gian kiểm kê', 'Giảm 20% thời gian xử lý',
-  'Tự động hóa quy trình', 'Tối ưu chi phí vận hành'
+  'Handles >10,000 transactions/day', '30% reduction in inventory time', '20% reduction in processing time',
+  'Automated processes', 'Optimized operational costs'
 ];
 
 
@@ -159,66 +159,65 @@ export default function HomePage() {
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <Avatar className="w-40 h-40 border-4 border-primary/20 shadow-xl shadow-primary/20">
-              <AvatarImage src="https://storage.googleapis.com/maker-studio-5a93d.appspot.com/users%2FqEg2yVE49bZ230z3a42qfI4pB3t1%2Fstudios%2Fdc48b261-26c3-424a-a434-d023b36ed658%2Fimage_1724036662446_46.png" alt="Avatar Lê Minh Thông" data-ai-hint="man portrait professional" />
+              <AvatarImage src="https://storage.googleapis.com/maker-studio-5a93d.appspot.com/users%2FqEg2yVE49bZ230z3a42qfI4pB3t1%2Fstudios%2Fdc48b261-26c3-424a-a434-d023b36ed658%2Fimage_1724036662446_46.png" alt="Le Minh Thong Avatar" data-ai-hint="man portrait professional" />
               <AvatarFallback>LMT</AvatarFallback>
             </Avatar>
             <h1 className="mt-6 text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white to-stone-400 sm:text-5xl">
-              Lê Minh Thông
+              Le Minh Thong
             </h1>
             <h2 className="mt-2 text-xl font-semibold text-primary">
               Senior Software Engineer | Solution Architect
             </h2>
             <p className="mt-4 text-left text-muted-foreground">
-              Kỹ sư phần mềm với hơn 10 năm kinh nghiệm trong phát triển hệ thống ERP và giải pháp doanh nghiệp. Chuyên sâu về .NET, Golang, Cloud và Microservices.
+              Software engineer with over 10 years of experience in ERP systems and enterprise solutions. Specializing in .NET, Golang, Cloud, and Microservices.
             </p>
             <div className="mt-6 space-y-3 text-muted-foreground">
               <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-primary"/><span>thongproleminh@gmail.com</span></div>
               <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-primary"/><span>0396 870 644</span></div>
-              <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-primary"/><span>TP.HCM, Việt Nam</span></div>
+              <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-primary"/><span>HCMC, Vietnam</span></div>
             </div>
             <div className="mt-8 flex items-center gap-4">
-              <Button size="lg">Xem dự án của tôi</Button>
-              <Button size="lg" variant="outline">Liên hệ ngay</Button>
+              <Button size="lg">View My Projects</Button>
+              <Button size="lg" variant="outline">Contact Me</Button>
             </div>
           </motion.div>
         </div>
         <div className="flex flex-col gap-8 lg:gap-16">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
-              className="grid grid-cols-2 gap-6"
-            >
-              <Card className="p-6 bg-surface border-border/50">
-                <CardHeader className="p-0">
-                  <CardTitle className="text-5xl font-bold text-primary">10+</CardTitle>
-                  <CardDescription className="text-muted-foreground">Năm kinh nghiệm</CardDescription>
-                </CardHeader>
-              </Card>
-              <Card className="p-6 bg-surface border-border/50">
-                <CardHeader className="p-0">
-                  <CardTitle className="text-5xl font-bold text-primary">20+</CardTitle>
-                  <CardDescription className="text-muted-foreground">Hệ thống</CardDescription>
-                </CardHeader>
-              </Card>
-               <Card className="p-6 bg-surface border-border/50">
-                <CardHeader className="p-0">
-                  <CardTitle className="text-5xl font-bold text-primary">5+</CardTitle>
-                  <CardDescription className="text-muted-foreground">Lĩnh vực</CardDescription>
-                </CardHeader>
-              </Card>
-               <Card className="p-6 bg-surface border-border/50">
-                <CardHeader className="p-0">
-                  <CardTitle className="text-5xl font-bold text-primary">100%</CardTitle>
-                  <CardDescription className="text-muted-foreground">Cam kết</CardDescription>
-                </CardHeader>
-              </Card>
-            </motion.div>
             <div className="text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Bài viết nổi bật</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Featured Posts</h2>
                 <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    Khám phá các bài viết sâu sắc về công nghệ và kiến trúc hệ thống.
+                    Explore insightful articles on technology and system architecture.
                 </p>
+            </div>
+             <Carousel
+                opts={{
+                    align: "start",
+                }}
+                className="w-full"
+            >
+                <CarouselContent>
+                    {projects.slice(0, 3).map((project, index) => (
+                        <CarouselItem key={index} className="md:basis-1/2 lg:basis-full">
+                            <div className="p-1">
+                               <CardInteractive
+                                    title={project.title}
+                                    description={project.description}
+                                    tags={project.tags}
+                                    imageUrl={project.imageUrl}
+                                    aiHint={project.aiHint}
+                                />
+                            </div>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
+            <div className="text-center">
+                <Button variant="secondary" size="lg">
+                    <Search className="mr-2 h-4 w-4" />
+                    Search all articles
+                </Button>
             </div>
         </div>
       </section>
@@ -227,15 +226,15 @@ export default function HomePage() {
       <SectionReveal id="about" className="scroll-mt-24 py-24">
         <div className="w-full grid md:grid-cols-2 gap-16 items-center">
             <div>
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Giới thiệu</h2>
-                <h3 className="mt-2 text-xl font-semibold text-secondary">Kỹ sư phần mềm với hơn 10 năm kinh nghiệm trong phát triển hệ thống doanh nghiệp và giải pháp ERP</h3>
-                <p className="mt-4 text-lg text-muted-foreground">Với hơn 10 năm kinh nghiệm, tôi chuyên sâu về thiết kế và triển khai các hệ thống ERP quy mô lớn cho các tập đoàn hàng đầu tại Việt Nam. Nền tảng kỹ thuật vững chắc cùng hiểu biết sâu về nghiệp vụ đa ngành.</p>
-                <p className="mt-4 text-lg text-muted-foreground">Đã triển khai thành công 20+ hệ thống quy mô lớn cho các tập đoàn hàng đầu Việt Nam trong các lĩnh vực tài chính-ngân hàng, sản xuất và nhân sự.</p>
-                <p className="mt-4 text-lg text-muted-foreground">Tôi luôn hướng đến việc tạo ra các giải pháp công nghệ không chỉ đáp ứng yêu cầu kỹ thuật mà còn giải quyết hiệu quả các bài toán nghiệp vụ phức tạp.</p>
+                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">About Me</h2>
+                <h3 className="mt-2 text-xl font-semibold text-secondary">Software engineer with over 10 years of experience in enterprise systems and ERP solutions.</h3>
+                <p className="mt-4 text-lg text-muted-foreground">With over 10 years of experience, I specialize in designing and implementing large-scale ERP systems for leading corporations in Vietnam. I have a strong technical foundation and a deep understanding of various business domains.</p>
+                <p className="mt-4 text-lg text-muted-foreground">Successfully deployed 20+ large-scale systems for top Vietnamese corporations in finance-banking, manufacturing, and HR.</p>
+                <p className="mt-4 text-lg text-muted-foreground">I always aim to create technology solutions that not only meet technical requirements but also effectively solve complex business problems.</p>
             </div>
             <div className="grid grid-cols-2 gap-8">
               <div className="space-y-6">
-                <h4 className="font-bold text-secondary">Lĩnh vực chuyên sâu</h4>
+                <h4 className="font-bold text-secondary">Areas of Expertise</h4>
                 <ul className="space-y-2">
                   {expertiseAreas.map(area => (
                     <li key={area} className="flex items-center gap-3 text-muted-foreground">
@@ -246,7 +245,7 @@ export default function HomePage() {
                 </ul>
               </div>
               <div className="space-y-6">
-                <h4 className="font-bold text-secondary">Kết quả nổi bật</h4>
+                <h4 className="font-bold text-secondary">Key Achievements</h4>
                 <ul className="space-y-2">
                   {keyResults.map(result => (
                     <li key={result} className="flex items-center gap-3 text-muted-foreground">
@@ -264,14 +263,14 @@ export default function HomePage() {
       <SectionReveal id="skills" className="scroll-mt-24 py-24">
         <div className="w-full">
             <div className="text-center mb-16">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Kỹ năng cốt lõi</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Core Skills</h2>
                 <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    Các công nghệ và lĩnh vực chuyên môn tạo nên giá trị khác biệt
+                    Technologies and expertise that create distinct value.
                 </p>
             </div>
             <div className="grid md:grid-cols-2 gap-12">
                 <div>
-                    <h3 className="text-2xl font-bold text-secondary mb-6">Lĩnh Vực</h3>
+                    <h3 className="text-2xl font-bold text-secondary mb-6">Domain</h3>
                     <div className="space-y-4">
                         {skills.domain.map(skill => (
                             <div key={skill.name}>
@@ -284,7 +283,7 @@ export default function HomePage() {
                     </div>
                 </div>
                  <div>
-                    <h3 className="text-2xl font-bold text-secondary mb-6">Công nghệ</h3>
+                    <h3 className="text-2xl font-bold text-secondary mb-6">Technology</h3>
                     <div className="flex flex-wrap gap-3">
                         {skills.tech.map(tech => (
                             <Badge key={tech} variant="secondary" className="text-base px-4 py-2">{tech}</Badge>
@@ -298,58 +297,38 @@ export default function HomePage() {
       {/* Experience Section */}
       <SectionReveal id="experience" className="scroll-mt-24 py-24">
         <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Kinh nghiệm nổi bật</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Professional Experience</h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-              Hành trình phát triển nghề nghiệp trong 10 năm qua
+              A journey of professional growth over the past 10 years.
             </p>
         </div>
-        <div className="relative w-full">
+        <div className="relative w-full max-w-4xl mx-auto">
              <div className="absolute left-1/2 top-0 h-full w-0.5 bg-border/50 hidden md:block" />
-             <div className="md:grid md:grid-cols-2 gap-16">
-                {/* Spacer for the first item on the right */}
-                <div></div>
-                
-                {/* Timeline items */}
+             <div className="space-y-16">
                 {experiences.map((exp, index) => (
-                    <React.Fragment key={index}>
-                        {/* Right side item */}
-                        {index % 2 === 0 ? (
-                             <div className="relative mb-8 md:mb-16">
-                                <div className="hidden md:block absolute top-1/2 -translate-y-1/2 -left-8 h-4 w-4 rounded-full bg-primary ring-8 ring-background" />
-                                <motion.div
-                                    initial={{ opacity: 0, x: 50 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true, amount: 0.5 }}
-                                    transition={{ duration: 0.6 }}
-                                    className="p-6 bg-surface border border-border/50 rounded-2xl w-full"
-                                >
-                                    <p className="text-sm font-semibold text-primary">{exp.period}</p>
-                                    <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
-                                    <p className="text-base font-semibold text-primary/80">{exp.role}</p>
-                                    <p className="mt-3 text-muted-foreground">{exp.description}</p>
-                                </motion.div>
-                            </div>
-                        ) : (
-                            /* Left side item */
-                            <div className="relative mb-8 md:mb-16">
-                               <div className="hidden md:block absolute top-1/2 -translate-y-1/2 -right-8 h-4 w-4 rounded-full bg-primary ring-8 ring-background" />
-                               <motion.div
-                                    initial={{ opacity: 0, x: -50 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true, amount: 0.5 }}
-                                    transition={{ duration: 0.6 }}
-                                    className="p-6 bg-surface border border-border/50 rounded-2xl w-full text-right"
-                                >
-                                    <p className="text-sm font-semibold text-primary">{exp.period}</p>
-                                    <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
-                                    <p className="text-base font-semibold text-primary/80">{exp.role}</p>
-                                    <p className="mt-3 text-muted-foreground">{exp.description}</p>
-                                </motion.div>
-                            </div>
-                        )}
-                         {/* Spacer for the next item */}
-                        {index % 2 !== 0 && index < experiences.length - 1 && <div></div>}
-                   </React.Fragment>
+                    <div key={index} className="md:grid md:grid-cols-2 md:gap-16 relative">
+                        {/* Content */}
+                        <div className={`md:text-right ${index % 2 === 0 ? 'md:order-2' : ''}`}>
+                            <motion.div
+                                initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true, amount: 0.5 }}
+                                transition={{ duration: 0.6 }}
+                                className="p-6 bg-surface border border-border/50 rounded-2xl w-full"
+                            >
+                                <p className="text-sm font-semibold text-primary">{exp.period}</p>
+                                <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
+                                <p className="text-base font-semibold text-primary/80">{exp.role}</p>
+                                <p className="mt-3 text-muted-foreground">{exp.description}</p>
+                            </motion.div>
+                        </div>
+                        
+                        {/* Timeline Circle */}
+                        <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 h-4 w-4 rounded-full bg-primary ring-8 ring-background" />
+
+                        {/* Spacer */}
+                        <div className={`${index % 2 === 0 ? 'md:order-1' : ''}`}></div>
+                    </div>
                 ))}
              </div>
         </div>
@@ -359,9 +338,9 @@ export default function HomePage() {
       <SectionReveal id="projects" className="scroll-mt-24 py-24">
         <div className="w-full">
             <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Dự án tư vấn tiêu biểu</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Featured Consulting Projects</h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                Các giải pháp công nghệ đã triển khai thành công cho đối tác
+                Successfully implemented technology solutions for partners.
             </p>
             </div>
             <div className="mt-12 grid gap-8 md:grid-cols-2 lg:gap-12">
@@ -383,9 +362,9 @@ export default function HomePage() {
       {/* Career Goals Section */}
        <SectionReveal id="goals" className="scroll-mt-24 py-24">
          <div className="w-full text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Mục tiêu nghề nghiệp</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Career Goals</h2>
             <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
-              Hướng tới vai trò Senior System Architect/Technical Product Owner, tập trung phát triển giải pháp ERP và hệ thống thanh toán quy mô doanh nghiệp. Tiếp tục nâng cao chuyên môn về kiến trúc microservices, điện toán đám mây và AI ứng dụng trong quản trị doanh nghiệp.
+              Aiming for a Senior System Architect/Technical Product Owner role, focusing on developing enterprise-scale ERP and payment solutions. Continuously enhancing expertise in microservices architecture, cloud computing, and AI applications in business management.
             </p>
          </div>
        </SectionReveal>
@@ -396,9 +375,9 @@ export default function HomePage() {
             <Card className="p-6 md:p-8 lg:p-12 bg-surface border-border/50">
               <div className="grid md:grid-cols-2 gap-12">
                   <div>
-                      <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Liên hệ với tôi</h2>
+                      <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Get in Touch</h2>
                       <p className="mt-4 text-lg text-muted-foreground">
-                          Luôn sẵn sàng cho các cơ hội hợp tác, dự án mới và trao đổi kiến thức chuyên môn.
+                          Always open to collaboration opportunities, new projects, and professional knowledge exchange.
                       </p>
                       <div className="mt-8 space-y-4">
                           <div className="flex items-center gap-4 text-lg">
@@ -411,25 +390,25 @@ export default function HomePage() {
                           </div>
                           <div className="flex items-center gap-4 text-lg">
                               <MapPin className="w-6 h-6 text-primary"/>
-                              <span className="text-muted-foreground">TP.HCM, Việt Nam</span>
+                              <span className="text-muted-foreground">HCMC, Vietnam</span>
                           </div>
                       </div>
                   </div>
                   <form className="space-y-6">
                       <div className="space-y-2">
-                          <label htmlFor="name" className="text-sm font-medium text-secondary">Họ và tên</label>
-                          <Input id="name" placeholder="Nhập họ tên của bạn" />
+                          <label htmlFor="name" className="text-sm font-medium text-secondary">Full Name</label>
+                          <Input id="name" placeholder="Enter your full name" />
                       </div>
                       <div className="space-y-2">
                           <label htmlFor="email" className="text-sm font-medium text-secondary">Email</label>
-                          <Input id="email" type="email" placeholder="Nhập địa chỉ email" />
+                          <Input id="email" type="email" placeholder="Enter your email address" />
                       </div>
                       <div className="space-y-2">
-                          <label htmlFor="message" className="text-sm font-medium text-secondary">Nội dung</label>
-                          <Textarea id="message" placeholder="Nhập nội dung liên hệ" rows={4}/>
+                          <label htmlFor="message" className="text-sm font-medium text-secondary">Message</label>
+                          <Textarea id="message" placeholder="Enter your message" rows={4}/>
                       </div>
                       <Button type="submit" size="lg" className="w-full">
-                          Gửi thông điệp <Send className="ml-2"/>
+                          Send Message <Send className="ml-2"/>
                       </Button>
                   </form>
               </div>
