@@ -53,8 +53,8 @@ const HeroPattern = () => (
           patternUnits="userSpaceOnUse"
           patternTransform="rotate(45)"
         >
-          <path d="M0 50V100H50" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" opacity="0.1" />
-          <path d="M50 0V50H100" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" opacity="0.1" />
+          <path d="M0 50V100H50" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" />
+          <path d="M50 0V50H100" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" />
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#hero-pattern)" />
@@ -68,7 +68,7 @@ export function HomeHeroBanner() {
   const router = useRouter();
 
   return (
-      <section className="relative w-full overflow-hidden pt-16 md:pt-24 pb-12 md:pb-20">
+      <section className="relative w-full overflow-hidden bg-background pt-16 md:pt-24 pb-12 md:pb-20">
           <div 
               className="absolute inset-0 z-0 opacity-30 dark:opacity-50"
           >
