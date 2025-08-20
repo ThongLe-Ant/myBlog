@@ -34,7 +34,7 @@ export default async function HomePage() {
     <div className="flex flex-col w-full">
         <HomeHeroBanner />
         
-        <div className="w-full px-4 sm:px-6 lg:px-8 space-y-24 pt-16 lg:pt-24">
+        <div className="w-full px-4 sm:px-6 lg:px-8 space-y-24 pt-8 lg:pt-12">
             <CategoryBrowser categories={sortedCategories} categoryCounts={categoryCounts} />
             
             <FeaturedPosts featuredPosts={featuredPosts} />
