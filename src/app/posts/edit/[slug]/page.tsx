@@ -236,10 +236,6 @@ export default function EditPostPage() {
                     </>
                   )}
                 </Button>
-                <Button variant="outline" size="lg" onClick={() => router.back()} disabled={isSaving || isDeleting}>
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back
-                 </Button>
             </div>
             <AlertDialog>
               <AlertDialogTrigger asChild>
@@ -268,5 +264,3 @@ export default function EditPostPage() {
     </div>
   );
 }
-
-    
