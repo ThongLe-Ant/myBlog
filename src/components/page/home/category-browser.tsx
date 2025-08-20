@@ -54,21 +54,10 @@ export function CategoryBrowser({ categories, categoryCounts }: CategoryBrowserP
                     <Link href={`/posts?category=${encodeURIComponent(category)}`} key={category} className="group">
                        <Card className={cn(
                          'relative text-white p-6 rounded-2xl flex flex-col justify-end min-h-[120px] transition-transform duration-300 ease-smooth group-hover:scale-105 group-hover:shadow-xl overflow-hidden',
-                         categoryGradients[index % categoryGradients.length]
+                         categoryGradients[index % categoryGradients.length],
+                         'bg-diamond-pattern'
                        )}>
-                           <div
-                             className="absolute inset-0 w-full h-full bg-black/20"
-                             style={{
-                                backgroundImage: `
-                                  linear-gradient(60deg, hsla(0,0%,100%,.1) 50%, transparent 50%),
-                                  linear-gradient(-60deg, hsla(0,0%,100%,.1) 50%, transparent 50%),
-                                  linear-gradient(60deg, transparent 50%, hsla(0,0%,100%,.1) 50%),
-                                  linear-gradient(-60deg, transparent 50%, hsla(0,0%,100%,.1) 50%)
-                                `,
-                                backgroundSize: '40px 70px',
-                                backgroundPosition: '0 0, 0 0, 20px 35px, 20px 35px',
-                             }}
-                           />
+                           <div className="absolute inset-0 w-full h-full bg-black/20" />
                            <div className="relative z-10">
                               <h3 className="font-bold text-lg">{category}</h3>
                               <p className="text-sm opacity-80">{`${categoryCounts[category] || 0} articles`}</p>
