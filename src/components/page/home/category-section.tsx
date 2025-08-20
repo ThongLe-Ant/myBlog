@@ -6,12 +6,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '@/context/language-context';
 import { SectionReveal } from '@/components/motion/section-reveal';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Post } from '@/lib/posts';
 import { ArrowRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const content = {
   en: {
@@ -35,16 +35,45 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
     
     if (!posts || posts.length === 0) return null;
 
-    // Prioritize featured post as main post, otherwise take the latest one
-    const featuredPostInCategory = posts.find(p => p.featured);
-    const mainPost = featuredPostInCategory || posts[0];
-    const sidePosts = posts.filter(p => p.slug !== mainPost.slug).slice(0, 4);
+    const featuredPostsInCategory = posts.filter(p => p.featured);
+    const mainPosts = featuredPostsInCategory.length > 0 ? featuredPostsInCategory : [posts[0]];
+    const mainPostSlugs = mainPosts.map(p => p.slug);
+    
+    const sidePosts = posts.filter(p => !mainPostSlugs.includes(p.slug)).slice(0, 4);
 
-    const getExcerpt = (content: string, length = 250) => {
-        const cleanedContent = content.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
+    const getExcerpt = (contentStr: string, length = 250) => {
+        const cleanedContent = contentStr.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
         if (cleanedContent.length <= length) return cleanedContent;
         return cleanedContent.substring(0, length) + '...';
     }
+
+    const MainPostCard = ({ post }: { post: Post }) => (
+        <Link href={`/posts/${post.slug}`} className="block h-full">
+            <Card className="relative h-full min-h-[480px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-xl group-hover:-translate-y-1 rounded-2xl">
+                {post.imageUrl && (
+                    <Image
+                        src={post.imageUrl}
+                        alt={post.title}
+                        fill
+                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                        data-ai-hint="tech blog"
+                    />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10" />
+                <div className="relative z-20 h-full flex flex-col justify-start p-8 text-white">
+                    <div className="flex gap-2 mb-2">
+                        <Badge variant="secondary" className="bg-white/20 text-white border-none">{post.category}</Badge>
+                        {post.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
+                    </div>
+                    <h3 className="text-3xl font-bold text-white transition-colors">{post.title}</h3>
+                    <p className="mt-4 text-base text-white/80">{getExcerpt(post.content)}</p>
+                    <div className="mt-auto pt-4 text-sm font-semibold text-white group-hover:underline">
+                       {c.readMore} <ArrowRight className="inline-block h-4 w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                    </div>
+                </div>
+            </Card>
+        </Link>
+    );
 
     return (
         <SectionReveal id={category.toLowerCase().replace(/\s+/g, '-')} className="scroll-mt-24">
@@ -55,35 +84,28 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-                {/* Main Post */}
-                <SectionReveal className="group h-full" options={{ delay: 0.1 }}>
-                   <Link href={`/posts/${mainPost.slug}`} className="block h-full">
-                       <Card className="relative h-full min-h-[480px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-xl group-hover:-translate-y-1 rounded-2xl">
-                           {mainPost.imageUrl && (
-                               <Image
-                                    src={mainPost.imageUrl}
-                                    alt={mainPost.title}
-                                    fill
-                                    className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
-                                    data-ai-hint="tech blog"
-                               />
-                           )}
-                           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10" />
-                           <div className="relative z-20 h-full flex flex-col justify-start p-8 text-white">
-                                <div className="flex gap-2 mb-2">
-                                    <Badge variant="secondary" className="bg-white/20 text-white border-none">{mainPost.category}</Badge>
-                                    {mainPost.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
-                                </div>
-                                <h3 className="text-3xl font-bold text-white transition-colors">{mainPost.title}</h3>
-                                <p className="mt-4 text-base text-white/80">{getExcerpt(mainPost.content)}</p>
-                                <div className="mt-auto pt-4 text-sm font-semibold text-white group-hover:underline">
-                                   {c.readMore} <ArrowRight className="inline-block h-4 w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
-                               </div>
-                           </div>
-                        </Card>
-                   </Link>
-                </SectionReveal>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                {/* Main Post Section */}
+                {mainPosts.length > 1 ? (
+                    <Carousel className="w-full group" opts={{ loop: true }}>
+                        <CarouselContent>
+                            {mainPosts.map((post) => (
+                                <CarouselItem key={post.slug}>
+                                     <SectionReveal className="h-full" options={{ delay: 0.1 }}>
+                                        <MainPostCard post={post} />
+                                     </SectionReveal>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </Carousel>
+                ) : (
+                    <SectionReveal className="group h-full" options={{ delay: 0.1 }}>
+                        <MainPostCard post={mainPosts[0]} />
+                    </SectionReveal>
+                )}
+
 
                 {/* Side Posts */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
