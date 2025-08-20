@@ -5,6 +5,17 @@
     "title": "How to Learn a New Programming Language",
     "category": "Learn Code",
     "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Learning a new language can be daunting. Here’s a structured approach to make it more manageable.",
     "content": "## A Roadmap for Learning\n\nLearning a new language can be daunting. Here’s a structured approach to make it more manageable.\n\n![Books and code](https://placehold.co/600x300.png)\n\n1.  **Start with the 'Why':** Understand the language's core use cases.\n2.  **Master the Basics:** Focus on syntax, variables, control flow, and functions.\n3.  **Build a Small Project:** Apply what you've learned to a simple, tangible project. This is the most critical step.\n4.  **Read Others' Code:** Explore open-source projects to learn idiomatic coding styles."
+  },
+  {
+    "slug": "the-importance-of-data-structures-and-algorithms",
+    "title": "The Importance of Data Structures & Algorithms",
+    "category": "Learn Code",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Understanding data structures and algorithms is fundamental to becoming a proficient software engineer.",
+    "content": "## Beyond Syntax\nWhile knowing a programming language's syntax is essential, a deep understanding of data structures (like arrays, linked lists, trees, and graphs) and algorithms is what allows you to write efficient, scalable, and robust code. It's the foundation of problem-solving in computer science."
   }
 ]

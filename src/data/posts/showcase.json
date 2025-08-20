@@ -8,5 +8,14 @@
     "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "This is the very portfolio you are looking at right now! It's built with Next.js, Tailwind CSS, and Framer Motion for animations.",
     "content": "## Project Overview\n\nThis is the very portfolio you are looking at right now! It's built with Next.js, Tailwind CSS, and Framer Motion for animations.\n\n![Portfolio Screenshot](https://placehold.co/600x300.png)\n\n### Key Features:\n- Fully responsive design\n- Light/Dark mode toggle\n- Blog with Markdown support\n- AI-powered features using Genkit"
+  },
+  {
+    "slug": "showcase-ai-powered-chatbot",
+    "title": "Showcase: AI-Powered Customer Service Chatbot",
+    "category": "Showcase",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Developed a customer service chatbot using Google's Gemini Pro and Genkit to handle common user queries.",
+    "content": "## Project: AI Chatbot\nDeveloped a customer service chatbot using Google's Gemini Pro and Genkit to handle common user queries. The bot was trained on company documentation to provide accurate, context-aware answers, reducing the load on human support agents by 40%."
   }
 ]

@@ -8,5 +8,14 @@
     "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Choosing the right database is a critical decision in application architecture. The main choice often comes down to SQL (relational) and NoSQL (non-relational) databases.",
     "content": "## The Database Dilemma\n\nChoosing the right database is a critical decision in application architecture. The main choice often comes down to SQL (relational) and NoSQL (non-relational) databases.\n\n![Database comparison](https://placehold.co/600x300.png)\n\n### SQL\nRelational databases like PostgreSQL and MySQL use a structured schema and are excellent for applications requiring complex queries and transactional integrity.\n\n### NoSQL\nNon-relational databases like MongoDB and Redis offer flexibility in schema design and are often better for unstructured data and horizontal scalability."
+  },
+  {
+    "slug": "data-warehousing-concepts",
+    "title": "Data Warehousing Concepts for Beginners",
+    "category": "Data",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "A data warehouse is a central repository of information that can be analyzed to make more informed decisions.",
+    "content": "## What is a Data Warehouse?\nA data warehouse is a central repository of information that can be analyzed to make more informed decisions. It aggregates data from various sources into a single, consistent data store to support business intelligence activities, reporting, and data analysis."
   }
 ]

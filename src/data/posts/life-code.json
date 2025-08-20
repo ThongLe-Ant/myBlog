@@ -5,6 +5,17 @@
     "title": "Work-Life Balance for Developers",
     "category": "Life Code",
     "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "In the fast-paced world of tech, burnout is a significant risk. It's crucial to establish boundaries and habits that support long-term well-being.",
     "content": "## The Burnout is Real\n\nIn the fast-paced world of tech, burnout is a significant risk. It's crucial to establish boundaries and habits that support long-term well-being.\n\n![Developer relaxing](https://placehold.co/600x300.png)\n\n### Tips for Balance:\n1.  **Set Clear Hours:** Define your work day and stick to it.\n2.  **Take Regular Breaks:** Use techniques like the Pomodoro Technique.\n3.  **Find a Hobby:** Engage in activities completely unrelated to coding."
+  },
+  {
+    "slug": "dealing-with-imposter-syndrome",
+    "title": "Dealing with Imposter Syndrome as a Developer",
+    "category": "Life Code",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Imposter syndrome is the feeling that you're a fraud and will be discovered at any moment. It's incredibly common in the tech industry.",
+    "content": "## You Are Not Alone\nImposter syndrome is the feeling that you're a fraud and will be discovered at any moment. It's incredibly common in the tech industry. Recognizing it is the first step. Remember to track your accomplishments, talk to mentors, and understand that learning is a lifelong process in this field. Everyone feels this way at some point."
   }
 ]
