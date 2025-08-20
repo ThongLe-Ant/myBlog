@@ -15,7 +15,6 @@
     "title": "A Guide to Tailwind CSS for Beginners",
     "category": "Front End",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Tailwind CSS is a utility-first CSS framework that provides low-level utility classes to build custom designs without ever leaving your HTML.",
     "content": "## Why Tailwind CSS?\n\nTailwind CSS is a utility-first CSS framework that provides low-level utility classes to build custom designs without ever leaving your HTML.\n\n![Tailwind CSS](https://placehold.co/600x300.png)\n*Tailwind CSS offers a unique approach to styling.*\n\nIt's highly customizable and provides a great developer experience. Let's look at an example of styling a button.\n\n```html\n<button class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\">\n  Click me\n</button>\n```\n\nThis approach keeps your styles co-located with your markup, making components easier to maintain."
   },
@@ -24,7 +23,6 @@
     "title": "Understanding the Virtual DOM in React",
     "category": "Front End",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "The Virtual DOM is a programming concept where a virtual representation of a UI is kept in memory and synced with the 'real' DOM.",
     "content": "## The Virtual DOM\n\nThe Virtual DOM (VDOM) is a programming concept where a virtual representation of a UI is kept in memory and synced with the 'real' DOM. This process is called reconciliation. React uses the VDOM to optimize updates to the browser's display."
   },
@@ -33,7 +31,6 @@
     "title": "State Management with Zustand",
     "category": "Front End",
     "published": false,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Zustand is a small, fast and scalable bearbones state-management solution using simplified flux principles. It has a comfy API based on hooks.",
     "content": "## Simple State Management\n\nZustand is a popular choice for state management in React applications due to its simplicity and minimal boilerplate. It allows you to create a store and access it directly within your components using a simple hook."
   },
@@ -42,7 +39,6 @@
     "title": "Optimizing Web Performance with Next.js",
     "category": "Front End",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Next.js offers a powerful suite of features for building high-performance web applications out-of-the-box. Learn about SSR, SSG, and ISR.",
     "content": "## Blazing Fast by Default\n\nNext.js provides several rendering strategies to optimize performance:\n\n- **Server-Side Rendering (SSR):** Pages are rendered on the server for each request, which is great for dynamic data and SEO.\n- **Static Site Generation (SSG):** Pages are generated at build time, resulting in incredibly fast loads. Perfect for blogs and marketing sites.\n- **Incremental Static Regeneration (ISR):** A hybrid approach that allows you to re-generate static pages after a certain time interval, providing the benefits of static sites with fresh data."
   },
@@ -51,7 +47,6 @@
     "title": "Creating Beautiful UIs with shadcn/ui",
     "category": "Front End",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "shadcn/ui is not a component library. It's a collection of re-usable components that you can copy and paste into your apps.",
     "content": "## The 'Un-library'\n\nshadcn/ui takes a unique approach to UI development. Instead of installing a library from npm, you use a CLI tool to add individual, unstyled components directly to your codebase. This gives you complete control over the code, styling, and behavior of every component. This very portfolio is built using shadcn/ui components!"
   }

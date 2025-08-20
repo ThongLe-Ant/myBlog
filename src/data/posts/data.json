@@ -5,7 +5,6 @@
     "title": "SQL vs. NoSQL: Which to Choose?",
     "category": "Data",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Choosing the right database is a critical decision in application architecture. The main choice often comes down to SQL (relational) and NoSQL (non-relational) databases.",
     "content": "## The Database Dilemma\n\nChoosing the right database is a critical decision in application architecture. The main choice often comes down to SQL (relational) and NoSQL (non-relational) databases.\n\n![Database comparison](https://placehold.co/600x300.png)\n\n### SQL\nRelational databases like PostgreSQL and MySQL use a structured schema and are excellent for applications requiring complex queries and transactional integrity.\n\n### NoSQL\nNon-relational databases like MongoDB and Redis offer flexibility in schema design and are often better for unstructured data and horizontal scalability."
   },
@@ -14,7 +13,6 @@
     "title": "Data Warehousing Concepts for Beginners",
     "category": "Data",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "A data warehouse is a central repository of information that can be analyzed to make more informed decisions.",
     "content": "## What is a Data Warehouse?\nA data warehouse is a central repository of information that can be analyzed to make more informed decisions. It aggregates data from various sources into a single, consistent data store to support business intelligence activities, reporting, and data analysis."
   },
@@ -23,7 +21,6 @@
     "title": "The ETL Process Explained (Extract, Transform, Load)",
     "category": "Data",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "ETL is a type of data integration that refers to the three steps (extract, transform, load) used to blend data from multiple sources.",
     "content": "## The Three Steps of ETL\n\nETL is a fundamental concept in data warehousing and business intelligence.\n\n1.  **Extract:** Data is extracted from various source systems (databases, APIs, log files, etc.).\n2.  **Transform:** The extracted data is cleaned, validated, and converted into a consistent format suitable for the target system. This is often the most complex step.\n3.  **Load:** The transformed data is loaded into the target data warehouse or database."
   },
@@ -32,7 +29,6 @@
     "title": "Introduction to Data Lakes",
     "category": "Data",
     "published": false,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "A data lake is a centralized repository that allows you to store all your structured and unstructured data at any scale.",
     "content": "## Raw Data Storage\n\nUnlike a data warehouse which stores processed data, a data lake is a vast pool of raw data, in its native format. This provides data scientists and analysts with the flexibility to explore and analyze data using various tools and techniques without the constraints of a predefined schema. It's often used for machine learning and big data analytics."
   },
@@ -41,7 +37,6 @@
     "title": "Data Visualization Best Practices",
     "category": "Data",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Effective data visualization helps users understand complex data quickly. Learn key principles for creating clear and impactful charts and graphs.",
     "content": "## Telling Stories with Data\n\nEffective data visualization is more than just creating pretty charts. It's about telling a clear and compelling story.\n\n### Key Principles:\n- **Choose the Right Chart:** Use bar charts for comparisons, line charts for trends, scatter plots for relationships, and pie charts for parts of a whole (use sparingly!).\n- **Keep it Simple:** Avoid clutter, unnecessary decorations, and 3D effects. Let the data speak for itself.\n- **Use Color Purposefully:** Use color to highlight key information, not to decorate. Be mindful of color blindness.\n- **Label Clearly:** Ensure your axes, titles, and legends are clear and easy to understand."
   },
@@ -50,7 +45,6 @@
     "title": "Getting Started with Apache Kafka",
     "category": "Data",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Apache Kafka is a distributed event streaming platform capable of handling trillions of events a day.",
     "content": "## Real-time Data Streams\n\nKafka is used for building real-time data pipelines and streaming apps. It is horizontally scalable, fault-tolerant, wicked fast, and runs in production in thousands of companies. It allows you to publish and subscribe to streams of records, store streams of records in a fault-tolerant durable way, and process streams of records as they occur."
   }

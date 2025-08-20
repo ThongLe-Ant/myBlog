@@ -5,7 +5,6 @@
     "title": "Effective Code Searching Techniques",
     "category": "Search Code",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Searching for code effectively is a superpower. Whether it's in a large codebase or on GitHub, knowing how to search can save you hours.",
     "content": "## Beyond Ctrl+F\n\nSearching for code effectively is a superpower. Whether it's in a large codebase or on GitHub, knowing how to search can save you hours.\n\n![Magnifying glass over code](https://placehold.co/600x300.png)\n\n### GitHub Search Tips\n- `repo:owner/repo filename:package.json` to find dependencies.\n- `language:javascript user:thongproleminh` to find your own JS code.\n- `org:` to search within a specific organization."
   },
@@ -14,7 +13,6 @@
     "title": "Advanced Google Fu for Developers",
     "category": "Search Code",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Mastering Google search operators can drastically improve your debugging and research speed.",
     "content": "## Search Like a Pro\nEvery developer uses Google, but not everyone uses it effectively. Learning advanced search operators can save you a tremendous amount of time.\n\n### Key Operators\n- `\"exact phrase\"`: Searches for the exact phrase.\n- `site:stackoverflow.com`: Restricts the search to a specific site.\n- `-term`: Excludes results containing the term.\n- `filetype:pdf`: Searches for specific file types.\n- `before:2023`: Finds results from before a certain date."
   },
@@ -23,7 +21,6 @@
     "title": "Navigating Codebases with Sourcegraph",
     "category": "Search Code",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Sourcegraph is a code intelligence platform that helps you understand, fix, and automate across your entire codebase.",
     "content": "## Code Search on Steroids\n\nFor large and complex codebases, a simple text search often isn't enough. Sourcegraph indexes your code and provides features like go-to-definition, find references, and detailed search filters (e.g., `repo:^github\\.com/my-org/` `type:diff` `author:me`). It's like having an IDE for your entire organization's code."
   },
@@ -32,7 +29,6 @@
     "title": "The Power of Regular Expressions (Regex)",
     "category": "Search Code",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Regular expressions are a powerful tool for pattern matching and searching within text. They are an essential skill for any developer.",
     "content": "## Finding Needles in a Haystack\n\nRegex allows you to define a search pattern. While the syntax can be intimidating at first, mastering even the basics can make you incredibly efficient at tasks like validating input, searching through log files, or performing complex find-and-replace operations in your editor."
   },
@@ -41,8 +37,7 @@
     "title": "Understanding 'git blame' and Its Uses",
     "category": "Search Code",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
-    "excerpt": "git blame is a command that shows what revision and author last modified each line of a file. It's an invaluable tool for understanding the history of a piece of code.",
+    "excerpt": "'git blame' is a command that shows what revision and author last modified each line of a file. It's an invaluable tool for understanding the history of a piece of code.",
     "content": "## Who Wrote This?\n\nThe name 'blame' is a bit misleading. It's not about blaming people for bugs. It's about finding context. When you encounter a confusing line of code, `git blame` helps you find the commit where it was introduced. From there, you can look at the commit message and the related changes to understand *why* the code was written that way. It's a tool for historical context, not for pointing fingers."
   },
   {
@@ -50,7 +45,6 @@
     "title": "Using Your IDE's Search Capabilities",
     "category": "Search Code",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Don't underestimate the power of your code editor. Modern IDEs like VS Code have incredibly powerful and fast search tools built-in.",
     "content": "## Beyond the Basics\n\nTake some time to learn the advanced search features of your IDE. This often includes:\n\n- **Global Search:** Search across all files in your project.\n- **Case-sensitive, whole word, and regex options.**\n- **Search and Replace:** Perform complex replacements across multiple files.\n- **Symbol Search:** Quickly jump to functions, variables, or classes by name.\n- **Filtering:** Include or exclude certain files and folders from your search."
   }

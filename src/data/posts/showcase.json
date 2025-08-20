@@ -5,7 +5,6 @@
     "title": "Showcase: My Personal Portfolio Project",
     "category": "Showcase",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "This is the very portfolio you are looking at right now! It's built with Next.js, Tailwind CSS, and Framer Motion for animations.",
     "content": "## Project Overview\n\nThis is the very portfolio you are looking at right now! It's built with Next.js, Tailwind CSS, and Framer Motion for animations.\n\n![Portfolio Screenshot](https://placehold.co/600x300.png)\n\n### Key Features:\n- Fully responsive design\n- Light/Dark mode toggle\n- Blog with Markdown support\n- AI-powered features using Genkit"
   },
@@ -14,7 +13,6 @@
     "title": "Showcase: AI-Powered Customer Service Chatbot",
     "category": "Showcase",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Developed a customer service chatbot using Google's Gemini Pro and Genkit to handle common user queries.",
     "content": "## Project: AI Chatbot\nDeveloped a customer service chatbot using Google's Gemini Pro and Genkit to handle common user queries. The bot was trained on company documentation to provide accurate, context-aware answers, reducing the load on human support agents by 40%."
   },
@@ -23,7 +21,6 @@
     "title": "Showcase: Real-time Data Dashboard",
     "category": "Showcase",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Built a real-time analytics dashboard using Next.js, Recharts, and a WebSocket connection to a backend service.",
     "content": "## Project: Real-time Dashboard\n\nThis project involved creating a dynamic dashboard to visualize real-time data from an IoT sensor network. The front end, built with Next.js and Recharts, connects to a Go backend via WebSockets. The dashboard allows users to monitor key metrics, view historical data, and set up alerts for specific thresholds."
   },
@@ -32,7 +29,6 @@
     "title": "Showcase: E-commerce Platform Integration",
     "category": "Showcase",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Led the backend development for integrating a new payment gateway into a major e-commerce platform.",
     "content": "## Project: Payment Gateway\n\nThis project focused on backend development using .NET Core to build a robust and secure integration with a third-party payment provider. The work involved creating REST APIs, handling webhooks for transaction status updates, and ensuring PCI compliance. The new integration resulted in a 5% increase in conversion rates due to a smoother checkout experience."
   },
@@ -41,7 +37,6 @@
     "title": "Showcase: Mobile App for Logistics",
     "category": "Showcase",
     "published": false,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Developed a cross-platform mobile application for a logistics company using React Native and Python (Django) for the backend.",
     "content": "## Project: Logistics App\n\nBuilt a mobile app to help delivery drivers manage their routes, update delivery statuses, and capture proof of delivery. The app, built with React Native, works seamlessly on both iOS and Android. The Python backend handles route optimization, real-time tracking, and integration with the company's main ERP system."
   },
@@ -50,7 +45,6 @@
     "title": "Showcase: Legacy System Modernization",
     "category": "Showcase",
     "published": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Refactored a monolithic legacy application into a modern microservices architecture using Docker and Kubernetes.",
     "content": "## Project: Modernization\n\nThis was a large-scale project to modernize a critical internal tool. I was responsible for breaking down the old monolithic codebase into smaller, independent microservices, containerizing them with Docker, and orchestrating them with Kubernetes. The result was a more resilient, scalable, and maintainable system, which also allowed different teams to work on different services independently, increasing development velocity."
   }
