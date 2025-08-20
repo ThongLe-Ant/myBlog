@@ -69,7 +69,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
 
   return (
     <div className="space-y-8">
-        <Card className="bg-surface/50 border-border/50 sticky top-16 z-40">
+        <Card className="bg-surface border-border/50 sticky top-16 z-40">
            <CardContent className="pt-6">
                 <div className="flex flex-col gap-4">
                     <div className="relative w-full">
