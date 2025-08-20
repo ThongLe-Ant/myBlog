@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Save, Trash2, ArrowLeft, Lightbulb } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { getPostBySlug, updatePost, deletePost, Post } from '@/lib/posts';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
@@ -38,9 +38,14 @@ import {
 } from "@/components/ui/dialog";
 import { MarkdownEditor } from '@/components/markdown-editor';
 
+interface EditPostPageProps {
+  params: {
+    slug: string;
+  };
+}
 
-export default function EditPostPage() {
-  const { slug } = useParams();
+export default function EditPostPage({ params }: EditPostPageProps) {
+  const { slug } = params;
   const router = useRouter();
   const { toast } = useToast();
   
@@ -207,21 +212,22 @@ export default function EditPostPage() {
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="flex justify-start mb-4">
-            <Button variant="outline" size="lg" onClick={() => router.back()}>
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back
-            </Button>
-        </div>
         <Card className="bg-surface/50 border-border/50">
-          <CardHeader>
-            <div>
-              <CardTitle className="text-primary text-2xl">Edit Post</CardTitle>
-              <CardDescription>
-                Modify your blog post using the editor below.
-              </CardDescription>
-            </div>
-          </CardHeader>
+           <CardHeader>
+             <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                     <Button variant="outline" size="icon" onClick={() => router.back()}>
+                        <ArrowLeft className="h-4 w-4" />
+                     </Button>
+                     <div>
+                        <CardTitle className="text-primary text-2xl">Edit Post</CardTitle>
+                        <CardDescription>
+                            Modify your blog post using the editor below.
+                        </CardDescription>
+                     </div>
+                </div>
+             </div>
+           </CardHeader>
           <CardContent>
              <div className="space-y-6">
                 <div className="space-y-2">
@@ -345,7 +351,7 @@ export default function EditPostPage() {
                   <AlertDialogDescription>
                     This action cannot be undone. This will permanently delete your
                     post and remove your data from our servers.
-                  </AlertDialogDescription>
+                  </D escription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
