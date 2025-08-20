@@ -56,15 +56,17 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
                   <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 group">
                       <Link href={`/posts/${post.slug}`} className="block h-full">
                         <Card className="relative h-[450px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-xl group-hover:-translate-y-1 rounded-2xl">
-                           <Image
-                                src={post.imageUrl!}
-                                alt={post.title}
-                                fill
-                                className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 -z-10"
-                                data-ai-hint="tech blog"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent -z-10" />
-                            <div className="relative h-full flex flex-col justify-end p-6 text-white">
+                           {post.imageUrl && (
+                              <Image
+                                  src={post.imageUrl}
+                                  alt={post.title}
+                                  fill
+                                  className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                                  data-ai-hint="tech blog"
+                              />
+                           )}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
+                            <div className="relative h-full flex flex-col justify-end p-6 text-white z-20">
                                 <div className="flex gap-2 mb-2">
                                     <Badge variant="secondary" className="bg-white/20 text-white border-none">{post.category}</Badge>
                                     {post.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}

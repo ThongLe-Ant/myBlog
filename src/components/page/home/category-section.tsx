@@ -54,15 +54,17 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                 <SectionReveal className="group h-full" options={{ delay: 0.1 }}>
                    <Link href={`/posts/${mainPost.slug}`} className="block h-full">
                        <Card className="relative h-full min-h-[480px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-xl group-hover:-translate-y-1 rounded-2xl">
-                           <Image
-                                src={mainPost.imageUrl!}
-                                alt={mainPost.title}
-                                fill
-                                className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 -z-10"
-                                data-ai-hint="tech blog"
-                           />
-                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent -z-10" />
-                           <div className="relative h-full flex flex-col justify-end p-8 text-white">
+                           {mainPost.imageUrl && (
+                               <Image
+                                    src={mainPost.imageUrl}
+                                    alt={mainPost.title}
+                                    fill
+                                    className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                                    data-ai-hint="tech blog"
+                               />
+                           )}
+                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
+                           <div className="relative h-full flex flex-col justify-end p-8 text-white z-20">
                                 <div className="flex gap-2 mb-2">
                                     <Badge variant="secondary" className="bg-white/20 text-white border-none">{mainPost.category}</Badge>
                                     {mainPost.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
@@ -83,15 +85,17 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                         <SectionReveal key={post.slug} className="group" options={{ delay: 0.2 + index * 0.1 }}>
                             <Link href={`/posts/${post.slug}`} className="block h-full">
                                 <Card className="relative h-full min-h-[220px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-lg group-hover:-translate-y-1 rounded-2xl">
-                                    <Image
-                                        src={post.imageUrl!}
-                                        alt={post.title}
-                                        fill
-                                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 -z-10"
-                                        data-ai-hint="tech blog"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent -z-10" />
-                                    <div className="relative h-full flex flex-col justify-end p-4 text-white">
+                                    {post.imageUrl && (
+                                        <Image
+                                            src={post.imageUrl}
+                                            alt={post.title}
+                                            fill
+                                            className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                                            data-ai-hint="tech blog"
+                                        />
+                                    )}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10" />
+                                    <div className="relative h-full flex flex-col justify-end p-4 text-white z-20">
                                         <h3 className="font-semibold text-white text-md flex-grow group-hover:underline transition-all">{post.title}</h3>
                                     </div>
                                 </Card>
