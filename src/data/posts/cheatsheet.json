@@ -1,0 +1,8 @@
+[
+  {
+    "slug": "git-commands-cheatsheet",
+    "title": "Git Commands Cheatsheet",
+    "category": "Cheatsheet",
+    "content": "## Essential Git Commands\n\nA quick reference for the most commonly used Git commands.\n\n### Setup\n`git config --global user.name \"Your Name\"`\n`git config --global user.email \"youremail@example.com\"`\n\n### Branching\n- `git branch` - List all branches.\n- `git checkout -b new-branch-name` - Create and switch to a new branch.\n- `git checkout main` - Switch to the 'main' branch.\n\n### Committing\n- `git add .` - Stage all changes.\n- `git commit -m \"Your commit message\"` - Commit staged changes.\n- `git push origin main` - Push changes to the remote repository."
+  }
+]

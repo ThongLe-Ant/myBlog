@@ -1,0 +1,8 @@
+[
+  {
+    "slug": "effective-code-searching-techniques",
+    "title": "Effective Code Searching Techniques",
+    "category": "Search Code",
+    "content": "## Beyond Ctrl+F\n\nSearching for code effectively is a superpower. Whether it's in a large codebase or on GitHub, knowing how to search can save you hours.\n\n![Magnifying glass over code](https://placehold.co/600x300.png)\n\n### GitHub Search Tips\n- `repo:owner/repo filename:package.json` to find dependencies.\n- `language:javascript user:thongproleminh` to find your own JS code.\n- Use `org:` to search within a specific organization."
+  }
+]
