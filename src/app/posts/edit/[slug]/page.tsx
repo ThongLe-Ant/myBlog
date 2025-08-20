@@ -30,6 +30,9 @@ const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false }
 
 export default function EditPostPage() {
   const { slug } = useParams();
+  const router = useRouter();
+  const { toast } = useToast();
+  
   const [post, setPost] = useState<Post | null>(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -38,8 +41,6 @@ export default function EditPostPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const { toast } = useToast();
-  const router = useRouter();
 
   useEffect(() => {
     if (typeof slug !== 'string') return;
