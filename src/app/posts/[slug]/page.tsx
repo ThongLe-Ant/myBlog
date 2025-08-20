@@ -1,12 +1,16 @@
 
-import { getPostBySlug } from '@/lib/posts';
-import { notFound } from 'next/navigation';
+'use client';
+
+import { useState, useEffect } from 'react';
+import { getPostBySlug, Post } from '@/lib/posts';
+import { notFound, useRouter } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-
-export const dynamic = 'force-dynamic';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface PostPageProps {
   params: {
@@ -14,15 +18,69 @@ interface PostPageProps {
   };
 }
 
-export default async function PostPage({ params }: PostPageProps) {
-  const post = await getPostBySlug(params.slug);
+export default function PostPage({ params }: PostPageProps) {
+  const [post, setPost] = useState<Post | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      setIsLoading(true);
+      try {
+        const postData = await getPostBySlug(params.slug);
+        if (postData) {
+          setPost(postData);
+        } else {
+          notFound();
+        }
+      } catch (error) {
+        console.error('Failed to fetch post', error);
+        // Optionally, redirect to a generic error page or show a message
+        notFound();
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [params.slug]);
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div className="mb-4">
+            <Skeleton className="h-10 w-24" />
+        </div>
+        <Card className="p-6 md:p-8 lg:p-12 bg-surface/50 border-border/50">
+          <div className="mb-8 text-center">
+            <Skeleton className="h-6 w-20 mx-auto mb-4" />
+            <Skeleton className="h-12 w-3/4 mx-auto" />
+          </div>
+          <div className="prose dark:prose-invert max-w-none space-y-4">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-5/6" />
+            <Skeleton className="h-64 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-1/2" />
+          </div>
+        </Card>
+      </div>
+    );
+  }
 
   if (!post) {
-    notFound();
+    return notFound();
   }
 
   return (
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
+    <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+       <div className="mb-4">
+            <Button variant="outline" onClick={() => router.back()}>
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back
+            </Button>
+       </div>
       <Card className="p-6 md:p-8 lg:p-12 bg-surface/50 border-border/50">
         <div className="mb-8 text-center">
             <Badge variant="secondary" className="mb-4">{post.category}</Badge>
@@ -32,15 +90,12 @@ export default async function PostPage({ params }: PostPageProps) {
           <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                // Custom renderer for images to add styling
                 img: ({ node, ...props }) => (
                   <img {...props} className="rounded-lg shadow-lg mx-auto" />
                 ),
-                // Custom renderer for blockquotes
                 blockquote: ({ node, ...props }) => (
                   <blockquote {...props} className="border-l-4 border-primary bg-muted/20 p-4" />
                 ),
-                // Custom renderer for code blocks
                 code({node, className, children, ...props}) {
                   const match = /language-(\w+)/.exec(className || '')
                   return match ? (
