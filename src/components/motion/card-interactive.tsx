@@ -14,6 +14,7 @@ interface CardInteractiveProps {
   imageUrl: string;
   aiHint?: string;
   className?: string;
+  viewDetailsText?: string;
 }
 
 export function CardInteractive({
@@ -23,6 +24,7 @@ export function CardInteractive({
   imageUrl,
   aiHint,
   className,
+  viewDetailsText = 'View Details'
 }: CardInteractiveProps) {
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -84,7 +86,7 @@ export function CardInteractive({
           ))}
         </div>
          <div className="mt-6 flex items-center text-sm font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-smooth">
-          Xem chi tiết <ArrowRight className="ml-1 h-4 w-4" />
+          {viewDetailsText} <ArrowRight className="ml-1 h-4 w-4" />
         </div>
       </div>
       {/* Border glow effect */}

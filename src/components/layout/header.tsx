@@ -13,14 +13,24 @@ import { Menu, Mountain, Search } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
+import { useLanguage } from '@/context/language-context';
 
-const navLinks = [
-  { href: '#about', label: 'About' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#contact', label: 'Contact' },
-];
+const navLinks = {
+  en: [
+    { href: '#about', label: 'About' },
+    { href: '#skills', label: 'Skills' },
+    { href: '#experience', label: 'Experience' },
+    { href: '#projects', label: 'Projects' },
+    { href: '#contact', label: 'Contact' },
+  ],
+  vi: [
+      { href: '#about', label: 'Giới thiệu' },
+      { href: '#skills', label: 'Kỹ năng' },
+      { href: '#experience', label: 'Kinh nghiệm' },
+      { href: '#projects', label: 'Dự án' },
+      { href: '#contact', label: 'Liên hệ' },
+  ]
+};
 
 const UKFlag = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="24" height="18">
@@ -55,8 +65,8 @@ const languages = [
 
 export function Header() {
   const [hoveredPath, setHoveredPath] = useState('');
-  const [currentLang, setCurrentLang] = useState(languages[0]);
-
+  const { language, setLanguage } = useLanguage();
+  const currentLangConfig = languages.find(lang => lang.code === language) || languages[0];
 
   return (
     <header className="sticky top-0 z-50 flex h-16 w-full items-center justify-between border-b border-border/20 bg-background/80 px-4 backdrop-blur-xl md:px-6">
@@ -66,7 +76,7 @@ export function Header() {
       </Link>
       
       <nav className="hidden items-center gap-1 text-sm font-medium md:flex">
-        {navLinks.map((link) => (
+        {navLinks[language].map((link) => (
           <Link
             key={link.label}
             href={link.href}
@@ -97,13 +107,13 @@ export function Header() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="gap-2">
-              {currentLang.flag}
+              {currentLangConfig.flag}
               <span className="sr-only">Toggle language</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {languages.map((lang) => (
-                 <DropdownMenuItem key={lang.code} onClick={() => setCurrentLang(lang)} className="gap-2">
+                 <DropdownMenuItem key={lang.code} onClick={() => setLanguage(lang.code as 'en' | 'vi')} className="gap-2">
                     {lang.flag}
                     <span>{lang.label}</span>
                  </DropdownMenuItem>
@@ -124,7 +134,7 @@ export function Header() {
                   <Mountain className="h-6 w-6 text-primary" />
                   <span className="text-lg">LMT</span>
               </Link>
-              {navLinks.map((link) => (
+              {navLinks[language].map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}

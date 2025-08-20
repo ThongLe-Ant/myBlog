@@ -5,6 +5,7 @@ import './globals.css';
 import { Header } from '@/components/layout/header';
 import { AppFooter } from '@/components/layout/app-footer';
 import { Toaster } from '@/components/ui/toaster';
+import { LanguageProvider } from '@/context/language-context';
 
 export const metadata: Metadata = {
   title: 'Le Minh Thong - Senior Software Engineer | Solution Architect',
@@ -19,13 +20,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} dark`} suppressHydrationWarning>
       <body className="bg-background text-foreground antialiased">
-        <div className="noise-bg"></div>
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <AppFooter />
-        </div>
-        <Toaster />
+        <LanguageProvider>
+          <div className="noise-bg"></div>
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <AppFooter />
+          </div>
+          <Toaster />
+        </LanguageProvider>
       </body>
     </html>
   );
