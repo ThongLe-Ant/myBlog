@@ -64,17 +64,17 @@
   * {
     @apply border-border;
   }
-  body,
   html {
-    @apply bg-background text-foreground;
+    min-height: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply text-foreground;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    scroll-behavior: smooth;
     min-height: 100%;
-  }
 
-  body {
      /* Tech-inspired background with dot grid and nebula glows */
      --dot-bg: hsl(var(--background));
      --dot-color: hsl(var(--foreground) / 0.07);
@@ -82,7 +82,8 @@
      --dot-space: 22px;
      --nebula-1-color: hsla(var(--primary), 0.1);
      --nebula-2-color: hsla(var(--accent), 0.15);
-
+     
+     background-color: var(--dot-bg);
      background-image:
        radial-gradient(circle at 25% 30%, var(--nebula-1-color) 0%, transparent 40%),
        radial-gradient(circle at 75% 70%, var(--nebula-2-color) 0%, transparent 40%),
