@@ -186,7 +186,7 @@ export default function HomePage() {
 
       {/* Blog Banner Section */}
       <section className="w-full bg-surface/50">
-        <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
+        <div className="container mx-auto px-4 pb-12 md:pb-16 lg:pb-20 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-2">
                  <Carousel
                     opts={{
@@ -472,3 +472,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+    
