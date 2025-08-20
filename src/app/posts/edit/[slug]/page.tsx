@@ -24,6 +24,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export default function EditPostPage() {
   const { slug } = useParams();
@@ -135,7 +137,7 @@ export default function EditPostPage() {
             <div className="max-w-4xl mx-auto">
                 <Card className="bg-surface/50 border-border/50">
                     <CardHeader>
-                        <CardTitle className="text-primary text-2xl">Loading...</CardTitle>
+                        <CardTitle className="text-primary text-2xl">Loading Editor...</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <p>Loading post content...</p>
@@ -148,69 +150,86 @@ export default function EditPostPage() {
 
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <Card className="bg-surface/50 border-border/50">
           <CardHeader>
             <CardTitle className="text-primary text-2xl">Edit Post</CardTitle>
             <CardDescription>
-              Modify your blog post here. Your changes will be saved upon submission.
+              Modify your blog post. Changes are previewed live on the right.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="title">Post Title</Label>
-              <Input
-                id="title"
-                placeholder="e.g., 'My First Blog Post'"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                disabled={isSaving}
-              />
-            </div>
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CardContent>
+             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+               {/* Editor Side */}
+               <div className="space-y-6">
                 <div className="space-y-2">
-                    <Label htmlFor="category">Category</Label>
-                    <Select onValueChange={setCategory} value={category} disabled={isSaving}>
-                        <SelectTrigger id="category">
-                            <SelectValue placeholder="Select a category" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="Front End">Front End</SelectItem>
-                            <SelectItem value="Back End">Back End</SelectItem>
-                            <SelectItem value="AI">AI</SelectItem>
-                            <SelectItem value="Data">Data</SelectItem>
-                            <SelectItem value="DevOps">DevOps</SelectItem>
-                            <SelectItem value="Showcase">Showcase</SelectItem>
-                            <SelectItem value="Cheatsheet">Cheatsheet</SelectItem>
-                            <SelectItem value="Life Code">Life Code</SelectItem>
-                            <SelectItem value="Search Code">Search Code</SelectItem>
-                            <SelectItem value="Learn Code">Learn Code</SelectItem>
-                        </SelectContent>
-                    </Select>
+                  <Label htmlFor="title">Post Title</Label>
+                  <Input
+                    id="title"
+                    placeholder="e.g., 'My First Blog Post'"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    disabled={isSaving}
+                  />
                 </div>
-                 <div className="space-y-2">
-                    <Label htmlFor="status">Status</Label>
-                    <div className="flex items-center space-x-2 h-10">
-                      <Switch
-                        id="status"
-                        checked={published}
-                        onCheckedChange={setPublished}
-                        disabled={isSaving}
-                      />
-                      <Label htmlFor="status">{published ? 'Published' : 'Draft'}</Label>
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                        <Label htmlFor="category">Category</Label>
+                        <Select onValueChange={setCategory} value={category} disabled={isSaving}>
+                            <SelectTrigger id="category">
+                                <SelectValue placeholder="Select a category" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="Front End">Front End</SelectItem>
+                                <SelectItem value="Back End">Back End</SelectItem>
+                                <SelectItem value="AI">AI</SelectItem>
+                                <SelectItem value="Data">Data</SelectItem>
+                                <SelectItem value="DevOps">DevOps</SelectItem>
+                                <SelectItem value="Showcase">Showcase</SelectItem>
+                                <SelectItem value="Cheatsheet">Cheatsheet</SelectItem>
+                                <SelectItem value="Life Code">Life Code</SelectItem>
+                                <SelectItem value="Search Code">Search Code</SelectItem>
+                                <SelectItem value="Learn Code">Learn Code</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
-                 </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="content">Content (Markdown)</Label>
-              <Textarea
-                id="content"
-                placeholder="Write your article content here. Use Markdown for formatting..."
-                rows={15}
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                disabled={isSaving}
-              />
+                     <div className="space-y-2">
+                        <Label htmlFor="status">Status</Label>
+                        <div className="flex items-center space-x-2 h-10">
+                          <Switch
+                            id="status"
+                            checked={published}
+                            onCheckedChange={setPublished}
+                            disabled={isSaving}
+                          />
+                          <Label htmlFor="status">{published ? 'Published' : 'Draft'}</Label>
+                        </div>
+                     </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="content">Content (Markdown)</Label>
+                  <Textarea
+                    id="content"
+                    placeholder="Write your article content here..."
+                    rows={20}
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    disabled={isSaving}
+                    className="font-mono"
+                  />
+                </div>
+              </div>
+
+               {/* Preview Side */}
+               <div>
+                <Label className="text-muted-foreground">Live Preview</Label>
+                <div className="mt-2 border rounded-lg p-4 h-full min-h-[500px] bg-background">
+                  <article className="prose prose-lg dark:prose-invert max-w-full">
+                    <h1>{title || 'Your Title Here'}</h1>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{content || "Your content will appear here..."}</ReactMarkdown>
+                  </article>
+                </div>
+              </div>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
