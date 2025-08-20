@@ -360,7 +360,7 @@ export default function HomePage() {
                     {experiences.map((exp, index) => (
                         <div key={index} className="md:grid md:grid-cols-2 md:gap-16 relative">
                             {/* Content */}
-                            <div className={`${index % 2 === 0 ? 'md:order-2 md:text-right' : ''}`}>
+                            <div className={`${index % 2 === 0 ? 'md:order-2 md:text-right' : 'md:text-left'}`}>
                                 <motion.div
                                     initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
                                     whileInView={{ opacity: 1, x: 0 }}
@@ -471,9 +471,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    
-
-    
-
-    
