@@ -101,22 +101,24 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
               {filteredPosts.map((post, index) => (
                  <Link href={`/posts/${post.slug}`} key={post.slug} className="group">
                     <Card className={cn(
-                        "bg-surface/50 border-border/50 flex flex-col h-full transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1 bg-gradient-to-br",
+                        "bg-surface/50 border-border/50 flex flex-col h-[350px] transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1 bg-gradient-to-br overflow-hidden",
                         gradientColors[index % gradientColors.length]
                     )}>
-                      <CardHeader>
-                        <div className="flex justify-between items-start">
-                          <CardTitle className="text-foreground text-xl transition-colors duration-300 group-hover:text-primary pr-2">{post.title}</CardTitle>
-                          <Badge variant={post.published ? 'default' : 'secondary'} className={post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30'}>
-                              {post.published ? 'Published' : 'Draft'}
-                          </Badge>
-                        </div>
-                        <CardDescription>{getExcerpt(post.content)}</CardDescription>
-                      </CardHeader>
-                      <CardContent className="flex-grow">
-                         <span className="text-sm font-semibold text-primary/80">{post.category}</span>
-                      </CardContent>
-                      <CardFooter className="flex justify-between items-center">
+                      <div className="flex-grow overflow-y-auto">
+                        <CardHeader>
+                          <div className="flex justify-between items-start">
+                            <CardTitle className="text-foreground text-xl transition-colors duration-300 group-hover:text-primary pr-2">{post.title}</CardTitle>
+                            <Badge variant={post.published ? 'default' : 'secondary'} className={cn('flex-shrink-0', post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30')}>
+                                {post.published ? 'Published' : 'Draft'}
+                            </Badge>
+                          </div>
+                          <CardDescription>{getExcerpt(post.content)}</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                           <span className="text-sm font-semibold text-primary/80">{post.category}</span>
+                        </CardContent>
+                      </div>
+                      <CardFooter className="flex justify-between items-center mt-auto border-t border-border/20 pt-4 flex-shrink-0">
                         <span className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors duration-300">
                           Read More <ArrowRight className="inline-block h-4 w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
                         </span>
