@@ -7,11 +7,15 @@ import { PostListClient } from './post-list-client';
 
 export const dynamic = 'force-dynamic';
 
-export default async function PostsListPage() {
+export default async function PostsListPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
   const posts: Post[] = await getPosts();
   
-  // Extract unique categories
-  const categories = ['All', ...Array.from(new Set(posts.map(p => p.category)))];
+  // Extract unique categories and sort them
+  const categories = ['All', ...Array.from(new Set(posts.map(p => p.category))).sort()];
 
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">

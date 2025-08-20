@@ -1,13 +1,13 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { FilePenLine, ArrowRight } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import type { Post } from '@/lib/posts';
 import Link from 'next/link';
 
@@ -17,8 +17,18 @@ interface PostListClientProps {
 }
 
 export function PostListClient({ posts, categories }: PostListClientProps) {
-  const [activeTab, setActiveTab] = useState('All');
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get('category') || 'All';
+  const [activeTab, setActiveTab] = useState(initialCategory);
+
+  useEffect(() => {
+    // Sync tab with URL param if it changes
+    const categoryFromUrl = searchParams.get('category');
+    if (categoryFromUrl && categoryFromUrl !== activeTab) {
+      setActiveTab(categoryFromUrl);
+    }
+  }, [searchParams, activeTab]);
 
   const filteredPosts = activeTab === 'All'
     ? posts
@@ -29,10 +39,16 @@ export function PostListClient({ posts, categories }: PostListClientProps) {
     if (cleanedContent.length <= length) return cleanedContent;
     return cleanedContent.substring(0, length) + '...';
   }
+  
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    const newUrl = value === 'All' ? '/posts' : `/posts?category=${value}`;
+    router.replace(newUrl, { scroll: false });
+  }
 
   return (
-    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      <TabsList className="grid w-full grid-cols-2 md:w-auto md:inline-flex md:grid-cols-none">
+    <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
+      <TabsList className="grid w-full grid-cols-2 md:grid-cols-none md:flex-wrap md:h-auto md:w-auto md:inline-flex">
         {categories.map(category => (
           <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
         ))}

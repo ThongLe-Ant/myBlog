@@ -59,20 +59,29 @@ export default function HomePage() {
         acc[category].push(post);
         return acc;
       }, {} as Record<string, Post[]>);
+      
+      const sortedCategories = Object.keys(groupedPosts).sort((a, b) => a.localeCompare(b));
 
       setPostsByCategory(groupedPosts);
-      setCategories(Object.keys(groupedPosts));
+      setCategories(sortedCategories);
     }
     fetchPosts();
   }, []);
 
   return (
     <div className="flex flex-col w-full">
-        <HeroBanner showContactInfo={false} />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 space-y-16">
-            
-            {categories.map((category, catIndex) => (
-                <SectionReveal key={category} id={category.toLowerCase().replace(' ', '-')} className="scroll-mt-24">
+        <HeroBanner showContactInfo={false} onDownloadCV={() => router.push('/about')} />
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 space-y-24">
+            {categories.map((category, catIndex) => {
+              const posts = postsByCategory[category];
+              if (!posts || posts.length === 0) return null;
+
+              const mainPost = posts[0];
+              const sidePosts = posts.slice(1, 5);
+
+              return (
+                <SectionReveal key={category} id={category.toLowerCase().replace(/\s+/g, '-')} className="scroll-mt-24">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{category}</h2>
                         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
@@ -80,39 +89,62 @@ export default function HomePage() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {postsByCategory[category].slice(0, 3).map((post, index) => ( // Show max 3 posts per category
-                            <SectionReveal 
-                                key={post.slug} 
-                                className="group"
-                                options={{delay: index * 0.1}}
-                            >
-                                <Link href={`/posts/${post.slug}`} className="block h-full">
-                                    <Card className="bg-surface h-full flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1">
-                                        <div className="relative w-full overflow-hidden aspect-[16/10]">
-                                            <Image
-                                                src={post.imageUrl || 'https://placehold.co/800x600.png'}
-                                                alt={post.title}
-                                                fill
-                                                className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
-                                                data-ai-hint="tech blog"
-                                            />
-                                        </div>
-                                        <div className="p-6 flex flex-col flex-grow">
-                                            <Badge variant="secondary" className="self-start mb-2">{post.category}</Badge>
-                                            <h3 className="font-bold text-foreground text-xl">{post.title}</h3>
-                                            <p className="mt-3 text-muted-foreground text-base flex-grow">{post.excerpt}</p>
-                                            <div className="mt-4 text-sm font-semibold text-primary group-hover:underline">
-                                                Read More <ArrowRight className="inline-block h-4 w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                        {/* Main Post */}
+                        <SectionReveal className="group h-full" options={{ delay: 0.1 }}>
+                           <Link href={`/posts/${mainPost.slug}`} className="block h-full">
+                               <Card className="bg-surface h-full flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1">
+                                    <div className="relative w-full overflow-hidden aspect-[16/10]">
+                                        <Image
+                                            src={mainPost.imageUrl || 'https://placehold.co/800x600.png'}
+                                            alt={mainPost.title}
+                                            fill
+                                            className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                                            data-ai-hint="tech blog"
+                                        />
+                                    </div>
+                                    <CardHeader>
+                                      <Badge variant="secondary" className="self-start mb-2">{mainPost.category}</Badge>
+                                      <CardTitle className="text-foreground text-2xl group-hover:text-primary transition-colors">{mainPost.title}</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="flex-grow">
+                                        <p className="text-muted-foreground text-base">{mainPost.excerpt}</p>
+                                    </CardContent>
+                                    <CardFooter>
+                                       <div className="text-sm font-semibold text-primary group-hover:underline">
+                                           Read More <ArrowRight className="inline-block h-4 w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+                                       </div>
+                                    </CardFooter>
+                                </Card>
+                           </Link>
+                        </SectionReveal>
+
+                        {/* Side Posts */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            {sidePosts.map((post, index) => (
+                                <SectionReveal key={post.slug} className="group" options={{ delay: 0.2 + index * 0.1 }}>
+                                    <Link href={`/posts/${post.slug}`} className="block h-full">
+                                        <Card className="bg-surface h-full flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-lg group-hover:-translate-y-1">
+                                            <div className="relative w-full overflow-hidden aspect-[16/10]">
+                                                <Image
+                                                    src={post.imageUrl || 'https://placehold.co/600x400.png'}
+                                                    alt={post.title}
+                                                    fill
+                                                    className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                                                    data-ai-hint="tech blog"
+                                                />
                                             </div>
-                                        </div>
-                                    </Card>
-                                </Link>
-                            </SectionReveal>
-                        ))}
+                                            <div className="p-4 flex-grow flex flex-col">
+                                                <h3 className="font-semibold text-foreground text-md flex-grow group-hover:text-primary transition-colors">{post.title}</h3>
+                                            </div>
+                                        </Card>
+                                    </Link>
+                                </SectionReveal>
+                            ))}
+                        </div>
                     </div>
                     
-                    {postsByCategory[category].length > 3 && (
+                    {posts.length > 5 && (
                         <div className="mt-12 text-center">
                             <Button size="lg" asChild variant="outline">
                                 <Link href={`/posts?category=${category}`}>
@@ -122,9 +154,9 @@ export default function HomePage() {
                         </div>
                     )}
                 </SectionReveal>
-            ))}
+              );
+            })}
         </div>
     </div>
   );
 }
-
