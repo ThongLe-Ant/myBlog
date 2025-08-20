@@ -19,15 +19,27 @@ const content = {
 };
 
 const categoryGradients = [
-  'bg-gradient-to-br from-sky-500 to-blue-600',
-  'bg-gradient-to-br from-purple-500 to-indigo-600',
-  'bg-gradient-to-br from-emerald-500 to-green-600',
-  'bg-gradient-to-br from-pink-500 to-rose-600',
-  'bg-gradient-to-br from-amber-500 to-orange-600',
-  'bg-gradient-to-br from-red-500 to-red-700',
-  'bg-gradient-to-br from-violet-500 to-purple-600',
-  'bg-gradient-to-br from-teal-500 to-cyan-600',
-  'bg-gradient-to-br from-yellow-400 to-amber-500'
+  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
+  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
+  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
+  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
+  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
+  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
+  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
+  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
+  'linear-gradient(to bottom right, var(--tw-gradient-stops))'
+];
+
+const fromToClasses = [
+    'from-sky-500 to-blue-600',
+    'from-purple-500 to-indigo-600',
+    'from-emerald-500 to-green-600',
+    'from-pink-500 to-rose-600',
+    'from-amber-500 to-orange-600',
+    'from-red-500 to-red-700',
+    'from-violet-500 to-purple-600',
+    'from-teal-500 to-cyan-600',
+    'from-yellow-400 to-amber-500'
 ];
 
 interface CategoryBrowserProps {
@@ -53,12 +65,14 @@ export function CategoryBrowser({ categories, categoryCounts }: CategoryBrowserP
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                   {categories.map((category, index) => (
                       <Link href={`/posts?category=${encodeURIComponent(category)}`} key={category} className="group">
-                        <Card className={cn(
-                          'relative text-white p-6 rounded-2xl flex flex-col justify-end min-h-[120px] transition-transform duration-300 ease-smooth group-hover:scale-105 group-hover:shadow-xl overflow-hidden',
-                          categoryGradients[index % categoryGradients.length]
-                        )}>
+                        <Card
+                            className={cn(
+                                'relative text-white p-6 rounded-2xl flex flex-col justify-end min-h-[120px] transition-transform duration-300 ease-smooth group-hover:scale-105 group-hover:shadow-xl overflow-hidden bg-gradient-to-br',
+                                fromToClasses[index % fromToClasses.length]
+                            )}
+                        >
                             <div
-                                className="absolute inset-0 opacity-10"
+                                className="absolute inset-0"
                                 style={{
                                     backgroundImage: 'repeating-radial-gradient(circle, hsla(0,0%,100%,.2), hsla(0,0%,100%,.2) 1px, transparent 1px, transparent 20px)',
                                 }}
