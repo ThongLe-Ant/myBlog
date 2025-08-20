@@ -18,6 +18,16 @@ export interface Post {
 
 const postsDirectory = path.join(process.cwd(), 'src/data/posts');
 
+// A list of default placeholder images for posts that don't have one.
+const defaultImages = [
+  'https://placehold.co/800x600/777777/FFFFFF.png?text=Blog+Post',
+  'https://placehold.co/800x600/888888/FFFFFF.png?text=Article',
+  'https://placehold.co/800x600/999999/FFFFFF.png?text=Insight',
+  'https://placehold.co/800x600/AAAAAA/FFFFFF.png?text=Update',
+  'https://placehold.co/800x600/BBBBBB/FFFFFF.png?text=Showcase',
+  'https://placehold.co/800x600/CCCCCC/FFFFFF.png?text=Review',
+];
+
 // Helper to get category file path
 const getCategoryFilePath = (category: string) => {
     const fileName = `${category.toLowerCase().replace(/\s+/g, '-')}.json`;
@@ -50,7 +60,7 @@ export async function getPosts(): Promise<Post[]> {
   try {
     await ensureDirectoryExists();
     const categoryFiles = await fs.readdir(postsDirectory);
-    const allPosts: Post[] = [];
+    let allPosts: Post[] = [];
 
     for (const file of categoryFiles) {
         if (file.endsWith('.json')) {
@@ -59,6 +69,18 @@ export async function getPosts(): Promise<Post[]> {
             allPosts.push(...posts);
         }
     }
+    
+    // Assign default images to posts without one
+    allPosts = allPosts.map((post, index) => {
+        if (!post.imageUrl) {
+            return {
+                ...post,
+                imageUrl: defaultImages[index % defaultImages.length]
+            };
+        }
+        return post;
+    });
+
     return allPosts;
   } catch (error) {
     console.error('Error reading posts:', error);
@@ -85,6 +107,7 @@ export async function savePost(post: Omit<Post, 'slug'>) {
         slug: createSlug(post.title),
         excerpt: post.content.substring(0, 150),
         featured: post.featured || false,
+        imageUrl: post.imageUrl || '',
     };
 
     // Check for duplicate slugs

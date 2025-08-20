@@ -34,6 +34,7 @@ export default function CreatePostPage() {
   const [category, setCategory] = useState('');
   const [published, setPublished] = useState(true);
   const [featured, setFeatured] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [userPrompt, setUserPrompt] = useState('');
@@ -84,7 +85,7 @@ export default function CreatePostPage() {
     setIsLoading(true);
     
     try {
-        await savePost({ title, content, category, published, featured });
+        await savePost({ title, content, category, published, featured, imageUrl });
 
         toast({
           title: 'Post Saved!',
@@ -132,6 +133,16 @@ export default function CreatePostPage() {
                     placeholder="e.g., 'My First Blog Post'"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
+                    disabled={isLoading}
+                  />
+                </div>
+                 <div className="space-y-2">
+                  <Label htmlFor="imageUrl">Image URL</Label>
+                  <Input
+                    id="imageUrl"
+                    placeholder="e.g., 'https://placehold.co/800x600.png'"
+                    value={imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
                     disabled={isLoading}
                   />
                 </div>
@@ -251,5 +262,3 @@ export default function CreatePostPage() {
          </Card>
       </div>
     </div>
-  );
-}

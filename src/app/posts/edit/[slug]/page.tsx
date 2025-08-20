@@ -39,11 +39,6 @@ import {
 import { MarkdownEditor } from '@/components/markdown-editor';
 import { Checkbox } from '@/components/ui/checkbox';
 
-interface EditPostPageProps {
-  params: {
-    slug: string;
-  };
-}
 
 export default function EditPostPage() {
   const router = useRouter();
@@ -57,6 +52,7 @@ export default function EditPostPage() {
   const [category, setCategory] = useState('');
   const [published, setPublished] = useState(true);
   const [featured, setFeatured] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -80,6 +76,7 @@ export default function EditPostPage() {
           setCategory(postData.category);
           setPublished(postData.published);
           setFeatured(postData.featured || false);
+          setImageUrl(postData.imageUrl || '');
         } else {
           toast({
             title: 'Error',
@@ -146,7 +143,7 @@ export default function EditPostPage() {
 
     setIsSaving(true);
     try {
-        await updatePost(post.slug, post.category, { title, content, category, published, featured });
+        await updatePost(post.slug, post.category, { title, content, category, published, featured, imageUrl });
         toast({
             title: 'Post Updated!',
             description: 'Your blog post has been updated successfully.',
@@ -198,6 +195,7 @@ export default function EditPostPage() {
                     </CardHeader>
                     <CardContent className="space-y-6">
                         <Skeleton className="h-10 w-full" />
+                        <Skeleton className="h-10 w-full" />
                         <div className="grid grid-cols-2 gap-6">
                             <Skeleton className="h-10 w-full" />
                             <Skeleton className="h-10 w-full" />
@@ -241,6 +239,16 @@ export default function EditPostPage() {
                     placeholder="e.g., 'My First Blog Post'"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
+                    disabled={isSaving || isDeleting}
+                  />
+                </div>
+                 <div className="space-y-2">
+                  <Label htmlFor="imageUrl">Image URL</Label>
+                  <Input
+                    id="imageUrl"
+                    placeholder="e.g., 'https://placehold.co/800x600.png'"
+                    value={imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
                     disabled={isSaving || isDeleting}
                   />
                 </div>
@@ -369,19 +377,4 @@ export default function EditPostPage() {
                   <AlertDialogDescription>
                     This action cannot be undone. This will permanently delete your
                     post and remove your data from our servers.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </CardFooter>
-        </Card>
-      </div>
-    </div>
-  );
-}
-
-    
+                  </Aler
