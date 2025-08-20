@@ -37,7 +37,7 @@ const navLinks = {
 };
 
 const UKFlag = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="24" height="18">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="32" height="24">
     <clipPath id="s">
       <path d="M0,0 v30 h60 v-30 z" />
     </clipPath>
@@ -55,7 +55,7 @@ const UKFlag = () => (
 );
 
 const VietnamFlag = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="24" height="18">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="32" height="24">
         <path d="M0 0h60v30H0z" fill="#DA251D"/>
         <path d="M30 19.5l-5.878 4.244 2.246-6.91-5.878-4.244h7.256L30 5.68l2.246 6.91h7.256l-5.878 4.244 2.246 6.91z" fill="#FFFF00"/>
     </svg>
@@ -63,8 +63,8 @@ const VietnamFlag = () => (
 
 
 const languages = [
-    { code: 'en', label: 'English', flag: <UKFlag /> },
-    { code: 'vi', label: 'Tiếng Việt', flag: <VietnamFlag /> }
+    { code: 'en', label: 'English', short: 'EN', flag: <UKFlag /> },
+    { code: 'vi', label: 'Tiếng Việt', short: 'VI', flag: <VietnamFlag /> }
 ]
 
 export function Header() {
@@ -149,8 +149,9 @@ export function Header() {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="gap-2">
+            <Button variant="outline" className="gap-2">
               {currentLangConfig.flag}
+              <span className="font-semibold">{currentLangConfig.short}</span>
               <span className="sr-only">Toggle language</span>
             </Button>
           </DropdownMenuTrigger>
