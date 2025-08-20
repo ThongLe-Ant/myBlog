@@ -2,18 +2,24 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Mountain } from 'lucide-react';
+import { Menu, Mountain, Globe } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 const navLinks = [
-  { href: '#about', label: 'Giới thiệu' },
-  { href: '#skills', label: 'Kỹ năng' },
-  { href: '#experience', label: 'Kinh nghiệm' },
-  { href: '#projects', label: 'Dự án' },
-  { href: '#contact', label: 'Liên hệ' },
+  { href: '#about', label: 'About' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#contact', label: 'Contact' },
 ];
 
 export function Header() {
@@ -50,6 +56,23 @@ export function Header() {
       </nav>
 
       <div className="flex items-center gap-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="icon">
+              <Globe className="h-[1.2rem] w-[1.2rem]" />
+              <span className="sr-only">Change language</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>
+              EN
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              VI
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline" size="icon" className="md:hidden">
@@ -79,4 +102,3 @@ export function Header() {
     </header>
   );
 }
-    

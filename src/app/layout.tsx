@@ -7,8 +7,8 @@ import { AppFooter } from '@/components/layout/app-footer';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Lê Minh Thông - Senior Software Engineer | Solution Architect',
-  description: 'Trang blog cá nhân của Lê Minh Thông, nơi chia sẻ kiến thức, kinh nghiệm và các dự án về công nghệ phần mềm, kiến trúc hệ thống và thiết kế chuyển động.',
+  title: 'Le Minh Thong - Senior Software Engineer | Solution Architect',
+  description: 'Personal blog of Le Minh Thong, sharing knowledge, experience, and projects in software engineering, system architecture, and motion design.',
 };
 
 export default function RootLayout({
@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className={`${GeistSans.variable} ${GeistMono.variable} dark`} suppressHydrationWarning>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} dark`} suppressHydrationWarning>
       <body className="bg-background text-foreground antialiased">
         <div className="noise-bg"></div>
         <Header />

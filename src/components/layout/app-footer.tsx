@@ -43,7 +43,7 @@ export function AppFooter() {
     >
       <div className="container mx-auto flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">
         <p className="text-sm text-muted-foreground">
-          © {currentYear} Lê Minh Thông. All rights reserved.
+          © {currentYear} Le Minh Thong. All rights reserved.
         </p>
         <div className="flex items-center gap-5">
           {socialLinks.map((link) => (

@@ -32,107 +32,107 @@ import { CardInteractive } from '@/components/motion/card-interactive';
 import React from 'react';
 
 const stats = [
-    { value: '10+', label: 'Năm kinh nghiệm' },
-    { value: '20+', label: 'Hệ thống' },
-    { value: '5+', label: 'Lĩnh vực' },
-    { value: '100%', label: 'Cam kết' },
+    { value: '10+', label: 'Years of Experience' },
+    { value: '20+', label: 'Systems' },
+    { value: '5+', label: 'Industries' },
+    { value: '100%', label: 'Commitment' },
 ];
 
 const skills = {
-    'Lĩnh Vực': [
-        { name: 'Kiến trúc hệ thống', level: 'Chuyên gia' },
-        { name: 'Giải pháp ERP', level: 'Chuyên gia' },
-        { name: 'Hệ thống thanh toán', level: 'Nâng cao' },
-        { name: 'Báo cáo & Dashboard', level: 'Chuyên gia' },
-        { name: 'Tự động hóa', level: 'Nâng cao' },
-        { name: 'Tối ưu hiệu năng', level: 'Chuyên gia' },
-        { name: 'Quản lý dự án', level: 'Nâng cao' },
-        { name: 'Bảo mật hệ thống', level: 'Nâng cao' },
+    'Domain': [
+        { name: 'System Architecture', level: 'Expert' },
+        { name: 'ERP Solutions', level: 'Expert' },
+        { name: 'Payment Systems', level: 'Advanced' },
+        { name: 'Reporting & Dashboards', level: 'Expert' },
+        { name: 'Automation', level: 'Advanced' },
+        { name: 'Performance Optimization', level: 'Expert' },
+        { name: 'Project Management', level: 'Advanced' },
+        { name: 'System Security', level: 'Advanced' },
     ],
-    'Công nghệ': [
-        { name: '.NET', level: 'Chuyên gia' },
-        { name: 'Golang', level: 'Chuyên gia' },
-        { name: 'SQL Server', level: 'Chuyên gia' },
-        { name: 'Kafka', level: 'Nâng cao' },
-        { name: 'Kubernetes', level: 'Nâng cao' },
-        { name: 'React', level: 'Nâng cao' },
-        { name: 'Azure', level: 'Nâng cao' },
-        { name: 'Docker', level: 'Nâng cao' },
+    'Technology': [
+        { name: '.NET', level: 'Expert' },
+        { name: 'Golang', level: 'Expert' },
+        { name: 'SQL Server', level: 'Expert' },
+        { name: 'Kafka', level: 'Advanced' },
+        { name: 'Kubernetes', level: 'Advanced' },
+        { name: 'React', level: 'Advanced' },
+        { name: 'Azure', level: 'Advanced' },
+        { name: 'Docker', level: 'Advanced' },
     ],
 };
 
 const experiences = [
     {
-        company: 'Ngân hàng Á Châu (ACB)',
-        period: '2022 - Hiện tại',
+        company: 'Asia Commercial Bank (ACB)',
+        period: '2022 - Present',
         role: 'Backend Engineer',
-        description: 'Phát triển hệ thống Ngân hàng Số cho một trong những ngân hàng hàng đầu Việt Nam.',
+        description: 'Developing the Digital Banking system for one of the leading banks in Vietnam.',
         tasks: [
-            'SmartPOS: Ứng dụng POS thông minh xây dựng trên nền tảng .NET Core và Docker',
-            'Thanh toán quốc tế: Tích hợp các hệ thống ARP/MoneyGram/Western Union',
+            'SmartPOS: A smart POS application built on .NET Core and Docker',
+            'International Payments: Integrated ARP/MoneyGram/Western Union systems',
         ],
-        highlight: 'Xử lý >10.000 giao dịch/ngày',
+        highlight: 'Processed >10,000 transactions/day',
     },
     {
         company: 'MoMo',
         period: '2020 - 2021',
         role: 'Backend Developer',
-        description: 'Phát triển hệ thống CSM & Thanh toán nội bộ cho ví điện tử hàng đầu Việt Nam.',
-        tasks: ['Tối ưu hóa hệ thống giao dịch với Golang & Kafka'],
-        highlight: 'Giảm 20% thời gian xử lý thanh toán',
+        description: 'Developed the CSM & Internal Payment system for Vietnam\'s leading e-wallet.',
+        tasks: ['Optimized transaction system with Golang & Kafka'],
+        highlight: 'Reduced payment processing time by 20%',
     },
     {
         company: 'FPT Software',
         period: '2018 - 2020',
         role: 'Technical Analyst',
-        description: 'Phát triển các giải pháp ERP cho các khách hàng lớn trong nước và quốc tế.',
+        description: 'Developed ERP solutions for major domestic and international clients.',
         tasks: [
-            'Nguyễn Minh Steel: Hệ thống quản lý sản xuất thép toàn diện',
-            'Sacombank: Giải pháp quản lý kho thiết bị tập trung',
+            'Nguyen Minh Steel: Comprehensive steel production management system',
+            'Sacombank: Centralized equipment warehouse management solution',
         ],
     },
     {
         company: 'SamHo',
         period: '2016 - 2018',
         role: 'ERP Developer',
-        description: 'Phát triển hệ thống ERP cho nhà máy với hơn 5.000 nhân viên.',
-        tasks: ['Module Nhân sự - Tiền lương tích hợp', 'Quản lý sản xuất & BOM sản phẩm'],
+        description: 'Developed an ERP system for a factory with over 5,000 employees.',
+        tasks: ['Integrated HR - Payroll module', 'Production Management & Product BOM'],
     },
 ];
 
 const projects = [
     {
-        title: 'Thanh toán không dùng tiền mặt',
+        title: 'Cashless Payment',
         client: 'MWG',
-        category: 'Bán lẻ',
-        description: 'Giải pháp tích hợp thanh toán điện tử cho chuỗi bán lẻ lớn nhất Việt Nam, xử lý hàng triệu giao dịch mỗi tháng.',
+        category: 'Retail',
+        description: 'Integrated electronic payment solution for Vietnam\'s largest retail chain, handling millions of transactions per month.',
         tags: ['.NET Core', 'API Gateway', 'MSSQL', 'Docker'],
         imageUrl: 'https://placehold.co/600x400.png',
         aiHint: 'digital payment retail'
     },
     {
-        title: 'Quản lý đặt hàng & tồn kho',
+        title: 'Order & Inventory Management',
         client: 'EOC',
-        category: 'Suất ăn công nghiệp',
-        description: 'Hệ thống quản lý chuỗi cung ứng cho nhà cung cấp suất ăn công nghiệp với hơn 50.000 suất/ngày.',
+        category: 'Industrial Catering',
+        description: 'Supply chain management system for an industrial catering provider with over 50,000 meals/day.',
         tags: ['Python', 'Java', 'Node.js', 'MongoDB'],
         imageUrl: 'https://placehold.co/600x400.png',
         aiHint: 'supply chain food'
     },
     {
-        title: 'IoT quản lý sản xuất',
+        title: 'IoT Production Management',
         client: 'VCS',
-        category: 'Nông nghiệp',
-        description: 'Giải pháp IoT giám sát và quản lý sản xuất nông nghiệp công nghệ cao trên 500ha.',
+        category: 'Agriculture',
+        description: 'IoT solution for monitoring and managing high-tech agricultural production on over 500ha.',
         tags: ['Golang', 'Next.js', 'IoT', 'PostgreSQL'],
         imageUrl: 'https://placehold.co/600x400.png',
         aiHint: 'iot agriculture farm'
     },
     {
-        title: 'Quản lý kho & hải quan',
+        title: 'Warehouse & Customs Management',
         client: 'ZA VN',
-        category: 'Xuất nhập khẩu',
-        description: 'Giải pháp quản lý kho, xuất nhập khẩu và hải quan cho doanh nghiệp logistics, tích hợp quy trình kiểm soát hàng hóa và chứng từ điện tử.',
+        category: 'Logistics',
+        description: 'Warehouse, import/export, and customs management solution for a logistics company, integrating goods control and electronic document processes.',
         tags: ['Python', 'React Native'],
         imageUrl: 'https://placehold.co/600x400.png',
         aiHint: 'warehouse logistics customs'
@@ -140,18 +140,18 @@ const projects = [
 ];
 
 const expertiseAreas = [
-    { title: 'Hệ thống ERP', icon: Cpu },
-    { title: 'Quản lý sản xuất', icon: Building2 },
-    { title: 'Nhân sự & Tiền lương', icon: User },
-    { title: 'Quản lý kho & Mua hàng', icon: Briefcase },
-    { title: 'Hệ thống thanh toán', icon: Smartphone },
+    { title: 'ERP Systems', icon: Cpu },
+    { title: 'Production Management', icon: Building2 },
+    { title: 'HR & Payroll', icon: User },
+    { title: 'Warehouse & Procurement', icon: Briefcase },
+    { title: 'Payment Systems', icon: Smartphone },
 ];
 
 const keyResults = [
-    { title: 'Xử lý >10.000 giao dịch/ngày', icon: Zap },
-    { title: 'Giảm 30% thời gian kiểm kê', icon: CheckCircle },
-    { title: 'Giảm 20% thời gian xử lý', icon: Rocket },
-    { title: 'Tự động hóa quy trình', icon: ShieldCheck },
+    { title: 'Processed >10,000 transactions/day', icon: Zap },
+    { title: 'Reduced inventory time by 30%', icon: CheckCircle },
+    { title: 'Reduced processing time by 20%', icon: Rocket },
+    { title: 'Automated processes', icon: ShieldCheck },
 ];
 
 
@@ -168,7 +168,7 @@ export default function HomePage() {
                  className="lg:w-1/3 relative flex justify-center"
             >
                 <Avatar className="w-64 h-64 md:w-80 md:h-80 border-4 border-primary/20 shadow-2xl shadow-primary/20">
-                    <AvatarImage src="https://placehold.co/400x400.png" alt="Avatar Lê Minh Thông" data-ai-hint="man portrait professional" />
+                    <AvatarImage src="https://placehold.co/400x400.png" alt="Avatar Le Minh Thong" data-ai-hint="man portrait professional" />
                     <AvatarFallback>LMT</AvatarFallback>
                 </Avatar>
             </motion.div>
@@ -179,7 +179,7 @@ export default function HomePage() {
                     transition={{ duration: 0.5 }}
                     className="text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white to-stone-400 sm:text-5xl md:text-6xl"
                 >
-                    Lê Minh Thông
+                    Le Minh Thong
                 </motion.h1>
                  <motion.h2
                     initial={{ opacity: 0, y: 20 }}
@@ -195,7 +195,7 @@ export default function HomePage() {
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="mt-4 max-w-xl text-lg text-muted-foreground"
                 >
-                    Kỹ sư phần mềm với hơn 10 năm kinh nghiệm trong phát triển hệ thống ERP và giải pháp doanh nghiệp. Chuyên sâu về .NET, Golang, Cloud và Microservices.
+                    Software engineer with over 10 years of experience in developing ERP systems and enterprise solutions. Specializing in .NET, Golang, Cloud, and Microservices.
                 </motion.p>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -204,7 +204,7 @@ export default function HomePage() {
                     className="mt-6 space-y-2 text-muted-foreground">
                     <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-primary"/><span>thongproleminh@gmail.com</span></div>
                     <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-primary"/><span>0396 870 644</span></div>
-                    <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-primary"/><span>TP.HCM, Việt Nam</span></div>
+                    <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-primary"/><span>HCMC, Vietnam</span></div>
                 </motion.div>
                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -212,7 +212,7 @@ export default function HomePage() {
                     transition={{ duration: 0.5, delay: 0.4 }}
                     className="mt-8"
                 >
-                    <Button size="lg">Xem dự án của tôi <ArrowRight className="ml-2"/></Button>
+                    <Button size="lg">View My Projects <ArrowRight className="ml-2"/></Button>
                 </motion.div>
             </div>
         </div>
@@ -243,20 +243,20 @@ export default function HomePage() {
         <div className="w-full">
             <div className="grid md:grid-cols-5 gap-12 items-start">
                 <div className="md:col-span-2">
-                    <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Giới thiệu</h2>
+                    <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">About Me</h2>
                     <p className="mt-4 text-lg text-muted-foreground">
-                        Kỹ sư phần mềm với hơn 10 năm kinh nghiệm trong phát triển hệ thống doanh nghiệp và giải pháp ERP.
+                        Software engineer with over 10 years of experience in developing enterprise systems and ERP solutions.
                     </p>
                 </div>
                 <div className="md:col-span-3 space-y-6 text-muted-foreground">
-                    <p>Với hơn 10 năm kinh nghiệm, tôi chuyên sâu về thiết kế và triển khai các hệ thống ERP quy mô lớn cho các tập đoàn hàng đầu tại Việt Nam. Nền tảng kỹ thuật vững chắc cùng hiểu biết sâu về nghiệp vụ đa ngành.</p>
-                    <p>Đã triển khai thành công 20+ hệ thống quy mô lớn cho các tập đoàn hàng đầu Việt Nam trong các lĩnh vực tài chính-ngân hàng, sản xuất và nhân sự.</p>
-                    <p>Tôi luôn hướng đến việc tạo ra các giải pháp công nghệ không chỉ đáp ứng yêu cầu kỹ thuật mà còn giải quyết hiệu quả các bài toán nghiệp vụ phức tạp.</p>
+                    <p>With over 10 years of experience, I specialize in designing and implementing large-scale ERP systems for leading corporations in Vietnam. I have a strong technical foundation and deep cross-industry business knowledge.</p>
+                    <p>Successfully deployed 20+ large-scale systems for leading Vietnamese corporations in finance-banking, manufacturing, and HR.</p>
+                    <p>I always aim to create technology solutions that not only meet technical requirements but also effectively solve complex business problems.</p>
                 </div>
             </div>
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                    <h3 className="text-2xl font-semibold mb-4 text-secondary">Lĩnh vực chuyên sâu</h3>
+                    <h3 className="text-2xl font-semibold mb-4 text-secondary">Areas of Expertise</h3>
                     <div className="space-y-3">
                         {expertiseAreas.map(area => (
                             <div key={area.title} className="flex items-center gap-3 p-3 bg-surface rounded-lg">
@@ -267,7 +267,7 @@ export default function HomePage() {
                     </div>
                 </div>
                 <div>
-                    <h3 className="text-2xl font-semibold mb-4 text-secondary">Kết quả nổi bật</h3>
+                    <h3 className="text-2xl font-semibold mb-4 text-secondary">Key Achievements</h3>
                     <div className="space-y-3">
                         {keyResults.map(result => (
                             <div key={result.title} className="flex items-center gap-3 p-3 bg-surface rounded-lg">
@@ -285,9 +285,9 @@ export default function HomePage() {
       <SectionReveal id="skills" className="scroll-mt-24">
         <div className="w-full">
             <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Kỹ năng cốt lõi</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Core Skills</h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                Các công nghệ và lĩnh vực chuyên môn tạo nên giá trị khác biệt
+                Technologies and expertise that create distinct value
             </p>
             </div>
             <div className="mt-12 grid md:grid-cols-2 gap-x-12 gap-y-8">
@@ -305,7 +305,7 @@ export default function HomePage() {
                         <motion.div
                             className="bg-primary h-2.5 rounded-full"
                             initial={{ width: 0 }}
-                            whileInView={{ width: skill.level === 'Chuyên gia' ? '100%' : '80%' }}
+                            whileInView={{ width: skill.level === 'Expert' ? '100%' : '80%' }}
                             transition={{ duration: 1, ease: 'easeOut' }}
                             viewport={{ once: true, amount: 0.8 }}
                         />
@@ -323,9 +323,9 @@ export default function HomePage() {
       <SectionReveal id="experience" className="scroll-mt-24">
         <div className="w-full">
             <div className="text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Kinh nghiệm nổi bật</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Professional Experience</h2>
                 <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    Hành trình phát triển nghề nghiệp trong 10 năm qua
+                    My career journey over the past 10 years
                 </p>
             </div>
             <div className="mt-12 relative border-l-2 border-primary/20 pl-8">
@@ -363,9 +363,9 @@ export default function HomePage() {
       <SectionReveal id="projects" className="scroll-mt-24">
         <div className="w-full">
             <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Dự án tư vấn tiêu biểu</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Featured Projects</h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                Các giải pháp công nghệ đã triển khai thành công cho đối tác
+                Successfully implemented technology solutions for partners
             </p>
             </div>
             <div className="mt-12 grid gap-8 md:grid-cols-2 lg:gap-12">
@@ -389,12 +389,12 @@ export default function HomePage() {
         <div className="w-full">
             <div className="text-center p-8 bg-surface rounded-2xl border border-border/50">
                 <Target className="w-12 h-12 mx-auto text-primary mb-4"/>
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Mục tiêu nghề nghiệp</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Career Goals</h2>
                 <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
-                    Hướng tới vai trò Senior System Architect/Technical Product Owner, tập trung phát triển giải pháp ERP và hệ thống thanh toán quy mô doanh nghiệp.
+                    Aiming for a Senior System Architect/Technical Product Owner role, focusing on developing enterprise-scale ERP and payment systems.
                 </p>
                 <p className="mt-2 max-w-3xl mx-auto text-muted-foreground">
-                    Tiếp tục nâng cao chuyên môn về kiến trúc microservices, điện toán đám mây và AI ứng dụng trong quản trị doanh nghiệp.
+                    Continuing to enhance expertise in microservices architecture, cloud computing, and AI applications in enterprise management.
                 </p>
             </div>
         </div>
@@ -406,9 +406,9 @@ export default function HomePage() {
         <div className="w-full">
             <div className="grid md:grid-cols-2 gap-12">
                 <div>
-                    <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Liên hệ với tôi</h2>
+                    <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Contact Me</h2>
                     <p className="mt-4 text-lg text-muted-foreground">
-                        Luôn sẵn sàng cho các cơ hội hợp tác, dự án mới và trao đổi kiến thức chuyên môn.
+                        Always open to collaboration opportunities, new projects, and professional knowledge exchange.
                     </p>
                     <div className="mt-8 space-y-4">
                         <div className="flex items-center gap-4 text-lg">
@@ -421,26 +421,26 @@ export default function HomePage() {
                         </div>
                         <div className="flex items-center gap-4 text-lg">
                             <MapPin className="w-6 h-6 text-primary"/>
-                            <span className="text-muted-foreground">TP.HCM, Việt Nam</span>
+                            <span className="text-muted-foreground">HCMC, Vietnam</span>
                         </div>
                     </div>
                 </div>
                 <Card className="p-6 md:p-8 bg-surface border-border/50">
                     <form className="space-y-6">
                         <div className="space-y-2">
-                            <label htmlFor="name" className="text-sm font-medium text-secondary">Họ và tên</label>
-                            <Input id="name" placeholder="Nhập họ tên của bạn" />
+                            <label htmlFor="name" className="text-sm font-medium text-secondary">Full Name</label>
+                            <Input id="name" placeholder="Enter your full name" />
                         </div>
                         <div className="space-y-2">
                             <label htmlFor="email" className="text-sm font-medium text-secondary">Email</label>
-                            <Input id="email" type="email" placeholder="Nhập địa chỉ email" />
+                            <Input id="email" type="email" placeholder="Enter your email address" />
                         </div>
                         <div className="space-y-2">
-                            <label htmlFor="message" className="text-sm font-medium text-secondary">Nội dung</label>
-                            <Textarea id="message" placeholder="Nhập nội dung liên hệ" rows={4}/>
+                            <label htmlFor="message" className="text-sm font-medium text-secondary">Message</label>
+                            <Textarea id="message" placeholder="Enter your message" rows={4}/>
                         </div>
                         <Button type="submit" size="lg" className="w-full">
-                            Gửi thông điệp <Send className="ml-2"/>
+                            Send Message <Send className="ml-2"/>
                         </Button>
                     </form>
                 </Card>
