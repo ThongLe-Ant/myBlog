@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Save, Trash2, ArrowLeft, Lightbulb } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { getPostBySlug, updatePost, deletePost, Post } from '@/lib/posts';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
@@ -45,8 +45,10 @@ interface EditPostPageProps {
   };
 }
 
-export default function EditPostPage({ params: { slug } }: EditPostPageProps) {
+export default function EditPostPage() {
   const router = useRouter();
+  const params = useParams();
+  const slug = params.slug as string;
   const { toast } = useToast();
   
   const [post, setPost] = useState<Post | null>(null);
@@ -381,3 +383,5 @@ export default function EditPostPage({ params: { slug } }: EditPostPageProps) {
     </div>
   );
 }
+
+    
