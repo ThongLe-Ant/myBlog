@@ -104,7 +104,7 @@ export async function savePost(post: Omit<Post, 'slug'>) {
     const newPost: Post = {
         ...post,
         slug: createSlug(post.title),
-        excerpt: post.content.substring(0, 150),
+        excerpt: post.content.substring(0, 250),
         featured: post.featured || false,
     };
 
@@ -152,7 +152,7 @@ export async function updatePost(originalSlug: string, originalCategory: string,
         postToMove.featured = featured;
         postToMove.slug = newSlug;
         postToMove.imageUrl = imageUrl;
-        postToMove.excerpt = content.substring(0, 150);
+        postToMove.excerpt = content.substring(0, 250);
 
 
         // Add to new category
@@ -172,7 +172,7 @@ export async function updatePost(originalSlug: string, originalCategory: string,
             featured,
             imageUrl,
             slug: newSlug,
-            excerpt: content.substring(0, 150),
+            excerpt: content.substring(0, 250),
         };
         await fs.writeFile(originalFilePath, JSON.stringify(originalCategoryPosts, null, 2));
     }

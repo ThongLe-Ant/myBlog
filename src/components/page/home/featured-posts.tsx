@@ -39,6 +39,12 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
     if (featuredPosts.length === 0) {
         return null;
     }
+    
+    const getExcerpt = (content: string, length = 250) => {
+        const cleanedContent = content.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
+        if (cleanedContent.length <= length) return cleanedContent;
+        return cleanedContent.substring(0, length) + '...';
+    }
 
     return (
         <SectionReveal>
@@ -72,7 +78,7 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
                                     {post.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
                                 </div>
                                 <h3 className="text-xl font-bold text-white transition-colors">{post.title}</h3>
-                                <p className="mt-2 text-sm text-white/80">{post.excerpt}</p>
+                                <p className="mt-2 text-sm text-white/80">{getExcerpt(post.content)}</p>
                             </div>
                         </Card>
                       </Link>

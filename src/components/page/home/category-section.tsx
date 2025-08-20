@@ -40,6 +40,12 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
     const mainPost = featuredPostInCategory || posts[0];
     const sidePosts = posts.filter(p => p.slug !== mainPost.slug).slice(0, 4);
 
+    const getExcerpt = (content: string, length = 250) => {
+        const cleanedContent = content.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
+        if (cleanedContent.length <= length) return cleanedContent;
+        return cleanedContent.substring(0, length) + '...';
+    }
+
     return (
         <SectionReveal id={category.toLowerCase().replace(/\s+/g, '-')} className="scroll-mt-24">
             <div className="text-center mb-12">
@@ -70,7 +76,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                                     {mainPost.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
                                 </div>
                                 <h3 className="text-3xl font-bold text-white transition-colors">{mainPost.title}</h3>
-                                <p className="mt-4 text-base text-white/80">{mainPost.excerpt}</p>
+                                <p className="mt-4 text-base text-white/80">{getExcerpt(mainPost.content)}</p>
                                 <div className="mt-auto pt-4 text-sm font-semibold text-white group-hover:underline">
                                    {c.readMore} <ArrowRight className="inline-block h-4 w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
                                </div>
