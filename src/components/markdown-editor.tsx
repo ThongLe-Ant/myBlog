@@ -27,7 +27,7 @@ export function MarkdownEditor({ value, onChange, ...rest }: MarkdownEditorProps
         'preview', 'side-by-side', 'fullscreen', '|',
         'guide',
       ],
-      ...rest.options, // Allow overriding options
+      ...rest.options
     };
   }, [rest.options]);
 
