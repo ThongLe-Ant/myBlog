@@ -70,7 +70,7 @@ export function PostListClient({ posts, categories }: PostListClientProps) {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {filteredPosts.map(post => (
                  <Link href={`/posts/${post.slug}`} key={post.slug} className="group">
-                    <Card className="bg-surface/50 border-border/50 flex flex-col h-full transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-lg">
+                    <Card className="bg-surface/50 border-border/50 flex flex-col h-full transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1">
                       <CardHeader>
                         <div className="flex justify-between items-start">
                           <CardTitle className="text-foreground text-xl transition-colors duration-300 group-hover:text-primary pr-2">{post.title}</CardTitle>
