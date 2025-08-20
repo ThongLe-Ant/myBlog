@@ -60,12 +60,13 @@ export function CategoryBrowser({ categories, categoryCounts }: CategoryBrowserP
                              className="absolute inset-0 w-full h-full bg-black/20"
                              style={{
                                 backgroundImage: `
-                                  linear-gradient(60deg, hsla(0,0%,100%,.1) 1px, transparent 1px),
-                                  linear-gradient(-60deg, hsla(0,0%,100%,.1) 1px, transparent 1px),
-                                  linear-gradient(120deg, hsla(0,0%,100%,.1) 1px, transparent 1px),
-                                  linear-gradient(-120deg, hsla(0,0%,100%,.1) 1px, transparent 1px)
+                                  linear-gradient(60deg, hsla(0,0%,100%,.1) 50%, transparent 50%),
+                                  linear-gradient(-60deg, hsla(0,0%,100%,.1) 50%, transparent 50%),
+                                  linear-gradient(60deg, transparent 50%, hsla(0,0%,100%,.1) 50%),
+                                  linear-gradient(-60deg, transparent 50%, hsla(0,0%,100%,.1) 50%)
                                 `,
-                                backgroundSize: '20px 35px',
+                                backgroundSize: '40px 70px',
+                                backgroundPosition: '0 0, 0 0, 20px 35px, 20px 35px',
                              }}
                            />
                            <div className="relative z-10">
