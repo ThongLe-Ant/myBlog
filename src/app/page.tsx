@@ -375,7 +375,7 @@ export default function HomePage() {
       {/* Blog Banner Section */}
        <section className="w-full bg-surface/50 pb-16 pt-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 relative px-12">
                  <Carousel
                     opts={{
                         align: "start",
@@ -398,8 +398,8 @@ export default function HomePage() {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious className="left-4" />
-                    <CarouselNext className="right-4" />
+                    <CarouselPrevious />
+                    <CarouselNext />
                 </Carousel>
             </div>
             <div>
