@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
@@ -7,6 +8,7 @@ import { AppFooter } from '@/components/layout/app-footer';
 import { Toaster } from '@/components/ui/toaster';
 import { LanguageProvider } from '@/context/language-context';
 import { ThemeProvider } from '@/components/theme-provider';
+import { GoToTopButton } from '@/components/layout/go-to-top-button';
 
 export const metadata: Metadata = {
   title: 'Le Minh Thong - Senior Software Engineer | Solution Architect',
@@ -34,6 +36,7 @@ export default function RootLayout({
               <AppFooter />
             </div>
             <Toaster />
+            <GoToTopButton />
           </LanguageProvider>
         </ThemeProvider>
       </body>
