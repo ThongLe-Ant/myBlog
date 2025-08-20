@@ -2,7 +2,6 @@
 'use client';
 
 import { Github, Linkedin, Twitter } from 'lucide-react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 export function AppFooter() {
@@ -35,14 +34,15 @@ export function AppFooter() {
 
   return (
     <motion.footer
-      className="border-t border-border/20 bg-transparent px-4 py-6 backdrop-blur-sm sm:px-6 lg:px-8"
+      className="border-t border-border/20 bg-transparent px-4 py-6"
       variants={footerVariants}
       initial="hidden"
-      animate="visible"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.5 }}
     >
       <div className="container mx-auto flex flex-col items-center justify-between gap-4 sm:flex-row">
         <p className="text-sm text-muted-foreground">
-          © {currentYear} Lê Minh Thông. All rights reserved.
+          © {currentYear + 1} Lê Minh Thông. Tất cả quyền được bảo lưu.
         </p>
         <div className="flex items-center gap-5">
           {socialLinks.map((link) => (
@@ -64,3 +64,5 @@ export function AppFooter() {
     </motion.footer>
   );
 }
+
+    

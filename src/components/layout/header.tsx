@@ -9,10 +9,11 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 const navLinks = [
-  { href: '/about', label: 'Giới thiệu' },
-  { href: '/projects', label: 'Dự án' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Liên hệ' },
+  { href: '#about', label: 'Giới thiệu' },
+  { href: '#skills', label: 'Kỹ năng' },
+  { href: '#experience', label: 'Kinh nghiệm' },
+  { href: '#projects', label: 'Dự án' },
+  { href: '#contact', label: 'Liên hệ' },
 ];
 
 export function Header() {
@@ -78,3 +79,5 @@ export function Header() {
     </header>
   );
 }
+
+    
