@@ -39,7 +39,7 @@ export function HeroHighlight({ children }: { children: React.ReactNode }) {
         />
          {backgroundUrl && (
             <motion.div
-              className="absolute inset-0 z-[-1] opacity-20 dark:opacity-5"
+              className="absolute inset-0 z-0 opacity-20 dark:opacity-5"
               style={{
                   backgroundImage: backgroundUrl,
                   backgroundSize: 'cover',
