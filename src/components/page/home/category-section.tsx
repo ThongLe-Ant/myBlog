@@ -138,7 +138,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                 {regularPosts.length > 0 && (
                      <div className="flex flex-col">
                         <Carousel
-                            opts={{ align: "start", loop: regularPosts.length > 2 }}
+                            opts={{ align: "start", loop: regularPosts.length > 4 }}
                             plugins={[
                                 Autoplay({
                                     delay: 5500,
@@ -149,20 +149,20 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                         >
                             <CarouselContent className="-ml-2">
                                  {regularPosts.map((post, index) => (
-                                    <CarouselItem key={post.slug} className="pl-2 basis-full sm:basis-1/2">
+                                    <CarouselItem key={post.slug} className="pl-2 basis-full sm:basis-1/2 lg:basis-1/4">
                                          <SectionReveal className="group h-full" options={{ delay: 0.2 + index * 0.1 }}>
                                             <SidePostCard post={post} />
                                          </SectionReveal>
                                     </CarouselItem>
                                 ))}
                             </CarouselContent>
-                             {regularPosts.length > 2 && (
+                             {regularPosts.length > 4 && (
                                 <>
                                     <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                     <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </>
                              )}
-                            {regularPosts.length > 2 && <CarouselDots />}
+                            {regularPosts.length > 4 && <CarouselDots />}
                         </Carousel>
                     </div>
                 )}
