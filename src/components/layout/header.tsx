@@ -9,11 +9,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Mountain, Search } from 'lucide-react';
+import { Menu, Mountain } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/language-context';
+import { ThemeToggle } from './theme-toggle';
 
 const navLinks = {
   en: [
@@ -99,10 +100,7 @@ export function Header() {
       </nav>
 
       <div className="flex items-center gap-2">
-        <Button variant="ghost" size="icon">
-          <Search className="h-5 w-5" />
-          <span className="sr-only">Search</span>
-        </Button>
+        <ThemeToggle />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
