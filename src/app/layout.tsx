@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
-      <body className="text-foreground antialiased">
+      <body className="antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
