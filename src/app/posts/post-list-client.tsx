@@ -69,8 +69,8 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
 
   return (
     <div className="space-y-8">
-       <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
-            <div className="relative w-full md:max-w-md">
+       <div className="flex flex-col md:flex-row gap-4 items-center">
+            <div className="relative w-full md:max-w-xs">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input 
                     type="search" 
@@ -80,13 +80,15 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
-            <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full md:w-auto">
-                <TabsList className="grid w-full grid-cols-2 md:grid-cols-none md:flex-wrap md:h-auto md:w-auto md:inline-flex">
-                    {categories.map(category => (
-                        <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
-                    ))}
-                </TabsList>
-            </Tabs>
+            <div className="w-full overflow-x-auto">
+                <Tabs value={activeTab} onValueChange={handleTabChange}>
+                    <TabsList>
+                        {categories.map(category => (
+                            <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
+                        ))}
+                    </TabsList>
+                </Tabs>
+            </div>
         </div>
       
       <div>
