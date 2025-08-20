@@ -16,6 +16,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { ThemeToggle } from './theme-toggle';
 import { useRouter, usePathname } from 'next/navigation';
+import { Input } from '@/components/ui/input';
 
 
 const navLinks = {
@@ -68,6 +69,7 @@ const languages = [
 
 export function Header() {
   const [hoveredPath, setHoveredPath] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const { language, setLanguage } = useLanguage();
   const currentLangConfig = languages.find(lang => lang.code === language) || languages[0];
   const router = useRouter();
@@ -86,45 +88,63 @@ export function Header() {
     }
   };
 
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/posts?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 flex h-16 w-full items-center justify-between border-b border-border/20 bg-background/80 px-4 backdrop-blur-xl md:px-6">
       <Link href="/" className="flex items-center gap-2 font-bold" onMouseOver={() => setHoveredPath('/')} onMouseLeave={() => setHoveredPath('')}>
         <Mountain className="h-6 w-6 text-primary" />
         <span className="text-lg font-semibold tracking-wider text-foreground">LMT</span>
       </Link>
-      
-      <nav className="hidden items-center gap-1 text-sm font-medium md:flex">
-        {navLinks[language].map((link) => (
-          <a
-            key={link.label}
-            href={link.href}
-            onClick={(e) => {
-                e.preventDefault();
-                handleLinkClick(link.href);
-            }}
-            className="relative rounded-md px-3 py-2 uppercase tracking-wider transition-colors hover:text-primary cursor-pointer"
-            onMouseOver={() => setHoveredPath(link.href)}
-            onMouseLeave={() => setHoveredPath('')}
-          >
-            {link.label}
-            {hoveredPath === link.href && (
-              <motion.div
-                className="absolute bottom-0 left-0 h-0.5 w-full bg-primary"
-                layoutId="underline"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              />
-            )}
-          </a>
-        ))}
-      </nav>
+
+      <div className="flex-grow flex justify-center items-center">
+        <nav className="hidden items-center gap-1 text-sm font-medium md:flex">
+            <form onSubmit={handleSearchSubmit}>
+              <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Input 
+                      type="search" 
+                      placeholder="Search posts..." 
+                      className="pl-10 w-48 lg:w-64"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+              </div>
+            </form>
+          {navLinks[language].map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick(link.href);
+              }}
+              className="relative rounded-md px-3 py-2 uppercase tracking-wider transition-colors hover:text-primary cursor-pointer"
+              onMouseOver={() => setHoveredPath(link.href)}
+              onMouseLeave={() => setHoveredPath('')}
+            >
+              {link.label}
+              {hoveredPath === link.href && (
+                <motion.div
+                  className="absolute bottom-0 left-0 h-0.5 w-full bg-primary"
+                  layoutId="underline"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
+              )}
+            </a>
+          ))}
+        </nav>
+      </div>
+
 
       <div className="flex items-center gap-2">
-        <Button variant="ghost" size="icon">
-          <Search className="h-5 w-5" />
-          <span className="sr-only">Search</span>
-        </Button>
         <ThemeToggle />
 
         <DropdownMenu>
@@ -152,25 +172,37 @@ export function Header() {
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="bg-surface">
-            <nav className="grid gap-6 p-6 text-lg font-medium">
-              <Link href="/" className="flex items-center gap-2 font-bold mb-4">
-                  <Mountain className="h-6 w-6 text-primary" />
-                  <span className="text-lg">LMT</span>
-              </Link>
-              {navLinks[language].map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick(link.href);
-                  }}
-                  className="transition-colors hover:text-primary uppercase cursor-pointer"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
+             <nav className="grid gap-6 p-6 text-lg font-medium">
+                <Link href="/" className="flex items-center gap-2 font-bold mb-4">
+                    <Mountain className="h-6 w-6 text-primary" />
+                    <span className="text-lg">LMT</span>
+                </Link>
+                 <form onSubmit={handleSearchSubmit}>
+                    <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                        <Input 
+                            type="search" 
+                            placeholder="Search posts..." 
+                            className="pl-10 w-full"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+                </form>
+                {navLinks[language].map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      onClick={(e) => {
+                          e.preventDefault();
+                          handleLinkClick(link.href);
+                      }}
+                      className="transition-colors hover:text-primary uppercase cursor-pointer"
+                    >
+                      {link.label}
+                    </a>
+                ))}
+             </nav>
           </SheetContent>
         </Sheet>
       </div>

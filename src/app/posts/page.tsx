@@ -13,17 +13,21 @@ export default async function PostsListPage({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const posts: Post[] = await getPosts();
+  const searchTerm = searchParams?.search as string || '';
   
   // Extract unique categories and sort them
   const categories = ['All', ...Array.from(new Set(posts.map(p => p.category))).sort()];
+  
+  const pageTitle = searchTerm ? `Search Results for "${searchTerm}"` : "My Blog Posts";
+  const pageDescription = searchTerm ? `Found ${posts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()) || p.content.toLowerCase().includes(searchTerm.toLowerCase())).length} posts.` : "Find and manage all your articles here.";
 
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center mb-8">
         <div>
-            <h1 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">My Blog Posts</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{pageTitle}</h1>
             <p className="mt-2 text-lg text-muted-foreground">
-                Find and manage all your articles here.
+                {pageDescription}
             </p>
         </div>
         <Button size="lg" asChild>

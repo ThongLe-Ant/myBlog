@@ -20,6 +20,7 @@ export function PostListClient({ posts, categories }: PostListClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('category') || 'All';
+  const searchTerm = searchParams.get('search') || '';
   const [activeTab, setActiveTab] = useState(initialCategory);
 
   useEffect(() => {
@@ -30,9 +31,14 @@ export function PostListClient({ posts, categories }: PostListClientProps) {
     }
   }, [searchParams, activeTab]);
 
-  const filteredPosts = activeTab === 'All'
+  const filteredPostsByCategory = activeTab === 'All'
     ? posts
     : posts.filter(post => post.category === activeTab);
+
+  const filteredPosts = filteredPostsByCategory.filter(post => 
+    post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    post.content.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   
   const getExcerpt = (content: string, length = 100) => {
     const cleanedContent = content.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
@@ -42,8 +48,13 @@ export function PostListClient({ posts, categories }: PostListClientProps) {
   
   const handleTabChange = (value: string) => {
     setActiveTab(value);
-    const newUrl = value === 'All' ? '/posts' : `/posts?category=${value}`;
-    router.replace(newUrl, { scroll: false });
+    const params = new URLSearchParams(searchParams);
+    if (value === 'All') {
+      params.delete('category');
+    } else {
+      params.set('category', value);
+    }
+    router.replace(`/posts?${params.toString()}`, { scroll: false });
   }
 
   return (
@@ -86,8 +97,11 @@ export function PostListClient({ posts, categories }: PostListClientProps) {
             </div>
           ) : (
             <div className="text-center py-16 text-muted-foreground">
-                <p>No posts in this category yet.</p>
-                <p>Why not create one?</p>
+                <p>{searchTerm ? `No results found for "${searchTerm}".` : 'No posts in this category yet.'}</p>
+                {searchTerm ? 
+                    <Button variant="link" onClick={() => router.push('/posts')}>Clear Search</Button> :
+                    <p>Why not create one?</p>
+                }
             </div>
           )}
       </div>
