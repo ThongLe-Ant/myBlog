@@ -460,281 +460,280 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col w-full">
-      <section className="w-full bg-background py-16 lg:py-24">
-         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12 text-foreground">{c.strengths.title}</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Left Column */}
-              <div className="space-y-8">
-                {mainCard && (
-                    <CardInteractive
-                      title={mainCard.title}
-                      description={mainCard.description}
-                      content={mainCard.content}
-                      className="col-span-1 lg:col-span-2"
-                    />
-                )}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                   {smallCards.map((card, index) => (
+      <div id="cv-content" className="container mx-auto px-4 pt-16 sm:px-6 lg:px-8">
+        <section className="w-full bg-background py-16 lg:py-24">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12 text-foreground">{c.strengths.title}</h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Left Column */}
+                <div className="space-y-8">
+                  {mainCard && (
                       <CardInteractive
-                        key={index}
-                        title={card.title}
-                        description={card.description}
-                        content={card.content}
+                        title={mainCard.title}
+                        description={mainCard.description}
+                        content={mainCard.content}
+                        className="col-span-1 lg:col-span-2"
                       />
-                   ))}
+                  )}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {smallCards.map((card, index) => (
+                        <CardInteractive
+                          key={index}
+                          title={card.title}
+                          description={card.description}
+                          content={card.content}
+                        />
+                    ))}
+                  </div>
                 </div>
-              </div>
-              {/* Right Column */}
-              <div>
-                {sideCard && (
-                   <CardInteractive
-                      title={sideCard.title}
-                      description={sideCard.description}
-                      content={sideCard.content}
-                      className="h-full"
-                    />
-                )}
-              </div>
-            </div>
-         </div>
-      </section>
-
-      {/* Portfolio Section */}
-      <div id="cv-content" className="container mx-auto px-4 pt-24 sm:px-6 lg:px-8">
-          {/* Hero Section */}
-          <section id="home" className="relative grid lg:grid-cols-3 items-center gap-8 lg:gap-16 w-full">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="lg:col-span-1 flex justify-center lg:justify-start"
-            >
-              <Avatar className="w-40 h-40 border-4 border-primary/20 shadow-xl shadow-primary/20">
-                <AvatarImage src="https://storage.googleapis.com/maker-studio-5a93d.appspot.com/users%2FqEg2yVE49bZ230z3a42qfI4pB3t1%2Fstudios%2Fdc48b261-26c3-424a-a434-d023b36ed658%2Fimage_1724036662446_46.png" alt="Le Minh Thong Avatar" data-ai-hint="professional portrait man" />
-                <AvatarFallback>LMT</AvatarFallback>
-              </Avatar>
-            </motion.div>
-            <div className="flex flex-col gap-4 lg:col-span-2">
-                 <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.hero.title}</h2>
-                <h3 className="mt-2 text-xl font-semibold text-foreground">{c.hero.subtitle}</h3>
-                <p className="mt-4 text-lg text-muted-foreground">{c.hero.description}</p>
-                <div className="mt-6 space-y-3 text-muted-foreground">
-                  <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-primary"/><span>{c.hero.email}</span></div>
-                  <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-primary"/><span>{c.hero.phone}</span></div>
-                  <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-primary"/><span>{c.hero.location}</span></div>
-                </div>
-                <div className="mt-8 flex items-center gap-4">
-                  <Button size="lg" onClick={handleDownloadCV}>
-                    <Download className="mr-2 h-4 w-4" />
-                    {c.hero.downloadCV}
-                  </Button>
-                  <Button size="lg" variant="outline">{c.hero.contactMe}</Button>
-                </div>
-            </div>
-          </section>
-
-          {/* About Section */}
-          <SectionReveal id="about" className="scroll-mt-24 py-24">
-            <div className="w-full grid md:grid-cols-2 gap-16 items-start">
+                {/* Right Column */}
                 <div>
-                    <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.about.title}</h2>
-                    <h3 className="mt-2 text-xl font-semibold text-foreground">{c.about.subtitle}</h3>
-                    <p className="mt-4 text-lg text-muted-foreground">{c.about.p1}</p>
-                    <p className="mt-4 text-lg text-muted-foreground">{c.about.p2}</p>
-                    <p className="mt-4 text-lg text-muted-foreground">{c.about.p3}</p>
+                  {sideCard && (
+                    <CardInteractive
+                        title={sideCard.title}
+                        description={sideCard.description}
+                        content={sideCard.content}
+                        className="h-full"
+                      />
+                  )}
                 </div>
-                <div className="grid grid-cols-2 gap-8 pt-16">
-                  <div className="space-y-6">
-                    <h4 className="font-bold text-foreground">{c.about.expertiseAreas.title}</h4>
-                    <ul className="space-y-2">
-                      {c.about.expertiseAreas.items.map(area => (
-                        <li key={area} className="flex items-center gap-3 text-muted-foreground">
-                          <CheckCircle className="w-5 h-5 text-primary"/>
-                          <span>{area}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="space-y-6">
-                    <h4 className="font-bold text-foreground">{c.about.keyAchievements.title}</h4>
-                    <ul className="space-y-2">
-                      {c.about.keyAchievements.items.map(result => (
-                        <li key={result} className="flex items-center gap-3 text-muted-foreground">
-                          <Zap className="w-5 h-5 text-primary"/>
-                          <span>{result}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+              </div>
+          </div>
+        </section>
+
+        {/* Hero Section */}
+        <section id="home" className="relative grid lg:grid-cols-3 items-center gap-8 lg:gap-16 w-full py-24">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="lg:col-span-1 flex justify-center lg:justify-start"
+          >
+            <Avatar className="w-40 h-40 border-4 border-primary/20 shadow-xl shadow-primary/20">
+              <AvatarImage src="https://storage.googleapis.com/maker-studio-5a93d.appspot.com/users%2FqEg2yVE49bZ230z3a42qfI4pB3t1%2Fstudios%2Fdc48b261-26c3-424a-a434-d023b36ed658%2Fimage_1724036662446_46.png" alt="Le Minh Thong Avatar" data-ai-hint="professional portrait man" />
+              <AvatarFallback>LMT</AvatarFallback>
+            </Avatar>
+          </motion.div>
+          <div className="flex flex-col gap-4 lg:col-span-2">
+                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.hero.title}</h2>
+              <h3 className="mt-2 text-xl font-semibold text-foreground">{c.hero.subtitle}</h3>
+              <p className="mt-4 text-lg text-muted-foreground">{c.hero.description}</p>
+              <div className="mt-6 space-y-3 text-muted-foreground">
+                <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-primary"/><span>{c.hero.email}</span></div>
+                <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-primary"/><span>{c.hero.phone}</span></div>
+                <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-primary"/><span>{c.hero.location}</span></div>
+              </div>
+              <div className="mt-8 flex items-center gap-4">
+                <Button size="lg" onClick={handleDownloadCV}>
+                  <Download className="mr-2 h-4 w-4" />
+                  {c.hero.downloadCV}
+                </Button>
+                <Button size="lg" variant="outline">{c.hero.contactMe}</Button>
+              </div>
+          </div>
+        </section>
+
+        {/* About Section */}
+        <SectionReveal id="about" className="scroll-mt-24 py-24">
+          <div className="w-full grid md:grid-cols-2 gap-16 items-start">
+              <div>
+                  <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.about.title}</h2>
+                  <h3 className="mt-2 text-xl font-semibold text-foreground">{c.about.subtitle}</h3>
+                  <p className="mt-4 text-lg text-muted-foreground">{c.about.p1}</p>
+                  <p className="mt-4 text-lg text-muted-foreground">{c.about.p2}</p>
+                  <p className="mt-4 text-lg text-muted-foreground">{c.about.p3}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-8 pt-16">
+                <div className="space-y-6">
+                  <h4 className="font-bold text-foreground">{c.about.expertiseAreas.title}</h4>
+                  <ul className="space-y-2">
+                    {c.about.expertiseAreas.items.map(area => (
+                      <li key={area} className="flex items-center gap-3 text-muted-foreground">
+                        <CheckCircle className="w-5 h-5 text-primary"/>
+                        <span>{area}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+                <div className="space-y-6">
+                  <h4 className="font-bold text-foreground">{c.about.keyAchievements.title}</h4>
+                  <ul className="space-y-2">
+                    {c.about.keyAchievements.items.map(result => (
+                      <li key={result} className="flex items-center gap-3 text-muted-foreground">
+                        <Zap className="w-5 h-5 text-primary"/>
+                        <span>{result}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+          </div>
+        </SectionReveal>
+        
+        {/* Skills Section */}
+        <SectionReveal id="skills" className="scroll-mt-24 py-24">
+          <div className="w-full">
+              <div className="text-center mb-16">
+                  <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.skills.title}</h2>
+                  <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                      {c.skills.description}
+                  </p>
+              </div>
+              <div className="grid md:grid-cols-2 gap-12">
+                  <div>
+                      <h3 className="text-2xl font-bold text-foreground mb-6">{c.skills.domain.title}</h3>
+                      <div className="space-y-4">
+                          {c.skills.domain.items.map(skill => (
+                              <div key={skill.name}>
+                                  <div className="flex justify-between mb-1">
+                                      <span className="font-medium text-muted-foreground">{skill.name}</span>
+                                      <span className="text-sm font-semibold text-primary">{skill.level}</span>
+                                  </div>
+                              </div>
+                          ))}
+                      </div>
+                  </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-foreground mb-6">{c.skills.tech.title}</h3>
+                      <div className="flex flex-wrap gap-3">
+                          {c.skills.tech.items.map(tech => (
+                              <Badge key={tech} variant="secondary" className="text-base px-4 py-2">{tech}</Badge>
+                          ))}
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </SectionReveal>
+
+        {/* Experience Section */}
+        <SectionReveal id="experience" className="scroll-mt-24 py-24">
+          <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.experience.title}</h2>
+              <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                {c.experience.description}
+              </p>
+          </div>
+          <div className="relative w-full max-w-4xl mx-auto">
+                <div className="absolute left-1/2 top-0 h-full w-0.5 bg-border/50 hidden md:block" />
+                <div className="space-y-16">
+                  {c.experience.items.map((exp, index) => (
+                      <div key={index} className="md:grid md:grid-cols-2 md:gap-16 relative">
+                          {/* Content */}
+                          <div className={`${index % 2 === 0 ? 'md:order-2 md:text-right' : 'md:text-left'}`}>
+                              <motion.div
+                                  initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+                                  whileInView={{ opacity: 1, x: 0 }}
+                                  viewport={{ once: true, amount: 0.5 }}
+                                  transition={{ duration: 0.6 }}
+                                  className={`p-6 bg-surface border border-border/50 rounded-2xl w-full ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}
+                              >
+                                  <p className="text-sm font-semibold text-primary">{exp.period}</p>
+                                  <h3 className="mt-1 text-xl font-bold text-foreground">{exp.company}</h3>
+                                  <p className="text-base font-semibold text-primary/80">{exp.role}</p>
+                                  <p className="mt-3 text-muted-foreground">{exp.description}</p>
+                              </motion.div>
+                          </div>
+                          
+                          {/* Timeline Circle */}
+                          <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 h-4 w-4 rounded-full bg-primary ring-8 ring-background" />
+
+                          {/* Spacer */}
+                          <div className={`${index % 2 === 0 ? 'md:order-1' : ''}`}></div>
+                      </div>
+                  ))}
+                </div>
+          </div>
+        </SectionReveal>
+
+        {/* Projects Section */}
+        <SectionReveal id="projects" className="scroll-mt-24 py-24">
+          <div className="w-full">
+              <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.projects.title}</h2>
+              <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                  {c.projects.description}
+              </p>
+              </div>
+              <div className="mt-12 grid gap-8 md:grid-cols-2 lg:gap-12">
+                  {c.projects.items.map((project, index) => (
+                      <SectionReveal key={project.title} options={{ delay: index * 0.1 }}>
+                          <Card className="bg-surface">
+                              <CardContent className="p-4">
+                                <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-4">
+                                    <Image
+                                    src={project.imageUrl}
+                                    alt={project.title}
+                                    fill
+                                    className="object-cover"
+                                    data-ai-hint={project.aiHint}
+                                    />
+                                </div>
+                                <h3 className="text-lg font-bold text-foreground">{project.title}</h3>
+                                <p className="mt-2 text-sm text-muted-foreground flex-grow">{project.description}</p>
+                              </CardContent>
+                          </Card>
+                      </SectionReveal>
+                  ))}
+              </div>
+          </div>
+        </SectionReveal>
+
+        {/* Career Goals Section */}
+          <SectionReveal id="goals" className="scroll-mt-24 py-24">
+            <div className="w-full text-center">
+              <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.goals.title}</h2>
+              <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
+                {c.goals.description}
+              </p>
             </div>
           </SectionReveal>
-          
-          {/* Skills Section */}
-          <SectionReveal id="skills" className="scroll-mt-24 py-24">
-            <div className="w-full">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.skills.title}</h2>
-                    <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                        {c.skills.description}
-                    </p>
-                </div>
+        
+        {/* Contact Section */}
+        <SectionReveal id="contact" className="scroll-mt-24 py-24">
+          <div className="w-full">
+              <Card className="p-6 md:p-8 lg:p-12 bg-surface border-border/50">
                 <div className="grid md:grid-cols-2 gap-12">
                     <div>
-                        <h3 className="text-2xl font-bold text-foreground mb-6">{c.skills.domain.title}</h3>
-                        <div className="space-y-4">
-                            {c.skills.domain.items.map(skill => (
-                                <div key={skill.name}>
-                                    <div className="flex justify-between mb-1">
-                                        <span className="font-medium text-muted-foreground">{skill.name}</span>
-                                        <span className="text-sm font-semibold text-primary">{skill.level}</span>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                     <div>
-                        <h3 className="text-2xl font-bold text-foreground mb-6">{c.skills.tech.title}</h3>
-                        <div className="flex flex-wrap gap-3">
-                            {c.skills.tech.items.map(tech => (
-                                <Badge key={tech} variant="secondary" className="text-base px-4 py-2">{tech}</Badge>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </SectionReveal>
-
-          {/* Experience Section */}
-          <SectionReveal id="experience" className="scroll-mt-24 py-24">
-            <div className="text-center mb-16">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.experience.title}</h2>
-                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                  {c.experience.description}
-                </p>
-            </div>
-            <div className="relative w-full max-w-4xl mx-auto">
-                 <div className="absolute left-1/2 top-0 h-full w-0.5 bg-border/50 hidden md:block" />
-                 <div className="space-y-16">
-                    {c.experience.items.map((exp, index) => (
-                        <div key={index} className="md:grid md:grid-cols-2 md:gap-16 relative">
-                            {/* Content */}
-                            <div className={`${index % 2 === 0 ? 'md:order-2 md:text-right' : 'md:text-left'}`}>
-                                <motion.div
-                                    initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true, amount: 0.5 }}
-                                    transition={{ duration: 0.6 }}
-                                    className={`p-6 bg-surface border border-border/50 rounded-2xl w-full ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}
-                                >
-                                    <p className="text-sm font-semibold text-primary">{exp.period}</p>
-                                    <h3 className="mt-1 text-xl font-bold text-foreground">{exp.company}</h3>
-                                    <p className="text-base font-semibold text-primary/80">{exp.role}</p>
-                                    <p className="mt-3 text-muted-foreground">{exp.description}</p>
-                                </motion.div>
+                        <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.contact.title}</h2>
+                        <p className="mt-4 text-lg text-muted-foreground">
+                            {c.contact.description}
+                        </p>
+                        <div className="mt-8 space-y-4">
+                            <div className="flex items-center gap-4 text-lg">
+                                <Mail className="w-6 h-6 text-primary"/>
+                                <span className="text-muted-foreground">{c.hero.email}</span>
                             </div>
-                            
-                            {/* Timeline Circle */}
-                            <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 h-4 w-4 rounded-full bg-primary ring-8 ring-background" />
-
-                            {/* Spacer */}
-                            <div className={`${index % 2 === 0 ? 'md:order-1' : ''}`}></div>
+                            <div className="flex items-center gap-4 text-lg">
+                                <Phone className="w-6 h-6 text-primary"/>
+                                <span className="text-muted-foreground">{c.hero.phone}</span>
+                            </div>
+                            <div className="flex items-center gap-4 text-lg">
+                                <MapPin className="w-6 h-6 text-primary"/>
+                                <span className="text-muted-foreground">{c.hero.location}</span>
+                            </div>
                         </div>
-                    ))}
-                 </div>
-            </div>
-          </SectionReveal>
-
-          {/* Projects Section */}
-          <SectionReveal id="projects" className="scroll-mt-24 py-24">
-            <div className="w-full">
-                <div className="text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.projects.title}</h2>
-                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    {c.projects.description}
-                </p>
+                    </div>
+                    <form className="space-y-6">
+                        <div className="space-y-2">
+                            <label htmlFor="name" className="text-sm font-medium text-foreground">{c.contact.form.name}</label>
+                            <Input id="name" placeholder={c.contact.form.namePlaceholder} />
+                        </div>
+                        <div className="space-y-2">
+                            <label htmlFor="email" className="text-sm font-medium text-foreground">{c.contact.form.email}</label>
+                            <Input id="email" type="email" placeholder={c.contact.form.emailPlaceholder} />
+                        </div>
+                        <div className="space-y-2">
+                            <label htmlFor="message" className="text-sm font-medium text-foreground">{c.contact.form.message}</label>
+                            <Textarea id="message" placeholder={c.contact.form.messagePlaceholder} rows={4}/>
+                        </div>
+                        <Button type="submit" size="lg" className="w-full">
+                            {c.contact.form.submit} <Send className="ml-2"/>
+                        </Button>
+                    </form>
                 </div>
-                <div className="mt-12 grid gap-8 md:grid-cols-2 lg:gap-12">
-                    {c.projects.items.map((project, index) => (
-                        <SectionReveal key={project.title} options={{ delay: index * 0.1 }}>
-                            <Card className="bg-surface">
-                               <CardContent className="p-4">
-                                  <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-4">
-                                      <Image
-                                      src={project.imageUrl}
-                                      alt={project.title}
-                                      fill
-                                      className="object-cover"
-                                      data-ai-hint={project.aiHint}
-                                      />
-                                  </div>
-                                  <h3 className="text-lg font-bold text-foreground">{project.title}</h3>
-                                  <p className="mt-2 text-sm text-muted-foreground flex-grow">{project.description}</p>
-                               </CardContent>
-                            </Card>
-                        </SectionReveal>
-                    ))}
-                </div>
-            </div>
-          </SectionReveal>
-
-          {/* Career Goals Section */}
-           <SectionReveal id="goals" className="scroll-mt-24 py-24">
-             <div className="w-full text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.goals.title}</h2>
-                <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
-                  {c.goals.description}
-                </p>
-             </div>
-           </SectionReveal>
-          
-          {/* Contact Section */}
-          <SectionReveal id="contact" className="scroll-mt-24 py-24">
-            <div className="w-full">
-                <Card className="p-6 md:p-8 lg:p-12 bg-surface border-border/50">
-                  <div className="grid md:grid-cols-2 gap-12">
-                      <div>
-                          <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.contact.title}</h2>
-                          <p className="mt-4 text-lg text-muted-foreground">
-                              {c.contact.description}
-                          </p>
-                          <div className="mt-8 space-y-4">
-                              <div className="flex items-center gap-4 text-lg">
-                                  <Mail className="w-6 h-6 text-primary"/>
-                                  <span className="text-muted-foreground">{c.hero.email}</span>
-                              </div>
-                              <div className="flex items-center gap-4 text-lg">
-                                  <Phone className="w-6 h-6 text-primary"/>
-                                  <span className="text-muted-foreground">{c.hero.phone}</span>
-                              </div>
-                              <div className="flex items-center gap-4 text-lg">
-                                  <MapPin className="w-6 h-6 text-primary"/>
-                                  <span className="text-muted-foreground">{c.hero.location}</span>
-                              </div>
-                          </div>
-                      </div>
-                      <form className="space-y-6">
-                          <div className="space-y-2">
-                              <label htmlFor="name" className="text-sm font-medium text-foreground">{c.contact.form.name}</label>
-                              <Input id="name" placeholder={c.contact.form.namePlaceholder} />
-                          </div>
-                          <div className="space-y-2">
-                              <label htmlFor="email" className="text-sm font-medium text-foreground">{c.contact.form.email}</label>
-                              <Input id="email" type="email" placeholder={c.contact.form.emailPlaceholder} />
-                          </div>
-                          <div className="space-y-2">
-                              <label htmlFor="message" className="text-sm font-medium text-foreground">{c.contact.form.message}</label>
-                              <Textarea id="message" placeholder={c.contact.form.messagePlaceholder} rows={4}/>
-                          </div>
-                          <Button type="submit" size="lg" className="w-full">
-                              {c.contact.form.submit} <Send className="ml-2"/>
-                          </Button>
-                      </form>
-                  </div>
-                </Card>
-            </div>
-          </SectionReveal>
+              </Card>
+          </div>
+        </SectionReveal>
       </div>
     </div>
   );
