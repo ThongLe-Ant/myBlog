@@ -23,13 +23,14 @@ import { motion } from 'framer-motion';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { SectionReveal } from '@/components/motion/section-reveal';
 import { HeroHighlight } from '@/components/motion/hero-highlight';
 import { CardInteractive } from '@/components/motion/card-interactive';
 import React from 'react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const stats = [
     { value: '10+', label: 'Years of Experience' },
@@ -328,34 +329,42 @@ export default function HomePage() {
                     My career journey over the past 10 years
                 </p>
             </div>
-            <div className="mt-12 relative border-l-2 border-primary/20 pl-8">
+            <Carousel className="w-full mt-12"
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+            >
+              <CarouselContent>
                 {experiences.map((exp, index) => (
-                    <motion.div
-                        key={exp.company}
-                        className="mb-12"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.15 }}
-                        viewport={{ once: true }}
-                    >
-                        <div className="absolute -left-[1.05rem] mt-1.5 h-8 w-8 rounded-full bg-background border-4 border-primary flex items-center justify-center">
-                            <Briefcase className="w-4 h-4 text-primary"/>
-                        </div>
-                        <p className="text-sm font-semibold text-primary">{exp.period}</p>
-                        <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company} - {exp.role}</h3>
-                        <p className="mt-2 text-muted-foreground">{exp.description}</p>
-                        <ul className="mt-3 space-y-1 list-inside">
-                            {exp.tasks.map(task => (
-                                <li key={task} className="flex items-start gap-2 text-muted-foreground">
-                                    <ChevronRight className="w-4 h-4 text-accent mt-1 shrink-0"/>
-                                    <span>{task}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        {exp.highlight && <Badge variant="secondary" className="mt-3 bg-accent/10 text-accent-foreground border-accent/20">{exp.highlight}</Badge>}
-                    </motion.div>
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <div className="p-1 h-full">
+                      <Card className="h-full flex flex-col bg-surface/80 border-border/50">
+                        <CardContent className="flex flex-col items-start justify-between p-6 flex-grow">
+                          <div>
+                            <p className="text-sm font-semibold text-primary">{exp.period}</p>
+                            <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
+                            <p className="text-base font-semibold text-primary/80">{exp.role}</p>
+                            <p className="mt-3 text-muted-foreground">{exp.description}</p>
+                            <ul className="mt-3 space-y-1 list-inside">
+                                {exp.tasks.map(task => (
+                                    <li key={task} className="flex items-start gap-2 text-muted-foreground">
+                                        <ChevronRight className="w-4 h-4 text-accent mt-1 shrink-0"/>
+                                        <span>{task}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                          </div>
+                          {exp.highlight && <Badge variant="secondary" className="mt-4 bg-accent/10 text-accent-foreground border-accent/20">{exp.highlight}</Badge>}
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CarouselItem>
                 ))}
-            </div>
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
         </div>
       </SectionReveal>
 
