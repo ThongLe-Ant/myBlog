@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Mountain } from 'lucide-react';
+import { Menu, Mountain, Search } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
@@ -20,20 +20,18 @@ import { useRouter, usePathname } from 'next/navigation';
 
 const navLinks = {
   en: [
-    { href: '/about#about', label: 'About' },
-    { href: '/about#skills', label: 'Skills' },
-    { href: '/about#experience', label: 'Experience' },
-    { href: '/about#projects', label: 'Projects' },
+    { href: '/', label: 'Home' },
+    { href: '/products', label: 'Product' },
+    { href: '/about#projects', label: 'Project' },
     { href: '/posts', label: 'Blog' },
-    { href: '/about#contact', label: 'Contact' },
+    { href: '/about', label: 'About' },
   ],
   vi: [
-      { href: '/about#about', label: 'Giới thiệu' },
-      { href: '/about#skills', label: 'Kỹ năng' },
-      { href: '/about#experience', label: 'Kinh nghiệm' },
+      { href: '/', label: 'Trang chủ' },
+      { href: '/products', label: 'Sản phẩm' },
       { href: '/about#projects', label: 'Dự án' },
       { href: '/posts', label: 'Bài viết' },
-      { href: '/about#contact', label: 'Liên hệ' },
+      { href: '/about', label: 'Giới thiệu' },
   ]
 };
 
@@ -76,19 +74,15 @@ export function Header() {
   const pathname = usePathname();
 
   const handleLinkClick = (href: string) => {
-    // If it's a link to another page (like /posts or /about#...)
-    if (!href.startsWith('/#') || (href.startsWith('/about#') && pathname !== '/about')) {
+    if (href.startsWith('/') && href.includes('#')) {
+      const [path, id] = href.split('#');
+       if (pathname === path) {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      } else {
         router.push(href);
-    } else {
-      // If it's a hash link on the current page (which should be the homepage now)
-      const elementId = href.substring(2);
-      const element = document.getElementById(elementId);
-      if (element) {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
       }
+    } else {
+        router.push(href);
     }
   };
 
@@ -127,6 +121,10 @@ export function Header() {
       </nav>
 
       <div className="flex items-center gap-2">
+        <Button variant="ghost" size="icon">
+          <Search className="h-5 w-5" />
+          <span className="sr-only">Search</span>
+        </Button>
         <ThemeToggle />
 
         <DropdownMenu>
