@@ -45,6 +45,13 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
         return cleanedContent.substring(0, length) + '...';
     }
 
+    const chunk = <T,>(arr: T[], size: number) =>
+        Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+            arr.slice(i * size, i * size + size)
+    );
+
+    const chunkedRegularPosts = chunk(regularPosts, 4);
+
     const MainPostCard = ({ post }: { post: Post }) => (
         <Link href={`/posts/${post.slug}`} className="block h-full group">
             <Card className="relative h-full min-h-[480px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-xl group-hover:-translate-y-1 rounded-2xl">
@@ -53,7 +60,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                         src={post.imageUrl}
                         alt={post.title}
                         fill
-                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 z-0"
+                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
                         data-ai-hint="tech blog"
                     />
                 )}
@@ -138,7 +145,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                 {regularPosts.length > 0 && (
                      <div className="flex flex-col">
                         <Carousel
-                            opts={{ align: "start", loop: regularPosts.length > 4 }}
+                            opts={{ align: "start", loop: chunkedRegularPosts.length > 1 }}
                             plugins={[
                                 Autoplay({
                                     delay: 5500,
@@ -147,22 +154,26 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                             ]}
                             className="w-full group col-span-1"
                         >
-                            <CarouselContent className="-ml-2">
-                                 {regularPosts.map((post, index) => (
-                                    <CarouselItem key={post.slug} className="pl-2 basis-full sm:basis-1/2 lg:basis-1/4">
-                                         <SectionReveal className="group h-full" options={{ delay: 0.2 + index * 0.1 }}>
-                                            <SidePostCard post={post} />
-                                         </SectionReveal>
+                            <CarouselContent className="-ml-4">
+                                 {chunkedRegularPosts.map((postChunk, index) => (
+                                    <CarouselItem key={index} className="pl-4 basis-full">
+                                         <div className="grid grid-cols-2 gap-4">
+                                            {postChunk.map((post) => (
+                                                <SectionReveal key={post.slug} className="h-full" options={{ delay: 0.2 + index * 0.1 }}>
+                                                    <SidePostCard post={post} />
+                                                </SectionReveal>
+                                            ))}
+                                         </div>
                                     </CarouselItem>
                                 ))}
                             </CarouselContent>
-                             {regularPosts.length > 4 && (
+                             {chunkedRegularPosts.length > 1 && (
                                 <>
                                     <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                     <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </>
                              )}
-                            {regularPosts.length > 4 && <CarouselDots />}
+                            {chunkedRegularPosts.length > 1 && <CarouselDots />}
                         </Carousel>
                     </div>
                 )}
