@@ -18,10 +18,16 @@ const content = {
   }
 };
 
-const categoryColors = [
-  'bg-blue-500/80', 'bg-purple-500/80', 'bg-green-500/80',
-  'bg-pink-500/80', 'bg-orange-500/80', 'bg-red-500/80',
-  'bg-indigo-500/80', 'bg-teal-500/80', 'bg-yellow-500/80'
+const categoryGradients = [
+  'bg-gradient-to-br from-sky-500 to-blue-600',
+  'bg-gradient-to-br from-purple-500 to-indigo-600',
+  'bg-gradient-to-br from-emerald-500 to-green-600',
+  'bg-gradient-to-br from-pink-500 to-rose-600',
+  'bg-gradient-to-br from-amber-500 to-orange-600',
+  'bg-gradient-to-br from-red-500 to-red-700',
+  'bg-gradient-to-br from-violet-500 to-purple-600',
+  'bg-gradient-to-br from-teal-500 to-cyan-600',
+  'bg-gradient-to-br from-yellow-400 to-amber-500'
 ];
 
 interface CategoryBrowserProps {
@@ -47,11 +53,25 @@ export function CategoryBrowser({ categories, categoryCounts }: CategoryBrowserP
                 {categories.map((category, index) => (
                     <Link href={`/posts?category=${encodeURIComponent(category)}`} key={category} className="group">
                        <Card className={cn(
-                         'text-white p-6 rounded-2xl flex flex-col justify-end min-h-[120px] transition-transform duration-300 ease-smooth group-hover:scale-105 group-hover:shadow-xl',
-                         categoryColors[index % categoryColors.length]
+                         'relative text-white p-6 rounded-2xl flex flex-col justify-end min-h-[120px] transition-transform duration-300 ease-smooth group-hover:scale-105 group-hover:shadow-xl overflow-hidden',
+                         categoryGradients[index % categoryGradients.length]
                        )}>
-                           <h3 className="font-bold text-lg">{category}</h3>
-                           <p className="text-sm opacity-80">{`${categoryCounts[category] || 0} articles`}</p>
+                           <div
+                             className="absolute inset-0 w-full h-full bg-black/10"
+                             style={{
+                                backgroundImage: `
+                                  linear-gradient(45deg, hsla(0,0%,100%,.1) 25%, transparent 25%),
+                                  linear-gradient(-45deg, hsla(0,0%,100%,.1) 25%, transparent 25%),
+                                  linear-gradient(45deg, transparent 75%, hsla(0,0%,100%,.1) 75%),
+                                  linear-gradient(-45deg, transparent 75%, hsla(0,0%,100%,.1) 75%)`,
+                                backgroundSize: '20px 20px',
+                                backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
+                             }}
+                           />
+                           <div className="relative z-10">
+                              <h3 className="font-bold text-lg">{category}</h3>
+                              <p className="text-sm opacity-80">{`${categoryCounts[category] || 0} articles`}</p>
+                           </div>
                        </Card>
                     </Link>
                 ))}
