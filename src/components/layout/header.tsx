@@ -2,14 +2,8 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Mountain, Globe } from 'lucide-react';
+import { Menu, Mountain, Search } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -37,7 +31,7 @@ export function Header() {
           <Link
             key={link.label}
             href={link.href}
-            className="relative rounded-md px-3 py-2 transition-colors hover:text-primary"
+            className="relative rounded-md px-3 py-2 uppercase tracking-wider transition-colors hover:text-primary"
             onMouseOver={() => setHoveredPath(link.href)}
             onMouseLeave={() => setHoveredPath('')}
           >
@@ -56,20 +50,10 @@ export function Header() {
       </nav>
 
       <div className="flex items-center gap-4">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon">
-              <Globe className="h-4 w-4" />
-              <span className="sr-only">Change language</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>EN</DropdownMenuItem>
-            <DropdownMenuItem>VI</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        
-        <Button>Contact Me</Button>
+        <Button variant="ghost" size="icon">
+          <Search className="h-5 w-5" />
+          <span className="sr-only">Search</span>
+        </Button>
         
         <Sheet>
           <SheetTrigger asChild>
@@ -88,7 +72,7 @@ export function Header() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="transition-colors hover:text-primary"
+                  className="transition-colors hover:text-primary uppercase"
                 >
                   {link.label}
                 </Link>
