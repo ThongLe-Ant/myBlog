@@ -7,29 +7,24 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { FilePenLine, ArrowRight } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import type { Post } from '@/lib/posts';
 import Link from 'next/link';
 
 interface PostListClientProps {
     posts: Post[];
     categories: string[];
+    initialCategory: string;
+    searchTerm: string;
 }
 
-export function PostListClient({ posts, categories }: PostListClientProps) {
+export function PostListClient({ posts, categories, initialCategory, searchTerm }: PostListClientProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const initialCategory = searchParams.get('category') || 'All';
-  const searchTerm = searchParams.get('search') || '';
   const [activeTab, setActiveTab] = useState(initialCategory);
 
   useEffect(() => {
-    // Sync tab with URL param if it changes
-    const categoryFromUrl = searchParams.get('category');
-    if (categoryFromUrl && categoryFromUrl !== activeTab) {
-      setActiveTab(categoryFromUrl);
-    }
-  }, [searchParams, activeTab]);
+    setActiveTab(initialCategory);
+  }, [initialCategory]);
 
   const filteredPostsByCategory = activeTab === 'All'
     ? posts
@@ -37,6 +32,7 @@ export function PostListClient({ posts, categories }: PostListClientProps) {
 
   const filteredPosts = filteredPostsByCategory.filter(post => 
     post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (post.excerpt && post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())) ||
     post.content.toLowerCase().includes(searchTerm.toLowerCase())
   );
   
@@ -48,7 +44,7 @@ export function PostListClient({ posts, categories }: PostListClientProps) {
   
   const handleTabChange = (value: string) => {
     setActiveTab(value);
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(window.location.search);
     if (value === 'All') {
       params.delete('category');
     } else {

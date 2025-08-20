@@ -13,7 +13,8 @@ export default async function PostsListPage({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const posts: Post[] = await getPosts();
-  const searchTerm = searchParams?.search as string || '';
+  const searchTerm = (searchParams?.search as string) || '';
+  const category = (searchParams?.category as string) || 'All';
   
   // Extract unique categories and sort them
   const categories = ['All', ...Array.from(new Set(posts.map(p => p.category))).sort()];
@@ -38,7 +39,12 @@ export default async function PostsListPage({
         </Button>
       </div>
 
-      <PostListClient posts={posts} categories={categories} />
+      <PostListClient 
+        posts={posts} 
+        categories={categories}
+        initialCategory={category}
+        searchTerm={searchTerm}
+      />
     </div>
   );
 }
