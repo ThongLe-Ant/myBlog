@@ -145,7 +145,7 @@ export default function EditPostPage() {
     } finally {
         setIsDeleting(false);
     }
-  }
+  };
 
   if (isLoading) {
     return (
@@ -156,12 +156,12 @@ export default function EditPostPage() {
                         <CardTitle className="text-primary text-2xl">Loading Editor...</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>Loading post content...</p>
+                        <p>Loading post content, please wait...</p>
                     </CardContent>
                 </Card>
             </div>
         </div>
-    )
+    );
   }
 
   return (
