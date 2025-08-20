@@ -72,7 +72,7 @@ export function Header() {
     <header className="sticky top-0 z-50 flex h-16 w-full items-center justify-between border-b border-border/20 bg-background/80 px-4 backdrop-blur-xl md:px-6">
       <Link href="/" className="flex items-center gap-2 font-bold" onMouseOver={() => setHoveredPath('/')} onMouseLeave={() => setHoveredPath('')}>
         <Mountain className="h-6 w-6 text-primary" />
-        <span className="text-lg font-semibold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-stone-400">LMT</span>
+        <span className="text-lg font-semibold tracking-wider text-foreground">LMT</span>
       </Link>
       
       <nav className="hidden items-center gap-1 text-sm font-medium md:flex">

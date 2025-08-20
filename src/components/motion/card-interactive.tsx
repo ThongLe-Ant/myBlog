@@ -5,53 +5,88 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Code, Pyramid, Rocket } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 
 interface CardInteractiveProps {
   title: string;
   description: string;
-  tags: string[];
-  imageUrl: string;
-  aiHint?: string;
+  content?: {
+    type: 'image' | 'thumbnails' | 'icon';
+    url?: string;
+    hint?: string;
+    items?: { title: string; image: string; hint: string }[];
+    name?: string;
+  };
   className?: string;
-  viewDetailsText?: string;
 }
+
+const iconMap: { [key: string]: React.ElementType } = {
+  Architecture: Pyramid,
+  Code: Code,
+  Tech: Rocket,
+};
+
 
 export function CardInteractive({
   title,
   description,
-  tags,
-  imageUrl,
-  aiHint,
-  className,
-  viewDetailsText = 'View Details'
+  content,
+  className
 }: CardInteractiveProps) {
   
-  return (
-     <div
-      className={cn(
-        'group relative w-full h-full rounded-2xl bg-surface border border-border/50 shadow-lg transition-shadow duration-300 ease-smooth hover:shadow-2xl hover:shadow-primary/20',
-        className
-      )}
-    >
-      <Card className="bg-transparent border-0 shadow-none h-full">
-        <CardContent className="p-4 h-full flex flex-col">
-          <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-4">
+  const renderContent = () => {
+    if (!content) return null;
+    switch (content.type) {
+      case 'image':
+        return (
+          <div className="relative w-full h-full min-h-[300px] rounded-lg overflow-hidden">
             <Image
-              src={imageUrl}
+              src={content.url!}
               alt={title}
               fill
               className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
-              data-ai-hint={aiHint}
+              data-ai-hint={content.hint}
             />
-             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
           </div>
-          <h3 className="text-lg font-bold text-secondary">{title}</h3>
-          <p className="mt-2 text-sm text-muted-foreground flex-grow">{description}</p>
-        </CardContent>
-      </Card>
-    </div>
+        );
+      case 'thumbnails':
+        return (
+          <div className="mt-4 grid grid-cols-3 gap-4">
+            {content.items?.map((item, index) => (
+              <div key={index} className="relative aspect-square rounded-md overflow-hidden">
+                 <Image src={item.image} alt={item.title} fill className="object-cover" data-ai-hint={item.hint} />
+              </div>
+            ))}
+          </div>
+        );
+      case 'icon':
+          const Icon = content.name ? iconMap[content.name] : null;
+          return (
+             <div className="flex justify-center items-center h-full">
+                {Icon && <Icon className="w-16 h-16 text-primary/50" />}
+             </div>
+          )
+      default:
+        return null;
+    }
+  };
+  
+  return (
+     <Card
+      className={cn(
+        'group relative w-full h-full rounded-2xl bg-surface/50 border-border/50 p-6 flex flex-col',
+        className
+      )}
+    >
+      <div className="flex-grow">
+        <h3 className="text-xl font-bold text-foreground">{title}</h3>
+        <p className="mt-2 text-md text-muted-foreground">{description}</p>
+      </div>
+      <div className="mt-4">
+        {renderContent()}
+      </div>
+    </Card>
   );
 }

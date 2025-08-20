@@ -18,10 +18,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} dark`} suppressHydrationWarning>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <body className="bg-background text-foreground antialiased">
         <LanguageProvider>
-          <div className="noise-bg"></div>
           <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow">{children}</main>

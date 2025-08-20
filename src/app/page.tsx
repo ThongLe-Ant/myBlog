@@ -41,6 +41,61 @@ const content = {
       downloadCV: "Download CV",
       contactMe: "Contact Me"
     },
+    strengths: {
+      title: "What makes my work different?",
+      items: [
+        {
+          title: "Practical Project Experience",
+          description: "Hands-on experience in designing and developing large-scale enterprise systems.",
+          type: "main",
+          content: {
+            type: 'thumbnails',
+            items: [
+              { title: 'Cashless Payment', image: 'https://placehold.co/300x200.png', hint: 'payment gateway' },
+              { title: 'Order Management', image: 'https://placehold.co/300x200.png', hint: 'inventory system' },
+              { title: 'IoT for Production', image: 'https://placehold.co/300x200.png', hint: 'iot dashboard' },
+            ]
+          }
+        },
+        {
+          title: "Flexible & Adaptive",
+          description: "Ability to quickly adapt to new technologies and deliver solutions suitable for various business needs.",
+          type: "side",
+          content: {
+            type: 'image',
+            url: 'https://placehold.co/600x800.png',
+            hint: 'team brainstorming'
+          }
+        },
+        {
+          title: "Architecture Mindset",
+          description: "Focus on building scalable, maintainable, and high-performance systems.",
+          type: "small",
+          content: {
+            type: 'icon',
+            name: 'Architecture'
+          }
+        },
+        {
+          title: "70% Hands-on",
+          description: "A significant portion of my time is dedicated to hands-on development and project implementation.",
+          type: "small",
+           content: {
+            type: 'icon',
+            name: 'Code'
+          }
+        },
+        {
+          title: "Tech Enthusiast",
+          description: "Always exploring and applying the latest trends in software development.",
+          type: "small",
+          content: {
+            type: 'icon',
+            name: 'Tech'
+          }
+        }
+      ]
+    },
     about: {
       title: "About Me",
       subtitle: "Software engineer with over 10 years of experience in enterprise systems and ERP solutions.",
@@ -169,19 +224,6 @@ const content = {
             messagePlaceholder: "Enter your message",
             submit: "Send Message"
         }
-    },
-    blogBanner: {
-      categoriesTitle: "Post Categories",
-      categoriesDescription: "Explore posts by topic.",
-      searchButton: "Search all posts",
-      viewDetails: "View details",
-      categories: [
-          { name: 'System Architecture', count: 5 },
-          { name: 'Backend Development', count: 8 },
-          { name: 'Cloud & DevOps', count: 3 },
-          { name: 'Career & Productivity', count: 4 },
-          { name: 'Project Management', count: 2 },
-      ]
     }
   },
   vi: {
@@ -194,6 +236,61 @@ const content = {
       location: "TP.HCM, Việt Nam",
       downloadCV: "Tải CV",
       contactMe: "Liên hệ"
+    },
+     strengths: {
+      title: "Điều gì làm nên sự khác biệt?",
+      items: [
+        {
+          title: "Kinh nghiệm dự án thực tế",
+          description: "Kinh nghiệm thực chiến trong việc thiết kế và phát triển các hệ thống doanh nghiệp quy mô lớn.",
+          type: "main",
+          content: {
+            type: 'thumbnails',
+            items: [
+              { title: 'Thanh toán không tiền mặt', image: 'https://placehold.co/300x200.png', hint: 'payment gateway' },
+              { title: 'Quản lý đơn hàng', image: 'https://placehold.co/300x200.png', hint: 'inventory system' },
+              { title: 'IoT trong sản xuất', image: 'https://placehold.co/300x200.png', hint: 'iot dashboard' },
+            ]
+          }
+        },
+        {
+          title: "Linh hoạt & Thích ứng",
+          description: "Khả năng thích ứng nhanh với công nghệ mới và cung cấp các giải pháp phù hợp với nhu cầu kinh doanh đa dạng.",
+          type: "side",
+          content: {
+            type: 'image',
+            url: 'https://placehold.co/600x800.png',
+            hint: 'team brainstorming'
+          }
+        },
+        {
+          title: "Tư duy kiến trúc sư",
+          description: "Tập trung vào việc xây dựng các hệ thống có khả năng mở rộng, dễ bảo trì và hiệu năng cao.",
+          type: "small",
+           content: {
+            type: 'icon',
+            name: 'Architecture'
+          }
+        },
+        {
+          title: "70% Thực hành",
+          description: "Phần lớn thời gian của tôi dành cho việc phát triển và triển khai dự án thực tế.",
+          type: "small",
+           content: {
+            type: 'icon',
+            name: 'Code'
+          }
+        },
+        {
+          title: "Đam mê công nghệ",
+          description: "Luôn khám phá và áp dụng các xu hướng mới nhất trong phát triển phần mềm.",
+          type: "small",
+           content: {
+            type: 'icon',
+            name: 'Tech'
+          }
+        }
+      ]
     },
     about: {
       title: "Về bản thân",
@@ -323,19 +420,6 @@ const content = {
             messagePlaceholder: "Nhập lời nhắn của bạn",
             submit: "Gửi tin nhắn"
         }
-    },
-    blogBanner: {
-      categoriesTitle: "Chuyên mục",
-      categoriesDescription: "Khám phá bài viết theo chủ đề.",
-      searchButton: "Tìm kiếm bài viết",
-      viewDetails: "Xem chi tiết",
-      categories: [
-          { name: 'Kiến trúc hệ thống', count: 5 },
-          { name: 'Lập trình Backend', count: 8 },
-          { name: 'Cloud & DevOps', count: 3 },
-          { name: 'Sự nghiệp & Năng suất', count: 4 },
-          { name: 'Quản lý dự án', count: 2 },
-      ]
     }
   }
 };
@@ -353,9 +437,9 @@ export default function HomePage() {
     const cvContent = document.getElementById('cv-content');
     if (cvContent) {
       html2canvas(cvContent, {
-        scale: 2, // Improve resolution
+        scale: 2,
         useCORS: true,
-        backgroundColor: '#0a0a0a' 
+        backgroundColor: '#ffffff' 
       }).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF({
@@ -369,54 +453,52 @@ export default function HomePage() {
     }
   };
 
+  const mainCard = c.strengths.items.find(item => item.type === 'main');
+  const sideCard = c.strengths.items.find(item => item.type === 'side');
+  const smallCards = c.strengths.items.filter(item => item.type === 'small');
+
+
   return (
     <div className="flex flex-col w-full">
-
-      {/* Blog Banner Section */}
-       <section className="w-full bg-surface/50 pb-16 pt-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div className="lg:col-span-1">
-                 <Carousel
-                    opts={{
-                        align: "start",
-                        loop: true,
-                    }}
-                    plugins={[autoplay.current]}
-                    className="w-full"
-                >
-                    <CarouselContent className="-ml-0">
-                        {c.projects.items.map((project, index) => (
-                            <CarouselItem key={index} className="pl-4">
-                                <CardInteractive
-                                    title={project.title}
-                                    description={project.description}
-                                    tags={project.tags}
-                                    imageUrl={project.imageUrl}
-                                    aiHint={project.aiHint}
-                                    viewDetailsText={c.blogBanner.viewDetails}
-                                />
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                </Carousel>
-            </div>
-            <div>
+      <section className="w-full bg-background py-16 lg:py-24">
+         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12 text-foreground">{c.strengths.title}</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Left Column */}
+              <div className="space-y-8">
+                {mainCard && (
+                    <CardInteractive
+                      title={mainCard.title}
+                      description={mainCard.description}
+                      content={mainCard.content}
+                      className="col-span-1 lg:col-span-2"
+                    />
+                )}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                   {smallCards.map((card, index) => (
+                      <CardInteractive
+                        key={index}
+                        title={card.title}
+                        description={card.description}
+                        content={card.content}
+                      />
+                   ))}
+                </div>
+              </div>
+              {/* Right Column */}
               <div>
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.blogBanner.categoriesTitle}</h2>
-                <p className="mt-2 text-lg text-muted-foreground">{c.blogBanner.categoriesDescription}</p>
-                <ul className="mt-6 grid grid-cols-2 gap-4">
-                  {c.blogBanner.categories.map(cat => (
-                     <li key={cat.name} className="flex justify-between items-center text-muted-foreground cursor-pointer group">
-                       <span className="group-hover:text-primary transition-colors duration-200">{cat.name}</span>
-                       <Badge variant="secondary" className="font-mono group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">{cat.count}</Badge>
-                     </li>
-                  ))}
-                </ul>
+                {sideCard && (
+                   <CardInteractive
+                      title={sideCard.title}
+                      description={sideCard.description}
+                      content={sideCard.content}
+                      className="h-full"
+                    />
+                )}
               </div>
             </div>
-        </div>
+         </div>
       </section>
-
 
       {/* Portfolio Section */}
       <div id="cv-content" className="container mx-auto px-4 pt-24 sm:px-6 lg:px-8">
@@ -435,7 +517,7 @@ export default function HomePage() {
             </motion.div>
             <div className="flex flex-col gap-4 lg:col-span-2">
                  <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.hero.title}</h2>
-                <h3 className="mt-2 text-xl font-semibold text-secondary">{c.hero.subtitle}</h3>
+                <h3 className="mt-2 text-xl font-semibold text-foreground">{c.hero.subtitle}</h3>
                 <p className="mt-4 text-lg text-muted-foreground">{c.hero.description}</p>
                 <div className="mt-6 space-y-3 text-muted-foreground">
                   <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-primary"/><span>{c.hero.email}</span></div>
@@ -457,14 +539,14 @@ export default function HomePage() {
             <div className="w-full grid md:grid-cols-2 gap-16 items-start">
                 <div>
                     <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.about.title}</h2>
-                    <h3 className="mt-2 text-xl font-semibold text-secondary">{c.about.subtitle}</h3>
+                    <h3 className="mt-2 text-xl font-semibold text-foreground">{c.about.subtitle}</h3>
                     <p className="mt-4 text-lg text-muted-foreground">{c.about.p1}</p>
                     <p className="mt-4 text-lg text-muted-foreground">{c.about.p2}</p>
                     <p className="mt-4 text-lg text-muted-foreground">{c.about.p3}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-8 pt-16">
                   <div className="space-y-6">
-                    <h4 className="font-bold text-secondary">{c.about.expertiseAreas.title}</h4>
+                    <h4 className="font-bold text-foreground">{c.about.expertiseAreas.title}</h4>
                     <ul className="space-y-2">
                       {c.about.expertiseAreas.items.map(area => (
                         <li key={area} className="flex items-center gap-3 text-muted-foreground">
@@ -475,7 +557,7 @@ export default function HomePage() {
                     </ul>
                   </div>
                   <div className="space-y-6">
-                    <h4 className="font-bold text-secondary">{c.about.keyAchievements.title}</h4>
+                    <h4 className="font-bold text-foreground">{c.about.keyAchievements.title}</h4>
                     <ul className="space-y-2">
                       {c.about.keyAchievements.items.map(result => (
                         <li key={result} className="flex items-center gap-3 text-muted-foreground">
@@ -500,7 +582,7 @@ export default function HomePage() {
                 </div>
                 <div className="grid md:grid-cols-2 gap-12">
                     <div>
-                        <h3 className="text-2xl font-bold text-secondary mb-6">{c.skills.domain.title}</h3>
+                        <h3 className="text-2xl font-bold text-foreground mb-6">{c.skills.domain.title}</h3>
                         <div className="space-y-4">
                             {c.skills.domain.items.map(skill => (
                                 <div key={skill.name}>
@@ -513,7 +595,7 @@ export default function HomePage() {
                         </div>
                     </div>
                      <div>
-                        <h3 className="text-2xl font-bold text-secondary mb-6">{c.skills.tech.title}</h3>
+                        <h3 className="text-2xl font-bold text-foreground mb-6">{c.skills.tech.title}</h3>
                         <div className="flex flex-wrap gap-3">
                             {c.skills.tech.items.map(tech => (
                                 <Badge key={tech} variant="secondary" className="text-base px-4 py-2">{tech}</Badge>
@@ -547,7 +629,7 @@ export default function HomePage() {
                                     className={`p-6 bg-surface border border-border/50 rounded-2xl w-full ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}
                                 >
                                     <p className="text-sm font-semibold text-primary">{exp.period}</p>
-                                    <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
+                                    <h3 className="mt-1 text-xl font-bold text-foreground">{exp.company}</h3>
                                     <p className="text-base font-semibold text-primary/80">{exp.role}</p>
                                     <p className="mt-3 text-muted-foreground">{exp.description}</p>
                                 </motion.div>
@@ -576,14 +658,21 @@ export default function HomePage() {
                 <div className="mt-12 grid gap-8 md:grid-cols-2 lg:gap-12">
                     {c.projects.items.map((project, index) => (
                         <SectionReveal key={project.title} options={{ delay: index * 0.1 }}>
-                            <CardInteractive
-                                title={project.title}
-                                description={project.description}
-                                tags={project.tags}
-                                imageUrl={project.imageUrl}
-                                aiHint={project.aiHint}
-                                viewDetailsText={c.blogBanner.viewDetails}
-                            />
+                            <Card className="bg-surface">
+                               <CardContent className="p-4">
+                                  <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-4">
+                                      <Image
+                                      src={project.imageUrl}
+                                      alt={project.title}
+                                      fill
+                                      className="object-cover"
+                                      data-ai-hint={project.aiHint}
+                                      />
+                                  </div>
+                                  <h3 className="text-lg font-bold text-foreground">{project.title}</h3>
+                                  <p className="mt-2 text-sm text-muted-foreground flex-grow">{project.description}</p>
+                               </CardContent>
+                            </Card>
                         </SectionReveal>
                     ))}
                 </div>
@@ -627,15 +716,15 @@ export default function HomePage() {
                       </div>
                       <form className="space-y-6">
                           <div className="space-y-2">
-                              <label htmlFor="name" className="text-sm font-medium text-secondary">{c.contact.form.name}</label>
+                              <label htmlFor="name" className="text-sm font-medium text-foreground">{c.contact.form.name}</label>
                               <Input id="name" placeholder={c.contact.form.namePlaceholder} />
                           </div>
                           <div className="space-y-2">
-                              <label htmlFor="email" className="text-sm font-medium text-secondary">{c.contact.form.email}</label>
+                              <label htmlFor="email" className="text-sm font-medium text-foreground">{c.contact.form.email}</label>
                               <Input id="email" type="email" placeholder={c.contact.form.emailPlaceholder} />
                           </div>
                           <div className="space-y-2">
-                              <label htmlFor="message" className="text-sm font-medium text-secondary">{c.contact.form.message}</label>
+                              <label htmlFor="message" className="text-sm font-medium text-foreground">{c.contact.form.message}</label>
                               <Textarea id="message" placeholder={c.contact.form.messagePlaceholder} rows={4}/>
                           </div>
                           <Button type="submit" size="lg" className="w-full">
