@@ -35,7 +35,7 @@
     --dot-bg: hsl(var(--background));
     --dot-color: hsl(var(--foreground) / 0.1);
     --dot-size: 1px;
-    --dot-space: 22px;
+    --dot-space: 16px;
     --nebula-1-color: hsla(var(--primary), 0.1);
     --nebula-2-color: hsla(var(--accent), 0.15);
   }

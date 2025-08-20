@@ -40,40 +40,13 @@ const content = {
   }
 };
 
-const HeroPattern = () => (
-    <svg
-      className="absolute inset-0 w-full h-full"
-      aria-hidden="true"
-    >
-      <defs>
-        <pattern
-          id="home-hero-pattern"
-          width="4"
-          height="4"
-          patternUnits="userSpaceOnUse"
-          patternContentUnits="userSpaceOnUse"
-        >
-          <circle cx="1" cy="1" r="0.5" fill="hsl(var(--foreground))" />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#home-hero-pattern)" />
-    </svg>
-);
-
-
 export function HomeHeroBanner() {
   const { language } = useLanguage();
   const c = content[language];
   const router = useRouter();
 
   return (
-      <section className="relative w-full overflow-hidden bg-background pt-16 md:pt-24 pb-12 md:pb-20">
-          <div 
-              className="absolute inset-0 z-0 opacity-10 dark:opacity-[0.07]"
-          >
-              <HeroPattern />
-          </div>
-
+      <section className="relative w-full overflow-hidden pt-16 md:pt-24 pb-12 md:pb-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 items-center gap-8 w-full z-10 relative">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
