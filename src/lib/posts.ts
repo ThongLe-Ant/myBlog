@@ -107,7 +107,6 @@ export async function savePost(post: Omit<Post, 'slug'>) {
         slug: createSlug(post.title),
         excerpt: post.content.substring(0, 150),
         featured: post.featured || false,
-        imageUrl: post.imageUrl || '',
     };
 
     // Check for duplicate slugs
