@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/language-context';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const content = {
   en: {
@@ -40,34 +40,6 @@ const content = {
   }
 };
 
-const backgroundPatterns = [
-    '/backgrounds/pattern-1.svg',
-    '/backgrounds/pattern-2.svg',
-    '/backgrounds/pattern-3.svg',
-    '/backgrounds/pattern-4.svg',
-];
-
-const RandomBackground = () => {
-    const [patternUrl, setPatternUrl] = useState('');
-
-    useEffect(() => {
-        const randomPattern = backgroundPatterns[Math.floor(Math.random() * backgroundPatterns.length)];
-        setPatternUrl(`url(${randomPattern})`);
-    }, []);
-
-    if (!patternUrl) return null;
-
-    return (
-        <div 
-          className="absolute inset-0 z-0 opacity-10 dark:opacity-20"
-          style={{
-              backgroundImage: patternUrl,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-          }}
-        />
-    );
-};
 
 export function HomeHeroBanner() {
   const { language } = useLanguage();
@@ -76,7 +48,12 @@ export function HomeHeroBanner() {
 
   return (
       <section className="relative w-full overflow-hidden pt-16 md:pt-24 pb-12 md:pb-20">
-          <RandomBackground />
+          <div className="absolute inset-0 z-0 opacity-10 dark:opacity-20">
+            <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: "url('/backgrounds/pattern-1.svg')"}}></div>
+            <div className="hidden md:block absolute inset-0 bg-cover bg-center" style={{backgroundImage: "url('/backgrounds/pattern-2.svg')"}}></div>
+            <div className="hidden lg:block absolute inset-0 bg-cover bg-center" style={{backgroundImage: "url('/backgrounds/pattern-3.svg')"}}></div>
+             <div className="hidden xl:block absolute inset-0 bg-cover bg-center" style={{backgroundImage: "url('/backgrounds/pattern-4.svg')"}}></div>
+          </div>
 
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 items-center gap-8 w-full z-10 relative">
               <motion.div
