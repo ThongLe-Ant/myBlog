@@ -40,11 +40,29 @@ const content = {
   }
 };
 
-interface HomeHeroBannerProps {
-  backgroundUrl: string;
-}
+const HeroPattern = () => (
+    <svg
+      className="absolute inset-0 w-full h-full"
+      aria-hidden="true"
+    >
+      <defs>
+        <pattern
+          id="hero-pattern"
+          width="100"
+          height="100"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
+          <path d="M0 50V100H50" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" opacity="0.1" />
+          <path d="M50 0V50H100" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" opacity="0.1" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#hero-pattern)" />
+    </svg>
+);
 
-export function HomeHeroBanner({ backgroundUrl }: HomeHeroBannerProps) {
+
+export function HomeHeroBanner() {
   const { language } = useLanguage();
   const c = content[language];
   const router = useRouter();
@@ -52,9 +70,10 @@ export function HomeHeroBanner({ backgroundUrl }: HomeHeroBannerProps) {
   return (
       <section className="relative w-full overflow-hidden pt-16 md:pt-24 pb-12 md:pb-20">
           <div 
-              className="absolute inset-0 z-0 bg-cover bg-center opacity-10 dark:opacity-20 transition-opacity"
-              style={{ backgroundImage: `url(${backgroundUrl})` }}
-          />
+              className="absolute inset-0 z-0 opacity-30 dark:opacity-50"
+          >
+              <HeroPattern />
+          </div>
 
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 items-center gap-8 w-full z-10 relative">
               <motion.div

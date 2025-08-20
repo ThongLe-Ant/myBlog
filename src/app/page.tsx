@@ -8,13 +8,6 @@ import { HomeHeroBanner } from '@/components/layout/home-hero-banner';
 
 export const dynamic = 'force-dynamic';
 
-const backgroundPatterns = [
-  '/backgrounds/pattern-1.svg',
-  '/backgrounds/pattern-2.svg',
-  '/backgrounds/pattern-3.svg',
-  '/backgrounds/pattern-4.svg',
-];
-
 export default async function HomePage() {
   const allPosts = await getPosts();
   const publishedPosts = allPosts.filter(p => p.published);
@@ -37,11 +30,9 @@ export default async function HomePage() {
     categoryCounts[category] = postsByCategory[category].length;
   }
 
-  const randomBackgroundUrl = backgroundPatterns[Math.floor(Math.random() * backgroundPatterns.length)];
-
   return (
     <div className="flex flex-col w-full">
-        <HomeHeroBanner backgroundUrl={randomBackgroundUrl} />
+        <HomeHeroBanner />
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-16 lg:py-24">
             <CategoryBrowser categories={sortedCategories} categoryCounts={categoryCounts} />
