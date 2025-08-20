@@ -13,7 +13,6 @@ import { useRouter } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { MarkdownEditor } from '@/components/markdown-editor';
-import dynamic from 'next/dynamic';
 
 
 export default function CreatePostPage() {
@@ -124,7 +123,7 @@ export default function CreatePostPage() {
                 </div>
               </div>
            </CardContent>
-           <CardFooter>
+           <CardFooter className="flex justify-between">
              <div className="flex gap-4">
                 <Button onClick={handleSave} disabled={isLoading} size="lg">
                   {isLoading ? 'Saving...' : (
