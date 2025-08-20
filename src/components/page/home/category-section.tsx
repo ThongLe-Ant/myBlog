@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Post } from '@/lib/posts';
 import { ArrowRight } from 'lucide-react';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselDots } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay"
 
 const content = {
@@ -53,7 +53,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                         src={post.imageUrl}
                         alt={post.title}
                         fill
-                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 z-0"
                         data-ai-hint="tech blog"
                     />
                 )}
@@ -81,7 +81,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                         src={post.imageUrl}
                         alt={post.title}
                         fill
-                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 z-0"
                         data-ai-hint="tech blog"
                     />
                 )}
@@ -106,59 +106,65 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 {/* Featured Posts Carousel */}
                 {featuredPosts.length > 0 && (
-                     <Carousel 
-                        className="w-full group" 
-                        opts={{ loop: true }}
-                        plugins={[
-                            Autoplay({
-                                delay: 5000,
-                                stopOnInteraction: true,
-                            }),
-                        ]}
-                    >
-                        <CarouselContent>
-                            {featuredPosts.map((post) => (
-                                <CarouselItem key={post.slug}>
-                                     <SectionReveal className="h-full" options={{ delay: 0.1 }}>
-                                        <MainPostCard post={post} />
-                                     </SectionReveal>
-                                </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                        <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </Carousel>
+                     <div className="flex flex-col">
+                        <Carousel 
+                            className="w-full group" 
+                            opts={{ loop: true }}
+                            plugins={[
+                                Autoplay({
+                                    delay: 5000,
+                                    stopOnInteraction: true,
+                                }),
+                            ]}
+                        >
+                            <CarouselContent>
+                                {featuredPosts.map((post) => (
+                                    <CarouselItem key={post.slug}>
+                                         <SectionReveal className="h-full" options={{ delay: 0.1 }}>
+                                            <MainPostCard post={post} />
+                                         </SectionReveal>
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                            <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </Carousel>
+                        <CarouselDots />
+                    </div>
                 )}
 
 
                 {/* Regular Posts Carousel */}
                 {regularPosts.length > 0 && (
-                    <Carousel
-                        opts={{ align: "start", loop: regularPosts.length > 2 }}
-                        plugins={[
-                            Autoplay({
-                                delay: 5500,
-                                stopOnInteraction: true,
-                            }),
-                        ]}
-                        className="w-full group col-span-1"
-                    >
-                        <CarouselContent className="-ml-2">
-                             {regularPosts.map((post, index) => (
-                                <CarouselItem key={post.slug} className="pl-2 basis-full sm:basis-1/2">
-                                     <SectionReveal className="group h-full" options={{ delay: 0.2 + index * 0.1 }}>
-                                        <SidePostCard post={post} />
-                                     </SectionReveal>
-                                </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                         {regularPosts.length > 2 && (
-                            <>
-                                <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </>
-                         )}
-                    </Carousel>
+                     <div className="flex flex-col">
+                        <Carousel
+                            opts={{ align: "start", loop: regularPosts.length > 2 }}
+                            plugins={[
+                                Autoplay({
+                                    delay: 5500,
+                                    stopOnInteraction: true,
+                                }),
+                            ]}
+                            className="w-full group col-span-1"
+                        >
+                            <CarouselContent className="-ml-2">
+                                 {regularPosts.map((post, index) => (
+                                    <CarouselItem key={post.slug} className="pl-2 basis-full sm:basis-1/2">
+                                         <SectionReveal className="group h-full" options={{ delay: 0.2 + index * 0.1 }}>
+                                            <SidePostCard post={post} />
+                                         </SectionReveal>
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                             {regularPosts.length > 2 && (
+                                <>
+                                    <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                </>
+                             )}
+                        </Carousel>
+                        {regularPosts.length > 2 && <CarouselDots />}
+                    </div>
                 )}
             </div>
             

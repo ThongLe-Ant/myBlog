@@ -6,12 +6,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '@/context/language-context';
 import { SectionReveal } from '@/components/motion/section-reveal';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { Card } from '@/components/ui/card';
+import { Carousel, CarouselContent, CarouselItem, CarouselDots } from '@/components/ui/carousel';
 import { Badge } from '@/components/ui/badge';
 import { Post } from '@/lib/posts';
 import Autoplay from "embla-carousel-autoplay"
-import { cn } from '@/lib/utils';
 
 const content = {
   en: {
@@ -71,20 +70,21 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
                                   data-ai-hint="tech blog"
                               />
                            )}
-                            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10" />
-                            <div className="relative z-20 h-full flex flex-col justify-start p-6 text-white">
+                           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10" />
+                           <div className="relative z-20 h-full flex flex-col justify-start p-6 text-white">
                                 <div className="flex gap-2 mb-2">
                                     <Badge variant="secondary" className="bg-white/20 text-white border-none">{post.category}</Badge>
                                     {post.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
                                 </div>
                                 <h3 className="text-xl font-bold text-white transition-colors">{post.title}</h3>
-                                <p className="mt-2 text-sm text-white/80">{getExcerpt(post.content)}</p>
+                                <p className="mt-2 text-sm text-white/80">{getExcerpt(post.content, 250)}</p>
                             </div>
                         </Card>
                       </Link>
                   </CarouselItem>
                 ))}
               </CarouselContent>
+              <CarouselDots />
             </Carousel>
         </SectionReveal>
     );
