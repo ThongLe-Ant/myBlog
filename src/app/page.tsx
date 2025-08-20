@@ -168,7 +168,7 @@ export default function HomePage() {
                  className="lg:w-1/3 relative flex justify-center"
             >
                 <Avatar className="w-64 h-64 md:w-80 md:h-80 border-4 border-primary/20 shadow-2xl shadow-primary/20">
-                    <AvatarImage src="https://placehold.co/400x400.png" alt="Avatar Le Minh Thong" data-ai-hint="man portrait professional" />
+                    <AvatarImage src="https://storage.googleapis.com/maker-studio-5a93d.appspot.com/users%2FqEg2yVE49bZ230z3a42qfI4pB3t1%2Fstudios%2Fdc48b261-26c3-424a-a434-d023b36ed658%2Fimage_1724036662446_46.png" alt="Avatar Le Minh Thong" data-ai-hint="man portrait professional" />
                     <AvatarFallback>LMT</AvatarFallback>
                 </Avatar>
             </motion.div>
