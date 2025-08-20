@@ -15,25 +15,25 @@ import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { ThemeToggle } from './theme-toggle';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 
 const navLinks = {
   en: [
-    { href: '/#about', label: 'About' },
-    { href: '/#skills', label: 'Skills' },
-    { href: '/#experience', label: 'Experience' },
-    { href: '/#projects', label: 'Projects' },
+    { href: '/about#about', label: 'About' },
+    { href: '/about#skills', label: 'Skills' },
+    { href: '/about#experience', label: 'Experience' },
+    { href: '/about#projects', label: 'Projects' },
     { href: '/posts', label: 'Blog' },
-    { href: '/#contact', label: 'Contact' },
+    { href: '/about#contact', label: 'Contact' },
   ],
   vi: [
-      { href: '/#about', label: 'Giới thiệu' },
-      { href: '/#skills', label: 'Kỹ năng' },
-      { href: '/#experience', label: 'Kinh nghiệm' },
-      { href: '/#projects', label: 'Dự án' },
+      { href: '/about#about', label: 'Giới thiệu' },
+      { href: '/about#skills', label: 'Kỹ năng' },
+      { href: '/about#experience', label: 'Kinh nghiệm' },
+      { href: '/about#projects', label: 'Dự án' },
       { href: '/posts', label: 'Bài viết' },
-      { href: '/#contact', label: 'Liên hệ' },
+      { href: '/about#contact', label: 'Liên hệ' },
   ]
 };
 
@@ -73,24 +73,22 @@ export function Header() {
   const { language, setLanguage } = useLanguage();
   const currentLangConfig = languages.find(lang => lang.code === language) || languages[0];
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleLinkClick = (href: string) => {
-    if (href.startsWith('/#')) {
-      const elementId = href.substring(2);
-       // If we are not on the homepage, navigate to it first
-      if (window.location.pathname !== '/') {
-        router.push('/' + href.substring(1));
-      } else {
-        const element = document.getElementById(elementId);
-        if (element) {
-          element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      }
+    // If it's a link to another page (like /posts or /about#...)
+    if (!href.startsWith('/#') || (href.startsWith('/about#') && pathname !== '/about')) {
+        router.push(href);
     } else {
-      router.push(href);
+      // If it's a hash link on the current page (which should be the homepage now)
+      const elementId = href.substring(2);
+      const element = document.getElementById(elementId);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
     }
   };
 
