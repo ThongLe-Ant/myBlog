@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -236,6 +236,10 @@ export default function EditPostPage() {
                     </>
                   )}
                 </Button>
+                <Button variant="outline" size="lg" onClick={() => router.back()}>
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Back
+                 </Button>
             </div>
             <AlertDialog>
               <AlertDialogTrigger asChild>
