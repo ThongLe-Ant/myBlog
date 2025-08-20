@@ -3,17 +3,13 @@
 
 import {
   ArrowRight,
-  Download,
-  Mail,
-  MapPin,
-  Phone,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/language-context';
-import { HeroHighlight } from '@/components/motion/hero-highlight';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 
 const content = {
   en: {
@@ -22,20 +18,12 @@ const content = {
       subtitle: "Senior Software Engineer | Solution Architect",
       description: "Software engineer with over 10 years of experience in developing ERP systems and enterprise solutions. Specializing in .NET, Golang, Cloud, and Microservices.",
     },
-    downloadCV: "Download CV",
     readMore: "Read More",
     stats: [
         { value: "10+", label: "Years of Experience" },
         { value: "20+", label: "Systems Deployed" },
         { value: "5+", label: "Areas of Expertise" }
     ],
-    contact: {
-      hero: {
-        email: "thongproleminh@gmail.com",
-        phone: "(+84) 396 870 644",
-        location: "HCMC, Vietnam",
-      }
-    }
   },
   vi: {
     hero: {
@@ -43,38 +31,45 @@ const content = {
       subtitle: "Kỹ sư Phần mềm Cao cấp | Kiến trúc sư Giải pháp",
       description: "Kỹ sư phần mềm với hơn 10 năm kinh nghiệm phát triển hệ thống ERP và các giải pháp cho doanh nghiệp. Chuyên sâu về .NET, Golang, Cloud và Microservices.",
     },
-    downloadCV: "Tải CV",
     readMore: "Xem thêm",
     stats: [
         { value: "10+", label: "Năm kinh nghiệm" },
         { value: "20+", label: "Hệ thống triển khai" },
         { value: "5+", label: "Lĩnh vực chuyên môn" }
     ],
-    contact: {
-      hero: {
-        email: "thongproleminh@gmail.com",
-        phone: "0396 870 644",
-        location: "TP.HCM, Việt Nam",
-      }
-    }
   }
 };
 
-interface HeroBannerProps {
-    showContactInfo?: boolean;
-    onDownloadCV?: () => void;
-    showStats?: boolean;
-}
+const backgroundPatterns = [
+    '/backgrounds/pattern-1.svg',
+    '/backgrounds/pattern-2.svg',
+    '/backgrounds/pattern-3.svg',
+    '/backgrounds/pattern-4.svg',
+];
 
-export function HeroBanner({ showContactInfo = false, onDownloadCV, showStats = false }: HeroBannerProps) {
+export function HomeHeroBanner() {
   const { language } = useLanguage();
   const c = content[language];
   const router = useRouter();
+  const [patternUrl, setPatternUrl] = useState('');
+
+  useEffect(() => {
+    const randomPattern = backgroundPatterns[Math.floor(Math.random() * backgroundPatterns.length)];
+    setPatternUrl(`url(${randomPattern})`);
+  }, []);
 
   return (
-      <HeroHighlight>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-5 items-center gap-8 w-full">
+      <section className="relative w-full overflow-hidden pt-16 md:pt-24 pb-12 md:pb-20">
+          <div 
+            className="absolute inset-0 z-0 opacity-10 dark:opacity-20"
+            style={{
+                backgroundImage: patternUrl,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+            }}
+          />
+
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 items-center gap-8 w-full z-10 relative">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -95,40 +90,22 @@ export function HeroBanner({ showContactInfo = false, onDownloadCV, showStats = 
                     <h2 className="mt-2 text-2xl font-semibold text-foreground">{c.hero.subtitle}</h2>
                     <p className="mt-4 text-lg text-muted-foreground">{c.hero.description}</p>
                     
-                    {showStats && (
-                        <div className="mt-6 grid grid-cols-3 gap-4 text-center">
-                            {c.stats.map(stat => (
-                                <div key={stat.label}>
-                                    <p className="text-3xl font-bold text-primary">{stat.value}</p>
-                                    <p className="text-sm text-muted-foreground">{stat.label}</p>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-
-                    {showContactInfo && (
-                        <div className="mt-6 space-y-3 text-muted-foreground">
-                            <div className="flex items-center justify-center lg:justify-start gap-3"><Mail className="w-5 h-5 text-primary"/><span>{c.contact.hero.email}</span></div>
-                            <div className="flex items-center justify-center lg:justify-start gap-3"><Phone className="w-5 h-5 text-primary"/><span>{c.contact.hero.phone}</span></div>
-                            <div className="flex items-center justify-center lg:justify-start gap-3"><MapPin className="w-5 h-5 text-primary"/><span>{c.contact.hero.location}</span></div>
-                        </div>
-                    )}
+                    <div className="mt-6 grid grid-cols-3 gap-4 text-center">
+                        {c.stats.map(stat => (
+                            <div key={stat.label}>
+                                <p className="text-3xl font-bold text-primary">{stat.value}</p>
+                                <p className="text-sm text-muted-foreground">{stat.label}</p>
+                            </div>
+                        ))}
+                    </div>
 
                     <div className="mt-8 flex items-center justify-center lg:justify-start gap-4">
-                        {onDownloadCV ? (
-                            <Button id="download-cv-btn" size="lg" variant="default" onClick={onDownloadCV}>
-                                <Download className="mr-2 h-4 w-4" />
-                                {c.downloadCV}
-                            </Button>
-                        ) : (
-                            <Button size="lg" variant="default" onClick={() => router.push('/about')}>
-                                {c.readMore} <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                        )}
+                        <Button size="lg" variant="default" onClick={() => router.push('/about')}>
+                            {c.readMore} <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
                     </div>
               </motion.div>
           </div>
-        </div>
-      </HeroHighlight>
+      </section>
   );
 }

@@ -3,10 +3,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { Post, getPosts } from '@/lib/posts';
-import { HeroBanner } from '@/components/layout/hero-banner';
 import { CategoryBrowser } from '@/components/page/home/category-browser';
 import { FeaturedPosts } from '@/components/page/home/featured-posts';
 import { CategorySection } from '@/components/page/home/category-section';
+import { HomeHeroBanner } from '@/components/layout/home-hero-banner';
 
 export default function HomePage() {
   const [postsByCategory, setPostsByCategory] = useState<Record<string, Post[]>>({});
@@ -46,7 +46,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col w-full">
-        <HeroBanner showContactInfo={false} showStats={true} />
+        <HomeHeroBanner />
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-16 lg:py-24">
             <CategoryBrowser categories={categories} categoryCounts={categoryCounts} />
