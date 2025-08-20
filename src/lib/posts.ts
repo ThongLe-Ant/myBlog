@@ -9,7 +9,7 @@ export interface Post {
   slug: string;
   title: string;
   category: string;
-  content: string; // Changed from excerpt to full content
+  content: string; 
 }
 
 const postsFilePath = path.join(process.cwd(), 'src/data/posts.json');
@@ -20,12 +20,16 @@ export async function getPosts(): Promise<Post[]> {
     const posts = JSON.parse(data);
     return posts;
   } catch (error) {
-    // If the file doesn't exist, return an empty array
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
       return [];
     }
     throw error;
   }
+}
+
+export async function getPostBySlug(slug: string): Promise<Post | undefined> {
+  const posts = await getPosts();
+  return posts.find(post => post.slug === slug);
 }
 
 export async function savePost(post: Omit<Post, 'slug'>) {
@@ -36,10 +40,10 @@ export async function savePost(post: Omit<Post, 'slug'>) {
     slug: post.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''),
   };
 
-  posts.unshift(newPost); // Add to the beginning of the array
+  posts.unshift(newPost);
 
   await fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2));
 
-  // Revalidate the posts page to show the new post
   revalidatePath('/posts');
+  revalidatePath(`/posts/${newPost.slug}`);
 }
