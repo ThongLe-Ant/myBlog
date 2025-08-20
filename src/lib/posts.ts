@@ -69,11 +69,12 @@ export async function getPosts(): Promise<Post[]> {
     }
     
     // Assign default images to posts without one
-    allPosts = allPosts.map((post, index) => {
+    allPosts = allPosts.map((post) => {
         if (!post.imageUrl) {
+            const randomIndex = Math.floor(Math.random() * defaultImages.length);
             return {
                 ...post,
-                imageUrl: defaultImages[index % defaultImages.length]
+                imageUrl: defaultImages[randomIndex]
             };
         }
         return post;
