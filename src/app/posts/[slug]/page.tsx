@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { getPostBySlug, Post } from '@/lib/posts';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound, useRouter, useParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Badge } from '@/components/ui/badge';
@@ -12,30 +12,27 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
-interface PostPageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default function PostPage({ params }: PostPageProps) {
+export default function PostPage() {
   const [post, setPost] = useState<Post | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const params = useParams();
+  const slug = params.slug as string;
 
   useEffect(() => {
     const fetchPost = async () => {
       setIsLoading(true);
       try {
-        const postData = await getPostBySlug(params.slug);
-        if (postData) {
-          setPost(postData);
-        } else {
-          notFound();
+        if (slug) {
+            const postData = await getPostBySlug(slug);
+            if (postData) {
+              setPost(postData);
+            } else {
+              notFound();
+            }
         }
       } catch (error) {
         console.error('Failed to fetch post', error);
-        // Optionally, redirect to a generic error page or show a message
         notFound();
       } finally {
         setIsLoading(false);
@@ -43,7 +40,7 @@ export default function PostPage({ params }: PostPageProps) {
     };
 
     fetchPost();
-  }, [params.slug]);
+  }, [slug]);
 
   if (isLoading) {
     return (
