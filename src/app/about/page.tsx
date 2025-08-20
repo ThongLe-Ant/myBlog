@@ -86,7 +86,7 @@ const content = {
           title: "Tech Enthusiast",
           description: "Always exploring and applying the latest trends in software development.",
           type: "small",
-          content: {
+           content: {
             type: 'icon',
             name: 'Tech'
           }
@@ -293,9 +293,9 @@ const content = {
     about: {
       title: "Về bản thân",
       subtitle: "Kỹ sư phần mềm với hơn 10 năm kinh nghiệm về hệ thống doanh nghiệp và giải pháp ERP.",
-      p1: "Với hơn 10 năm kinh nghiệm, tôi chuyên về thiết kế và triển khai các hệ thống ERP quy mô lớn cho các tập đoàn hàng đầu tại Việt Nam. Tôi có nền tảng kỹ thuật vững chắc và sự hiểu biết sâu sắc về nhiều lĩnh vực kinh doanh.",
-      p2: "Đã triển khai thành công hơn 20 hệ thống quy mô lớn cho các tập đoàn hàng đầu Việt Nam trong các lĩnh vực tài chính-ngân hàng, sản xuất và nhân sự.",
-      p3: "Tôi luôn hướng tới việc tạo ra các giải pháp công nghệ không chỉ đáp ứng yêu cầu kỹ thuật mà còn giải quyết hiệu quả các bài toán kinh doanh phức tạp.",
+      p1: "Với hơn 10 năm kinh nghiệm, tôi chuyên sâu về thiết kế và triển khai các hệ thống ERP quy mô lớn cho các tập đoàn hàng đầu tại Việt Nam. Nền tảng kỹ thuật vững chắc cùng hiểu biết sâu về nghiệp vụ đa ngành.",
+      p2: "Đã triển khai thành công 20+ hệ thống quy mô lớn cho các tập đoàn hàng đầu Việt Nam trong các lĩnh vực tài chính-ngân hàng, sản xuất và nhân sự.",
+      p3: "Tôi luôn hướng đến việc tạo ra các giải pháp công nghệ không chỉ đáp ứng yêu cầu kỹ thuật mà còn giải quyết hiệu quả các bài toán nghiệp vụ phức tạp.",
       expertiseAreas: {
         title: "Lĩnh vực chuyên môn",
         items: ['Hệ thống ERP', 'Quản lý sản xuất', 'Nhân sự & Tính lương', 'Kho & Mua hàng', 'Hệ thống thanh toán']
