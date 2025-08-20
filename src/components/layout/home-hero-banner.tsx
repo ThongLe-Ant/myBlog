@@ -46,7 +46,7 @@ export function HomeHeroBanner() {
   const router = useRouter();
 
   return (
-      <section className="relative w-full overflow-hidden pt-8 md:pt-12 pb-12 md:pb-20">
+      <section className="relative w-full overflow-hidden pt-8 pb-8">
           <div className="w-full px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 items-start gap-8 z-10 relative">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
