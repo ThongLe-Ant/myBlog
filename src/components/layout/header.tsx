@@ -1,9 +1,14 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Mountain, Search } from 'lucide-react';
+import { Globe, Menu, Mountain, Search } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -49,11 +54,24 @@ export function Header() {
         ))}
       </nav>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         <Button variant="ghost" size="icon">
           <Search className="h-5 w-5" />
           <span className="sr-only">Search</span>
         </Button>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <Globe className="h-5 w-5" />
+              <span className="sr-only">Toggle language</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>English</DropdownMenuItem>
+            <DropdownMenuItem>Tiếng Việt</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         
         <Sheet>
           <SheetTrigger asChild>
