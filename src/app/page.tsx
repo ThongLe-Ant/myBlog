@@ -243,27 +243,26 @@ export default function HomePage() {
       {/* Portfolio Section */}
       <div id="cv-content" className="container mx-auto px-4 pt-24 sm:px-6 lg:px-8">
           {/* Hero Section */}
-          <section id="home" className="relative grid lg:grid-cols-2 items-start gap-8 lg:gap-16 w-full">
-            <div>
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-              >
-                <Avatar className="w-40 h-40 border-4 border-primary/20 shadow-xl shadow-primary/20">
-                  <AvatarImage src="https://storage.googleapis.com/maker-studio-5a93d.appspot.com/users%2FqEg2yVE49bZ230z3a42qfI4pB3t1%2Fstudios%2Fdc48b261-26c3-424a-a434-d023b36ed658%2Fimage_1724036662446_46.png" alt="Le Minh Thong Avatar" data-ai-hint="man portrait professional" />
-                  <AvatarFallback>LMT</AvatarFallback>
-                </Avatar>
-              </motion.div>
-            </div>
-            <div className="flex flex-col gap-4">
-                 <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Lê Minh Thông</h2>
+          <section id="home" className="relative grid lg:grid-cols-3 items-center gap-8 lg:gap-16 w-full">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+              className="lg:col-span-1 flex justify-center lg:justify-start"
+            >
+              <Avatar className="w-40 h-40 border-4 border-primary/20 shadow-xl shadow-primary/20">
+                <AvatarImage src="https://storage.googleapis.com/maker-studio-5a93d.appspot.com/users%2FqEg2yVE49bZ230z3a42qfI4pB3t1%2Fstudios%2Fdc48b261-26c3-424a-a434-d023b36ed658%2Fimage_1724036662446_46.png" alt="Le Minh Thong Avatar" data-ai-hint="professional portrait man" />
+                <AvatarFallback>LMT</AvatarFallback>
+              </Avatar>
+            </motion.div>
+            <div className="flex flex-col gap-4 lg:col-span-2">
+                 <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Le Minh Thong</h2>
                 <h3 className="mt-2 text-xl font-semibold text-secondary">Senior Software Engineer | Solution Architect</h3>
-                <p className="mt-4 text-lg text-muted-foreground">Kỹ sư phần mềm với hơn 10 năm kinh nghiệm trong phát triển hệ thống ERP và giải pháp doanh nghiệp. Chuyên sâu về .NET, Golang, Cloud và Microservices.</p>
+                <p className="mt-4 text-lg text-muted-foreground">Software engineer with over 10 years of experience in developing ERP systems and enterprise solutions. Specializing in .NET, Golang, Cloud, and Microservices.</p>
                 <div className="mt-6 space-y-3 text-muted-foreground">
                   <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-primary"/><span>thongproleminh@gmail.com</span></div>
-                  <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-primary"/><span>0396 870 644</span></div>
-                  <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-primary"/><span>TP.HCM, Việt Nam</span></div>
+                  <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-primary"/><span>(+84) 396 870 644</span></div>
+                  <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-primary"/><span>HCMC, Vietnam</span></div>
                 </div>
                 <div className="mt-8 flex items-center gap-4">
                   <Button size="lg" onClick={handleDownloadCV}>
@@ -472,6 +471,8 @@ export default function HomePage() {
     </div>
   );
 }
+
+    
 
     
 
