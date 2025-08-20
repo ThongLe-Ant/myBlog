@@ -69,7 +69,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
 
   return (
     <div className="space-y-8">
-       <div className="flex flex-col gap-4">
+       <div className="flex flex-col gap-4 max-w-7xl mx-auto">
             <div className="relative w-full md:max-w-md">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input 

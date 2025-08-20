@@ -25,8 +25,8 @@ export default async function PostsListPage({
   const pageDescription = "Find, search, and manage all your articles here in your personal collection.";
 
   return (
-    <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <div className="flex justify-between items-center mb-8">
+    <div className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-between items-center mb-8 max-w-7xl mx-auto">
         <div>
             <h1 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{pageTitle}</h1>
             <p className="mt-2 text-lg text-muted-foreground">
