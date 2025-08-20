@@ -8,14 +8,17 @@ import {
   CheckCircle,
   ChevronRight,
   Cpu,
+  Github,
+  Linkedin,
   Mail,
   MapPin,
   Phone,
   Rocket,
+  Search,
   Send,
   ShieldCheck,
-  Smartphone,
   Target,
+  Twitter,
   User,
   Zap,
 } from 'lucide-react';
@@ -23,44 +26,14 @@ import { motion } from 'framer-motion';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { SectionReveal } from '@/components/motion/section-reveal';
-import { HeroHighlight } from '@/components/motion/hero-highlight';
 import { CardInteractive } from '@/components/motion/card-interactive';
 import React from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-
-const stats = [
-    { value: '10+', label: 'Years of Experience' },
-    { value: '20+', label: 'Systems' },
-    { value: '5+', label: 'Industries' },
-    { value: '100%', label: 'Commitment' },
-];
-
-const skills = {
-    'Domain': [
-        { name: 'System Architecture', level: 'Expert' },
-        { name: 'ERP Solutions', level: 'Expert' },
-        { name: 'Payment Systems', level: 'Advanced' },
-        { name: 'Reporting & Dashboards', level: 'Expert' },
-        { name: 'Automation', level: 'Advanced' },
-        { name: 'Performance Optimization', level: 'Expert' },
-        { name: 'Project Management', level: 'Advanced' },
-        { name: 'System Security', level: 'Advanced' },
-    ],
-    'Technology': [
-        { name: '.NET', level: 'Expert' },
-        { name: 'Golang', level: 'Expert' },
-        { name: 'SQL Server', level: 'Expert' },
-        { name: 'Kafka', level: 'Advanced' },
-        { name: 'Kubernetes', level: 'Advanced' },
-        { name: 'React', level: 'Advanced' },
-        { name: 'Azure', level: 'Advanced' },
-        { name: 'Docker', level: 'Advanced' },
-    ],
-};
+import Image from 'next/image';
 
 const experiences = [
     {
@@ -140,236 +113,180 @@ const projects = [
     },
 ];
 
-const expertiseAreas = [
-    { title: 'ERP Systems', icon: Cpu },
-    { title: 'Production Management', icon: Building2 },
-    { title: 'HR & Payroll', icon: User },
-    { title: 'Warehouse & Procurement', icon: Briefcase },
-    { title: 'Payment Systems', icon: Smartphone },
-];
-
-const keyResults = [
-    { title: 'Processed >10,000 transactions/day', icon: Zap },
-    { title: 'Reduced inventory time by 30%', icon: CheckCircle },
-    { title: 'Reduced processing time by 20%', icon: Rocket },
-    { title: 'Automated processes', icon: ShieldCheck },
+const blogPosts = [
+    {
+        title: 'Architecting Resilient Microservices',
+        category: 'System Architecture',
+        excerpt: 'A deep dive into patterns for building fault-tolerant and scalable microservices systems.',
+        imageUrl: 'https://placehold.co/800x600.png',
+        aiHint: 'microservices architecture diagram',
+    },
+    {
+        title: 'The Power of Golang in High-Performance Systems',
+        category: 'Backend Development',
+        excerpt: 'Exploring how Go\'s concurrency model and performance make it ideal for payment gateways and high-traffic APIs.',
+        imageUrl: 'https://placehold.co/800x600.png',
+        aiHint: 'golang code abstract',
+    },
+    {
+        title: 'From Monolith to Micro-frontends: A Journey',
+        category: 'Frontend',
+        excerpt: 'Our experience in breaking down a monolithic frontend into manageable, deployable micro-frontends.',
+        imageUrl: 'https://placehold.co/800x600.png',
+        aiHint: 'frontend code modules',
+    }
 ];
 
 
 export default function HomePage() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
+  };
+
   return (
-    <div className="flex flex-col space-y-24 md:space-y-32">
-      {/* Hero Section */}
-      <HeroHighlight>
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 w-full">
-            <motion.div
-                initial={{ opacity: 0, scale: 0.8, x: -100 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                 className="lg:w-1/3 relative flex justify-center"
-            >
-                <Avatar className="w-64 h-64 md:w-80 md:h-80 border-4 border-primary/20 shadow-2xl shadow-primary/20">
-                    <AvatarImage src="https://storage.googleapis.com/maker-studio-5a93d.appspot.com/users%2FqEg2yVE49bZ230z3a42qfI4pB3t1%2Fstudios%2Fdc48b261-26c3-424a-a434-d023b36ed658%2Fimage_1724036662446_46.png" alt="Avatar Le Minh Thong" data-ai-hint="man portrait professional" />
-                    <AvatarFallback>LMT</AvatarFallback>
-                </Avatar>
-            </motion.div>
-            <div className="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
-                 <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white to-stone-400 sm:text-5xl md:text-6xl"
-                >
-                    Le Minh Thong
-                </motion.h1>
-                 <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className="mt-2 text-2xl font-semibold text-primary"
-                >
-                   Senior Software Engineer | Solution Architect
-                </motion.h2>
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="mt-4 max-w-xl text-lg text-muted-foreground"
-                >
-                    Software engineer with over 10 years of experience in developing ERP systems and enterprise solutions. Specializing in .NET, Golang, Cloud, and Microservices.
-                </motion.p>
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    className="mt-6 space-y-2 text-muted-foreground">
-                    <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-primary"/><span>thongproleminh@gmail.com</span></div>
-                    <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-primary"/><span>0396 870 644</span></div>
-                    <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-primary"/><span>HCMC, Vietnam</span></div>
-                </motion.div>
-                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    className="mt-8"
-                >
-                    <Button size="lg">View My Projects <ArrowRight className="ml-2"/></Button>
-                </motion.div>
-            </div>
-        </div>
-      </HeroHighlight>
-
-       {/* Stats Section */}
-      <SectionReveal>
-        <div className="w-full">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {stats.map((stat, index) => (
-                <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="p-4 rounded-xl"
-                >
-                    <p className="text-4xl md:text-5xl font-bold text-primary">{stat.value}</p>
-                    <p className="mt-2 text-muted-foreground">{stat.label}</p>
-                </motion.div>
-            ))}
-            </div>
-        </div>
-      </SectionReveal>
-
-      {/* About Section */}
-      <SectionReveal id="about" className="scroll-mt-24">
-        <div className="w-full">
-            <div className="grid md:grid-cols-5 gap-12 items-start">
-                <div className="md:col-span-2">
-                    <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">About Me</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">
-                        Software engineer with over 10 years of experience in developing enterprise systems and ERP solutions.
-                    </p>
-                </div>
-                <div className="md:col-span-3 space-y-6 text-muted-foreground">
-                    <p>With over 10 years of experience, I specialize in designing and implementing large-scale ERP systems for leading corporations in Vietnam. I have a strong technical foundation and deep cross-industry business knowledge.</p>
-                    <p>Successfully deployed 20+ large-scale systems for leading Vietnamese corporations in finance-banking, manufacturing, and HR.</p>
-                    <p>I always aim to create technology solutions that not only meet technical requirements but also effectively solve complex business problems.</p>
-                </div>
-            </div>
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 className="text-2xl font-semibold mb-4 text-secondary">Areas of Expertise</h3>
-                    <div className="space-y-3">
-                        {expertiseAreas.map(area => (
-                            <div key={area.title} className="flex items-center gap-3 p-3 bg-surface rounded-lg">
-                                <area.icon className="w-6 h-6 text-primary"/>
-                                <span className="text-muted-foreground">{area.title}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div>
-                    <h3 className="text-2xl font-semibold mb-4 text-secondary">Key Achievements</h3>
-                    <div className="space-y-3">
-                        {keyResults.map(result => (
-                            <div key={result.title} className="flex items-center gap-3 p-3 bg-surface rounded-lg">
-                                <result.icon className="w-6 h-6 text-accent"/>
-                                <span className="text-muted-foreground">{result.title}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
-      </SectionReveal>
-
-       {/* Skills Section */}
-      <SectionReveal id="skills" className="scroll-mt-24">
-        <div className="w-full">
-            <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Core Skills</h2>
-            <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                Technologies and expertise that create distinct value
+    <div className="flex flex-col">
+      {/* New Hero Section */}
+      <section className="relative flex flex-col lg:flex-row gap-8 lg:gap-16 min-h-[calc(100vh-4rem)] w-full py-12 md:py-24">
+        {/* Left: Personal Info (Sticky) */}
+        <motion.div 
+            className="lg:w-1/3 lg:sticky lg:top-24 h-full"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <div className="flex flex-col items-center lg:items-start">
+            <Avatar className="w-40 h-40 border-4 border-primary/20 shadow-xl shadow-primary/20">
+              <AvatarImage src="https://storage.googleapis.com/maker-studio-5a93d.appspot.com/users%2FqEg2yVE49bZ230z3a42qfI4pB3t1%2Fstudios%2Fdc48b261-26c3-424a-a434-d023b36ed658%2Fimage_1724036662446_46.png" alt="Avatar Le Minh Thong" data-ai-hint="man portrait professional" />
+              <AvatarFallback>LMT</AvatarFallback>
+            </Avatar>
+            <h1 className="mt-6 text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white to-stone-400">
+              Le Minh Thong
+            </h1>
+            <h2 className="mt-2 text-xl font-semibold text-primary">
+              Senior Software Engineer | Solution Architect
+            </h2>
+            <p className="mt-4 text-left text-muted-foreground">
+              Software engineer with over 10 years of experience in developing ERP systems and enterprise solutions.
             </p>
+            <div className="mt-6 space-y-3 text-muted-foreground">
+              <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-primary"/><span>thongproleminh@gmail.com</span></div>
+              <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-primary"/><span>0396 870 644</span></div>
+              <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-primary"/><span>HCMC, Vietnam</span></div>
             </div>
-            <div className="mt-12 grid md:grid-cols-2 gap-x-12 gap-y-8">
-            {Object.entries(skills).map(([category, skillList]) => (
-                <div key={category}>
-                <h3 className="text-2xl font-semibold text-secondary mb-4">{category}</h3>
-                <div className="space-y-4">
-                    {skillList.map(skill => (
-                    <div key={skill.name}>
-                        <div className="flex justify-between mb-1">
-                        <span className="text-base font-medium text-muted-foreground">{skill.name}</span>
-                        <span className="text-sm font-medium text-primary">{skill.level}</span>
-                        </div>
-                        <div className="w-full bg-surface rounded-full h-2.5">
-                        <motion.div
-                            className="bg-primary h-2.5 rounded-full"
-                            initial={{ width: 0 }}
-                            whileInView={{ width: skill.level === 'Expert' ? '100%' : '80%' }}
-                            transition={{ duration: 1, ease: 'easeOut' }}
-                            viewport={{ once: true, amount: 0.8 }}
-                        />
-                        </div>
-                    </div>
-                    ))}
-                </div>
-                </div>
-            ))}
+            <div className="flex items-center gap-4 mt-6">
+                <Button variant="ghost" size="icon" asChild><a href="https://github.com/thongproleminh" target="_blank"><Github/></a></Button>
+                <Button variant="ghost" size="icon" asChild><a href="https://linkedin.com/in/thongproleminh" target="_blank"><Linkedin/></a></Button>
+                <Button variant="ghost" size="icon" asChild><a href="https://twitter.com/thongproleminh" target="_blank"><Twitter/></a></Button>
             </div>
-        </div>
-      </SectionReveal>
+          </div>
+        </motion.div>
 
-      {/* Experience Section */}
-      <SectionReveal id="experience" className="scroll-mt-24">
-        <div className="w-full">
-            <div className="text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Professional Experience</h2>
-                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    My career journey over the past 10 years
-                </p>
+        {/* Right: Blog Slider */}
+        <motion.div 
+            className="lg:w-2/3"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+        >
+          <div className="w-full">
+            <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-secondary">Featured Articles</h3>
+                <Button variant="outline">
+                    <Search className="mr-2 h-4 w-4"/>
+                    Search Blog
+                </Button>
             </div>
-            <Carousel className="w-full mt-12"
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-            >
-              <CarouselContent>
-                {experiences.map((exp, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                    <div className="p-1 h-full">
-                      <Card className="h-full flex flex-col bg-surface/80 border-border/50">
-                        <CardContent className="flex flex-col items-start justify-between p-6 flex-grow">
-                          <div>
-                            <p className="text-sm font-semibold text-primary">{exp.period}</p>
-                            <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
-                            <p className="text-base font-semibold text-primary/80">{exp.role}</p>
-                            <p className="mt-3 text-muted-foreground">{exp.description}</p>
-                            <ul className="mt-3 space-y-1 list-inside">
-                                {exp.tasks.map(task => (
-                                    <li key={task} className="flex items-start gap-2 text-muted-foreground">
-                                        <ChevronRight className="w-4 h-4 text-accent mt-1 shrink-0"/>
-                                        <span>{task}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                          </div>
-                          {exp.highlight && <Badge variant="secondary" className="mt-4 bg-accent/10 text-accent-foreground border-accent/20">{exp.highlight}</Badge>}
-                        </CardContent>
-                      </Card>
+            <Carousel className="w-full" opts={{ align: "start", loop: true }}>
+              <CarouselContent className="-ml-4">
+                {blogPosts.map((post, index) => (
+                  <CarouselItem key={index} className="pl-4 md:basis-full">
+                    <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden group">
+                        <Image src={post.imageUrl} alt={post.title} layout="fill" className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-110" data-ai-hint={post.aiHint} />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"/>
+                        <div className="absolute bottom-0 left-0 p-6 md:p-8">
+                            <Badge variant="secondary" className="mb-2">{post.category}</Badge>
+                            <h4 className="text-2xl md:text-3xl font-bold text-white">{post.title}</h4>
+                            <p className="mt-2 text-white/80 max-w-lg">{post.excerpt}</p>
+                            <Button variant="link" className="p-0 mt-4 text-primary h-auto">Read More <ArrowRight className="ml-2"/></Button>
+                        </div>
                     </div>
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
+              <CarouselPrevious className="left-4" />
+              <CarouselNext className="right-4" />
             </Carousel>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Experience Section - The Journey */}
+      <SectionReveal id="experience" className="scroll-mt-24 py-24">
+        <div className="w-full">
+            <div className="text-center mb-16">
+                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">The Journey</h2>
+                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                    A timeline of my professional growth and key contributions over the past decade.
+                </p>
+            </div>
+            <div className="relative w-full">
+                {/* The timeline line */}
+                <div className="absolute left-4 md:left-1/2 top-0 h-full w-0.5 bg-border/50 -translate-x-1/2"></div>
+                
+                <motion.div 
+                    className="space-y-16"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.1 }}
+                >
+                    {experiences.map((exp, index) => (
+                        <motion.div 
+                            key={index} 
+                            className="relative flex items-start gap-6 md:gap-12"
+                            variants={itemVariants}
+                        >
+                            {/* Dot on timeline */}
+                            <div className="absolute left-4 top-1 h-4 w-4 rounded-full bg-primary ring-8 ring-background md:left-1/2 -translate-x-1/2"></div>
+                            
+                            <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pl-[calc(50%+2rem)]' : 'md:pr-[calc(50%+2rem)] md:text-right'} md:ml-auto`}>
+                                <div className={`p-6 bg-surface border border-border/50 rounded-2xl ${index % 2 === 0 ? '' : 'md:ml-auto'}`}>
+                                    <p className="text-sm font-semibold text-primary">{exp.period}</p>
+                                    <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
+                                    <p className="text-base font-semibold text-primary/80">{exp.role}</p>
+                                    <p className="mt-3 text-muted-foreground">{exp.description}</p>
+                                    <ul className={`mt-3 space-y-1 list-inside ${index % 2 !== 0 && 'md:text-left'}`}>
+                                        {exp.tasks.map(task => (
+                                            <li key={task} className="flex items-start gap-2 text-muted-foreground">
+                                                <ChevronRight className="w-4 h-4 text-accent mt-1 shrink-0"/>
+                                                <span>{task}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    {exp.highlight && <Badge variant="secondary" className="mt-4 bg-accent/10 text-accent-foreground border-accent/20">{exp.highlight}</Badge>}
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
+                </motion.div>
+            </div>
         </div>
       </SectionReveal>
 
       {/* Projects Section */}
-      <SectionReveal id="projects" className="scroll-mt-24">
+      <SectionReveal id="projects" className="scroll-mt-24 py-24">
         <div className="w-full">
             <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Featured Projects</h2>
@@ -393,67 +310,50 @@ export default function HomePage() {
         </div>
       </SectionReveal>
       
-      {/* Career Goals */}
-      <SectionReveal>
-        <div className="w-full">
-            <div className="text-center p-8 bg-surface rounded-2xl border border-border/50">
-                <Target className="w-12 h-12 mx-auto text-primary mb-4"/>
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Career Goals</h2>
-                <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
-                    Aiming for a Senior System Architect/Technical Product Owner role, focusing on developing enterprise-scale ERP and payment systems.
-                </p>
-                <p className="mt-2 max-w-3xl mx-auto text-muted-foreground">
-                    Continuing to enhance expertise in microservices architecture, cloud computing, and AI applications in enterprise management.
-                </p>
-            </div>
-        </div>
-      </SectionReveal>
-
-
       {/* Contact Section */}
-      <SectionReveal id="contact" className="scroll-mt-24">
+      <SectionReveal id="contact" className="scroll-mt-24 py-24">
         <div className="w-full">
-            <div className="grid md:grid-cols-2 gap-12">
-                <div>
-                    <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Contact Me</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">
-                        Always open to collaboration opportunities, new projects, and professional knowledge exchange.
-                    </p>
-                    <div className="mt-8 space-y-4">
-                        <div className="flex items-center gap-4 text-lg">
-                            <Mail className="w-6 h-6 text-primary"/>
-                            <span className="text-muted-foreground">thongproleminh@gmail.com</span>
-                        </div>
-                        <div className="flex items-center gap-4 text-lg">
-                            <Phone className="w-6 h-6 text-primary"/>
-                            <span className="text-muted-foreground">0396 870 644</span>
-                        </div>
-                        <div className="flex items-center gap-4 text-lg">
-                            <MapPin className="w-6 h-6 text-primary"/>
-                            <span className="text-muted-foreground">HCMC, Vietnam</span>
-                        </div>
-                    </div>
-                </div>
-                <Card className="p-6 md:p-8 bg-surface border-border/50">
-                    <form className="space-y-6">
-                        <div className="space-y-2">
-                            <label htmlFor="name" className="text-sm font-medium text-secondary">Full Name</label>
-                            <Input id="name" placeholder="Enter your full name" />
-                        </div>
-                        <div className="space-y-2">
-                            <label htmlFor="email" className="text-sm font-medium text-secondary">Email</label>
-                            <Input id="email" type="email" placeholder="Enter your email address" />
-                        </div>
-                        <div className="space-y-2">
-                            <label htmlFor="message" className="text-sm font-medium text-secondary">Message</label>
-                            <Textarea id="message" placeholder="Enter your message" rows={4}/>
-                        </div>
-                        <Button type="submit" size="lg" className="w-full">
-                            Send Message <Send className="ml-2"/>
-                        </Button>
-                    </form>
-                </Card>
-            </div>
+            <Card className="p-6 md:p-8 lg:p-12 bg-surface border-border/50">
+              <div className="grid md:grid-cols-2 gap-12">
+                  <div>
+                      <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Contact Me</h2>
+                      <p className="mt-4 text-lg text-muted-foreground">
+                          Always open to collaboration opportunities, new projects, and professional knowledge exchange.
+                      </p>
+                      <div className="mt-8 space-y-4">
+                          <div className="flex items-center gap-4 text-lg">
+                              <Mail className="w-6 h-6 text-primary"/>
+                              <span className="text-muted-foreground">thongproleminh@gmail.com</span>
+                          </div>
+                          <div className="flex items-center gap-4 text-lg">
+                              <Phone className="w-6 h-6 text-primary"/>
+                              <span className="text-muted-foreground">0396 870 644</span>
+                          </div>
+                          <div className="flex items-center gap-4 text-lg">
+                              <MapPin className="w-6 h-6 text-primary"/>
+                              <span className="text-muted-foreground">HCMC, Vietnam</span>
+                          </div>
+                      </div>
+                  </div>
+                  <form className="space-y-6">
+                      <div className="space-y-2">
+                          <label htmlFor="name" className="text-sm font-medium text-secondary">Full Name</label>
+                          <Input id="name" placeholder="Enter your full name" />
+                      </div>
+                      <div className="space-y-2">
+                          <label htmlFor="email" className="text-sm font-medium text-secondary">Email</label>
+                          <Input id="email" type="email" placeholder="Enter your email address" />
+                      </div>
+                      <div className="space-y-2">
+                          <label htmlFor="message" className="text-sm font-medium text-secondary">Message</label>
+                          <Textarea id="message" placeholder="Enter your message" rows={4}/>
+                      </div>
+                      <Button type="submit" size="lg" className="w-full">
+                          Send Message <Send className="ml-2"/>
+                      </Button>
+                  </form>
+              </div>
+            </Card>
         </div>
       </SectionReveal>
     </div>
