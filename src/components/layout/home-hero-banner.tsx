@@ -48,12 +48,12 @@ const HeroPattern = () => (
       <defs>
         <pattern
           id="home-hero-pattern"
-          width="32"
-          height="32"
+          width="4"
+          height="4"
           patternUnits="userSpaceOnUse"
           patternContentUnits="userSpaceOnUse"
         >
-          <circle cx="16" cy="16" r="1" fill="hsl(var(--foreground))" />
+          <circle cx="1" cy="1" r="0.5" fill="hsl(var(--foreground))" />
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#home-hero-pattern)" />
