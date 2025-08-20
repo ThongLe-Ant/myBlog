@@ -29,6 +29,7 @@ import html2canvas from 'html2canvas';
 import Autoplay from "embla-carousel-autoplay"
 import { useLanguage } from '@/context/language-context';
 import { HeroHighlight } from '@/components/motion/hero-highlight';
+import { useRouter } from 'next/navigation';
 
 const content = {
   en: {
@@ -430,6 +431,7 @@ export default function HomePage() {
   const { language } = useLanguage();
   const c = content[language];
   const cvContentRef = React.useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const autoplay = React.useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true })
@@ -456,12 +458,16 @@ export default function HomePage() {
   };
 
   const handleScrollTo = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
+    if (id.startsWith('/')) {
+        router.push(id);
+    } else {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
     }
   };
 
@@ -521,6 +527,7 @@ export default function HomePage() {
                 }}
                 plugins={[autoplay.current]}
                 className="w-full"
+                showControls={false}
               >
                 <CarouselContent>
                   {c.strengths.items.map((card, index) => (

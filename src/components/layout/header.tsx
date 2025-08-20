@@ -15,6 +15,8 @@ import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { ThemeToggle } from './theme-toggle';
+import { useRouter } from 'next/navigation';
+
 
 const navLinks = {
   en: [
@@ -70,6 +72,21 @@ export function Header() {
   const [hoveredPath, setHoveredPath] = useState('');
   const { language, setLanguage } = useLanguage();
   const currentLangConfig = languages.find(lang => lang.code === language) || languages[0];
+  const router = useRouter();
+
+  const handleLinkClick = (href: string) => {
+    if (href.startsWith('/')) {
+      router.push(href);
+    } else {
+      const element = document.getElementById(href.substring(1));
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 flex h-16 w-full items-center justify-between border-b border-border/20 bg-background/80 px-4 backdrop-blur-xl md:px-6">
@@ -80,10 +97,14 @@ export function Header() {
       
       <nav className="hidden items-center gap-1 text-sm font-medium md:flex">
         {navLinks[language].map((link) => (
-          <Link
+          <a
             key={link.label}
             href={link.href}
-            className="relative rounded-md px-3 py-2 uppercase tracking-wider transition-colors hover:text-primary"
+            onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick(link.href);
+            }}
+            className="relative rounded-md px-3 py-2 uppercase tracking-wider transition-colors hover:text-primary cursor-pointer"
             onMouseOver={() => setHoveredPath(link.href)}
             onMouseLeave={() => setHoveredPath('')}
           >
@@ -97,7 +118,7 @@ export function Header() {
                 exit={{ opacity: 0 }}
               />
             )}
-          </Link>
+          </a>
         ))}
       </nav>
 
@@ -135,13 +156,17 @@ export function Header() {
                   <span className="text-lg">LMT</span>
               </Link>
               {navLinks[language].map((link) => (
-                <Link
+                <a
                   key={link.label}
                   href={link.href}
-                  className="transition-colors hover:text-primary uppercase"
+                  onClick={(e) => {
+                      e.preventDefault();
+                      handleLinkClick(link.href);
+                  }}
+                  className="transition-colors hover:text-primary uppercase cursor-pointer"
                 >
                   {link.label}
-                </Link>
+                </a>
               ))}
             </nav>
           </SheetContent>
