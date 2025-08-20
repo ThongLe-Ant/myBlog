@@ -45,7 +45,7 @@ interface EditPostPageProps {
   };
 }
 
-export default function EditPostPage({ params }: EditPostPageProps) {
+export default function EditPostPage({ params: { slug } }: EditPostPageProps) {
   const router = useRouter();
   const { toast } = useToast();
   
@@ -62,7 +62,6 @@ export default function EditPostPage({ params }: EditPostPageProps) {
   const [userPrompt, setUserPrompt] = useState('');
 
   useEffect(() => {
-    const slug = params.slug;
     if (typeof slug !== 'string') {
         router.push('/posts');
         return;
@@ -100,7 +99,7 @@ export default function EditPostPage({ params }: EditPostPageProps) {
     };
 
     fetchPost();
-  }, [params.slug, toast, router]);
+  }, [slug, toast, router]);
 
   const handleGeneratePost = async () => {
     if (!title || !userPrompt) {
