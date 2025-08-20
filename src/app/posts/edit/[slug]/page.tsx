@@ -1,38 +1,147 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Save } from 'lucide-react';
-import { useParams } from 'next/navigation';
+import { Save, Trash2 } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import { getPostBySlug, updatePost, deletePost, Post } from '@/lib/posts';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default function EditPostPage() {
   const { slug } = useParams();
-  // In a real app, you would fetch the post data based on the slug
-  const [title, setTitle] = useState(`Editing Post: ${slug}`);
-  const [content, setContent] = useState('Loading post content...');
-  const [isLoading, setIsLoading] = useState(false);
+  const [post, setPost] = useState<Post | null>(null);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [category, setCategory] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof slug !== 'string') return;
+    
+    const fetchPost = async () => {
+      setIsLoading(true);
+      try {
+        const postData = await getPostBySlug(slug as string);
+        if (postData) {
+          setPost(postData);
+          setTitle(postData.title);
+          setContent(postData.content);
+          setCategory(postData.category);
+        } else {
+          toast({
+            title: 'Error',
+            description: 'Post not found.',
+            variant: 'destructive',
+          });
+          router.push('/posts');
+        }
+      } catch (error) {
+        console.error(error);
+        toast({
+            title: 'Error',
+            description: 'Failed to fetch the post.',
+            variant: 'destructive'
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [slug, toast, router]);
 
   const handleSave = async () => {
-    setIsLoading(true);
-    // TODO: Implement the logic to save the post
-    console.log('Saving post:', { slug, title, content });
+    if (!title || !content || !category) {
+        toast({
+            title: 'Incomplete Form',
+            description: 'Please fill out all fields before saving.',
+            variant: 'destructive'
+        });
+        return;
+    }
+    
+    if (!post) return;
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    toast({
-      title: 'Post Updated!',
-      description: 'Your blog post has been updated successfully.',
-    });
-
-    setIsLoading(false);
+    setIsSaving(true);
+    try {
+        await updatePost(post.slug, post.category, { title, content, category });
+        toast({
+            title: 'Post Updated!',
+            description: 'Your blog post has been updated successfully.',
+        });
+        router.push('/posts');
+    } catch (error) {
+        console.error(error);
+        toast({
+            title: 'Error',
+            description: 'Failed to update the post. Please try again.',
+            variant: 'destructive'
+        });
+    } finally {
+        setIsSaving(false);
+    }
   };
+
+  const handleDelete = async () => {
+    if (!post) return;
+
+    setIsDeleting(true);
+    try {
+        await deletePost(post.slug, post.category);
+        toast({
+            title: 'Post Deleted!',
+            description: 'The blog post has been successfully deleted.',
+        });
+        router.push('/posts');
+    } catch (error) {
+        console.error(error);
+        toast({
+            title: 'Error',
+            description: 'Failed to delete the post. Please try again.',
+            variant: 'destructive'
+        });
+    } finally {
+        setIsDeleting(false);
+    }
+  }
+
+  if (isLoading) {
+    return (
+        <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+                <Card className="bg-surface/50 border-border/50">
+                    <CardHeader>
+                        <CardTitle className="text-primary text-2xl">Loading...</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p>Loading post content...</p>
+                    </CardContent>
+                </Card>
+            </div>
+        </div>
+    )
+  }
 
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -52,8 +161,28 @@ export default function EditPostPage() {
                 placeholder="e.g., 'My First Blog Post'"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                disabled={isLoading}
+                disabled={isSaving}
               />
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="category">Category</Label>
+                <Select onValueChange={setCategory} value={category} disabled={isSaving}>
+                    <SelectTrigger id="category">
+                        <SelectValue placeholder="Select a category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="Front End">Front End</SelectItem>
+                        <SelectItem value="Back End">Back End</SelectItem>
+                        <SelectItem value="AI">AI</SelectItem>
+                        <SelectItem value="Data">Data</SelectItem>
+                        <SelectItem value="DevOps">DevOps</SelectItem>
+                        <SelectItem value="Showcase">Showcase</SelectItem>
+                        <SelectItem value="Cheatsheet">Cheatsheet</SelectItem>
+                        <SelectItem value="Life Code">Life Code</SelectItem>
+                        <SelectItem value="Search Code">Search Code</SelectItem>
+                        <SelectItem value="Learn Code">Learn Code</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
             <div className="space-y-2">
               <Label htmlFor="content">Content (Markdown)</Label>
@@ -63,19 +192,40 @@ export default function EditPostPage() {
                 rows={15}
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                disabled={isLoading}
+                disabled={isSaving}
               />
             </div>
           </CardContent>
-          <CardFooter>
-            <Button onClick={handleSave} disabled={isLoading} size="lg">
-              {isLoading ? 'Saving...' : (
+          <CardFooter className="flex justify-between">
+            <Button onClick={handleSave} disabled={isSaving} size="lg">
+              {isSaving ? 'Saving...' : (
                 <>
                   <Save className="mr-2 h-4 w-4" />
                   Save Changes
                 </>
               )}
             </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="destructive" disabled={isDeleting}>
+                  <Trash2 className="mr-2 h-4 w-4" />
+                   {isDeleting ? 'Deleting...' : 'Delete Post'}
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete your
+                    post and remove your data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </CardFooter>
         </Card>
       </div>

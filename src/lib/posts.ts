@@ -29,6 +29,19 @@ const ensureDirectoryExists = async () => {
     }
 }
 
+// Helper to read posts from a specific category file
+const readCategoryFile = async (filePath: string): Promise<Post[]> => {
+    try {
+        const data = await fs.readFile(filePath, 'utf-8');
+        return JSON.parse(data) as Post[];
+    } catch (error) {
+        if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+            return []; // File not found, return empty array
+        }
+        throw error; // Other errors
+    }
+};
+
 export async function getPosts(): Promise<Post[]> {
   try {
     await ensureDirectoryExists();
@@ -38,14 +51,10 @@ export async function getPosts(): Promise<Post[]> {
     for (const file of categoryFiles) {
         if (file.endsWith('.json')) {
             const filePath = path.join(postsDirectory, file);
-            const data = await fs.readFile(filePath, 'utf-8');
-            if (data) {
-                const posts: Post[] = JSON.parse(data);
-                allPosts.push(...posts);
-            }
+            const posts = await readCategoryFile(filePath);
+            allPosts.push(...posts);
         }
     }
-    // Sort posts by putting the newest first, assuming they are added to the beginning of the file
     return allPosts;
   } catch (error) {
     console.error('Error reading posts:', error);
@@ -58,31 +67,100 @@ export async function getPostBySlug(slug: string): Promise<Post | undefined> {
   return posts.find(post => post.slug === slug);
 }
 
+const createSlug = (title: string) => {
+    return title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+}
+
 export async function savePost(post: Omit<Post, 'slug'>) {
     await ensureDirectoryExists();
     const filePath = getCategoryFilePath(post.category);
-    let categoryPosts: Post[] = [];
-
-    try {
-        const data = await fs.readFile(filePath, 'utf-8');
-        categoryPosts = JSON.parse(data);
-    } catch (error) {
-        // File doesn't exist, it's fine, we'll create it.
-        if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
-            throw error;
-        }
-    }
+    const categoryPosts = await readCategoryFile(filePath);
 
     const newPost: Post = {
         ...post,
-        slug: post.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''),
+        slug: createSlug(post.title),
     };
 
-    categoryPosts.unshift(newPost); // Add new post to the beginning
+    // Check for duplicate slugs
+    if (categoryPosts.some(p => p.slug === newPost.slug)) {
+        // Simple strategy: append a timestamp to make it unique
+        newPost.slug = `${newPost.slug}-${Date.now()}`;
+    }
+
+    categoryPosts.unshift(newPost);
 
     await fs.writeFile(filePath, JSON.stringify(categoryPosts, null, 2));
 
-    // Revalidate paths to reflect changes
     revalidatePath('/posts');
     revalidatePath(`/posts/${newPost.slug}`);
+}
+
+export async function updatePost(originalSlug: string, originalCategory: string, updatedPostData: Omit<Post, 'slug'>) {
+    await ensureDirectoryExists();
+    
+    const { title, content, category } = updatedPostData;
+    const newSlug = createSlug(title);
+
+    const originalFilePath = getCategoryFilePath(originalCategory);
+    let originalCategoryPosts = await readCategoryFile(originalFilePath);
+
+    const postIndex = originalCategoryPosts.findIndex(p => p.slug === originalSlug);
+
+    if (postIndex === -1) {
+        throw new Error(`Post with slug "${originalSlug}" not found in category "${originalCategory}"`);
+    }
+
+    // If category has changed
+    if (originalCategory !== category) {
+        // Remove post from old category
+        const [postToMove] = originalCategoryPosts.splice(postIndex, 1);
+        await fs.writeFile(originalFilePath, JSON.stringify(originalCategoryPosts, null, 2));
+        
+        // Update post details
+        postToMove.title = title;
+        postToMove.content = content;
+        postToMove.category = category;
+        postToMove.slug = newSlug;
+
+        // Add to new category
+        const newFilePath = getCategoryFilePath(category);
+        const newCategoryPosts = await readCategoryFile(newFilePath);
+        newCategoryPosts.unshift(postToMove);
+        await fs.writeFile(newFilePath, JSON.stringify(newCategoryPosts, null, 2));
+
+    } else {
+        // Just update the post in the same category
+        originalCategoryPosts[postIndex] = {
+            ...originalCategoryPosts[postIndex],
+            title,
+            content,
+            category,
+            slug: newSlug,
+        };
+        await fs.writeFile(originalFilePath, JSON.stringify(originalCategoryPosts, null, 2));
+    }
+    
+    // Revalidate relevant paths
+    revalidatePath('/posts');
+    revalidatePath(`/posts/${originalSlug}`);
+    if (originalSlug !== newSlug) {
+      revalidatePath(`/posts/${newSlug}`);
+    }
+}
+
+export async function deletePost(slug: string, category: string) {
+    await ensureDirectoryExists();
+    const filePath = getCategoryFilePath(category);
+    let categoryPosts = await readCategoryFile(filePath);
+
+    const updatedPosts = categoryPosts.filter(p => p.slug !== slug);
+
+    if (updatedPosts.length === categoryPosts.length) {
+        throw new Error(`Post with slug "${slug}" not found in category "${category}"`);
+    }
+
+    await fs.writeFile(filePath, JSON.stringify(updatedPosts, null, 2));
+
+    revalidatePath('/posts');
+    revalidatePath(`/posts/${slug}`);
 }
