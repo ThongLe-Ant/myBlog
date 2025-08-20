@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Post } from '@/lib/posts';
 import { ArrowRight } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import Autoplay from "embla-carousel-autoplay"
 
 const content = {
   en: {
@@ -43,8 +44,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
     // and the rest as side posts.
     if (mainPosts.length === 0 && posts.length > 0) {
         mainPosts.push(posts[0]);
-        sidePosts.splice(0, posts.length - 1); // Reset side posts
-        sidePosts.push(...posts.slice(1, 5));
+        sidePosts.splice(0, 1);
     }
 
 
@@ -94,7 +94,16 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 {/* Main Post Section */}
                 {mainPosts.length > 1 ? (
-                    <Carousel className="w-full group" opts={{ loop: true }}>
+                    <Carousel 
+                        className="w-full group" 
+                        opts={{ loop: true }}
+                        plugins={[
+                            Autoplay({
+                                delay: 5000,
+                                stopOnInteraction: true,
+                            }),
+                        ]}
+                    >
                         <CarouselContent>
                             {mainPosts.map((post) => (
                                 <CarouselItem key={post.slug}>

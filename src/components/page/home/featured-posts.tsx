@@ -40,8 +40,8 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
         return null;
     }
     
-    const getExcerpt = (content: string, length = 250) => {
-        const cleanedContent = content.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
+    const getExcerpt = (contentStr: string, length = 250) => {
+        const cleanedContent = contentStr.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
         if (cleanedContent.length <= length) return cleanedContent;
         return cleanedContent.substring(0, length) + '...';
     }
@@ -67,7 +67,7 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
                                   src={post.imageUrl}
                                   alt={post.title}
                                   fill
-                                  className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                                  className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 z-0"
                                   data-ai-hint="tech blog"
                               />
                            )}
