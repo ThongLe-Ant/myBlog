@@ -61,7 +61,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                        <Card className="bg-surface h-full flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1">
                             <div className="relative w-full overflow-hidden aspect-[16/10]">
                                 <Image
-                                    src={mainPost.imageUrl || 'https://placehold.co/800x600.png'}
+                                    src={mainPost.imageUrl!}
                                     alt={mainPost.title}
                                     fill
                                     className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
@@ -96,7 +96,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                                   )}>
                                     <div className="relative w-full overflow-hidden aspect-[16/10]">
                                         <Image
-                                            src={post.imageUrl || 'https://placehold.co/600x400.png'}
+                                            src={post.imageUrl!}
                                             alt={post.title}
                                             fill
                                             className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"

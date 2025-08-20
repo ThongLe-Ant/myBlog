@@ -70,7 +70,7 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
                           )}>
                             <div className="relative w-full overflow-hidden aspect-[16/10]">
                                 <Image
-                                    src={post.imageUrl || 'https://placehold.co/800x600.png'}
+                                    src={post.imageUrl!}
                                     alt={post.title}
                                     fill
                                     className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
