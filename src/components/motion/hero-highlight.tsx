@@ -11,12 +11,12 @@ const backgroundPatterns = [
 ];
 
 export function HeroHighlight({ children }: { children: React.ReactNode }) {
-  const [backgroundUrl, setBackgroundUrl] = useState('');
+  const [patternUrl, setPatternUrl] = useState('');
 
   useEffect(() => {
     // Select a random background on client-side mount to avoid hydration mismatch
     const randomPattern = backgroundPatterns[Math.floor(Math.random() * backgroundPatterns.length)];
-    setBackgroundUrl(`url(${randomPattern})`);
+    setPatternUrl(`url(${randomPattern})`);
   }, []);
 
 
@@ -36,20 +36,15 @@ export function HeroHighlight({ children }: { children: React.ReactNode }) {
            initial={{ opacity: 0 }}
            animate={{ opacity: 1 }}
            transition={{ duration: 1.5 }}
+           style={patternUrl ? {
+                maskImage: patternUrl,
+                WebkitMaskImage: patternUrl, // for Safari compatibility
+                maskSize: 'cover',
+                WebkitMaskSize: 'cover',
+                maskPosition: 'center',
+                WebkitMaskPosition: 'center',
+            } : {}}
         />
-         {backgroundUrl && (
-            <motion.div
-              className="absolute inset-0 z-0 opacity-20 dark:opacity-5"
-              style={{
-                  backgroundImage: backgroundUrl,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-              }}
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: [0, 0.2, 0.05], scale: 1 }}
-              transition={{ duration: 2, ease: 'easeInOut' }}
-            />
-         )}
       </div>
 
       <div className="z-10 w-full">
