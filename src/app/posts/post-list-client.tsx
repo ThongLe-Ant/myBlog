@@ -71,8 +71,8 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     <div className="space-y-8">
         <Card className="bg-surface/50 border-border/50">
            <CardContent className="pt-6">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div className="relative w-full md:max-w-md">
+                <div className="flex flex-col gap-4">
+                    <div className="relative w-full">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                         <Input 
                             type="search" 
@@ -82,7 +82,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
-                    <div className="w-full md:w-auto overflow-x-auto">
+                    <div className="w-full overflow-x-auto">
                         <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
                             <TabsList>
                                 {categories.map(category => (
