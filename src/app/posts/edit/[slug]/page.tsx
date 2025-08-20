@@ -119,7 +119,7 @@ export default function EditPostPage() {
     } finally {
         setIsGenerating(false);
     }
-  }
+  };
 
   const handleSave = async () => {
     if (!title || !content || !category) {
@@ -345,7 +345,7 @@ export default function EditPostPage() {
                   <AlertDialogDescription>
                     This action cannot be undone. This will permanently delete your
                     post and remove your data from our servers.
-                  </description>
+                  </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -359,3 +359,4 @@ export default function EditPostPage() {
     </div>
   );
 }
+
