@@ -1,60 +1,55 @@
 
-'use client';
-
-import React, { useEffect, useState } from 'react';
-import { Post, getPosts } from '@/lib/posts';
+import React from 'react';
+import { getPosts, Post } from '@/lib/posts';
 import { CategoryBrowser } from '@/components/page/home/category-browser';
 import { FeaturedPosts } from '@/components/page/home/featured-posts';
 import { CategorySection } from '@/components/page/home/category-section';
 import { HomeHeroBanner } from '@/components/layout/home-hero-banner';
 
-export default function HomePage() {
-  const [postsByCategory, setPostsByCategory] = useState<Record<string, Post[]>>({});
-  const [categoryCounts, setCategoryCounts] = useState<Record<string, number>>({});
-  const [categories, setCategories] = useState<string[]>([]);
-  const [featuredPosts, setFeaturedPosts] = useState<Post[]>([]);
+export const dynamic = 'force-dynamic';
 
-  useEffect(() => {
-    async function fetchPosts() {
-      const allPosts = await getPosts();
-      const publishedPosts = allPosts.filter(p => p.published);
-      
-      setFeaturedPosts(publishedPosts.filter(p => p.featured));
-      
-      const groupedPosts = publishedPosts.reduce((acc, post) => {
-        const category = post.category;
-        if (!acc[category]) {
-          acc[category] = [];
-        }
-        acc[category].push(post);
-        return acc;
-      }, {} as Record<string, Post[]>);
-      
-      const sortedCategories = Object.keys(groupedPosts).sort((a, b) => a.localeCompare(b));
-      
-      const counts: Record<string, number> = {};
-      for(const category of sortedCategories) {
-        counts[category] = groupedPosts[category].length;
-      }
+const backgroundPatterns = [
+  '/backgrounds/pattern-1.svg',
+  '/backgrounds/pattern-2.svg',
+  '/backgrounds/pattern-3.svg',
+  '/backgrounds/pattern-4.svg',
+];
 
-      setPostsByCategory(groupedPosts);
-      setCategories(sortedCategories);
-      setCategoryCounts(counts);
+export default async function HomePage() {
+  const allPosts = await getPosts();
+  const publishedPosts = allPosts.filter(p => p.published);
+  
+  const featuredPosts = publishedPosts.filter(p => p.featured);
+  
+  const postsByCategory = publishedPosts.reduce((acc, post) => {
+    const category = post.category;
+    if (!acc[category]) {
+      acc[category] = [];
     }
-    fetchPosts();
-  }, []);
+    acc[category].push(post);
+    return acc;
+  }, {} as Record<string, Post[]>);
+  
+  const sortedCategories = Object.keys(postsByCategory).sort((a, b) => a.localeCompare(b));
+  
+  const categoryCounts: Record<string, number> = {};
+  for(const category of sortedCategories) {
+    categoryCounts[category] = postsByCategory[category].length;
+  }
+
+  const randomBackgroundUrl = backgroundPatterns[Math.floor(Math.random() * backgroundPatterns.length)];
 
   return (
     <div className="flex flex-col w-full">
-        <HomeHeroBanner />
+        <HomeHeroBanner backgroundUrl={randomBackgroundUrl} />
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-16 lg:py-24">
-            <CategoryBrowser categories={categories} categoryCounts={categoryCounts} />
+            <CategoryBrowser categories={sortedCategories} categoryCounts={categoryCounts} />
             
             <FeaturedPosts featuredPosts={featuredPosts} />
 
             {/* Posts by Category Sections */}
-            {categories.map((category) => (
+            {sortedCategories.map((category) => (
                 <CategorySection
                     key={category}
                     category={category}

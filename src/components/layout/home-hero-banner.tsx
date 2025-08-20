@@ -40,24 +40,21 @@ const content = {
   }
 };
 
+interface HomeHeroBannerProps {
+  backgroundUrl: string;
+}
 
-export function HomeHeroBanner() {
+export function HomeHeroBanner({ backgroundUrl }: HomeHeroBannerProps) {
   const { language } = useLanguage();
   const c = content[language];
   const router = useRouter();
 
   return (
       <section className="relative w-full overflow-hidden pt-16 md:pt-24 pb-12 md:pb-20">
-          <div className="absolute inset-0 z-0">
-            {/* Base background for smallest screens */}
-            <div className="absolute inset-0 bg-cover bg-center opacity-10 dark:opacity-20 md:hidden" style={{backgroundImage: "url('/backgrounds/pattern-4.svg')"}}></div>
-            {/* Medium screen background */}
-            <div className="hidden absolute inset-0 bg-cover bg-center opacity-10 dark:opacity-20 md:block lg:hidden" style={{backgroundImage: "url('/backgrounds/pattern-1.svg')"}}></div>
-            {/* Large screen background */}
-            <div className="hidden absolute inset-0 bg-cover bg-center opacity-10 dark:opacity-20 lg:block xl:hidden" style={{backgroundImage: "url('/backgrounds/pattern-2.svg')"}}></div>
-            {/* Extra large screen background */}
-            <div className="hidden absolute inset-0 bg-cover bg-center opacity-10 dark:opacity-20 xl:block" style={{backgroundImage: "url('/backgrounds/pattern-3.svg')"}}></div>
-          </div>
+          <div 
+              className="absolute inset-0 z-0 bg-cover bg-center opacity-10 dark:opacity-20 transition-opacity"
+              style={{ backgroundImage: `url(${backgroundUrl})` }}
+          />
 
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 items-center gap-8 w-full z-10 relative">
               <motion.div
