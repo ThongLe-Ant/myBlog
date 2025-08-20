@@ -541,7 +541,7 @@ export default function HomePage() {
         </section>
 
         {/* Projects Section */}
-        <SectionReveal id="projects" className="scroll-mt-24 py-24">
+        <section id="projects" className="scroll-mt-24 py-24">
           <div className="w-full">
               <div className="text-center">
               <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.projects.title}</h2>
@@ -571,7 +571,7 @@ export default function HomePage() {
                   ))}
               </div>
           </div>
-        </SectionReveal>
+        </section>
         
         {/* About Section */}
         <SectionReveal id="about" className="scroll-mt-24 py-24">
