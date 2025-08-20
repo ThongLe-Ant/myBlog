@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useLanguage } from '@/context/language-context';
@@ -17,18 +16,6 @@ const content = {
     description: "Chọn lọc nội dung theo lĩnh vực bạn quan tâm."
   }
 };
-
-const categoryGradients = [
-  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
-  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
-  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
-  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
-  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
-  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
-  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
-  'linear-gradient(to bottom right, var(--tw-gradient-stops))',
-  'linear-gradient(to bottom right, var(--tw-gradient-stops))'
-];
 
 const fromToClasses = [
     'from-sky-500 to-blue-600',
@@ -74,7 +61,7 @@ export function CategoryBrowser({ categories, categoryCounts }: CategoryBrowserP
                             <div
                                 className="absolute inset-0"
                                 style={{
-                                    backgroundImage: 'repeating-radial-gradient(circle, hsla(0,0%,100%,.2), hsla(0,0%,100%,.2) 1px, transparent 1px, transparent 20px)',
+                                    backgroundImage: 'repeating-radial-gradient(circle at top left, hsla(0,0%,100%,.2), hsla(0,0%,100%,.2) 1px, transparent 1px, transparent 20px)',
                                 }}
                             />
                             <div className="relative z-10">
