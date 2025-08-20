@@ -57,15 +57,15 @@ export function CategoryBrowser({ categories, categoryCounts }: CategoryBrowserP
                          categoryGradients[index % categoryGradients.length]
                        )}>
                            <div
-                             className="absolute inset-0 w-full h-full bg-black/10"
+                             className="absolute inset-0 w-full h-full bg-black/20"
                              style={{
                                 backgroundImage: `
-                                  linear-gradient(45deg, hsla(0,0%,100%,.1) 25%, transparent 25%),
-                                  linear-gradient(-45deg, hsla(0,0%,100%,.1) 25%, transparent 25%),
-                                  linear-gradient(45deg, transparent 75%, hsla(0,0%,100%,.1) 75%),
-                                  linear-gradient(-45deg, transparent 75%, hsla(0,0%,100%,.1) 75%)`,
-                                backgroundSize: '20px 20px',
-                                backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
+                                  linear-gradient(60deg, hsla(0,0%,100%,.1) 1px, transparent 1px),
+                                  linear-gradient(-60deg, hsla(0,0%,100%,.1) 1px, transparent 1px),
+                                  linear-gradient(120deg, hsla(0,0%,100%,.1) 1px, transparent 1px),
+                                  linear-gradient(-120deg, hsla(0,0%,100%,.1) 1px, transparent 1px)
+                                `,
+                                backgroundSize: '20px 35px',
                              }}
                            />
                            <div className="relative z-10">
