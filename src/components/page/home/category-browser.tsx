@@ -45,26 +45,33 @@ export function CategoryBrowser({ categories, categoryCounts }: CategoryBrowserP
 
     return (
         <SectionReveal>
-            <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.title}</h2>
-                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">{c.description}</p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                {categories.map((category, index) => (
-                    <Link href={`/posts?category=${encodeURIComponent(category)}`} key={category} className="group">
-                       <Card className={cn(
-                         'relative text-white p-6 rounded-2xl flex flex-col justify-end min-h-[120px] transition-transform duration-300 ease-smooth group-hover:scale-105 group-hover:shadow-xl overflow-hidden',
-                         categoryGradients[index % categoryGradients.length],
-                         'bg-diamond-pattern'
-                       )}>
-                           <div className="absolute inset-0 w-full h-full bg-black/20" />
-                           <div className="relative z-10">
-                              <h3 className="font-bold text-lg">{category}</h3>
-                              <p className="text-sm opacity-80">{`${categoryCounts[category] || 0} articles`}</p>
-                           </div>
-                       </Card>
-                    </Link>
-                ))}
+            <div className="w-full px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12">
+                  <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.title}</h2>
+                  <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">{c.description}</p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                  {categories.map((category, index) => (
+                      <Link href={`/posts?category=${encodeURIComponent(category)}`} key={category} className="group">
+                        <Card className={cn(
+                          'relative text-white p-6 rounded-2xl flex flex-col justify-end min-h-[120px] transition-transform duration-300 ease-smooth group-hover:scale-105 group-hover:shadow-xl overflow-hidden',
+                          categoryGradients[index % categoryGradients.length]
+                        )}>
+                            <div 
+                                className="absolute inset-0 opacity-20"
+                                style={{
+                                    backgroundImage: 'repeating-radial-gradient(circle at center, hsla(0,0%,100%,.2), hsla(0,0%,100%,.2) 1px, transparent 1px, transparent 100%)',
+                                    backgroundSize: '2rem 2rem'
+                                }}
+                            />
+                            <div className="relative z-10">
+                                <h3 className="font-bold text-lg">{category}</h3>
+                                <p className="text-sm opacity-80">{`${categoryCounts[category] || 0} articles`}</p>
+                            </div>
+                        </Card>
+                      </Link>
+                  ))}
+              </div>
             </div>
         </SectionReveal>
     );
