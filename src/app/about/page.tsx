@@ -99,6 +99,11 @@ const content = {
       p1: "With over 10 years of experience, I specialize in designing and implementing large-scale ERP systems for leading corporations in Vietnam. I have a strong technical foundation and a deep understanding of various business domains.",
       p2: "Successfully deployed 20+ large-scale systems for top Vietnamese corporations in finance-banking, manufacturing, and HR.",
       p3: "I always aim to create technology solutions that not only meet technical requirements but also effectively solve complex business problems.",
+      stats: [
+        { value: "10+", label: "Years of Experience" },
+        { value: "20+", label: "Systems Deployed" },
+        { value: "5+", label: "Areas of Expertise" }
+      ],
       expertiseAreas: {
         title: "Areas of Expertise",
         items: ['ERP Systems', 'Production Management', 'HR & Payroll', 'Warehouse & Procurement', 'Payment Systems']
@@ -296,6 +301,11 @@ const content = {
       p1: "Với hơn 10 năm kinh nghiệm, tôi chuyên sâu về thiết kế và triển khai các hệ thống ERP quy mô lớn cho các tập đoàn hàng đầu tại Việt Nam. Nền tảng kỹ thuật vững chắc cùng hiểu biết sâu về nghiệp vụ đa ngành.",
       p2: "Đã triển khai thành công 20+ hệ thống quy mô lớn cho các tập đoàn hàng đầu Việt Nam trong các lĩnh vực tài chính-ngân hàng, sản xuất và nhân sự.",
       p3: "Tôi luôn hướng đến việc tạo ra các giải pháp công nghệ không chỉ đáp ứng yêu cầu kỹ thuật mà còn giải quyết hiệu quả các bài toán nghiệp vụ phức tạp.",
+      stats: [
+        { value: "10+", label: "Năm kinh nghiệm" },
+        { value: "20+", label: "Hệ thống triển khai" },
+        { value: "5+", label: "Lĩnh vực chuyên môn" }
+      ],
       expertiseAreas: {
         title: "Lĩnh vực chuyên môn",
         items: ['Hệ thống ERP', 'Quản lý sản xuất', 'Nhân sự & Tính lương', 'Kho & Mua hàng', 'Hệ thống thanh toán']
@@ -537,8 +547,16 @@ export default function AboutPage() {
                 <p className="mt-4 text-lg text-muted-foreground">{c.about.p1}</p>
                 <p className="mt-4 text-lg text-muted-foreground">{c.about.p2}</p>
                 <p className="mt-4 text-lg text-muted-foreground">{c.about.p3}</p>
+                <div className="mt-8 grid grid-cols-3 gap-4 text-center">
+                    {c.about.stats.map(stat => (
+                        <div key={stat.label} className="bg-surface p-4 rounded-lg">
+                            <p className="text-3xl font-bold text-primary">{stat.value}</p>
+                            <p className="text-sm text-muted-foreground">{stat.label}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
-            <div className="grid grid-cols-2 gap-8 pt-0 md:pt-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-0 md:pt-16">
               <div className="space-y-6">
                 <h4 className="font-bold text-foreground">{c.about.expertiseAreas.title}</h4>
                 <ul className="space-y-2">
