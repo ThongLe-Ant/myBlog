@@ -22,6 +22,7 @@ const navLinks = {
     { href: '#skills', label: 'Skills' },
     { href: '#experience', label: 'Experience' },
     { href: '#projects', label: 'Projects' },
+    { href: '/posts/create', label: 'Create Post' },
     { href: '#contact', label: 'Contact' },
   ],
   vi: [
@@ -29,6 +30,7 @@ const navLinks = {
       { href: '#skills', label: 'Kỹ năng' },
       { href: '#experience', label: 'Kinh nghiệm' },
       { href: '#projects', label: 'Dự án' },
+      { href: '/posts/create', label: 'Tạo bài viết' },
       { href: '#contact', label: 'Liên hệ' },
   ]
 };
