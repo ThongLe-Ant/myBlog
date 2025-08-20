@@ -10,6 +10,7 @@ export interface Post {
   title: string;
   category: string;
   content: string; 
+  published: boolean;
 }
 
 const postsDirectory = path.join(process.cwd(), 'src/data/posts');
@@ -98,7 +99,7 @@ export async function savePost(post: Omit<Post, 'slug'>) {
 export async function updatePost(originalSlug: string, originalCategory: string, updatedPostData: Omit<Post, 'slug'>) {
     await ensureDirectoryExists();
     
-    const { title, content, category } = updatedPostData;
+    const { title, content, category, published } = updatedPostData;
     const newSlug = createSlug(title);
 
     const originalFilePath = getCategoryFilePath(originalCategory);
@@ -120,6 +121,7 @@ export async function updatePost(originalSlug: string, originalCategory: string,
         postToMove.title = title;
         postToMove.content = content;
         postToMove.category = category;
+        postToMove.published = published;
         postToMove.slug = newSlug;
 
         // Add to new category
@@ -135,6 +137,7 @@ export async function updatePost(originalSlug: string, originalCategory: string,
             title,
             content,
             category,
+            published,
             slug: newSlug,
         };
         await fs.writeFile(originalFilePath, JSON.stringify(originalCategoryPosts, null, 2));

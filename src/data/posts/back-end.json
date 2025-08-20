@@ -1,8 +1,10 @@
+
 [
   {
     "slug": "building-a-restful-api-with-nodejs-and-express",
     "title": "Building a RESTful API with Node.js and Express",
     "category": "Back End",
+    "published": true,
     "content": "## Getting Started with Express\n\nExpress.js is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. Setting up a basic server is straightforward.\n\n![Node.js and Express Logos](https://placehold.co/600x300.png)\n\n### Basic Server Setup\nHere's a simple example of an Express server:\n\n```javascript\nconst express = require('express');\nconst app = express();\nconst port = 3000;\n\napp.get('/', (req, res) => {\n  res.send('Hello World!');\n});\n\napp.listen(port, () => {\n  console.log(`Example app listening at http://localhost:${port}`);\n});\n```\n\n### Video Guide\nCheck out this comprehensive tutorial on building a full REST API:\n\n<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/pKd0Rpw7O48\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
   }
 ]

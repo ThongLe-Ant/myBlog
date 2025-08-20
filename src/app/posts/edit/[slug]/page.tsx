@@ -12,6 +12,7 @@ import { Save, Trash2 } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { getPostBySlug, updatePost, deletePost, Post } from '@/lib/posts';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -30,6 +31,7 @@ export default function EditPostPage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
+  const [published, setPublished] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -48,6 +50,7 @@ export default function EditPostPage() {
           setTitle(postData.title);
           setContent(postData.content);
           setCategory(postData.category);
+          setPublished(postData.published);
         } else {
           toast({
             title: 'Error',
@@ -85,7 +88,7 @@ export default function EditPostPage() {
 
     setIsSaving(true);
     try {
-        await updatePost(post.slug, post.category, { title, content, category });
+        await updatePost(post.slug, post.category, { title, content, category, published });
         toast({
             title: 'Post Updated!',
             description: 'Your blog post has been updated successfully.',
@@ -164,25 +167,39 @@ export default function EditPostPage() {
                 disabled={isSaving}
               />
             </div>
-            <div className="space-y-2">
-                <Label htmlFor="category">Category</Label>
-                <Select onValueChange={setCategory} value={category} disabled={isSaving}>
-                    <SelectTrigger id="category">
-                        <SelectValue placeholder="Select a category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="Front End">Front End</SelectItem>
-                        <SelectItem value="Back End">Back End</SelectItem>
-                        <SelectItem value="AI">AI</SelectItem>
-                        <SelectItem value="Data">Data</SelectItem>
-                        <SelectItem value="DevOps">DevOps</SelectItem>
-                        <SelectItem value="Showcase">Showcase</SelectItem>
-                        <SelectItem value="Cheatsheet">Cheatsheet</SelectItem>
-                        <SelectItem value="Life Code">Life Code</SelectItem>
-                        <SelectItem value="Search Code">Search Code</SelectItem>
-                        <SelectItem value="Learn Code">Learn Code</SelectItem>
-                    </SelectContent>
-                </Select>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                    <Label htmlFor="category">Category</Label>
+                    <Select onValueChange={setCategory} value={category} disabled={isSaving}>
+                        <SelectTrigger id="category">
+                            <SelectValue placeholder="Select a category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="Front End">Front End</SelectItem>
+                            <SelectItem value="Back End">Back End</SelectItem>
+                            <SelectItem value="AI">AI</SelectItem>
+                            <SelectItem value="Data">Data</SelectItem>
+                            <SelectItem value="DevOps">DevOps</SelectItem>
+                            <SelectItem value="Showcase">Showcase</SelectItem>
+                            <SelectItem value="Cheatsheet">Cheatsheet</SelectItem>
+                            <SelectItem value="Life Code">Life Code</SelectItem>
+                            <SelectItem value="Search Code">Search Code</SelectItem>
+                            <SelectItem value="Learn Code">Learn Code</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="status">Status</Label>
+                    <div className="flex items-center space-x-2 h-10">
+                      <Switch
+                        id="status"
+                        checked={published}
+                        onCheckedChange={setPublished}
+                        disabled={isSaving}
+                      />
+                      <Label htmlFor="status">{published ? 'Published' : 'Draft'}</Label>
+                    </div>
+                 </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="content">Content (Markdown)</Label>

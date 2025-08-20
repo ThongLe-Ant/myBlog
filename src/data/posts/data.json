@@ -1,8 +1,10 @@
+
 [
   {
     "slug": "sql-vs-nosql-which-to-choose",
     "title": "SQL vs. NoSQL: Which to Choose?",
     "category": "Data",
+    "published": true,
     "content": "## The Database Dilemma\n\nChoosing the right database is a critical decision in application architecture. The main choice often comes down to SQL (relational) and NoSQL (non-relational) databases.\n\n![Database comparison](https://placehold.co/600x300.png)\n\n### SQL\nRelational databases like PostgreSQL and MySQL use a structured schema and are excellent for applications requiring complex queries and transactional integrity.\n\n### NoSQL\nNon-relational databases like MongoDB and Redis offer flexibility in schema design and are often better for unstructured data and horizontal scalability."
   }
 ]

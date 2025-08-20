@@ -1,8 +1,10 @@
+
 [
   {
     "slug": "showcase-personal-portfolio-project",
     "title": "Showcase: My Personal Portfolio Project",
     "category": "Showcase",
+    "published": true,
     "content": "## Project Overview\n\nThis is the very portfolio you are looking at right now! It's built with Next.js, Tailwind CSS, and Framer Motion for animations.\n\n![Portfolio Screenshot](https://placehold.co/600x300.png)\n\n### Key Features:\n- Fully responsive design\n- Light/Dark mode toggle\n- Blog with Markdown support\n- AI-powered features using Genkit"
   }
 ]

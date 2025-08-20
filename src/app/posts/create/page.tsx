@@ -12,11 +12,13 @@ import { Save } from 'lucide-react';
 import { savePost } from '@/lib/posts';
 import { useRouter } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 
 export default function CreatePostPage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
+  const [published, setPublished] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
@@ -34,7 +36,7 @@ export default function CreatePostPage() {
     setIsLoading(true);
     
     try {
-        await savePost({ title, content, category });
+        await savePost({ title, content, category, published });
 
         toast({
           title: 'Post Saved!',
@@ -77,25 +79,39 @@ export default function CreatePostPage() {
                 disabled={isLoading}
               />
             </div>
-            <div className="space-y-2">
-                <Label htmlFor="category">Category</Label>
-                <Select onValueChange={setCategory} value={category} disabled={isLoading}>
-                    <SelectTrigger id="category">
-                        <SelectValue placeholder="Select a category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="Front End">Front End</SelectItem>
-                        <SelectItem value="Back End">Back End</SelectItem>
-                        <SelectItem value="AI">AI</SelectItem>
-                        <SelectItem value="Data">Data</SelectItem>
-                        <SelectItem value="DevOps">DevOps</SelectItem>
-                        <SelectItem value="Showcase">Showcase</SelectItem>
-                        <SelectItem value="Cheatsheet">Cheatsheet</SelectItem>
-                        <SelectItem value="Life Code">Life Code</SelectItem>
-                        <SelectItem value="Search Code">Search Code</SelectItem>
-                        <SelectItem value="Learn Code">Learn Code</SelectItem>
-                    </SelectContent>
-                </Select>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                  <Label htmlFor="category">Category</Label>
+                  <Select onValueChange={setCategory} value={category} disabled={isLoading}>
+                      <SelectTrigger id="category">
+                          <SelectValue placeholder="Select a category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                          <SelectItem value="Front End">Front End</SelectItem>
+                          <SelectItem value="Back End">Back End</SelectItem>
+                          <SelectItem value="AI">AI</SelectItem>
+                          <SelectItem value="Data">Data</SelectItem>
+                          <SelectItem value="DevOps">DevOps</SelectItem>
+                          <SelectItem value="Showcase">Showcase</SelectItem>
+                          <SelectItem value="Cheatsheet">Cheatsheet</SelectItem>
+                          <SelectItem value="Life Code">Life Code</SelectItem>
+                          <SelectItem value="Search Code">Search Code</SelectItem>
+                          <SelectItem value="Learn Code">Learn Code</SelectItem>
+                      </SelectContent>
+                  </Select>
+              </div>
+               <div className="space-y-2">
+                <Label htmlFor="status">Status</Label>
+                <div className="flex items-center space-x-2 h-10">
+                  <Switch
+                    id="status"
+                    checked={published}
+                    onCheckedChange={setPublished}
+                    disabled={isLoading}
+                  />
+                  <Label htmlFor="status">{published ? 'Published' : 'Draft'}</Label>
+                </div>
+              </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="content">Content (Markdown)</Label>

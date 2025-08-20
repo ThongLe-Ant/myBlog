@@ -1,8 +1,10 @@
+
 [
   {
     "slug": "getting-started-with-docker-and-containers",
     "title": "Getting Started with Docker and Containers",
     "category": "DevOps",
+    "published": true,
     "content": "## What is Docker?\n\nDocker is a platform for developing, shipping, and running applications in containers. Containers allow you to package an application with all of its dependencies into a standardized unit for software development.\n\n![Docker Logo](https://placehold.co/600x300.png)\n\nThis solves the \"it works on my machine\" problem.\n\n### Basic Docker Commands\n- `docker build -t my-app .` - Builds an image from a Dockerfile.\n- `docker run -p 8080:80 my-app` - Runs the container and maps port 80 inside the container to port 8080 on the host."
   }
 ]

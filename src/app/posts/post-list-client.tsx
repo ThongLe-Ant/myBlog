@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import { FilePenLine, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import type { Post } from '@/lib/posts';
@@ -44,7 +45,12 @@ export function PostListClient({ posts, categories }: PostListClientProps) {
                  <Link href={`/posts/${post.slug}`} key={post.slug} className="group">
                     <Card className="bg-surface/50 border-border/50 flex flex-col h-full transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-lg">
                       <CardHeader>
-                        <CardTitle className="text-foreground text-xl transition-colors duration-300 group-hover:text-primary">{post.title}</CardTitle>
+                        <div className="flex justify-between items-start">
+                          <CardTitle className="text-foreground text-xl transition-colors duration-300 group-hover:text-primary pr-2">{post.title}</CardTitle>
+                          <Badge variant={post.published ? 'default' : 'secondary'} className={post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30'}>
+                              {post.published ? 'Published' : 'Draft'}
+                          </Badge>
+                        </div>
                         <CardDescription>{getExcerpt(post.content)}</CardDescription>
                       </CardHeader>
                       <CardContent className="flex-grow">
