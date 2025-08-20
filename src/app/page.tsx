@@ -185,8 +185,8 @@ export default function HomePage() {
     <div className="flex flex-col w-full">
 
       {/* Blog Banner Section */}
-      <section className="w-full bg-surface/50">
-        <div className="container mx-auto px-4 pb-12 md:pb-16 lg:pb-20 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
+      <section className="w-full bg-surface/50 pb-12 md:pb-16 lg:pb-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-2">
                  <Carousel
                     opts={{
@@ -241,10 +241,10 @@ export default function HomePage() {
       </section>
 
       {/* Portfolio Section */}
-      <div id="cv-content" className="container mx-auto px-4 py-8 pt-24 sm:px-6 lg:px-8">
+      <div id="cv-content" className="container mx-auto px-4 pt-24 sm:px-6 lg:px-8">
           {/* Hero Section */}
           <section id="home" className="relative grid lg:grid-cols-2 items-start gap-8 lg:gap-16 w-full">
-            <div className="lg:sticky top-24">
+            <div>
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -256,7 +256,7 @@ export default function HomePage() {
                 </Avatar>
               </motion.div>
             </div>
-            <div className="flex flex-col gap-8 lg:gap-16">
+            <div className="flex flex-col gap-4">
                  <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Lê Minh Thông</h2>
                 <h3 className="mt-2 text-xl font-semibold text-secondary">Senior Software Engineer | Solution Architect</h3>
                 <p className="mt-4 text-lg text-muted-foreground">Kỹ sư phần mềm với hơn 10 năm kinh nghiệm trong phát triển hệ thống ERP và giải pháp doanh nghiệp. Chuyên sâu về .NET, Golang, Cloud và Microservices.</p>
@@ -361,7 +361,7 @@ export default function HomePage() {
                     {experiences.map((exp, index) => (
                         <div key={index} className="md:grid md:grid-cols-2 md:gap-16 relative">
                             {/* Content */}
-                            <div className={`${index % 2 === 0 ? 'md:order-2' : ''}`}>
+                            <div className={`${index % 2 === 0 ? 'md:order-2 md:text-right' : ''}`}>
                                 <motion.div
                                     initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
                                     whileInView={{ opacity: 1, x: 0 }}
@@ -472,5 +472,7 @@ export default function HomePage() {
     </div>
   );
 }
+
+    
 
     
