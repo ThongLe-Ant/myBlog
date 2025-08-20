@@ -6,17 +6,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { FilePenLine, ArrowRight } from 'lucide-react';
+import { FilePenLine, ArrowRight, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import type { Post } from '@/lib/posts';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { Input } from '@/components/ui/input';
 
 interface PostListClientProps {
     posts: Post[];
     categories: string[];
     initialCategory: string;
-    searchTerm: string;
+    initialSearchTerm: string;
 }
 
 const gradientColors = [
@@ -28,23 +29,24 @@ const gradientColors = [
   "from-indigo-500/20 to-violet-500/20",
 ];
 
-export function PostListClient({ posts, categories, initialCategory, searchTerm }: PostListClientProps) {
+export function PostListClient({ posts, categories, initialCategory, initialSearchTerm }: PostListClientProps) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(initialCategory);
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
 
   useEffect(() => {
+    // This updates the tab if the category changes via URL
     setActiveTab(initialCategory);
   }, [initialCategory]);
 
-  const filteredPostsByCategory = activeTab === 'All'
-    ? posts
-    : posts.filter(post => post.category === activeTab);
-
-  const filteredPosts = filteredPostsByCategory.filter(post => 
-    post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (post.excerpt && post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    post.content.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredPosts = posts.filter(post => {
+    const matchesCategory = activeTab === 'All' || post.category === activeTab;
+    const matchesSearch = searchTerm === '' ||
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (post.excerpt && post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      post.content.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
   
   const getExcerpt = (content: string, length = 100) => {
     const cleanedContent = content.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
@@ -60,20 +62,36 @@ export function PostListClient({ posts, categories, initialCategory, searchTerm 
     } else {
       params.set('category', value);
     }
+    // We only update the category param, keeping the search param if it exists
+    // The search is now controlled by local state, so we don't push it to router here
     router.replace(`/posts?${params.toString()}`, { scroll: false });
   }
 
   return (
-    <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-      <TabsList className="grid w-full grid-cols-2 md:grid-cols-none md:flex-wrap md:h-auto md:w-auto md:inline-flex">
-        {categories.map(category => (
-          <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
-        ))}
-      </TabsList>
+    <div className="space-y-8">
+       <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
+            <div className="relative w-full md:max-w-md">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input 
+                    type="search" 
+                    placeholder="Search collection..." 
+                    className="pl-10 w-full"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+            <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full md:w-auto">
+                <TabsList className="grid w-full grid-cols-2 md:grid-cols-none md:flex-wrap md:h-auto md:w-auto md:inline-flex">
+                    {categories.map(category => (
+                        <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
+                    ))}
+                </TabsList>
+            </Tabs>
+        </div>
       
-      <div className="mt-8">
+      <div>
           {filteredPosts.length > 0 ? (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {filteredPosts.map((post, index) => (
                  <Link href={`/posts/${post.slug}`} key={post.slug} className="group">
                     <Card className={cn(
@@ -105,15 +123,13 @@ export function PostListClient({ posts, categories, initialCategory, searchTerm 
               ))}
             </div>
           ) : (
-            <div className="text-center py-16 text-muted-foreground">
-                <p>{searchTerm ? `No results found for "${searchTerm}".` : 'No posts in this category yet.'}</p>
-                {searchTerm ? 
-                    <Button variant="link" onClick={() => router.push('/posts')}>Clear Search</Button> :
-                    <p>Why not create one?</p>
-                }
+            <div className="text-center py-24 text-muted-foreground space-y-4">
+                <h3 className="text-2xl font-semibold">No Posts Found</h3>
+                <p>No articles match your current filter criteria.</p>
+                <Button variant="link" onClick={() => { setSearchTerm(''); setActiveTab('All'); router.push('/posts', { scroll: false })}}>Clear all filters</Button>
             </div>
           )}
       </div>
-    </Tabs>
+    </div>
   );
 }

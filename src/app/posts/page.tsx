@@ -13,14 +13,16 @@ export default async function PostsListPage({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const posts: Post[] = await getPosts();
+  // The search term from the header is still available via searchParams if needed,
+  // but we will add a dedicated search on the client component.
   const searchTerm = (searchParams?.search as string) || '';
   const category = (searchParams?.category as string) || 'All';
   
   // Extract unique categories and sort them
   const categories = ['All', ...Array.from(new Set(posts.map(p => p.category))).sort()];
   
-  const pageTitle = searchTerm ? `Search Results for "${searchTerm}"` : "My Blog Posts";
-  const pageDescription = searchTerm ? `Found ${posts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()) || p.content.toLowerCase().includes(searchTerm.toLowerCase())).length} posts.` : "Find and manage all your articles here.";
+  const pageTitle = "My Blog Posts";
+  const pageDescription = "Find, search, and manage all your articles here in your personal collection.";
 
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -43,7 +45,7 @@ export default async function PostsListPage({
         posts={posts} 
         categories={categories}
         initialCategory={category}
-        searchTerm={searchTerm}
+        initialSearchTerm={searchTerm}
       />
     </div>
   );
