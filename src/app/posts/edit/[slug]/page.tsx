@@ -78,6 +78,20 @@ export default function EditPostPage() {
     fetchPost();
   }, [slug, toast, router]);
 
+  const editorOptions = useMemo(() => {
+    return {
+        autofocus: true,
+        spellChecker: false,
+        toolbar: [
+            "bold", "italic", "heading", "|", 
+            "quote", "unordered-list", "ordered-list", "|",
+            "link", "image", "|",
+            "preview", "side-by-side", "fullscreen", "|",
+            "guide"
+        ],
+    };
+  }, []);
+
   const handleSave = async () => {
     if (!title || !content || !category) {
         toast({
@@ -132,20 +146,6 @@ export default function EditPostPage() {
         setIsDeleting(false);
     }
   }
-
-  const editorOptions = useMemo(() => {
-    return {
-        autofocus: true,
-        spellChecker: false,
-        toolbar: [
-            "bold", "italic", "heading", "|", 
-            "quote", "unordered-list", "ordered-list", "|",
-            "link", "image", "|",
-            "preview", "side-by-side", "fullscreen", "|",
-            "guide"
-        ],
-    };
-  }, []);
 
   if (isLoading) {
     return (
