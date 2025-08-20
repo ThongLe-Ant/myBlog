@@ -9,9 +9,12 @@ import {
   ChevronRight,
   Cpu,
   Github,
+  Globe,
   Linkedin,
   Mail,
   MapPin,
+  Menu,
+  Mountain,
   Phone,
   Rocket,
   Search,
@@ -232,56 +235,60 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* Experience Section - The Journey */}
+      {/* Experience Section - The Journey (FIXED) */}
       <SectionReveal id="experience" className="scroll-mt-24 py-24">
         <div className="w-full">
-            <div className="text-center mb-16">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">The Journey</h2>
-                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    A timeline of my professional growth and key contributions over the past decade.
-                </p>
-            </div>
-            <div className="relative w-full">
-                {/* The timeline line */}
-                <div className="absolute left-4 md:left-1/2 top-0 h-full w-0.5 bg-border/50 -translate-x-1/2"></div>
-                
-                <motion.div 
-                    className="space-y-16"
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">The Journey</h2>
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+              A timeline of my professional growth and key contributions over the past decade.
+            </p>
+          </div>
+
+          <motion.div
+            className="relative"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            {/* The timeline line */}
+            <div className="absolute left-0 right-0 mx-auto h-full w-0.5 bg-border/50 md:left-1/2 md:-translate-x-1/2 hidden md:block"></div>
+            
+            <div className="space-y-12 md:space-y-0">
+              {experiences.map((exp, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="md:grid md:grid-cols-2 md:gap-12 relative"
                 >
-                    {experiences.map((exp, index) => (
-                        <motion.div 
-                            key={index} 
-                            className="relative flex items-start gap-6 md:gap-12"
-                            variants={itemVariants}
-                        >
-                            {/* Dot on timeline */}
-                            <div className="absolute left-4 top-1 h-4 w-4 rounded-full bg-primary ring-8 ring-background md:left-1/2 -translate-x-1/2"></div>
-                            
-                            <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pl-[calc(50%+2rem)]' : 'md:pr-[calc(50%+2rem)] md:text-right'} md:ml-auto`}>
-                                <div className={`p-6 bg-surface border border-border/50 rounded-2xl ${index % 2 === 0 ? '' : 'md:ml-auto'}`}>
-                                    <p className="text-sm font-semibold text-primary">{exp.period}</p>
-                                    <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
-                                    <p className="text-base font-semibold text-primary/80">{exp.role}</p>
-                                    <p className="mt-3 text-muted-foreground">{exp.description}</p>
-                                    <ul className={`mt-3 space-y-1 list-inside ${index % 2 !== 0 && 'md:text-left'}`}>
-                                        {exp.tasks.map(task => (
-                                            <li key={task} className="flex items-start gap-2 text-muted-foreground">
-                                                <ChevronRight className="w-4 h-4 text-accent mt-1 shrink-0"/>
-                                                <span>{task}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    {exp.highlight && <Badge variant="secondary" className="mt-4 bg-accent/10 text-accent-foreground border-accent/20">{exp.highlight}</Badge>}
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
+                  {/* Left or Right column based on index */}
+                  <div className={`${index % 2 === 0 ? 'md:col-start-2' : 'md:col-start-1 md:row-start-1 md:text-right'}`}>
+                     <div className="p-6 bg-surface border border-border/50 rounded-2xl w-full">
+                        <p className="text-sm font-semibold text-primary">{exp.period}</p>
+                        <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
+                        <p className="text-base font-semibold text-primary/80">{exp.role}</p>
+                        <p className="mt-3 text-muted-foreground">{exp.description}</p>
+                        <ul className={`mt-3 space-y-1 list-inside text-left`}>
+                            {exp.tasks.map(task => (
+                                <li key={task} className="flex items-start gap-2 text-muted-foreground">
+                                    <ChevronRight className="w-4 h-4 text-accent mt-1 shrink-0"/>
+                                    <span>{task}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        {exp.highlight && <Badge variant="secondary" className="mt-4 bg-accent/10 text-accent-foreground border-accent/20">{exp.highlight}</Badge>}
+                      </div>
+                  </div>
+
+                  {/* Dot on timeline (visible on md+) */}
+                  <div className="hidden md:flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
+                    <div className="h-4 w-4 rounded-full bg-primary ring-8 ring-background"></div>
+                  </div>
                 </motion.div>
+              ))}
             </div>
+          </motion.div>
         </div>
       </SectionReveal>
 
