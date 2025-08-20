@@ -1,21 +1,21 @@
 
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Save } from 'lucide-react';
 import { savePost } from '@/lib/posts';
 import { useRouter } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { MarkdownToolbar } from '@/components/editor/markdown-toolbar';
+
+import SimpleMDE from 'react-simplemde-editor';
+import 'easymde/dist/easymde.min.css';
+
 
 export default function CreatePostPage() {
   const [title, setTitle] = useState('');
@@ -25,51 +25,6 @@ export default function CreatePostPage() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-
-  const handleToolbarAction = (syntax: 'bold' | 'italic' | 'code' | 'link' | 'list') => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
-
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selectedText = content.substring(start, end);
-    let newText;
-
-    switch (syntax) {
-      case 'bold':
-        newText = `**${selectedText || 'bold text'}**`;
-        break;
-      case 'italic':
-        newText = `*${selectedText || 'italic text'}*`;
-        break;
-      case 'code':
-        newText = `\`\`\`\n${selectedText || 'code here'}\n\`\`\``;
-        break;
-      case 'link':
-        const url = prompt("Enter the URL:");
-        if (url) {
-            newText = `[${selectedText || 'link text'}](${url})`;
-        } else {
-            return;
-        }
-        break;
-       case 'list':
-        newText = `\n- ${selectedText || 'List item'}`;
-        break;
-      default:
-        return;
-    }
-    
-    const updatedContent = content.substring(0, start) + newText + content.substring(end);
-    setContent(updatedContent);
-    textarea.focus();
-    setTimeout(() => {
-        textarea.selectionStart = textarea.selectionEnd = start + newText.length;
-    }, 0)
-  };
-
 
   const handleSave = async () => {
     if (!title || !content || !category) {
@@ -104,21 +59,33 @@ export default function CreatePostPage() {
         setIsLoading(false);
     }
   };
+  
+  const editorOptions = useMemo(() => {
+    return {
+        autofocus: true,
+        spellChecker: false,
+        toolbar: [
+            "bold", "italic", "heading", "|", 
+            "quote", "unordered-list", "ordered-list", "|",
+            "link", "image", "|",
+            "preview", "side-by-side", "fullscreen", "|",
+            "guide"
+        ],
+    };
+  }, []);
 
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-4xl mx-auto">
          <Card className="bg-surface/50 border-border/50">
            <CardHeader>
              <CardTitle className="text-primary text-2xl">Create a New Post</CardTitle>
              <CardDescription>
-               Add a new post to your blog. Write in Markdown on the left and see the preview on the right.
+               Use the editor below to create a new blog post.
              </CardDescription>
            </CardHeader>
            <CardContent>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Editor Side */}
-              <div className="space-y-4">
+            <div className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="title">Post Title</Label>
                   <Input
@@ -165,34 +132,14 @@ export default function CreatePostPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="content">Content (Markdown)</Label>
-                  <div className="border rounded-md">
-                     <MarkdownToolbar onAction={handleToolbarAction} />
-                     <Textarea
+                    <SimpleMDE
                         id="content"
-                        ref={textareaRef}
-                        placeholder="Write your article content here..."
-                        rows={20}
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        disabled={isLoading}
-                        className="font-mono rounded-t-none border-t"
-                      />
-                  </div>
+                        onChange={setContent}
+                        options={editorOptions}
+                    />
                 </div>
               </div>
-              
-              {/* Preview Side */}
-              <div>
-                <Label className="text-muted-foreground">Live Preview</Label>
-                <div className="mt-2 border rounded-lg p-4 h-full min-h-[500px] bg-background">
-                  <article className="prose prose-lg dark:prose-invert max-w-full">
-                    <h1>{title || 'Your Title Here'}</h1>
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{content || "Your content will appear here..."}</ReactMarkdown>
-                  </article>
-                </div>
-              </div>
-
-            </div>
            </CardContent>
            <CardFooter>
              <Button onClick={handleSave} disabled={isLoading} size="lg">

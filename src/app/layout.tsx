@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import './globals.css';
+import 'easymde/dist/easymde.min.css';
 import { Header } from '@/components/layout/header';
 import { AppFooter } from '@/components/layout/app-footer';
 import { Toaster } from '@/components/ui/toaster';
