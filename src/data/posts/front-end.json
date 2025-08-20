@@ -14,6 +14,7 @@
     "title": "A Guide to Tailwind CSS for Beginners",
     "category": "Front End",
     "published": true,
+    "featured": true,
     "excerpt": "Tailwind CSS is a utility-first CSS framework that provides low-level utility classes to build custom designs without ever leaving your HTML.",
     "content": "## Why Tailwind CSS?\n\nTailwind CSS is a utility-first CSS framework that provides low-level utility classes to build custom designs without ever leaving your HTML.\n\n![Tailwind CSS](https://placehold.co/600x300.png)\n*Tailwind CSS offers a unique approach to styling.*\n\nIt's highly customizable and provides a great developer experience. Let's look at an example of styling a button.\n\n```html\n<button class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\">\n  Click me\n</button>\n```\n\nThis approach keeps your styles co-located with your markup, making components easier to maintain."
   },
