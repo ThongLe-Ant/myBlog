@@ -47,7 +47,7 @@ export function HomeHeroBanner() {
 
   return (
       <section className="relative w-full overflow-hidden pt-16 md:pt-24 pb-12 md:pb-20">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 items-center gap-8 w-full z-10 relative">
+          <div className="w-full px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 items-start gap-8 z-10 relative">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
