@@ -18,14 +18,12 @@ export interface Post {
 
 const postsDirectory = path.join(process.cwd(), 'src/data/posts');
 
-// A list of default placeholder images for posts that don't have one.
+// A list of default local SVG images for posts that don't have one.
 const defaultImages = [
-  'https://placehold.co/800x600/777777/FFFFFF.png?text=Blog+Post',
-  'https://placehold.co/800x600/888888/FFFFFF.png?text=Article',
-  'https://placehold.co/800x600/999999/FFFFFF.png?text=Insight',
-  'https://placehold.co/800x600/AAAAAA/FFFFFF.png?text=Update',
-  'https://placehold.co/800x600/BBBBBB/FFFFFF.png?text=Showcase',
-  'https://placehold.co/800x600/CCCCCC/FFFFFF.png?text=Review',
+  '/backgrounds/pattern-1.svg',
+  '/backgrounds/pattern-2.svg',
+  '/backgrounds/pattern-3.svg',
+  '/backgrounds/pattern-4.svg',
 ];
 
 // Helper to get category file path
