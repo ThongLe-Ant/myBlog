@@ -377,4 +377,21 @@ export default function EditPostPage() {
                   <AlertDialogDescription>
                     This action cannot be undone. This will permanently delete your
                     post and remove your data from our servers.
-                  </Aler
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDelete} disabled={isDeleting}>
+                    {isDeleting ? 'Deleting...' : 'Continue'}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </CardFooter>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+    
