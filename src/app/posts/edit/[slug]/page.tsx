@@ -43,7 +43,6 @@ export default function EditPostPage() {
 
   useEffect(() => {
     if (typeof slug !== 'string') {
-        // Redirect or show an error if slug is not a string, or is missing.
         router.push('/posts');
         return;
     }
