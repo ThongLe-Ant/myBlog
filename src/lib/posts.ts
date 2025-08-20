@@ -11,6 +11,8 @@ export interface Post {
   category: string;
   content: string; 
   published: boolean;
+  imageUrl?: string;
+  excerpt?: string;
 }
 
 const postsDirectory = path.join(process.cwd(), 'src/data/posts');
@@ -80,6 +82,7 @@ export async function savePost(post: Omit<Post, 'slug'>) {
     const newPost: Post = {
         ...post,
         slug: createSlug(post.title),
+        excerpt: post.content.substring(0, 150),
     };
 
     // Check for duplicate slugs
@@ -99,7 +102,7 @@ export async function savePost(post: Omit<Post, 'slug'>) {
 export async function updatePost(originalSlug: string, originalCategory: string, updatedPostData: Omit<Post, 'slug'>) {
     await ensureDirectoryExists();
     
-    const { title, content, category, published } = updatedPostData;
+    const { title, content, category, published, imageUrl } = updatedPostData;
     const newSlug = createSlug(title);
 
     const originalFilePath = getCategoryFilePath(originalCategory);
@@ -123,6 +126,9 @@ export async function updatePost(originalSlug: string, originalCategory: string,
         postToMove.category = category;
         postToMove.published = published;
         postToMove.slug = newSlug;
+        postToMove.imageUrl = imageUrl;
+        postToMove.excerpt = content.substring(0, 150);
+
 
         // Add to new category
         const newFilePath = getCategoryFilePath(category);
@@ -138,7 +144,9 @@ export async function updatePost(originalSlug: string, originalCategory: string,
             content,
             category,
             published,
+            imageUrl,
             slug: newSlug,
+            excerpt: content.substring(0, 150),
         };
         await fs.writeFile(originalFilePath, JSON.stringify(originalCategoryPosts, null, 2));
     }

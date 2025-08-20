@@ -5,6 +5,8 @@
     "title": "Introduction to Large Language Models (LLMs)",
     "category": "AI",
     "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Large Language Models (LLMs) are a type of artificial intelligence model that has been trained on a massive amount of text data to understand and generate human-like text.",
     "content": "## What are LLMs?\n\nLarge Language Models (LLMs) are a type of artificial intelligence model that has been trained on a massive amount of text data to understand and generate human-like text. They are the technology behind services like ChatGPT and Google's Gemini.\n\n![AI Brain](https://placehold.co/600x300.png)\n*Conceptual art of an AI brain processing information.*\n\nThey work by predicting the next word in a sequence, allowing them to write essays, answer questions, and even generate code.\n\n### How are they trained?\nThe training process involves feeding the model terabytes of text from the internet and books. The model learns patterns, grammar, facts, and reasoning abilities from this data."
   }
 ]
