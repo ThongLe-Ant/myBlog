@@ -17,5 +17,41 @@
     "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Understanding data structures and algorithms is fundamental to becoming a proficient software engineer.",
     "content": "## Beyond Syntax\nWhile knowing a programming language's syntax is essential, a deep understanding of data structures (like arrays, linked lists, trees, and graphs) and algorithms is what allows you to write efficient, scalable, and robust code. It's the foundation of problem-solving in computer science."
+  },
+  {
+    "slug": "demystifying-the-big-o-notation",
+    "title": "Demystifying Big O Notation",
+    "category": "Learn Code",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Big O notation is used to describe the performance or complexity of an algorithm. It specifically describes the worst-case scenario.",
+    "content": "## Analyzing Algorithm Efficiency\n\nBig O notation helps us talk about how the runtime or space requirements of an algorithm grow as the input size grows. Understanding concepts like O(1) - constant time, O(n) - linear time, and O(n^2) - quadratic time is essential for writing efficient code and for technical interviews."
+  },
+  {
+    "slug": "the-power-of-personal-projects",
+    "title": "The Power of Personal Projects",
+    "category": "Learn Code",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "The single best way to learn to code is to build things. Personal projects are your playground for experimentation and growth.",
+    "content": "## Learning by Doing\n\nTutorials can teach you the syntax, but only building your own projects can teach you how to solve real-world problems. A personal project is your chance to make mistakes, learn new technologies, and build a portfolio that showcases your skills to potential employers. Don't wait for the perfect idea, just start building!"
+  },
+  {
+    "slug": "pair-programming-benefits-and-best-practices",
+    "title": "Pair Programming: Benefits and Best Practices",
+    "category": "Learn Code",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Pair programming is an agile software development technique in which two programmers work together at one workstation.",
+    "content": "## Two Heads Are Better Than One\n\nIn pair programming, one person, the 'driver', writes the code while the other, the 'navigator', reviews each line of code as it is typed in. The two programmers switch roles frequently. This practice leads to higher quality code, better knowledge sharing across the team, and can even be a fun way to work."
+  },
+  {
+    "slug": "how-to-read-documentation-effectively",
+    "title": "How to Read Documentation Effectively",
+    "category": "Learn Code",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Reading technical documentation can be dense and challenging. Learn strategies to navigate docs and find the information you need quickly.",
+    "content": "## A Developer's Superpower\n\nReading documentation is a skill. Don't try to read it like a book from start to finish. \n\n### Strategies:\n- **Skim the overview:** Get a high-level understanding first.\n- **Look for the 'Getting Started' or 'Quickstart' guide:** This will give you a practical entry point.\n- **Use the search function:** Search for keywords related to your problem.\n- **Focus on examples:** Code examples are often the fastest way to understand how a feature works.\n- **Understand the API reference:** Learn to navigate the detailed reference for specific functions and parameters."
   }
 ]

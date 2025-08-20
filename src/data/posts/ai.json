@@ -26,5 +26,32 @@
     "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Two primary methods exist for customizing LLMs: prompt engineering and fine-tuning. Understanding the difference is key to effective AI application development.",
     "content": "## Customizing LLMs\n\n**Prompt Engineering** involves crafting the perfect input (prompt) to guide the model to the desired output. It's fast and cheap but can be brittle.\n\n**Fine-Tuning** involves further training the model on a smaller, domain-specific dataset. It's more powerful and robust but requires more data and compute resources."
+  },
+  {
+    "slug": "the-rise-of-vector-databases",
+    "title": "The Rise of Vector Databases",
+    "category": "AI",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Vector databases are a new type of database designed to store and query high-dimensional vector embeddings, which are numerical representations of data like text, images, and audio.",
+    "content": "## Storing Embeddings\n\nVector databases are purpose-built to handle the unique structure of vector embeddings. They use algorithms like HNSW (Hierarchical Navigable Small World) to perform incredibly fast and efficient similarity searches. This is the core technology that powers Retrieval-Augmented Generation (RAG) systems."
+  },
+  {
+    "slug": "ai-ethics-navigating-the-challenges",
+    "title": "AI Ethics: Navigating the Challenges",
+    "category": "AI",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "As AI becomes more powerful, the ethical implications of its use are more important than ever. This post explores the key ethical challenges in AI, including bias, privacy, and accountability.",
+    "content": "## The Responsibility of AI\n\nWith great power comes great responsibility. AI systems can perpetuate and even amplify human biases present in their training data. It's crucial for developers and organizations to address issues of fairness, transparency, and accountability to build AI that benefits everyone."
+  },
+  {
+    "slug": "getting-started-with-genkit",
+    "title": "Getting Started with Google's Genkit",
+    "category": "AI",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Genkit is an open-source framework from Google that helps developers build, deploy, and monitor production-ready AI applications.",
+    "content": "## Building Production AI\n\nGenkit provides a streamlined workflow for building AI-powered features. It offers integrations with popular models like Gemini, tools for creating flows and prompts, and features for monitoring and tracing your application's execution. This portfolio's AI features are built with Genkit!"
   }
 ]

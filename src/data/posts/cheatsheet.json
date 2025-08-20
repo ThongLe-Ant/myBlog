@@ -17,5 +17,41 @@
     "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "A handy list of common Docker commands for managing images, containers, and volumes.",
     "content": "## Common Docker Commands\n\n### Images\n- `docker images`: List all local images.\n- `docker pull <image-name>`: Download an image from Docker Hub.\n- `docker rmi <image-id>`: Remove a local image.\n\n### Containers\n- `docker ps`: List running containers.\n- `docker ps -a`: List all containers.\n- `docker run <image-name>`: Create and start a new container from an image.\n- `docker stop <container-id>`: Stop a running container.\n- `docker start <container-id>`: Start a stopped container.\n- `docker rm <container-id>`: Remove a container."
+  },
+  {
+    "slug": "kubernetes-kubectl-cheatsheet",
+    "title": "Kubernetes (kubectl) Cheatsheet",
+    "category": "Cheatsheet",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "A quick reference for essential kubectl commands to interact with your Kubernetes cluster.",
+    "content": "## Essential Kubectl Commands\n\n### Cluster Info\n- `kubectl cluster-info`: Display information about the cluster.\n- `kubectl get nodes`: List all nodes in the cluster.\n\n### Deployments\n- `kubectl get deployments`: List deployments.\n- `kubectl describe deployment <name>`: View details of a deployment.\n- `kubectl apply -f <filename.yaml>`: Create or update a resource from a file.\n- `kubectl delete -f <filename.yaml>`: Delete a resource from a file.\n\n### Pods\n- `kubectl get pods`: List all pods in the current namespace.\n- `kubectl logs <pod-name>`: Print the logs for a pod.\n- `kubectl exec -it <pod-name> -- /bin/sh`: Execute a command in a container."
+  },
+  {
+    "slug": "sql-cheatsheet-for-data-analysis",
+    "title": "SQL Cheatsheet for Data Analysis",
+    "category": "Cheatsheet",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "A collection of essential SQL queries and functions for data analysis.",
+    "content": "## Essential SQL for Analysts\n\n### Basic Queries\n- `SELECT column1, column2 FROM table_name;`\n- `SELECT * FROM table_name WHERE condition;`\n- `SELECT * FROM table_name ORDER BY column_name ASC/DESC;`\n\n### Aggregations\n- `COUNT()`: Counts the number of rows.\n- `SUM()`: Calculates the sum of values.\n- `AVG()`: Calculates the average of values.\n- `MIN()` / `MAX()`: Find the minimum/maximum value.\n- `GROUP BY`: Groups rows that have the same values into summary rows.\n\n### Joins\n- `INNER JOIN`: Returns records that have matching values in both tables.\n- `LEFT JOIN`: Returns all records from the left table, and the matched records from the right table.\n- `RIGHT JOIN`: Returns all records from the right table, and the matched records from the left table."
+  },
+  {
+    "slug": "flexbox-cheatsheet",
+    "title": "CSS Flexbox Cheatsheet",
+    "category": "Cheatsheet",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "A visual guide to the most important properties for CSS Flexbox layouts.",
+    "content": "## Flexbox Essentials\n\n### Container Properties\n- `display: flex;`\n- `flex-direction: row | column | row-reverse | column-reverse;`\n- `justify-content: flex-start | flex-end | center | space-between | space-around;`\n- `align-items: flex-start | flex-end | center | baseline | stretch;`\n- `flex-wrap: nowrap | wrap | wrap-reverse;`\n\n### Item Properties\n- `flex-grow: <number>;`\n- `flex-shrink: <number>;`\n- `flex-basis: <length> | auto;`\n- `align-self: auto | flex-start | flex-end | center | baseline | stretch;`\n- `order: <number>;`"
+  },
+  {
+    "slug": "typescript-cheatsheet",
+    "title": "TypeScript Cheatsheet",
+    "category": "Cheatsheet",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Key TypeScript syntax and concepts at a glance, from basic types to advanced features.",
+    "content": "## TypeScript Essentials\n\n### Basic Types\n- `string`, `number`, `boolean`, `null`, `undefined`\n- `any`, `unknown`, `never`, `void`\n\n### Complex Types\n- `Array<T>` or `T[]` (e.g., `string[]`)\n- `[string, number]` (Tuple)\n- `enum`\n- `type` aliases\n- `interface`\n\n### Functions\n`function add(a: number, b: number): number { return a + b; }`\n\n### Generics\n`function identity<T>(arg: T): T { return arg; }`"
   }
 ]

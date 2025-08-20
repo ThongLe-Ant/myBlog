@@ -35,5 +35,23 @@
     "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Zustand is a small, fast and scalable bearbones state-management solution using simplified flux principles. It has a comfy API based on hooks.",
     "content": "## Simple State Management\n\nZustand is a popular choice for state management in React applications due to its simplicity and minimal boilerplate. It allows you to create a store and access it directly within your components using a simple hook."
+  },
+  {
+    "slug": "optimizing-web-performance-with-next-js",
+    "title": "Optimizing Web Performance with Next.js",
+    "category": "Front End",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Next.js offers a powerful suite of features for building high-performance web applications out-of-the-box. Learn about SSR, SSG, and ISR.",
+    "content": "## Blazing Fast by Default\n\nNext.js provides several rendering strategies to optimize performance:\n\n- **Server-Side Rendering (SSR):** Pages are rendered on the server for each request, which is great for dynamic data and SEO.\n- **Static Site Generation (SSG):** Pages are generated at build time, resulting in incredibly fast loads. Perfect for blogs and marketing sites.\n- **Incremental Static Regeneration (ISR):** A hybrid approach that allows you to re-generate static pages after a certain time interval, providing the benefits of static sites with fresh data."
+  },
+  {
+    "slug": "creating-beautiful-uis-with-shadcn-ui",
+    "title": "Creating Beautiful UIs with shadcn/ui",
+    "category": "Front End",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "shadcn/ui is not a component library. It's a collection of re-usable components that you can copy and paste into your apps.",
+    "content": "## The 'Un-library'\n\nshadcn/ui takes a unique approach to UI development. Instead of installing a library from npm, you use a CLI tool to add individual, unstyled components directly to your codebase. This gives you complete control over the code, styling, and behavior of every component. This very portfolio is built using shadcn/ui components!"
   }
 ]

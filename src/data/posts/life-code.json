@@ -17,5 +17,41 @@
     "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Imposter syndrome is the feeling that you're a fraud and will be discovered at any moment. It's incredibly common in the tech industry.",
     "content": "## You Are Not Alone\nImposter syndrome is the feeling that you're a fraud and will be discovered at any moment. It's incredibly common in the tech industry. Recognizing it is the first step. Remember to track your accomplishments, talk to mentors, and understand that learning is a lifelong process in this field. Everyone feels this way at some point."
+  },
+  {
+    "slug": "the-art-of-the-code-review",
+    "title": "The Art of the Code Review",
+    "category": "Life Code",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Code reviews are not just about catching bugs. They are about sharing knowledge, improving code quality, and building a better team culture.",
+    "content": "## Constructive Collaboration\n\nGiving and receiving code reviews can be challenging. \n\n### Giving Good Reviews:\n- **Be Kind:** Start with something positive.\n- **Be Specific:** Explain *why* a change is needed, don't just say 'fix this'.\n- **Ask Questions:** 'Could you explain the reasoning behind this approach?' is better than 'This is wrong.'\n\n### Receiving Reviews:\n- **Don't Take it Personally:** The feedback is about the code, not you.\n- **Be Open to Suggestions:** You don't have to accept every suggestion, but consider them with an open mind.\n- **Explain Your Reasoning:** If you disagree with a suggestion, explain your thought process calmly."
+  },
+  {
+    "slug": "staying-up-to-date-in-a-fast-moving-industry",
+    "title": "Staying Up-to-Date in a Fast-Moving Industry",
+    "category": "Life Code",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "The tech landscape changes at lightning speed. How do you keep up without getting overwhelmed? Here are some strategies.",
+    "content": "## Continuous Learning\n\nIt's impossible to know everything, so don't even try. The key is to build a sustainable habit of learning.\n\n### Strategies:\n- **Follow Key People:** Find a few key influencers or developers on platforms like Twitter or LinkedIn.\n- **Subscribe to Newsletters:** Curated newsletters (like TLDR or JS Weekly) can bring the news to you.\n- **Listen to Podcasts:** Learn while you commute or do chores.\n- **Go Deep, Not Wide:** Instead of trying to learn every new framework, pick one or two that are relevant to your work and learn them well."
+  },
+  {
+    "slug": "networking-for-introverted-developers",
+    "title": "Networking for Introverted Developers",
+    "category": "Life Code",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Networking can feel draining for introverts, but it's a crucial part of career growth. Here's how to do it in a way that works for you.",
+    "content": "## Quality over Quantity\n\nForget the idea of working a room and collecting hundreds of business cards. For introverts, networking is about building a few meaningful connections.\n\n### Tips:\n- **Start Online:** Engage in discussions on platforms like GitHub, Reddit, or specialized Slack/Discord communities.\n- **Focus on One-on-One:** Instead of large groups, aim for smaller conversations at meetups.\n- **Listen More, Talk Less:** You can learn a lot and make a great impression just by being a good listener.\n- **Give First:** Offer to help someone or share something interesting before asking for anything."
+  },
+  {
+    "slug": "finding-your-niche-as-a-developer",
+    "title": "Finding Your Niche as a Developer",
+    "category": "Life Code",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Being a generalist is fine, but specializing in a niche can accelerate your career and make you a more valuable asset.",
+    "content": "## Become the Go-To Person\n\nDo you love building beautiful UIs? Are you passionate about database performance? Do you enjoy setting up CI/CD pipelines? Finding a niche means identifying an area that you're both good at and passionate about. This could be a specific technology (e.g., React Native), a specific domain (e.g., FinTech), or a specific role (e.g., Developer Relations). Specializing can lead to more opportunities, higher pay, and greater job satisfaction."
   }
 ]
