@@ -11,6 +11,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import { Badge } from '@/components/ui/badge';
 import { Post } from '@/lib/posts';
 import Autoplay from "embla-carousel-autoplay"
+import { cn } from '@/lib/utils';
 
 const content = {
   en: {
@@ -22,6 +23,15 @@ const content = {
     description: "Những bài viết chọn lọc và chuyên sâu."
   }
 };
+
+const gradientColors = [
+  "from-blue-500/20 to-cyan-500/20",
+  "from-purple-500/20 to-pink-500/20",
+  "from-green-500/20 to-teal-500/20",
+  "from-yellow-500/20 to-orange-500/20",
+  "from-red-500/20 to-rose-500/20",
+  "from-indigo-500/20 to-violet-500/20",
+];
 
 interface FeaturedPostsProps {
     featuredPosts: Post[];
@@ -54,7 +64,10 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
                 {featuredPosts.map((post, index) => (
                   <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 group">
                       <Link href={`/posts/${post.slug}`} className="block h-full">
-                        <Card className="bg-surface h-full flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1">
+                        <Card className={cn(
+                            "bg-surface h-full flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1 bg-gradient-to-br",
+                            gradientColors[index % gradientColors.length]
+                          )}>
                             <div className="relative w-full overflow-hidden aspect-[16/10]">
                                 <Image
                                     src={post.imageUrl || 'https://placehold.co/800x600.png'}

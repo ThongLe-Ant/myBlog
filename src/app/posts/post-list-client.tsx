@@ -10,6 +10,7 @@ import { FilePenLine, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import type { Post } from '@/lib/posts';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 interface PostListClientProps {
     posts: Post[];
@@ -17,6 +18,15 @@ interface PostListClientProps {
     initialCategory: string;
     searchTerm: string;
 }
+
+const gradientColors = [
+  "from-blue-500/20 to-cyan-500/20",
+  "from-purple-500/20 to-pink-500/20",
+  "from-green-500/20 to-teal-500/20",
+  "from-yellow-500/20 to-orange-500/20",
+  "from-red-500/20 to-rose-500/20",
+  "from-indigo-500/20 to-violet-500/20",
+];
 
 export function PostListClient({ posts, categories, initialCategory, searchTerm }: PostListClientProps) {
   const router = useRouter();
@@ -64,9 +74,12 @@ export function PostListClient({ posts, categories, initialCategory, searchTerm 
       <div className="mt-8">
           {filteredPosts.length > 0 ? (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {filteredPosts.map(post => (
+              {filteredPosts.map((post, index) => (
                  <Link href={`/posts/${post.slug}`} key={post.slug} className="group">
-                    <Card className="bg-surface/50 border-border/50 flex flex-col h-full transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1">
+                    <Card className={cn(
+                        "bg-surface/50 border-border/50 flex flex-col h-full transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1 bg-gradient-to-br",
+                        gradientColors[index % gradientColors.length]
+                    )}>
                       <CardHeader>
                         <div className="flex justify-between items-start">
                           <CardTitle className="text-foreground text-xl transition-colors duration-300 group-hover:text-primary pr-2">{post.title}</CardTitle>

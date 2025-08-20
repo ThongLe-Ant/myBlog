@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Post } from '@/lib/posts';
 import { ArrowRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const content = {
   en: {
@@ -20,6 +21,13 @@ const content = {
     viewAll: "Xem tất cả"
   }
 };
+
+const gradientColors = [
+    "from-purple-500/20 to-pink-500/20",
+    "from-green-500/20 to-teal-500/20",
+    "from-yellow-500/20 to-orange-500/20",
+    "from-red-500/20 to-rose-500/20",
+];
 
 interface CategorySectionProps {
     category: string;
@@ -82,7 +90,10 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                     {sidePosts.map((post, index) => (
                         <SectionReveal key={post.slug} className="group" options={{ delay: 0.2 + index * 0.1 }}>
                             <Link href={`/posts/${post.slug}`} className="block h-full">
-                                <Card className="bg-surface h-full flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-lg group-hover:-translate-y-1">
+                                <Card className={cn(
+                                    "bg-surface h-full flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-lg group-hover:-translate-y-1 bg-gradient-to-br",
+                                    gradientColors[index % gradientColors.length]
+                                  )}>
                                     <div className="relative w-full overflow-hidden aspect-[16/10]">
                                         <Image
                                             src={post.imageUrl || 'https://placehold.co/600x400.png'}
