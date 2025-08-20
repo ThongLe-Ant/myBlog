@@ -28,6 +28,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import Autoplay from "embla-carousel-autoplay"
 import { useLanguage } from '@/context/language-context';
+import { HeroHighlight } from '@/components/motion/hero-highlight';
 
 const content = {
   en: {
@@ -39,7 +40,7 @@ const content = {
       phone: "(+84) 396 870 644",
       location: "HCMC, Vietnam",
       downloadCV: "Download CV",
-      contactMe: "Contact Me"
+      readMore: "Read More"
     },
     strengths: {
       title: "What makes my work different?",
@@ -235,7 +236,7 @@ const content = {
       phone: "0396 870 644",
       location: "TP.HCM, Việt Nam",
       downloadCV: "Tải CV",
-      contactMe: "Liên hệ"
+      readMore: "Xem thêm"
     },
      strengths: {
       title: "Điều gì làm nên sự khác biệt?",
@@ -428,18 +429,18 @@ const content = {
 export default function HomePage() {
   const { language } = useLanguage();
   const c = content[language];
+  const cvContentRef = React.useRef<HTMLDivElement>(null);
 
   const autoplay = React.useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: true })
+    Autoplay({ delay: 5000, stopOnInteraction: true })
   )
 
   const handleDownloadCV = () => {
-    const cvContent = document.getElementById('cv-content');
-    if (cvContent) {
-      html2canvas(cvContent, {
+    if (cvContentRef.current) {
+      html2canvas(cvContentRef.current, {
         scale: 2,
         useCORS: true,
-        backgroundColor: '#ffffff' 
+        backgroundColor: language === 'dark' ? '#0a192f' : '#ffffff',
       }).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF({
@@ -453,86 +454,124 @@ export default function HomePage() {
     }
   };
 
-  const mainCard = c.strengths.items.find(item => item.type === 'main');
-  const sideCard = c.strengths.items.find(item => item.type === 'side');
-  const smallCards = c.strengths.items.filter(item => item.type === 'small');
+  const handleScrollTo = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
 
   return (
     <div className="flex flex-col w-full">
-      <div id="cv-content" className="container mx-auto px-4 pt-16 sm:px-6 lg:px-8">
+      <div id="cv-content" ref={cvContentRef} className="container mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Hero Section */}
+        <HeroHighlight>
+            <div className="grid lg:grid-cols-5 items-center gap-8 w-full">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, ease: 'easeOut' }}
+                  className="lg:col-span-2 flex justify-center"
+                >
+                  <Avatar className="w-52 h-52 lg:w-64 lg:h-64 border-4 border-primary/20 shadow-xl shadow-primary/20">
+                    <AvatarImage src="https://storage.googleapis.com/maker-studio-5a93d.appspot.com/users%2FqEg2yVE49bZ230z3a42qfI4pB3t1%2Fstudios%2Fdc48b261-26c3-424a-a434-d023b36ed658%2Fimage_1724036662446_46.png" alt="Le Minh Thong Avatar" data-ai-hint="professional portrait man" />
+                    <AvatarFallback>LMT</AvatarFallback>
+                  </Avatar>
+                </motion.div>
+                <motion.div 
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+                  className="flex flex-col gap-4 lg:col-span-3 text-center lg:text-left">
+                      <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl">{c.hero.title}</h1>
+                      <h2 className="mt-2 text-2xl font-semibold text-foreground">{c.hero.subtitle}</h2>
+                      <p className="mt-4 text-lg text-muted-foreground">{c.hero.description}</p>
+                      <div className="mt-6 space-y-3 text-muted-foreground">
+                        <div className="flex items-center justify-center lg:justify-start gap-3"><Mail className="w-5 h-5 text-primary"/><span>{c.hero.email}</span></div>
+                        <div className="flex items-center justify-center lg:justify-start gap-3"><Phone className="w-5 h-5 text-primary"/><span>{c.hero.phone}</span></div>
+                        <div className="flex items-center justify-center lg:justify-start gap-3"><MapPin className="w-5 h-5 text-primary"/><span>{c.hero.location}</span></div>
+                      </div>
+                      <div className="mt-8 flex items-center justify-center lg:justify-start gap-4">
+                        <Button size="lg" onClick={() => handleScrollTo('about')}>
+                          {c.hero.readMore} <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                        <Button size="lg" variant="outline" onClick={handleDownloadCV}>
+                          <Download className="mr-2 h-4 w-4" />
+                          {c.hero.downloadCV}
+                        </Button>
+                      </div>
+                </motion.div>
+            </div>
+        </HeroHighlight>
+
+        {/* Strengths Carousel Section */}
         <section className="w-full bg-background py-16 lg:py-24">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12 text-foreground">{c.strengths.title}</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Left Column */}
-                <div className="space-y-8">
-                  {mainCard && (
-                      <CardInteractive
-                        title={mainCard.title}
-                        description={mainCard.description}
-                        content={mainCard.content}
-                        className="col-span-1 lg:col-span-2"
-                      />
-                  )}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {smallCards.map((card, index) => (
-                        <CardInteractive
-                          key={index}
-                          title={card.title}
-                          description={card.description}
-                          content={card.content}
-                        />
-                    ))}
-                  </div>
-                </div>
-                {/* Right Column */}
-                <div>
-                  {sideCard && (
-                    <CardInteractive
-                        title={sideCard.title}
-                        description={sideCard.description}
-                        content={sideCard.content}
-                        className="h-full"
-                      />
-                  )}
-                </div>
-              </div>
+              <Carousel 
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                plugins={[autoplay.current]}
+                className="w-full"
+              >
+                <CarouselContent>
+                  {c.strengths.items.map((card, index) => (
+                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                        <div className="p-1">
+                          <CardInteractive
+                            title={card.title}
+                            description={card.description}
+                            content={card.content}
+                            className="h-full"
+                          />
+                        </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
           </div>
         </section>
 
-        {/* Hero Section */}
-        <section id="home" className="relative grid lg:grid-cols-3 items-center gap-8 lg:gap-16 w-full py-24">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="lg:col-span-1 flex justify-center lg:justify-start"
-          >
-            <Avatar className="w-40 h-40 border-4 border-primary/20 shadow-xl shadow-primary/20">
-              <AvatarImage src="https://storage.googleapis.com/maker-studio-5a93d.appspot.com/users%2FqEg2yVE49bZ230z3a42qfI4pB3t1%2Fstudios%2Fdc48b261-26c3-424a-a434-d023b36ed658%2Fimage_1724036662446_46.png" alt="Le Minh Thong Avatar" data-ai-hint="professional portrait man" />
-              <AvatarFallback>LMT</AvatarFallback>
-            </Avatar>
-          </motion.div>
-          <div className="flex flex-col gap-4 lg:col-span-2">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.hero.title}</h2>
-              <h3 className="mt-2 text-xl font-semibold text-foreground">{c.hero.subtitle}</h3>
-              <p className="mt-4 text-lg text-muted-foreground">{c.hero.description}</p>
-              <div className="mt-6 space-y-3 text-muted-foreground">
-                <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-primary"/><span>{c.hero.email}</span></div>
-                <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-primary"/><span>{c.hero.phone}</span></div>
-                <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-primary"/><span>{c.hero.location}</span></div>
+        {/* Projects Section */}
+        <SectionReveal id="projects" className="scroll-mt-24 py-24">
+          <div className="w-full">
+              <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.projects.title}</h2>
+              <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                  {c.projects.description}
+              </p>
               </div>
-              <div className="mt-8 flex items-center gap-4">
-                <Button size="lg" onClick={handleDownloadCV}>
-                  <Download className="mr-2 h-4 w-4" />
-                  {c.hero.downloadCV}
-                </Button>
-                <Button size="lg" variant="outline">{c.hero.contactMe}</Button>
+              <div className="mt-12 grid gap-8 md:grid-cols-2 lg:gap-12">
+                  {c.projects.items.map((project, index) => (
+                      <SectionReveal key={project.title} options={{ delay: index * 0.1 }}>
+                          <Card className="bg-surface h-full flex flex-col">
+                              <CardContent className="p-4 flex flex-col flex-grow">
+                                <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-4">
+                                    <Image
+                                    src={project.imageUrl}
+                                    alt={project.title}
+                                    fill
+                                    className="object-cover"
+                                    data-ai-hint={project.aiHint}
+                                    />
+                                </div>
+                                <h3 className="text-lg font-bold text-foreground">{project.title}</h3>
+                                <p className="mt-2 text-sm text-muted-foreground flex-grow">{project.description}</p>
+                              </CardContent>
+                          </Card>
+                      </SectionReveal>
+                  ))}
               </div>
           </div>
-        </section>
-
+        </SectionReveal>
+        
         {/* About Section */}
         <SectionReveal id="about" className="scroll-mt-24 py-24">
           <div className="w-full grid md:grid-cols-2 gap-16 items-start">
@@ -543,7 +582,7 @@ export default function HomePage() {
                   <p className="mt-4 text-lg text-muted-foreground">{c.about.p2}</p>
                   <p className="mt-4 text-lg text-muted-foreground">{c.about.p3}</p>
               </div>
-              <div className="grid grid-cols-2 gap-8 pt-16">
+              <div className="grid grid-cols-2 gap-8 pt-0 md:pt-16">
                 <div className="space-y-6">
                   <h4 className="font-bold text-foreground">{c.about.expertiseAreas.title}</h4>
                   <ul className="space-y-2">
@@ -619,8 +658,8 @@ export default function HomePage() {
                   {c.experience.items.map((exp, index) => (
                       <div key={index} className="md:grid md:grid-cols-2 md:gap-16 relative">
                           {/* Content */}
-                          <div className={`${index % 2 === 0 ? 'md:order-2 md:text-right' : 'md:text-left'}`}>
-                              <motion.div
+                           <div className={index % 2 === 0 ? 'md:order-2 md:text-left' : 'md:text-left'}>
+                               <motion.div
                                   initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
                                   whileInView={{ opacity: 1, x: 0 }}
                                   viewport={{ once: true, amount: 0.5 }}
@@ -642,39 +681,6 @@ export default function HomePage() {
                       </div>
                   ))}
                 </div>
-          </div>
-        </SectionReveal>
-
-        {/* Projects Section */}
-        <SectionReveal id="projects" className="scroll-mt-24 py-24">
-          <div className="w-full">
-              <div className="text-center">
-              <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.projects.title}</h2>
-              <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                  {c.projects.description}
-              </p>
-              </div>
-              <div className="mt-12 grid gap-8 md:grid-cols-2 lg:gap-12">
-                  {c.projects.items.map((project, index) => (
-                      <SectionReveal key={project.title} options={{ delay: index * 0.1 }}>
-                          <Card className="bg-surface">
-                              <CardContent className="p-4">
-                                <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-4">
-                                    <Image
-                                    src={project.imageUrl}
-                                    alt={project.title}
-                                    fill
-                                    className="object-cover"
-                                    data-ai-hint={project.aiHint}
-                                    />
-                                </div>
-                                <h3 className="text-lg font-bold text-foreground">{project.title}</h3>
-                                <p className="mt-2 text-sm text-muted-foreground flex-grow">{project.description}</p>
-                              </CardContent>
-                          </Card>
-                      </SectionReveal>
-                  ))}
-              </div>
           </div>
         </SectionReveal>
 
@@ -738,3 +744,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+    
