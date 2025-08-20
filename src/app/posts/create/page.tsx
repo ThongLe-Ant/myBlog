@@ -24,6 +24,7 @@ import {
   DialogFooter,
   DialogClose
 } from "@/components/ui/dialog";
+import { MarkdownEditor } from '@/components/markdown-editor';
 
 
 export default function CreatePostPage() {
@@ -107,10 +108,18 @@ export default function CreatePostPage() {
       <div className="max-w-4xl mx-auto">
          <Card className="bg-surface/50 border-border/50">
            <CardHeader>
-             <CardTitle className="text-primary text-2xl">Create a New Post</CardTitle>
-             <CardDescription>
-               Use the editor below to create a new blog post, or use AI to generate one for you.
-             </CardDescription>
+            <div className="flex justify-between items-center">
+              <div>
+                <CardTitle className="text-primary text-2xl">Create a New Post</CardTitle>
+                <CardDescription>
+                  Use the editor below to create a new blog post, or use AI to generate one for you.
+                </CardDescription>
+              </div>
+              <Button variant="outline" size="lg" onClick={() => router.back()}>
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back
+              </Button>
+            </div>
            </CardHeader>
            <CardContent>
             <div className="space-y-6">
@@ -206,32 +215,22 @@ export default function CreatePostPage() {
                             </DialogContent>
                         </Dialog>
                     </div>
-                    <Textarea
-                        id="content"
+                    <MarkdownEditor
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        placeholder="Write your post content here..."
-                        rows={15}
-                        disabled={isLoading}
+                        onChange={setContent}
                     />
                 </div>
               </div>
            </CardContent>
-           <CardFooter className="flex justify-between">
-             <div className="flex gap-4">
-                <Button onClick={handleSave} disabled={isLoading} size="lg">
-                  {isLoading ? 'Saving...' : (
-                    <>
-                      <Save className="mr-2 h-4 w-4" />
-                      Save Post
-                    </>
-                  )}
-                </Button>
-                <Button variant="outline" size="lg" onClick={() => router.back()}>
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back
-                 </Button>
-             </div>
+           <CardFooter className="flex justify-start">
+              <Button onClick={handleSave} disabled={isLoading} size="lg">
+                {isLoading ? 'Saving...' : (
+                  <>
+                    <Save className="mr-2 h-4 w-4" />
+                    Save Post
+                  </>
+                )}
+              </Button>
            </CardFooter>
          </Card>
       </div>

@@ -36,6 +36,8 @@ import {
   DialogFooter,
   DialogClose
 } from "@/components/ui/dialog";
+import { MarkdownEditor } from '@/components/markdown-editor';
+
 
 export default function EditPostPage() {
   const { slug } = useParams();
@@ -207,10 +209,18 @@ export default function EditPostPage() {
       <div className="max-w-4xl mx-auto">
         <Card className="bg-surface/50 border-border/50">
           <CardHeader>
-            <CardTitle className="text-primary text-2xl">Edit Post</CardTitle>
-            <CardDescription>
-              Modify your blog post using the editor below.
-            </CardDescription>
+            <div className="flex justify-between items-center">
+              <div>
+                <CardTitle className="text-primary text-2xl">Edit Post</CardTitle>
+                <CardDescription>
+                  Modify your blog post using the editor below.
+                </CardDescription>
+              </div>
+              <Button variant="outline" size="lg" onClick={() => router.back()}>
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
              <div className="space-y-6">
@@ -306,32 +316,22 @@ export default function EditPostPage() {
                             </DialogContent>
                         </Dialog>
                     </div>
-                   <Textarea
-                        id="content"
+                   <MarkdownEditor
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        placeholder="Write your post content here..."
-                        rows={15}
-                        disabled={isSaving || isDeleting}
+                        onChange={setContent}
                     />
                 </div>
               </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <div className="flex gap-4">
-                <Button onClick={handleSave} disabled={isSaving || isDeleting} size="lg">
-                  {isSaving ? 'Saving...' : (
-                    <>
-                      <Save className="mr-2 h-4 w-4" />
-                      Save Changes
-                    </>
-                  )}
-                </Button>
-                <Button variant="outline" size="lg" onClick={() => router.back()}>
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back
-                 </Button>
-            </div>
+            <Button onClick={handleSave} disabled={isSaving || isDeleting} size="lg">
+              {isSaving ? 'Saving...' : (
+                <>
+                  <Save className="mr-2 h-4 w-4" />
+                  Save Changes
+                </>
+              )}
+            </Button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant="destructive" disabled={isDeleting || isSaving}>
@@ -359,5 +359,3 @@ export default function EditPostPage() {
     </div>
   );
 }
-
-    
