@@ -185,8 +185,8 @@ export default function HomePage() {
     <div className="flex flex-col w-full">
 
       {/* Blog Banner Section */}
-      <section className="w-full py-12 md:py-16 lg:py-20 bg-surface/50 rounded-2xl border border-border/50">
-        <div className="container grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
+      <section className="w-full bg-surface/50">
+        <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-2">
                  <Carousel
                     opts={{
@@ -241,7 +241,7 @@ export default function HomePage() {
       </section>
 
       {/* Portfolio Section */}
-      <div id="cv-content" className="mt-24">
+      <div id="cv-content" className="container mx-auto px-4 py-8 pt-24 sm:px-6 lg:px-8">
           {/* Hero Section */}
           <section id="home" className="relative grid lg:grid-cols-2 items-start gap-8 lg:gap-16 w-full">
             <div className="flex flex-col gap-8 lg:gap-16">

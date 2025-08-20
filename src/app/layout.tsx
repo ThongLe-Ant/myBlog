@@ -20,11 +20,11 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} dark`} suppressHydrationWarning>
       <body className="bg-background text-foreground antialiased">
         <div className="noise-bg"></div>
-        <Header />
-        <main className="container mx-auto px-4 py-8 pt-24 sm:px-6 lg:px-8">
-          {children}
-        </main>
-        <AppFooter />
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <AppFooter />
+        </div>
         <Toaster />
       </body>
     </html>
