@@ -78,7 +78,10 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
                                 />
                             </div>
                             <CardHeader>
-                              <Badge variant="secondary" className="self-start mb-2">{post.category}</Badge>
+                               <div className="flex gap-2 mb-2">
+                                <Badge variant="secondary">{post.category}</Badge>
+                                {post.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
+                              </div>
                               <CardTitle className="text-foreground text-xl group-hover:text-primary transition-colors">{post.title}</CardTitle>
                             </CardHeader>
                             <CardContent className="flex-grow">

@@ -67,10 +67,12 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                                     className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
                                     data-ai-hint="tech blog"
                                 />
-                                {mainPost.featured && <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground">Featured</Badge>}
                             </div>
                             <CardHeader>
-                              <Badge variant="secondary" className="self-start mb-2">{mainPost.category}</Badge>
+                              <div className="flex gap-2 mb-2">
+                                <Badge variant="secondary">{mainPost.category}</Badge>
+                                {mainPost.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
+                              </div>
                               <CardTitle className="text-foreground text-2xl group-hover:text-primary transition-colors">{mainPost.title}</CardTitle>
                             </CardHeader>
                             <CardContent className="flex-grow">
