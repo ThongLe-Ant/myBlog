@@ -9,6 +9,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { LanguageProvider } from '@/context/language-context';
 import { ThemeProvider } from '@/components/theme-provider';
 import { GoToTopButton } from '@/components/layout/go-to-top-button';
+import { BackgroundProvider } from '@/components/layout/background-provider';
 
 export const metadata: Metadata = {
   title: 'Le Minh Thong - Senior Software Engineer | Solution Architect',
@@ -22,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
-      <body className="antialiased flex flex-col min-h-screen">
+      <body className="antialiased">
         <LanguageProvider>
           <ThemeProvider
             attribute="class"
@@ -30,9 +31,12 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <AppFooter />
+            <BackgroundProvider />
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow">{children}</main>
+              <AppFooter />
+            </div>
             <Toaster />
             <GoToTopButton />
           </ThemeProvider>
