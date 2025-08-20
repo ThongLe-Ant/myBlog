@@ -20,20 +20,20 @@ import { useRouter } from 'next/navigation';
 
 const navLinks = {
   en: [
-    { href: '#about', label: 'About' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#experience', label: 'Experience' },
-    { href: '#projects', label: 'Projects' },
-    { href: '/posts/create', label: 'Create Post' },
-    { href: '#contact', label: 'Contact' },
+    { href: '/#about', label: 'About' },
+    { href: '/#skills', label: 'Skills' },
+    { href: '/#experience', label: 'Experience' },
+    { href: '/#projects', label: 'Projects' },
+    { href: '/posts', label: 'Blog' },
+    { href: '/#contact', label: 'Contact' },
   ],
   vi: [
-      { href: '#about', label: 'Giới thiệu' },
-      { href: '#skills', label: 'Kỹ năng' },
-      { href: '#experience', label: 'Kinh nghiệm' },
-      { href: '#projects', label: 'Dự án' },
-      { href: '/posts/create', label: 'Tạo bài viết' },
-      { href: '#contact', label: 'Liên hệ' },
+      { href: '/#about', label: 'Giới thiệu' },
+      { href: '/#skills', label: 'Kỹ năng' },
+      { href: '/#experience', label: 'Kinh nghiệm' },
+      { href: '/#projects', label: 'Dự án' },
+      { href: '/posts', label: 'Bài viết' },
+      { href: '/#contact', label: 'Liên hệ' },
   ]
 };
 
@@ -75,16 +75,22 @@ export function Header() {
   const router = useRouter();
 
   const handleLinkClick = (href: string) => {
-    if (href.startsWith('/')) {
-      router.push(href);
-    } else {
-      const element = document.getElementById(href.substring(1));
-      if (element) {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+    if (href.startsWith('/#')) {
+      const elementId = href.substring(2);
+       // If we are not on the homepage, navigate to it first
+      if (window.location.pathname !== '/') {
+        router.push('/' + href.substring(1));
+      } else {
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
       }
+    } else {
+      router.push(href);
     }
   };
 
