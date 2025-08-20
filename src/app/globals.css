@@ -76,7 +76,7 @@
   }
 
   body {
-    @apply text-foreground;
+    @apply antialiased;
     background-color: hsl(var(--background));
     background-image: 
       radial-gradient(circle at 25% 30%, var(--nebula-1-color) 0%, transparent 40%),
@@ -87,20 +87,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-  }
-
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
-  }
-  ::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted));
-    border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--primary));
   }
 }
 
