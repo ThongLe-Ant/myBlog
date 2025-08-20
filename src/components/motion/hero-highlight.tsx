@@ -6,7 +6,7 @@ import React from 'react';
 export function HeroHighlight({ children }: { children: React.ReactNode }) {
   return (
     <motion.section
-      className="relative w-full flex flex-col items-center justify-center text-center overflow-hidden pt-16 md:pt-24 pb-8 md:pb-12"
+      className="relative w-full flex flex-col items-center justify-center text-center overflow-hidden pt-8 md:pt-12 pb-8 md:pb-12"
       initial="hidden"
       animate="visible"
       variants={{
