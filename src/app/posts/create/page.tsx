@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -12,12 +12,7 @@ import { savePost } from '@/lib/posts';
 import { useRouter } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import dynamic from 'next/dynamic';
-
-import 'easymde/dist/easymde.min.css';
-
-const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false });
-
+import { MarkdownEditor } from '@/components/markdown-editor';
 
 export default function CreatePostPage() {
   const [title, setTitle] = useState('');
@@ -62,20 +57,6 @@ export default function CreatePostPage() {
     }
   };
   
-  const editorOptions = useMemo(() => {
-    return {
-        autofocus: true,
-        spellChecker: false,
-        toolbar: [
-            "bold", "italic", "heading", "|", 
-            "quote", "unordered-list", "ordered-list", "|",
-            "link", "image", "|",
-            "preview", "side-by-side", "fullscreen", "|",
-            "guide"
-        ],
-    };
-  }, []);
-
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
@@ -134,11 +115,9 @@ export default function CreatePostPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="content">Content (Markdown)</Label>
-                    <SimpleMDE
-                        id="content"
+                    <MarkdownEditor
                         value={content}
                         onChange={setContent}
-                        options={editorOptions}
                     />
                 </div>
               </div>

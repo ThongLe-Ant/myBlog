@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -23,10 +23,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import dynamic from 'next/dynamic';
-import 'easymde/dist/easymde.min.css';
+import { MarkdownEditor } from '@/components/markdown-editor';
+import { Skeleton } from '@/components/ui/skeleton';
 
-const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false });
 
 export default function EditPostPage() {
   const { slug } = useParams();
@@ -43,7 +42,11 @@ export default function EditPostPage() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    if (typeof slug !== 'string') return;
+    if (typeof slug !== 'string') {
+        // Redirect or show an error if slug is not a string, or is missing.
+        router.push('/posts');
+        return;
+    }
     
     const fetchPost = async () => {
       setIsLoading(true);
@@ -77,20 +80,6 @@ export default function EditPostPage() {
 
     fetchPost();
   }, [slug, toast, router]);
-
-  const editorOptions = useMemo(() => {
-    return {
-        autofocus: true,
-        spellChecker: false,
-        toolbar: [
-            "bold", "italic", "heading", "|", 
-            "quote", "unordered-list", "ordered-list", "|",
-            "link", "image", "|",
-            "preview", "side-by-side", "fullscreen", "|",
-            "guide"
-        ],
-    };
-  }, []);
 
   const handleSave = async () => {
     if (!title || !content || !category) {
@@ -153,11 +142,20 @@ export default function EditPostPage() {
             <div className="max-w-4xl mx-auto">
                 <Card className="bg-surface/50 border-border/50">
                     <CardHeader>
-                        <CardTitle className="text-primary text-2xl">Loading Editor...</CardTitle>
+                        <Skeleton className="h-8 w-3/4" />
+                        <Skeleton className="h-4 w-1/2" />
                     </CardHeader>
-                    <CardContent>
-                        <p>Loading post content, please wait...</p>
+                    <CardContent className="space-y-6">
+                        <Skeleton className="h-10 w-full" />
+                        <div className="grid grid-cols-2 gap-6">
+                            <Skeleton className="h-10 w-full" />
+                            <Skeleton className="h-10 w-full" />
+                        </div>
+                        <Skeleton className="h-64 w-full" />
                     </CardContent>
+                    <CardFooter>
+                        <Skeleton className="h-11 w-32" />
+                    </CardFooter>
                 </Card>
             </div>
         </div>
@@ -183,13 +181,13 @@ export default function EditPostPage() {
                     placeholder="e.g., 'My First Blog Post'"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    disabled={isSaving}
+                    disabled={isSaving || isDeleting}
                   />
                 </div>
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                         <Label htmlFor="category">Category</Label>
-                        <Select onValueChange={setCategory} value={category} disabled={isSaving}>
+                        <Select onValueChange={setCategory} value={category} disabled={isSaving || isDeleting}>
                             <SelectTrigger id="category">
                                 <SelectValue placeholder="Select a category" />
                             </SelectTrigger>
@@ -214,7 +212,7 @@ export default function EditPostPage() {
                             id="status"
                             checked={published}
                             onCheckedChange={setPublished}
-                            disabled={isSaving}
+                            disabled={isSaving || isDeleting}
                           />
                           <Label htmlFor="status">{published ? 'Published' : 'Draft'}</Label>
                         </div>
@@ -222,18 +220,16 @@ export default function EditPostPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="content">Content (Markdown)</Label>
-                   <SimpleMDE
-                        id="content"
+                   <MarkdownEditor
                         value={content}
                         onChange={setContent}
-                        options={editorOptions}
                     />
                 </div>
               </div>
           </CardContent>
           <CardFooter className="flex justify-between">
             <div className="flex gap-4">
-                <Button onClick={handleSave} disabled={isSaving} size="lg">
+                <Button onClick={handleSave} disabled={isSaving || isDeleting} size="lg">
                   {isSaving ? 'Saving...' : (
                     <>
                       <Save className="mr-2 h-4 w-4" />
@@ -241,14 +237,14 @@ export default function EditPostPage() {
                     </>
                   )}
                 </Button>
-                <Button variant="outline" size="lg" onClick={() => router.back()}>
+                <Button variant="outline" size="lg" onClick={() => router.back()} disabled={isSaving || isDeleting}>
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Back
                  </Button>
             </div>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="destructive" disabled={isDeleting}>
+                <Button variant="destructive" disabled={isDeleting || isSaving}>
                   <Trash2 className="mr-2 h-4 w-4" />
                    {isDeleting ? 'Deleting...' : 'Delete Post'}
                 </Button>
