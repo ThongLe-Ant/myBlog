@@ -57,17 +57,11 @@ export function CategoryBrowser({ categories, categoryCounts }: CategoryBrowserP
                           'relative text-white p-6 rounded-2xl flex flex-col justify-end min-h-[120px] transition-transform duration-300 ease-smooth group-hover:scale-105 group-hover:shadow-xl overflow-hidden',
                           categoryGradients[index % categoryGradients.length]
                         )}>
-                            <div 
+                            <div
                                 className="absolute inset-0 opacity-10"
                                 style={{
-                                    backgroundImage: 
-                                        'radial-gradient(circle at center, hsla(0,0%,100%,.2) 0, transparent 1px), ' +
-                                        'radial-gradient(circle at center, hsla(0,0%,100%,.2) 0, transparent 1px), ' +
-                                        'radial-gradient(circle at center, hsla(0,0%,100%,.1) 0, transparent 2px), ' +
-                                        'radial-gradient(circle at center, hsla(0,0%,100%,.1) 0, transparent 2px)',
-                                    backgroundSize: '20% 20%, 40% 40%, 60% 60%, 80% 80%',
-                                    backgroundPosition: 'center center',
-                                    backgroundRepeat: 'no-repeat'
+                                    backgroundImage: 'repeating-radial-gradient(circle at center, hsla(0,0%,100%,.2), hsla(0,0%,100%,.2) 1px, transparent 1px, transparent 100%)',
+                                    backgroundSize: '2rem 2rem'
                                 }}
                             />
                             <div className="relative z-10">
