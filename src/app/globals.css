@@ -71,6 +71,10 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply text-foreground;
     background-color: hsl(var(--background));
@@ -83,10 +87,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-  }
-
-  html {
-    scroll-behavior: smooth;
   }
 
   ::-webkit-scrollbar {
