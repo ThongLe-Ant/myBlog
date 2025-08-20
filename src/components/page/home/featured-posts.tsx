@@ -65,8 +65,8 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
                                   data-ai-hint="tech blog"
                               />
                            )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
-                            <div className="relative h-full flex flex-col justify-end p-6 text-white z-20">
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10" />
+                            <div className="relative z-20 h-full flex flex-col justify-start p-6 text-white">
                                 <div className="flex gap-2 mb-2">
                                     <Badge variant="secondary" className="bg-white/20 text-white border-none">{post.category}</Badge>
                                     {post.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}

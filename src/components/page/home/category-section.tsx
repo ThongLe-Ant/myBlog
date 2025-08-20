@@ -63,15 +63,15 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                                     data-ai-hint="tech blog"
                                />
                            )}
-                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
-                           <div className="relative h-full flex flex-col justify-end p-8 text-white z-20">
+                           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10" />
+                           <div className="relative z-20 h-full flex flex-col justify-start p-8 text-white">
                                 <div className="flex gap-2 mb-2">
                                     <Badge variant="secondary" className="bg-white/20 text-white border-none">{mainPost.category}</Badge>
                                     {mainPost.featured && <Badge className="bg-primary text-primary-foreground">Featured</Badge>}
                                 </div>
                                 <h3 className="text-3xl font-bold text-white transition-colors">{mainPost.title}</h3>
                                 <p className="mt-4 text-base text-white/80">{mainPost.excerpt}</p>
-                                <div className="mt-6 text-sm font-semibold text-white group-hover:underline">
+                                <div className="mt-auto pt-4 text-sm font-semibold text-white group-hover:underline">
                                    {c.readMore} <ArrowRight className="inline-block h-4 w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
                                </div>
                            </div>
@@ -94,8 +94,8 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                                             data-ai-hint="tech blog"
                                         />
                                     )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10" />
-                                    <div className="relative h-full flex flex-col justify-end p-4 text-white z-20">
+                                    <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
+                                    <div className="relative z-20 h-full flex flex-col justify-start p-4 text-white">
                                         <h3 className="font-semibold text-white text-md flex-grow group-hover:underline transition-all">{post.title}</h3>
                                     </div>
                                 </Card>
