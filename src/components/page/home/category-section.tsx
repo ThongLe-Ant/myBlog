@@ -35,11 +35,18 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
     
     if (!posts || posts.length === 0) return null;
 
-    const featuredPostsInCategory = posts.filter(p => p.featured);
-    const mainPosts = featuredPostsInCategory.length > 0 ? featuredPostsInCategory : [posts[0]];
-    const mainPostSlugs = mainPosts.map(p => p.slug);
-    
-    const sidePosts = posts.filter(p => !mainPostSlugs.includes(p.slug)).slice(0, 4);
+    // Correctly separate main (featured) posts and side posts
+    const mainPosts = posts.filter(p => p.featured);
+    const sidePosts = posts.filter(p => !p.featured).slice(0, 4);
+
+    // If there are no featured posts in this category, use the latest post as the main one
+    // and the rest as side posts.
+    if (mainPosts.length === 0 && posts.length > 0) {
+        mainPosts.push(posts[0]);
+        sidePosts.splice(0, posts.length - 1); // Reset side posts
+        sidePosts.push(...posts.slice(1, 5));
+    }
+
 
     const getExcerpt = (contentStr: string, length = 250) => {
         const cleanedContent = contentStr.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
@@ -48,14 +55,14 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
     }
 
     const MainPostCard = ({ post }: { post: Post }) => (
-        <Link href={`/posts/${post.slug}`} className="block h-full">
+        <Link href={`/posts/${post.slug}`} className="block h-full group">
             <Card className="relative h-full min-h-[480px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-xl group-hover:-translate-y-1 rounded-2xl">
                 {post.imageUrl && (
                     <Image
                         src={post.imageUrl}
                         alt={post.title}
                         fill
-                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 z-0"
                         data-ai-hint="tech blog"
                     />
                 )}
@@ -100,11 +107,11 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                         <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Carousel>
-                ) : (
-                    <SectionReveal className="group h-full" options={{ delay: 0.1 }}>
+                ) : mainPosts.length === 1 ? (
+                    <SectionReveal className="h-full" options={{ delay: 0.1 }}>
                         <MainPostCard post={mainPosts[0]} />
                     </SectionReveal>
-                )}
+                ) : null}
 
 
                 {/* Side Posts */}
@@ -118,7 +125,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                                             src={post.imageUrl}
                                             alt={post.title}
                                             fill
-                                            className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                                            className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 z-0"
                                             data-ai-hint="tech blog"
                                         />
                                     )}
