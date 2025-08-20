@@ -84,9 +84,16 @@ export default function CreatePostPage() {
                         <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="Architecture">Architecture</SelectItem>
-                        <SelectItem value="Technology">Technology</SelectItem>
-                        <SelectItem value="Experience">Experience</SelectItem>
+                        <SelectItem value="FRONT END">FRONT END</SelectItem>
+                        <SelectItem value="BACK END">BACK END</SelectItem>
+                        <SelectItem value="AI">AI</SelectItem>
+                        <SelectItem value="DATA">DATA</SelectItem>
+                        <SelectItem value="DEVOPS">DEVOPS</SelectItem>
+                        <SelectItem value="SHOWCASE">SHOWCASE</SelectItem>
+                        <SelectItem value="CHEATSHEET">CHEATSHEET</SelectItem>
+                        <SelectItem value="Life code">Life code</SelectItem>
+                        <SelectItem value="Search Code">Search Code</SelectItem>
+                        <SelectItem value="Learn code">Learn code</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
