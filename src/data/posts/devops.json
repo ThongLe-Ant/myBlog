@@ -8,5 +8,23 @@
     "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Docker is a platform for developing, shipping, and running applications in containers. Containers allow you to package an application with all of its dependencies.",
     "content": "## What is Docker?\n\nDocker is a platform for developing, shipping, and running applications in containers. Containers allow you to package an application with all of its dependencies into a standardized unit for software development.\n\n![Docker Logo](https://placehold.co/600x300.png)\n\nThis solves the \"it works on my machine\" problem.\n\n### Basic Docker Commands\n- `docker build -t my-app .` - Builds an image from a Dockerfile.\n- `docker run -p 8080:80 my-app` - Runs the container and maps port 80 inside the container to port 8080 on the host."
+  },
+  {
+    "slug": "ci-cd-with-github-actions",
+    "title": "CI/CD with GitHub Actions",
+    "category": "DevOps",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub.",
+    "content": "## Automate Your Workflow\n\nContinuous Integration (CI) and Continuous Deployment (CD) are practices that automate the process of software delivery. GitHub Actions allows you to create workflows defined in a YAML file directly in your repository. These workflows can be triggered by events like a push or a pull request."
+  },
+  {
+    "slug": "introduction-to-kubernetes",
+    "title": "Introduction to Kubernetes",
+    "category": "DevOps",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.",
+    "content": "## Container Orchestration\n\nWhile Docker allows you to create and run containers, Kubernetes helps you manage them at scale. It handles service discovery, load balancing, self-healing, and rolling updates across a cluster of machines, making it the industry standard for container orchestration."
   }
 ]

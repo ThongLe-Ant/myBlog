@@ -17,5 +17,23 @@
     "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Tailwind CSS is a utility-first CSS framework that provides low-level utility classes to build custom designs without ever leaving your HTML.",
     "content": "## Why Tailwind CSS?\n\nTailwind CSS is a utility-first CSS framework that provides low-level utility classes to build custom designs without ever leaving your HTML.\n\n![Tailwind CSS](https://placehold.co/600x300.png)\n*Tailwind CSS offers a unique approach to styling.*\n\nIt's highly customizable and provides a great developer experience. Let's look at an example of styling a button.\n\n```html\n<button class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\">\n  Click me\n</button>\n```\n\nThis approach keeps your styles co-located with your markup, making components easier to maintain."
+  },
+  {
+    "slug": "understanding-the-virtual-dom-in-react",
+    "title": "Understanding the Virtual DOM in React",
+    "category": "Front End",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "The Virtual DOM is a programming concept where a virtual representation of a UI is kept in memory and synced with the 'real' DOM.",
+    "content": "## The Virtual DOM\n\nThe Virtual DOM (VDOM) is a programming concept where a virtual representation of a UI is kept in memory and synced with the 'real' DOM. This process is called reconciliation. React uses the VDOM to optimize updates to the browser's display."
+  },
+  {
+    "slug": "state-management-with-zustand",
+    "title": "State Management with Zustand",
+    "category": "Front End",
+    "published": false,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Zustand is a small, fast and scalable bearbones state-management solution using simplified flux principles. It has a comfy API based on hooks.",
+    "content": "## Simple State Management\n\nZustand is a popular choice for state management in React applications due to its simplicity and minimal boilerplate. It allows you to create a store and access it directly within your components using a simple hook."
   }
 ]

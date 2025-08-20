@@ -8,5 +8,23 @@
     "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "Large Language Models (LLMs) are a type of artificial intelligence model that has been trained on a massive amount of text data to understand and generate human-like text.",
     "content": "## What are LLMs?\n\nLarge Language Models (LLMs) are a type of artificial intelligence model that has been trained on a massive amount of text data to understand and generate human-like text. They are the technology behind services like ChatGPT and Google's Gemini.\n\n![AI Brain](https://placehold.co/600x300.png)\n*Conceptual art of an AI brain processing information.*\n\nThey work by predicting the next word in a sequence, allowing them to write essays, answer questions, and even generate code.\n\n### How are they trained?\nThe training process involves feeding the model terabytes of text from the internet and books. The model learns patterns, grammar, facts, and reasoning abilities from this data."
+  },
+  {
+    "slug": "what-is-rag-retrieval-augmented-generation",
+    "title": "What is RAG (Retrieval-Augmented Generation)?",
+    "category": "AI",
+    "published": true,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Retrieval-Augmented Generation (RAG) is a technique for improving the accuracy and reliability of LLMs by grounding them in external knowledge bases.",
+    "content": "## Grounding LLMs in Facts\n\nRAG combines the power of pre-trained language models with an information retrieval component. Before generating a response, the model retrieves relevant documents from a knowledge source (like a vector database). This helps to reduce hallucinations and allows the model to answer questions about specific, private data."
+  },
+  {
+    "slug": "fine-tuning-vs-prompt-engineering",
+    "title": "Fine-Tuning vs. Prompt Engineering",
+    "category": "AI",
+    "published": false,
+    "imageUrl": "https://placehold.co/600x400.png",
+    "excerpt": "Two primary methods exist for customizing LLMs: prompt engineering and fine-tuning. Understanding the difference is key to effective AI application development.",
+    "content": "## Customizing LLMs\n\n**Prompt Engineering** involves crafting the perfect input (prompt) to guide the model to the desired output. It's fast and cheap but can be brittle.\n\n**Fine-Tuning** involves further training the model on a smaller, domain-specific dataset. It's more powerful and robust but requires more data and compute resources."
   }
 ]
