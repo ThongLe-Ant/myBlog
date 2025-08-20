@@ -40,6 +40,7 @@ import Image from 'next/image';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import Autoplay from "embla-carousel-autoplay"
 
 const experiences = [
     {
@@ -148,6 +149,9 @@ const keyResults = [
 
 
 export default function HomePage() {
+  const autoplay = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: true })
+  )
 
   const handleDownloadCV = () => {
     const cvContent = document.getElementById('cv-content');
@@ -174,9 +178,49 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section id="home" className="relative grid lg:grid-cols-2 items-start gap-8 lg:gap-16 min-h-screen w-full py-12 md:py-24">
+        <div className="flex flex-col gap-8 lg:gap-16">
+            <div className="text-center">
+                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Featured Posts</h2>
+                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                    Explore insightful articles on technology and system architecture.
+                </p>
+            </div>
+             <Carousel
+                opts={{
+                    align: "start",
+                    loop: true,
+                }}
+                plugins={[autoplay.current]}
+                className="w-full"
+            >
+                <CarouselContent>
+                    {projects.slice(0, 3).map((project, index) => (
+                        <CarouselItem key={index} className="md:basis-1/2 lg:basis-full">
+                            <div className="p-1">
+                               <CardInteractive
+                                    title={project.title}
+                                    description={project.description}
+                                    tags={project.tags}
+                                    imageUrl={project.imageUrl}
+                                    aiHint={project.aiHint}
+                                />
+                            </div>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
+            <div className="text-center">
+                <Button variant="secondary" size="lg">
+                    <Search className="mr-2 h-4 w-4" />
+                    Search all articles
+                </Button>
+            </div>
+        </div>
         <div className="lg:sticky top-24">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
@@ -206,44 +250,6 @@ export default function HomePage() {
               <Button size="lg" variant="outline">Contact Me</Button>
             </div>
           </motion.div>
-        </div>
-        <div className="flex flex-col gap-8 lg:gap-16">
-            <div className="text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Featured Posts</h2>
-                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    Explore insightful articles on technology and system architecture.
-                </p>
-            </div>
-             <Carousel
-                opts={{
-                    align: "start",
-                }}
-                className="w-full"
-            >
-                <CarouselContent>
-                    {projects.slice(0, 3).map((project, index) => (
-                        <CarouselItem key={index} className="md:basis-1/2 lg:basis-full">
-                            <div className="p-1">
-                               <CardInteractive
-                                    title={project.title}
-                                    description={project.description}
-                                    tags={project.tags}
-                                    imageUrl={project.imageUrl}
-                                    aiHint={project.aiHint}
-                                />
-                            </div>
-                        </CarouselItem>
-                    ))}
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-            </Carousel>
-            <div className="text-center">
-                <Button variant="secondary" size="lg">
-                    <Search className="mr-2 h-4 w-4" />
-                    Search all articles
-                </Button>
-            </div>
         </div>
       </section>
 
