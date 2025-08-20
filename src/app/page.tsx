@@ -24,7 +24,7 @@ const content = {
     blog: {
         title: "From the Blog",
         description: "Sharing knowledge and insights from my journey in the tech world.",
-        viewAll: "View All Posts"
+        viewAll: "View All"
     },
   },
   vi: {
@@ -70,7 +70,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col w-full">
-        <HeroBanner showContactInfo={false} onDownloadCV={() => router.push('/about')} />
+        <HeroBanner showContactInfo={false} />
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 space-y-24">
             {categories.map((category, catIndex) => {
@@ -146,9 +146,9 @@ export default function HomePage() {
                     
                     {posts.length > 5 && (
                         <div className="mt-12 text-center">
-                            <Button size="lg" asChild variant="outline">
+                            <Button size="lg" asChild variant="link" className="text-primary hover:text-primary/80">
                                 <Link href={`/posts?category=${category}`}>
-                                    {c.blog.viewAll} in {category} <Newspaper className="ml-2 h-5 w-5" />
+                                    {c.blog.viewAll} {category} posts <ArrowRight className="ml-2 h-4 w-4" />
                                 </Link>
                             </Button>
                         </div>
