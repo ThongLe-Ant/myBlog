@@ -38,6 +38,8 @@ import { CardInteractive } from '@/components/motion/card-interactive';
 import React from 'react';
 import Image from 'next/image';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const experiences = [
     {
@@ -147,8 +149,28 @@ const keyResults = [
 
 export default function HomePage() {
 
+  const handleDownloadCV = () => {
+    const cvContent = document.getElementById('cv-content');
+    if (cvContent) {
+      html2canvas(cvContent, {
+        scale: 2, // Improve resolution
+        useCORS: true,
+        backgroundColor: '#0a0a0a' 
+      }).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+          orientation: 'p',
+          unit: 'px',
+          format: [canvas.width, canvas.height]
+        });
+        pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+        pdf.save('Le-Minh-Thong-CV.pdf');
+      });
+    }
+  };
+
   return (
-    <div className="flex flex-col w-full">
+    <div id="cv-content" className="flex flex-col w-full">
 
       {/* Hero Section */}
       <section id="home" className="relative grid lg:grid-cols-2 items-start gap-8 lg:gap-16 min-h-screen w-full py-12 md:py-24">
@@ -177,7 +199,10 @@ export default function HomePage() {
               <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-primary"/><span>HCMC, Vietnam</span></div>
             </div>
             <div className="mt-8 flex items-center gap-4">
-              <Button size="lg">View My Projects</Button>
+              <Button size="lg" onClick={handleDownloadCV}>
+                <Download className="mr-2 h-4 w-4" />
+                Download CV
+              </Button>
               <Button size="lg" variant="outline">Contact Me</Button>
             </div>
           </motion.div>
