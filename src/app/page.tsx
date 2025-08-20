@@ -48,7 +48,7 @@ export default function HomePage() {
     <div className="flex flex-col w-full">
         <HeroBanner showContactInfo={false} showStats={true} />
         
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 space-y-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-16 lg:py-24">
             <CategoryBrowser categories={categories} categoryCounts={categoryCounts} />
             
             <FeaturedPosts featuredPosts={featuredPosts} />
