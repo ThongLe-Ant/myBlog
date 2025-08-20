@@ -78,10 +78,7 @@
   body {
     @apply antialiased;
     background-color: hsl(var(--background));
-    background-image: 
-      radial-gradient(circle at 25% 30%, var(--nebula-1-color) 0%, transparent 40%),
-      radial-gradient(circle at 75% 70%, var(--nebula-2-color) 0%, transparent 40%),
-      url('/backgrounds/dot-grid.svg');
+    background-image: url('/backgrounds/dot-grid.svg');
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
