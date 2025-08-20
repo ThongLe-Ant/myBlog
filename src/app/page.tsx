@@ -374,8 +374,8 @@ export default function HomePage() {
 
       {/* Blog Banner Section */}
        <section className="w-full bg-surface/50 pb-16 pt-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
-            <div className="lg:col-span-2 relative px-12">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="lg:col-span-1">
                  <Carousel
                     opts={{
                         align: "start",
@@ -384,7 +384,7 @@ export default function HomePage() {
                     plugins={[autoplay.current]}
                     className="w-full"
                 >
-                    <CarouselContent className="-ml-4">
+                    <CarouselContent className="-ml-0">
                         {c.projects.items.map((project, index) => (
                             <CarouselItem key={index} className="pl-4">
                                 <CardInteractive
@@ -398,31 +398,21 @@ export default function HomePage() {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
                 </Carousel>
             </div>
             <div>
-              <Card className="bg-surface border border-border/50">
-                <CardHeader>
-                  <CardTitle className="text-primary">{c.blogBanner.categoriesTitle}</CardTitle>
-                  <CardDescription>{c.blogBanner.categoriesDescription}</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-3">
-                    {c.blogBanner.categories.map(cat => (
-                       <li key={cat.name} className="flex justify-between items-center text-muted-foreground hover:text-primary transition-colors duration-200 cursor-pointer group">
-                         <span className="group-hover:translate-x-1 transition-transform duration-200">{cat.name}</span>
-                         <Badge variant="secondary" className="font-mono group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">{cat.count}</Badge>
-                       </li>
-                    ))}
-                  </ul>
-                   <Button variant="outline" className="w-full mt-6">
-                      <Search className="mr-2 h-4 w-4" />
-                      {c.blogBanner.searchButton}
-                  </Button>
-                </CardContent>
-              </Card>
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.blogBanner.categoriesTitle}</h2>
+                <p className="mt-2 text-lg text-muted-foreground">{c.blogBanner.categoriesDescription}</p>
+                <ul className="mt-6 grid grid-cols-2 gap-4">
+                  {c.blogBanner.categories.map(cat => (
+                     <li key={cat.name} className="flex justify-between items-center text-muted-foreground cursor-pointer group">
+                       <span className="group-hover:text-primary transition-colors duration-200">{cat.name}</span>
+                       <Badge variant="secondary" className="font-mono group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">{cat.count}</Badge>
+                     </li>
+                  ))}
+                </ul>
+              </div>
             </div>
         </div>
       </section>

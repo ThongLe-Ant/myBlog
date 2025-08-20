@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -29,16 +30,15 @@ export function CardInteractive({
 }: CardInteractiveProps) {
   
   return (
-     <motion.div
-      whileHover="hover"
+     <div
       className={cn(
         'group relative w-full h-full rounded-2xl bg-surface border border-border/50 shadow-lg transition-shadow duration-300 ease-smooth hover:shadow-2xl hover:shadow-primary/20',
         className
       )}
     >
       <Card className="bg-transparent border-0 shadow-none h-full">
-        <CardContent className="p-6 h-full flex flex-col">
-          <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-6 shadow-inner">
+        <CardContent className="p-4 h-full flex flex-col">
+          <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-4">
             <Image
               src={imageUrl}
               alt={title}
@@ -48,18 +48,10 @@ export function CardInteractive({
             />
              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
           </div>
-          <h3 className="text-xl font-bold text-secondary">{title}</h3>
-          <p className="mt-2 text-muted-foreground flex-grow">{description}</p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <Badge key={tag} variant="outline" className="font-mono">{tag}</Badge>
-            ))}
-          </div>
-          <div className="mt-6 flex items-center text-sm font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-smooth">
-            {viewDetailsText} <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </div>
+          <h3 className="text-lg font-bold text-secondary">{title}</h3>
+          <p className="mt-2 text-sm text-muted-foreground flex-grow">{description}</p>
         </CardContent>
       </Card>
-    </motion.div>
+    </div>
   );
 }
