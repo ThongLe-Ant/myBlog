@@ -11,6 +11,7 @@ export interface Post {
   category: string;
   content: string; 
   published: boolean;
+  featured?: boolean;
   imageUrl?: string;
   excerpt?: string;
 }
@@ -83,6 +84,7 @@ export async function savePost(post: Omit<Post, 'slug'>) {
         ...post,
         slug: createSlug(post.title),
         excerpt: post.content.substring(0, 150),
+        featured: post.featured || false,
     };
 
     // Check for duplicate slugs
@@ -97,12 +99,13 @@ export async function savePost(post: Omit<Post, 'slug'>) {
 
     revalidatePath('/posts');
     revalidatePath(`/posts/${newPost.slug}`);
+    revalidatePath('/');
 }
 
 export async function updatePost(originalSlug: string, originalCategory: string, updatedPostData: Omit<Post, 'slug'>) {
     await ensureDirectoryExists();
     
-    const { title, content, category, published, imageUrl } = updatedPostData;
+    const { title, content, category, published, featured, imageUrl } = updatedPostData;
     const newSlug = createSlug(title);
 
     const originalFilePath = getCategoryFilePath(originalCategory);
@@ -125,6 +128,7 @@ export async function updatePost(originalSlug: string, originalCategory: string,
         postToMove.content = content;
         postToMove.category = category;
         postToMove.published = published;
+        postToMove.featured = featured;
         postToMove.slug = newSlug;
         postToMove.imageUrl = imageUrl;
         postToMove.excerpt = content.substring(0, 150);
@@ -144,6 +148,7 @@ export async function updatePost(originalSlug: string, originalCategory: string,
             content,
             category,
             published,
+            featured,
             imageUrl,
             slug: newSlug,
             excerpt: content.substring(0, 150),
@@ -153,6 +158,7 @@ export async function updatePost(originalSlug: string, originalCategory: string,
     
     // Revalidate relevant paths
     revalidatePath('/posts');
+    revalidatePath('/');
     revalidatePath(`/posts/${originalSlug}`);
     if (originalSlug !== newSlug) {
       revalidatePath(`/posts/${newSlug}`);
@@ -173,5 +179,6 @@ export async function deletePost(slug: string, category: string) {
     await fs.writeFile(filePath, JSON.stringify(updatedPosts, null, 2));
 
     revalidatePath('/posts');
+    revalidatePath('/');
     revalidatePath(`/posts/${slug}`);
 }

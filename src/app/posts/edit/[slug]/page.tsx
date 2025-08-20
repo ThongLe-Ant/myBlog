@@ -37,6 +37,7 @@ import {
   DialogClose
 } from "@/components/ui/dialog";
 import { MarkdownEditor } from '@/components/markdown-editor';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface EditPostPageProps {
   params: {
@@ -54,6 +55,7 @@ export default function EditPostPage({ params }: EditPostPageProps) {
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
   const [published, setPublished] = useState(true);
+  const [featured, setFeatured] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -76,6 +78,7 @@ export default function EditPostPage({ params }: EditPostPageProps) {
           setContent(postData.content);
           setCategory(postData.category);
           setPublished(postData.published);
+          setFeatured(postData.featured || false);
         } else {
           toast({
             title: 'Error',
@@ -142,7 +145,7 @@ export default function EditPostPage({ params }: EditPostPageProps) {
 
     setIsSaving(true);
     try {
-        await updatePost(post.slug, post.category, { title, content, category, published });
+        await updatePost(post.slug, post.category, { title, content, category, published, featured });
         toast({
             title: 'Post Updated!',
             description: 'Your blog post has been updated successfully.',
@@ -273,6 +276,20 @@ export default function EditPostPage({ params }: EditPostPageProps) {
                           <Label htmlFor="status">{published ? 'Published' : 'Draft'}</Label>
                         </div>
                      </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <Checkbox
+                        id="featured"
+                        checked={featured}
+                        onCheckedChange={(checked) => setFeatured(Boolean(checked))}
+                        disabled={isSaving || isDeleting}
+                    />
+                    <label
+                        htmlFor="featured"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                        Mark as featured post
+                    </label>
                 </div>
                 <div className="space-y-2">
                     <div className="flex justify-between items-center">

@@ -25,6 +25,7 @@ import {
   DialogClose
 } from "@/components/ui/dialog";
 import { MarkdownEditor } from '@/components/markdown-editor';
+import { Checkbox } from '@/components/ui/checkbox';
 
 
 export default function CreatePostPage() {
@@ -32,6 +33,7 @@ export default function CreatePostPage() {
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
   const [published, setPublished] = useState(true);
+  const [featured, setFeatured] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [userPrompt, setUserPrompt] = useState('');
@@ -82,7 +84,7 @@ export default function CreatePostPage() {
     setIsLoading(true);
     
     try {
-        await savePost({ title, content, category, published });
+        await savePost({ title, content, category, published, featured });
 
         toast({
           title: 'Post Saved!',
@@ -166,6 +168,20 @@ export default function CreatePostPage() {
                       <Label htmlFor="status">{published ? 'Published' : 'Draft'}</Label>
                     </div>
                   </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <Checkbox
+                        id="featured"
+                        checked={featured}
+                        onCheckedChange={(checked) => setFeatured(Boolean(checked))}
+                        disabled={isLoading}
+                    />
+                    <label
+                        htmlFor="featured"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                        Mark as featured post
+                    </label>
                 </div>
                 <div className="space-y-2">
                     <div className="flex justify-between items-center">
