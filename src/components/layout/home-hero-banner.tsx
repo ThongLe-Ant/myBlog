@@ -47,27 +47,36 @@ const backgroundPatterns = [
     '/backgrounds/pattern-4.svg',
 ];
 
+const RandomBackground = () => {
+    const [patternUrl, setPatternUrl] = useState('');
+
+    useEffect(() => {
+        const randomPattern = backgroundPatterns[Math.floor(Math.random() * backgroundPatterns.length)];
+        setPatternUrl(`url(${randomPattern})`);
+    }, []);
+
+    if (!patternUrl) return null;
+
+    return (
+        <div 
+          className="absolute inset-0 z-0 opacity-10 dark:opacity-20"
+          style={{
+              backgroundImage: patternUrl,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+          }}
+        />
+    );
+};
+
 export function HomeHeroBanner() {
   const { language } = useLanguage();
   const c = content[language];
   const router = useRouter();
-  const [patternUrl, setPatternUrl] = useState('');
-
-  useEffect(() => {
-    const randomPattern = backgroundPatterns[Math.floor(Math.random() * backgroundPatterns.length)];
-    setPatternUrl(`url(${randomPattern})`);
-  }, []);
 
   return (
       <section className="relative w-full overflow-hidden pt-16 md:pt-24 pb-12 md:pb-20">
-          <div 
-            className="absolute inset-0 z-0 opacity-10 dark:opacity-20"
-            style={{
-                backgroundImage: patternUrl,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-            }}
-          />
+          <RandomBackground />
 
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 items-center gap-8 w-full z-10 relative">
               <motion.div
