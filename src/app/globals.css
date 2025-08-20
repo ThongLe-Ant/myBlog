@@ -75,7 +75,27 @@
   }
 
   body {
-     background-image: radial-gradient(ellipse 80% 80% at 50% -20%, hsl(var(--surface)), hsl(var(--background)));
+     /* Tech-inspired background with dot grid and nebula glows */
+     --dot-bg: hsl(var(--background));
+     --dot-color: hsl(var(--foreground) / 0.07);
+     --dot-size: 1px;
+     --dot-space: 22px;
+     --nebula-1-color: hsla(var(--primary), 0.1);
+     --nebula-2-color: hsla(var(--accent), 0.15);
+
+     background-image:
+       radial-gradient(circle at 25% 30%, var(--nebula-1-color) 0%, transparent 40%),
+       radial-gradient(circle at 75% 70%, var(--nebula-2-color) 0%, transparent 40%),
+       radial-gradient(var(--dot-color) var(--dot-size), transparent var(--dot-size)),
+       radial-gradient(var(--dot-color) var(--dot-size), transparent var(--dot-size));
+     background-size: 100% 100%, 100% 100%, var(--dot-space) var(--dot-space), var(--dot-space) var(--dot-space);
+     background-position: 0 0, 0 0, calc(var(--dot-space) / 2) calc(var(--dot-space) / 2), 0 0;
+  }
+  
+  .dark body {
+     --dot-color: hsl(var(--foreground) / 0.1);
+     --nebula-1-color: hsla(var(--primary), 0.15);
+     --nebula-2-color: hsla(var(--accent), 0.15);
   }
 
   ::-webkit-scrollbar {
