@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Save } from 'lucide-react';
+import { Save, ArrowLeft } from 'lucide-react';
 import { savePost } from '@/lib/posts';
 import { useRouter } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -144,14 +144,20 @@ export default function CreatePostPage() {
               </div>
            </CardContent>
            <CardFooter>
-             <Button onClick={handleSave} disabled={isLoading} size="lg">
-               {isLoading ? 'Saving...' : (
-                 <>
-                   <Save className="mr-2 h-4 w-4" />
-                   Save Post
-                 </>
-               )}
-             </Button>
+             <div className="flex gap-4">
+                <Button onClick={handleSave} disabled={isLoading} size="lg">
+                  {isLoading ? 'Saving...' : (
+                    <>
+                      <Save className="mr-2 h-4 w-4" />
+                      Save Post
+                    </>
+                  )}
+                </Button>
+                <Button variant="outline" size="lg" onClick={() => router.back()}>
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Back
+                 </Button>
+             </div>
            </CardFooter>
          </Card>
       </div>

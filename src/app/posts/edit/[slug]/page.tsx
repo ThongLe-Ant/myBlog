@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Save, Trash2 } from 'lucide-react';
+import { Save, Trash2, ArrowLeft } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { getPostBySlug, updatePost, deletePost, Post } from '@/lib/posts';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -231,14 +231,20 @@ export default function EditPostPage() {
               </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button onClick={handleSave} disabled={isSaving} size="lg">
-              {isSaving ? 'Saving...' : (
-                <>
-                  <Save className="mr-2 h-4 w-4" />
-                  Save Changes
-                </>
-              )}
-            </Button>
+            <div className="flex gap-4">
+                <Button onClick={handleSave} disabled={isSaving} size="lg">
+                  {isSaving ? 'Saving...' : (
+                    <>
+                      <Save className="mr-2 h-4 w-4" />
+                      Save Changes
+                    </>
+                  )}
+                </Button>
+                <Button variant="outline" size="lg" onClick={() => router.back()}>
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Back
+                 </Button>
+            </div>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant="destructive" disabled={isDeleting}>
@@ -252,7 +258,7 @@ export default function EditPostPage() {
                   <AlertDialogDescription>
                     This action cannot be undone. This will permanently delete your
                     post and remove your data from our servers.
-                  </AlertDialogDescription>
+                  </description>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
