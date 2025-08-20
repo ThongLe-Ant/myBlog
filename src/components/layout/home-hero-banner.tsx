@@ -47,15 +47,16 @@ const HeroPattern = () => (
     >
       <defs>
         <pattern
-          id="hero-pattern"
+          id="home-hero-pattern"
           width="32"
           height="32"
           patternUnits="userSpaceOnUse"
+          patternContentUnits="userSpaceOnUse"
         >
           <circle cx="16" cy="16" r="1" fill="hsl(var(--foreground))" />
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill="url(#hero-pattern)" />
+      <rect width="100%" height="100%" fill="url(#home-hero-pattern)" />
     </svg>
 );
 
