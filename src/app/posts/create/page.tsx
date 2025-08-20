@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -15,7 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Separator } from '@/components/ui/separator';
+import { MarkdownToolbar } from '@/components/editor/markdown-toolbar';
 
 export default function CreatePostPage() {
   const [title, setTitle] = useState('');
@@ -25,6 +25,51 @@ export default function CreatePostPage() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+
+  const handleToolbarAction = (syntax: 'bold' | 'italic' | 'code' | 'link' | 'list') => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = content.substring(start, end);
+    let newText;
+
+    switch (syntax) {
+      case 'bold':
+        newText = `**${selectedText || 'bold text'}**`;
+        break;
+      case 'italic':
+        newText = `*${selectedText || 'italic text'}*`;
+        break;
+      case 'code':
+        newText = `\`\`\`\n${selectedText || 'code here'}\n\`\`\``;
+        break;
+      case 'link':
+        const url = prompt("Enter the URL:");
+        if (url) {
+            newText = `[${selectedText || 'link text'}](${url})`;
+        } else {
+            return;
+        }
+        break;
+       case 'list':
+        newText = `\n- ${selectedText || 'List item'}`;
+        break;
+      default:
+        return;
+    }
+    
+    const updatedContent = content.substring(0, start) + newText + content.substring(end);
+    setContent(updatedContent);
+    textarea.focus();
+    setTimeout(() => {
+        textarea.selectionStart = textarea.selectionEnd = start + newText.length;
+    }, 0)
+  };
+
 
   const handleSave = async () => {
     if (!title || !content || !category) {
@@ -73,7 +118,7 @@ export default function CreatePostPage() {
            <CardContent>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Editor Side */}
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="title">Post Title</Label>
                   <Input
@@ -120,15 +165,19 @@ export default function CreatePostPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="content">Content (Markdown)</Label>
-                  <Textarea
-                    id="content"
-                    placeholder="Write your article content here..."
-                    rows={20}
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    disabled={isLoading}
-                    className="font-mono"
-                  />
+                  <div className="border rounded-md">
+                     <MarkdownToolbar onAction={handleToolbarAction} />
+                     <Textarea
+                        id="content"
+                        ref={textareaRef}
+                        placeholder="Write your article content here..."
+                        rows={20}
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        disabled={isLoading}
+                        className="font-mono rounded-t-none border-t"
+                      />
+                  </div>
                 </div>
               </div>
               
