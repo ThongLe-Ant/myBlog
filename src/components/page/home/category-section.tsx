@@ -128,8 +128,8 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                             </CarouselContent>
                             <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                             <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <CarouselDots />
                         </Carousel>
-                        <CarouselDots />
                     </div>
                 )}
 
@@ -162,8 +162,8 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                                     <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </>
                              )}
+                            {regularPosts.length > 2 && <CarouselDots />}
                         </Carousel>
-                        {regularPosts.length > 2 && <CarouselDots />}
                     </div>
                 )}
             </div>
