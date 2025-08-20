@@ -37,6 +37,7 @@ import { SectionReveal } from '@/components/motion/section-reveal';
 import { CardInteractive } from '@/components/motion/card-interactive';
 import React from 'react';
 import Image from 'next/image';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const experiences = [
     {
@@ -150,8 +151,8 @@ export default function HomePage() {
     <div className="flex flex-col w-full">
 
       {/* Hero Section */}
-      <section id="home" className="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-16 min-h-[calc(100vh-4rem)] w-full py-12 md:py-24">
-        <div className="lg:w-2/5">
+      <section id="home" className="relative grid lg:grid-cols-2 items-start gap-8 lg:gap-16 min-h-screen w-full py-12 md:py-24">
+        <div className="lg:sticky top-24">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -181,7 +182,7 @@ export default function HomePage() {
             </div>
           </motion.div>
         </div>
-        <div className="lg:w-3/5">
+        <div className="flex flex-col gap-8 lg:gap-16">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -213,6 +214,12 @@ export default function HomePage() {
                 </CardHeader>
               </Card>
             </motion.div>
+            <div className="text-center">
+                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Bài viết nổi bật</h2>
+                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                    Khám phá các bài viết sâu sắc về công nghệ và kiến trúc hệ thống.
+                </p>
+            </div>
         </div>
       </section>
 
@@ -252,7 +259,7 @@ export default function HomePage() {
             </div>
         </div>
       </SectionReveal>
-
+      
       {/* Skills Section */}
       <SectionReveal id="skills" className="scroll-mt-24 py-24">
         <div className="w-full">
@@ -272,7 +279,6 @@ export default function HomePage() {
                                     <span className="font-medium text-muted-foreground">{skill.name}</span>
                                     <span className="text-sm font-semibold text-primary">{skill.level}</span>
                                 </div>
-                                {/* You can add a progress bar here if you want */}
                             </div>
                         ))}
                     </div>
@@ -291,46 +297,61 @@ export default function HomePage() {
 
       {/* Experience Section */}
       <SectionReveal id="experience" className="scroll-mt-24 py-24">
-        <div className="w-full">
-          <div className="text-center mb-16">
+        <div className="text-center mb-16">
             <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Kinh nghiệm nổi bật</h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
               Hành trình phát triển nghề nghiệp trong 10 năm qua
             </p>
-          </div>
-          <div className="relative">
-            <div className="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-border/50 hidden md:block"></div>
-            {experiences.map((exp, index) => (
-              <div key={index} className={`md:grid md:grid-cols-2 md:gap-12 relative mb-12 md:mb-0`}>
-                <div className={`${index % 2 === 0 ? 'md:col-start-2' : 'md:col-start-1 md:text-right'}`}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                    className="p-6 bg-surface border border-border/50 rounded-2xl w-full relative"
-                  >
-                    <div className="hidden md:block absolute top-1/2 -translate-y-1/2" style={index % 2 === 0 ? { left: '-3.1rem' } : { right: '-3.1rem' }}>
-                      <div className="h-4 w-4 rounded-full bg-primary ring-8 ring-background"></div>
-                    </div>
-                    <p className="text-sm font-semibold text-primary">{exp.period}</p>
-                    <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
-                    <p className="text-base font-semibold text-primary/80">{exp.role}</p>
-                    <p className={`mt-3 text-muted-foreground ${index % 2 !== 0 ? 'md:text-right' : 'md:text-left'}`}>{exp.description}</p>
-                    <ul className={`mt-3 space-y-1 list-inside ${index % 2 !== 0 ? 'md:text-right items-end' : 'md:text-left'} flex flex-col`}>
-                        {exp.tasks.map(task => (
-                            <li key={task} className={`flex items-start gap-2 text-muted-foreground ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
-                                <ChevronRight className={`w-4 h-4 text-accent mt-1 shrink-0 ${index % 2 !== 0 ? 'md:transform md:rotate-180' : ''}`}/>
-                                <span>{task}</span>
-                            </li>
-                        ))}
-                    </ul>
-                    {exp.highlight && <Badge variant="secondary" className="mt-4 bg-accent/10 text-accent-foreground border-accent/20">{exp.highlight}</Badge>}
-                  </motion.div>
-                </div>
-              </div>
-            ))}
-          </div>
+        </div>
+        <div className="relative w-full">
+             <div className="absolute left-1/2 top-0 h-full w-0.5 bg-border/50 hidden md:block" />
+             <div className="md:grid md:grid-cols-2 gap-16">
+                {/* Spacer for the first item on the right */}
+                <div></div>
+                
+                {/* Timeline items */}
+                {experiences.map((exp, index) => (
+                    <React.Fragment key={index}>
+                        {/* Right side item */}
+                        {index % 2 === 0 ? (
+                             <div className="relative mb-8 md:mb-16">
+                                <div className="hidden md:block absolute top-1/2 -translate-y-1/2 -left-8 h-4 w-4 rounded-full bg-primary ring-8 ring-background" />
+                                <motion.div
+                                    initial={{ opacity: 0, x: 50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true, amount: 0.5 }}
+                                    transition={{ duration: 0.6 }}
+                                    className="p-6 bg-surface border border-border/50 rounded-2xl w-full"
+                                >
+                                    <p className="text-sm font-semibold text-primary">{exp.period}</p>
+                                    <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
+                                    <p className="text-base font-semibold text-primary/80">{exp.role}</p>
+                                    <p className="mt-3 text-muted-foreground">{exp.description}</p>
+                                </motion.div>
+                            </div>
+                        ) : (
+                            /* Left side item */
+                            <div className="relative mb-8 md:mb-16">
+                               <div className="hidden md:block absolute top-1/2 -translate-y-1/2 -right-8 h-4 w-4 rounded-full bg-primary ring-8 ring-background" />
+                               <motion.div
+                                    initial={{ opacity: 0, x: -50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true, amount: 0.5 }}
+                                    transition={{ duration: 0.6 }}
+                                    className="p-6 bg-surface border border-border/50 rounded-2xl w-full text-right"
+                                >
+                                    <p className="text-sm font-semibold text-primary">{exp.period}</p>
+                                    <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
+                                    <p className="text-base font-semibold text-primary/80">{exp.role}</p>
+                                    <p className="mt-3 text-muted-foreground">{exp.description}</p>
+                                </motion.div>
+                            </div>
+                        )}
+                         {/* Spacer for the next item */}
+                        {index % 2 !== 0 && index < experiences.length - 1 && <div></div>}
+                   </React.Fragment>
+                ))}
+             </div>
         </div>
       </SectionReveal>
 
@@ -418,5 +439,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    
