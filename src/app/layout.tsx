@@ -22,23 +22,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
-      <body className="antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <LanguageProvider>
-            <div className="flex flex-col min-h-screen">
-                <Header />
-                <main className="flex-grow">{children}</main>
-                <AppFooter />
-                <Toaster />
-                <GoToTopButton />
-            </div>
-          </LanguageProvider>
-        </ThemeProvider>
+      <body className="antialiased flex flex-col min-h-screen">
+        <LanguageProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <AppFooter />
+            <Toaster />
+            <GoToTopButton />
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
