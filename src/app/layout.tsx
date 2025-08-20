@@ -1,15 +1,14 @@
-
 import type { Metadata } from 'next';
-import './globals.css';
-import { Toaster } from '@/components/ui/toaster';
-import { AppFooter } from '@/components/layout/app-footer';
 import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
+import './globals.css';
 import { Header } from '@/components/layout/header';
-
+import { AppFooter } from '@/components/layout/app-footer';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'Lê Minh Thông - Senior Software Engineer | Solution Architect',
-  description: 'Portfolio của Lê Minh Thông, một kỹ sư phần mềm với hơn 10 năm kinh nghiệm trong phát triển hệ thống ERP và giải pháp doanh nghiệp.',
+  description: 'Trang blog cá nhân của Lê Minh Thông, nơi chia sẻ kiến thức, kinh nghiệm và các dự án về công nghệ phần mềm, kiến trúc hệ thống và thiết kế chuyển động.',
 };
 
 export default function RootLayout({
@@ -18,10 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" suppressHydrationWarning className="scroll-smooth">
-      <body className={`${GeistSans.className} bg-background text-foreground antialiased`}>
+    <html lang="vi" className={`${GeistSans.variable} ${GeistMono.variable} dark`} suppressHydrationWarning>
+      <body className="bg-background text-foreground antialiased">
+        <div className="noise-bg"></div>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="container mx-auto px-4 py-8 pt-24 sm:px-6 lg:px-8">
+          {children}
+        </main>
         <AppFooter />
         <Toaster />
       </body>
