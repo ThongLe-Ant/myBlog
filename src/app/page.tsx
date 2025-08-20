@@ -373,7 +373,7 @@ export default function HomePage() {
     <div className="flex flex-col w-full">
 
       {/* Blog Banner Section */}
-      <section className="w-full bg-surface/50 pb-12 md:pb-16 lg:pb-20">
+       <section className="w-full bg-surface/50 pb-16 pt-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-2">
                  <Carousel
@@ -384,42 +384,40 @@ export default function HomePage() {
                     plugins={[autoplay.current]}
                     className="w-full"
                 >
-                    <CarouselContent>
+                    <CarouselContent className="-ml-4">
                         {c.projects.items.map((project, index) => (
-                            <CarouselItem key={index}>
-                                <div className="p-1">
-                                   <CardInteractive
-                                        title={project.title}
-                                        description={project.description}
-                                        tags={project.tags}
-                                        imageUrl={project.imageUrl}
-                                        aiHint={project.aiHint}
-                                        viewDetailsText={c.blogBanner.viewDetails}
-                                    />
-                                </div>
+                            <CarouselItem key={index} className="pl-4">
+                                <CardInteractive
+                                    title={project.title}
+                                    description={project.description}
+                                    tags={project.tags}
+                                    imageUrl={project.imageUrl}
+                                    aiHint={project.aiHint}
+                                    viewDetailsText={c.blogBanner.viewDetails}
+                                />
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
+                    <CarouselPrevious className="left-4" />
+                    <CarouselNext className="right-4" />
                 </Carousel>
             </div>
             <div>
-              <Card>
+              <Card className="bg-surface border border-border/50">
                 <CardHeader>
                   <CardTitle className="text-primary">{c.blogBanner.categoriesTitle}</CardTitle>
                   <CardDescription>{c.blogBanner.categoriesDescription}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <ul className="space-y-2">
+                  <ul className="space-y-3">
                     {c.blogBanner.categories.map(cat => (
-                       <li key={cat.name} className="flex justify-between items-center text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                         <span>{cat.name}</span>
-                         <Badge variant="secondary" className="font-mono">{cat.count}</Badge>
+                       <li key={cat.name} className="flex justify-between items-center text-muted-foreground hover:text-primary transition-colors duration-200 cursor-pointer group">
+                         <span className="group-hover:translate-x-1 transition-transform duration-200">{cat.name}</span>
+                         <Badge variant="secondary" className="font-mono group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">{cat.count}</Badge>
                        </li>
                     ))}
                   </ul>
-                   <Button variant="outline" className="w-full mt-4">
+                   <Button variant="outline" className="w-full mt-6">
                       <Search className="mr-2 h-4 w-4" />
                       {c.blogBanner.searchButton}
                   </Button>
@@ -428,6 +426,7 @@ export default function HomePage() {
             </div>
         </div>
       </section>
+
 
       {/* Portfolio Section */}
       <div id="cv-content" className="container mx-auto px-4 pt-24 sm:px-6 lg:px-8">
