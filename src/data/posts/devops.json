@@ -14,7 +14,6 @@
     "category": "DevOps",
     "published": true,
     "featured": true,
-    "imageUrl": "https://placehold.co/600x400.png",
     "excerpt": "GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub.",
     "content": "## Automate Your Workflow\n\nContinuous Integration (CI) and Continuous Deployment (CD) are practices that automate the process of software delivery. GitHub Actions allows you to create workflows defined in a YAML file directly in your repository. These workflows can be triggered by events like a push or a pull request."
   },
