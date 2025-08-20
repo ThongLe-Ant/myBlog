@@ -72,6 +72,7 @@
     --ring: 45 100% 51%;
 
     /* Background effects */
+    --dot-bg: hsl(var(--background));
     --dot-color: hsl(var(--foreground) / 0.1);
     --nebula-1-color: hsla(var(--primary), 0.15);
     --nebula-2-color: hsla(var(--accent), 0.15);
@@ -115,24 +116,20 @@
   html {
     min-height: 100%;
     scroll-behavior: smooth;
-    
-    background-color: var(--dot-bg);
-    background-image:
-      radial-gradient(circle at 25% 30%, var(--nebula-1-color) 0%, transparent 40%),
-      radial-gradient(circle at 75% 70%, var(--nebula-2-color) 0%, transparent 40%),
-      radial-gradient(var(--dot-color) var(--dot-size), transparent var(--dot-size)),
-      radial-gradient(var(--dot-color) var(--dot-size), transparent var(--dot-size));
-    background-size: 100% 100%, 100% 100%, var(--dot-space) var(--dot-space), var(--dot-space) var(--dot-space);
-    background-position: 0 0, 0 0, calc(var(--dot-space) / 2) calc(var(--dot-space) / 2), 0 0;
   }
   
   body {
-    @apply text-foreground;
-    background-color: transparent; /* Make body transparent to see html background */
+    @apply bg-background text-foreground;
+    background-image: 
+      radial-gradient(circle at 25% 30%, var(--nebula-1-color) 0%, transparent 40%),
+      radial-gradient(circle at 75% 70%, var(--nebula-2-color) 0%, transparent 40%),
+      linear-gradient(transparent, hsl(var(--background))),
+      radial-gradient(var(--dot-color) var(--dot-size), transparent var(--dot-size));
+    background-size: 100% 100%, 100% 100%, 100% 100%, var(--dot-space) var(--dot-space);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    min-height: 100%;
+    min-height: 100vh;
   }
 
   ::-webkit-scrollbar {
