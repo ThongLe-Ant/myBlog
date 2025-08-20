@@ -159,7 +159,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       {/* New Hero Section */}
       <section className="relative flex flex-col lg:flex-row gap-8 lg:gap-16 min-h-[calc(100vh-4rem)] w-full py-12 md:py-24">
         {/* Left: Personal Info (Sticky) */}
@@ -235,7 +235,7 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* Experience Section - The Journey (FIXED) */}
+      {/* Experience Section - The Journey */}
       <SectionReveal id="experience" className="scroll-mt-24 py-24">
         <div className="w-full">
           <div className="text-center mb-16">
@@ -245,50 +245,44 @@ export default function HomePage() {
             </p>
           </div>
 
-          <motion.div
-            className="relative"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-          >
+          <div className="relative md:grid md:grid-cols-2 md:gap-12">
             {/* The timeline line */}
-            <div className="absolute left-0 right-0 mx-auto h-full w-0.5 bg-border/50 md:left-1/2 md:-translate-x-1/2 hidden md:block"></div>
+            <div className="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-border/50 hidden md:block"></div>
             
-            <div className="space-y-12 md:space-y-0">
-              {experiences.map((exp, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className="md:grid md:grid-cols-2 md:gap-12 relative"
-                >
-                  {/* Left or Right column based on index */}
-                  <div className={`${index % 2 === 0 ? 'md:col-start-2' : 'md:col-start-1 md:row-start-1 md:text-right'}`}>
-                     <div className="p-6 bg-surface border border-border/50 rounded-2xl w-full">
-                        <p className="text-sm font-semibold text-primary">{exp.period}</p>
-                        <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
-                        <p className="text-base font-semibold text-primary/80">{exp.role}</p>
-                        <p className="mt-3 text-muted-foreground">{exp.description}</p>
-                        <ul className={`mt-3 space-y-1 list-inside text-left`}>
-                            {exp.tasks.map(task => (
-                                <li key={task} className="flex items-start gap-2 text-muted-foreground">
-                                    <ChevronRight className="w-4 h-4 text-accent mt-1 shrink-0"/>
-                                    <span>{task}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        {exp.highlight && <Badge variant="secondary" className="mt-4 bg-accent/10 text-accent-foreground border-accent/20">{exp.highlight}</Badge>}
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className={`md:col-start-${index % 2 === 0 ? 2 : 1} ${index % 2 !== 0 ? 'md:text-right' : ''} mb-12 md:mb-0`}
+              >
+                 <div className="p-6 bg-surface border border-border/50 rounded-2xl w-full relative">
+                    {/* Dot on timeline (visible on md+) */}
+                    <div className="hidden md:flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
+                      <div className={`absolute ${index % 2 === 0 ? '-left-[3.1rem]' : '-right-[3.1rem]'} top-1/2 -translate-y-1/2`}>
+                        <div className="h-4 w-4 rounded-full bg-primary ring-8 ring-background"></div>
                       </div>
-                  </div>
+                    </div>
 
-                  {/* Dot on timeline (visible on md+) */}
-                  <div className="hidden md:flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
-                    <div className="h-4 w-4 rounded-full bg-primary ring-8 ring-background"></div>
+                    <p className="text-sm font-semibold text-primary">{exp.period}</p>
+                    <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company}</h3>
+                    <p className="text-base font-semibold text-primary/80">{exp.role}</p>
+                    <p className={`mt-3 text-muted-foreground ${index % 2 !== 0 ? 'md:text-right' : 'md:text-left'}`}>{exp.description}</p>
+                    <ul className={`mt-3 space-y-1 list-inside ${index % 2 !== 0 ? 'md:text-right' : 'md:text-left'}`}>
+                        {exp.tasks.map(task => (
+                            <li key={task} className={`flex items-start gap-2 text-muted-foreground ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+                                <ChevronRight className={`w-4 h-4 text-accent mt-1 shrink-0 ${index % 2 !== 0 ? 'md:transform md:rotate-180' : ''}`}/>
+                                <span>{task}</span>
+                            </li>
+                        ))}
+                    </ul>
+                    {exp.highlight && <Badge variant="secondary" className="mt-4 bg-accent/10 text-accent-foreground border-accent/20">{exp.highlight}</Badge>}
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </SectionReveal>
 
