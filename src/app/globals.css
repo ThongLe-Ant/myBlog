@@ -119,7 +119,8 @@
   }
   
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background-color: hsl(var(--background));
     background-image: 
       radial-gradient(circle at 25% 30%, var(--nebula-1-color) 0%, transparent 40%),
       radial-gradient(circle at 75% 70%, var(--nebula-2-color) 0%, transparent 40%),
