@@ -28,40 +28,38 @@ export default async function PostPage({ params }: PostPageProps) {
             <Badge variant="secondary" className="mb-4">{post.category}</Badge>
             <h1 className="text-primary mb-2 text-3xl md:text-4xl lg:text-5xl font-bold">{post.title}</h1>
         </div>
-        <div className="max-w-4xl mx-auto">
-            <article className="prose dark:prose-invert">
-              <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    // Custom renderer for images to add styling
-                    img: ({ node, ...props }) => (
-                      <img {...props} className="rounded-lg shadow-lg mx-auto" />
-                    ),
-                    // Custom renderer for blockquotes
-                    blockquote: ({ node, ...props }) => (
-                      <blockquote {...props} className="border-l-4 border-primary bg-muted/20 p-4" />
-                    ),
-                    // Custom renderer for code blocks
-                    code({node, className, children, ...props}) {
-                      const match = /language-(\w+)/.exec(className || '')
-                      return match ? (
-                        <div className="bg-surface rounded-lg p-4 my-4 overflow-x-auto">
-                           <pre><code className={className} {...props}>
-                            {children}
-                          </code></pre>
-                        </div>
-                      ) : (
-                        <code className="bg-muted text-primary rounded-sm px-1" {...props}>
-                          {children}
-                        </code>
-                      )
-                    }
-                  }}
-              >
-                  {post.content}
-              </ReactMarkdown>
-            </article>
-        </div>
+        <article className="prose dark:prose-invert max-w-none">
+          <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                // Custom renderer for images to add styling
+                img: ({ node, ...props }) => (
+                  <img {...props} className="rounded-lg shadow-lg mx-auto" />
+                ),
+                // Custom renderer for blockquotes
+                blockquote: ({ node, ...props }) => (
+                  <blockquote {...props} className="border-l-4 border-primary bg-muted/20 p-4" />
+                ),
+                // Custom renderer for code blocks
+                code({node, className, children, ...props}) {
+                  const match = /language-(\w+)/.exec(className || '')
+                  return match ? (
+                    <div className="bg-surface rounded-lg p-4 my-4 overflow-x-auto">
+                       <pre><code className={className} {...props}>
+                        {children}
+                      </code></pre>
+                    </div>
+                  ) : (
+                    <code className="bg-muted text-primary rounded-sm px-1" {...props}>
+                      {children}
+                    </code>
+                  )
+                }
+              }}
+          >
+              {post.content}
+          </ReactMarkdown>
+        </article>
       </Card>
     </div>
   );
