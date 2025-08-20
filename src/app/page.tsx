@@ -161,12 +161,23 @@ export default function HomePage() {
       {/* Hero Section */}
       <HeroHighlight>
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 w-full">
+            <motion.div
+                initial={{ opacity: 0, scale: 0.8, x: -100 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                 className="lg:w-1/3 relative"
+            >
+                <Avatar className="w-64 h-64 md:w-80 md:h-80 border-4 border-primary/20 shadow-2xl shadow-primary/20">
+                    <AvatarImage src="https://placehold.co/400x400.png" alt="Avatar Lê Minh Thông" data-ai-hint="man portrait professional" />
+                    <AvatarFallback>LMT</AvatarFallback>
+                </Avatar>
+            </motion.div>
             <div className="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
                  <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl"
+                    className="text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white to-stone-400 sm:text-5xl md:text-6xl"
                 >
                     Lê Minh Thông
                 </motion.h1>
@@ -204,17 +215,6 @@ export default function HomePage() {
                     <Button size="lg">Xem dự án của tôi <ArrowRight className="ml-2"/></Button>
                 </motion.div>
             </div>
-            <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                 className="lg:w-1/3 relative"
-            >
-                <Avatar className="w-64 h-64 md:w-80 md:h-80 border-4 border-primary/20 shadow-2xl shadow-primary/20">
-                    <AvatarImage src="https://placehold.co/400x400.png" alt="Avatar Lê Minh Thông" data-ai-hint="man portrait professional" />
-                    <AvatarFallback>LMT</AvatarFallback>
-                </Avatar>
-            </motion.div>
         </div>
       </HeroHighlight>
 
@@ -253,7 +253,7 @@ export default function HomePage() {
         </div>
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-                 <h3 className="text-2xl font-semibold mb-4 text-primary-foreground">Lĩnh vực chuyên sâu</h3>
+                 <h3 className="text-2xl font-semibold mb-4 text-secondary">Lĩnh vực chuyên sâu</h3>
                  <div className="space-y-3">
                      {expertiseAreas.map(area => (
                          <div key={area.title} className="flex items-center gap-3 p-3 bg-surface rounded-lg">
@@ -264,7 +264,7 @@ export default function HomePage() {
                  </div>
             </div>
              <div>
-                 <h3 className="text-2xl font-semibold mb-4 text-primary-foreground">Kết quả nổi bật</h3>
+                 <h3 className="text-2xl font-semibold mb-4 text-secondary">Kết quả nổi bật</h3>
                  <div className="space-y-3">
                      {keyResults.map(result => (
                          <div key={result.title} className="flex items-center gap-3 p-3 bg-surface rounded-lg">
@@ -288,7 +288,7 @@ export default function HomePage() {
         <div className="mt-12 grid md:grid-cols-2 gap-x-12 gap-y-8">
           {Object.entries(skills).map(([category, skillList]) => (
             <div key={category}>
-              <h3 className="text-2xl font-semibold text-primary-foreground mb-4">{category}</h3>
+              <h3 className="text-2xl font-semibold text-secondary mb-4">{category}</h3>
               <div className="space-y-4">
                 {skillList.map(skill => (
                   <div key={skill.name}>
@@ -335,7 +335,7 @@ export default function HomePage() {
                         <Briefcase className="w-4 h-4 text-primary"/>
                     </div>
                     <p className="text-sm font-semibold text-primary">{exp.period}</p>
-                    <h3 className="mt-1 text-xl font-bold text-primary-foreground">{exp.company} - {exp.role}</h3>
+                    <h3 className="mt-1 text-xl font-bold text-secondary">{exp.company} - {exp.role}</h3>
                     <p className="mt-2 text-muted-foreground">{exp.description}</p>
                     <ul className="mt-3 space-y-1 list-inside">
                         {exp.tasks.map(task => (
@@ -345,7 +345,7 @@ export default function HomePage() {
                             </li>
                         ))}
                     </ul>
-                    {exp.highlight && <Badge variant="secondary" className="mt-3 bg-accent/20 text-accent-foreground border-accent/30">{exp.highlight}</Badge>}
+                    {exp.highlight && <Badge variant="secondary" className="mt-3 bg-accent/10 text-accent-foreground border-accent/20">{exp.highlight}</Badge>}
                 </motion.div>
              ))}
         </div>
@@ -415,15 +415,15 @@ export default function HomePage() {
             <Card className="p-6 md:p-8 bg-surface border-border/50">
                 <form className="space-y-6">
                      <div className="space-y-2">
-                        <label htmlFor="name" className="text-sm font-medium text-primary-foreground">Họ và tên</label>
+                        <label htmlFor="name" className="text-sm font-medium text-secondary">Họ và tên</label>
                         <Input id="name" placeholder="Nhập họ tên của bạn" />
                     </div>
                      <div className="space-y-2">
-                        <label htmlFor="email" className="text-sm font-medium text-primary-foreground">Email</label>
+                        <label htmlFor="email" className="text-sm font-medium text-secondary">Email</label>
                         <Input id="email" type="email" placeholder="Nhập địa chỉ email" />
                     </div>
                      <div className="space-y-2">
-                        <label htmlFor="message" className="text-sm font-medium text-primary-foreground">Nội dung</label>
+                        <label htmlFor="message" className="text-sm font-medium text-secondary">Nội dung</label>
                         <Textarea id="message" placeholder="Nhập nội dung liên hệ" rows={4}/>
                     </div>
                     <Button type="submit" size="lg" className="w-full">
