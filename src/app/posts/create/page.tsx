@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -12,7 +12,7 @@ import { savePost } from '@/lib/posts';
 import { useRouter } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { MarkdownEditor } from '@/components/markdown-editor';
+import { Textarea } from '@/components/ui/textarea';
 
 
 export default function CreatePostPage() {
@@ -116,9 +116,13 @@ export default function CreatePostPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="content">Content (Markdown)</Label>
-                    <MarkdownEditor
+                    <Textarea
+                        id="content"
                         value={content}
-                        onChange={setContent}
+                        onChange={(e) => setContent(e.target.value)}
+                        placeholder="Write your post content here..."
+                        rows={15}
+                        disabled={isLoading}
                     />
                 </div>
               </div>

@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -23,7 +23,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { MarkdownEditor } from '@/components/markdown-editor';
+import { Textarea } from '@/components/ui/textarea';
 import { Skeleton } from '@/components/ui/skeleton';
 
 
@@ -219,9 +219,13 @@ export default function EditPostPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="content">Content (Markdown)</Label>
-                   <MarkdownEditor
+                   <Textarea
+                        id="content"
                         value={content}
-                        onChange={setContent}
+                        onChange={(e) => setContent(e.target.value)}
+                        placeholder="Write your post content here..."
+                        rows={15}
+                        disabled={isSaving || isDeleting}
                     />
                 </div>
               </div>
