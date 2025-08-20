@@ -26,6 +26,10 @@ const content = {
         description: "Sharing knowledge and insights from my journey in the tech world.",
         viewAll: "View All"
     },
+    categories: {
+        title: "Browse by Topic",
+        description: "Explore content by your area of interest."
+    }
   },
   vi: {
     blog: {
@@ -33,8 +37,18 @@ const content = {
         description: "Chia sẻ kiến thức và góc nhìn từ hành trình trong thế giới công nghệ.",
         viewAll: "Xem tất cả"
     },
+    categories: {
+        title: "Khám phá theo chủ đề",
+        description: "Chọn lọc nội dung theo lĩnh vực bạn quan tâm."
+    }
   }
 };
+
+const categoryColors = [
+  'bg-blue-500/80', 'bg-purple-500/80', 'bg-green-500/80',
+  'bg-pink-500/80', 'bg-orange-500/80', 'bg-red-500/80',
+  'bg-indigo-500/80', 'bg-teal-500/80', 'bg-yellow-500/80'
+];
 
 
 export default function HomePage() {
@@ -43,6 +57,7 @@ export default function HomePage() {
   const router = useRouter();
 
   const [postsByCategory, setPostsByCategory] = useState<Record<string, Post[]>>({});
+  const [categoryCounts, setCategoryCounts] = useState<Record<string, number>>({});
   const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
@@ -50,7 +65,6 @@ export default function HomePage() {
       const allPosts = await getPosts();
       const publishedPosts = allPosts.filter(p => p.published);
       
-      // Group posts by category
       const groupedPosts = publishedPosts.reduce((acc, post) => {
         const category = post.category;
         if (!acc[category]) {
@@ -61,9 +75,15 @@ export default function HomePage() {
       }, {} as Record<string, Post[]>);
       
       const sortedCategories = Object.keys(groupedPosts).sort((a, b) => a.localeCompare(b));
+      
+      const counts: Record<string, number> = {};
+      for(const category of sortedCategories) {
+        counts[category] = groupedPosts[category].length;
+      }
 
       setPostsByCategory(groupedPosts);
       setCategories(sortedCategories);
+      setCategoryCounts(counts);
     }
     fetchPosts();
   }, []);
@@ -73,6 +93,28 @@ export default function HomePage() {
         <HeroBanner showContactInfo={false} />
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 space-y-24">
+            {/* Category Section */}
+            <SectionReveal>
+                <div className="text-center mb-12">
+                    <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.categories.title}</h2>
+                    <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">{c.categories.description}</p>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                    {categories.map((category, index) => (
+                        <Link href={`/posts?category=${encodeURIComponent(category)}`} key={category} className="group">
+                           <Card className={cn(
+                             'text-white p-6 rounded-2xl flex flex-col justify-end min-h-[120px] transition-transform duration-300 ease-smooth group-hover:scale-105 group-hover:shadow-xl',
+                             categoryColors[index % categoryColors.length]
+                           )}>
+                               <h3 className="font-bold text-lg">{category}</h3>
+                               <p className="text-sm opacity-80">{`${categoryCounts[category] || 0} articles`}</p>
+                           </Card>
+                        </Link>
+                    ))}
+                </div>
+            </SectionReveal>
+
+            {/* Posts by Category Sections */}
             {categories.map((category, catIndex) => {
               const posts = postsByCategory[category];
               if (!posts || posts.length === 0) return null;
