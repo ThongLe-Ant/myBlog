@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useRef, ReactNode } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, HTMLMotionProps } from 'framer-motion';
 
-interface SectionRevealProps {
+interface SectionRevealProps extends HTMLMotionProps<'div'> {
   children: ReactNode;
   className?: string;
   options?: {
@@ -19,6 +19,7 @@ export function SectionReveal({
   children,
   className,
   options = {},
+  ...rest
 }: SectionRevealProps) {
   const ref = useRef(null);
   const {
@@ -29,7 +30,7 @@ export function SectionReveal({
     duration = 0.5,
   } = options;
 
-  const isInView = useInView(ref, { once, margin, amount });
+  const isInView = useInView(ref, { once, margin: margin as any, amount });
 
   const variants = {
     hidden: { opacity: 0, y: 30 },
@@ -51,6 +52,7 @@ export function SectionReveal({
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       className={className}
+      {...rest}
     >
       {children}
     </motion.div>

@@ -10,6 +10,7 @@ import {
   Send,
   CheckCircle,
   Zap,
+  Plus,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
@@ -46,23 +47,18 @@ const content = {
           description: "Hands-on experience in designing and developing large-scale enterprise systems.",
           type: "main",
           content: {
-            type: 'thumbnails',
-            items: [
-              { title: 'Cashless Payment', image: 'https://placehold.co/300x200.png', hint: 'payment gateway' },
-              { title: 'Order Management', image: 'https://placehold.co/300x200.png', hint: 'inventory system' },
-              { title: 'IoT for Production', image: 'https://placehold.co/300x200.png', hint: 'iot dashboard' },
-            ]
-          }
+            type: 'icon',
+            name: 'Tech'
+          } as { type: 'icon'; name: string }
         },
         {
           title: "Flexible & Adaptive",
           description: "Ability to quickly adapt to new technologies and deliver solutions suitable for various business needs.",
           type: "side",
           content: {
-            type: 'image',
-            url: 'https://placehold.co/600x800.png',
-            hint: 'team brainstorming'
-          }
+            type: 'icon',
+            name: 'Architecture'
+          } as { type: 'icon'; name: string }
         },
         {
           title: "Architecture Mindset",
@@ -71,7 +67,7 @@ const content = {
           content: {
             type: 'icon',
             name: 'Architecture'
-          }
+          } as { type: 'icon'; name: string }
         },
         {
           title: "70% Hands-on",
@@ -80,7 +76,7 @@ const content = {
            content: {
             type: 'icon',
             name: 'Code'
-          }
+          } as { type: 'icon'; name: string }
         },
         {
           title: "Tech Enthusiast",
@@ -89,7 +85,7 @@ const content = {
            content: {
             type: 'icon',
             name: 'Tech'
-          }
+          } as { type: 'icon'; name: string }
         }
       ]
     },
@@ -178,7 +174,7 @@ const content = {
                 category: 'Retail',
                 description: 'Integrated electronic payment solution for Vietnam\'s largest retail chain, processing millions of transactions monthly.',
                 tags: ['.NET Core', 'API Gateway', 'MSSQL', 'Docker'],
-                imageUrl: 'https://placehold.co/600x400.png',
+                imageUrl: '/mwg_logo.jpg',
                 aiHint: 'digital payment retail'
             },
             {
@@ -187,7 +183,7 @@ const content = {
                 category: 'Industrial Catering',
                 description: 'Supply chain management system for an industrial catering provider with over 50,000 meals/day.',
                 tags: ['Python', 'Java', 'Node.js', 'MongoDB'],
-                imageUrl: 'https://placehold.co/600x400.png',
+                imageUrl: '/eoc_logo.jpg',
                 aiHint: 'supply chain food'
             },
             {
@@ -196,7 +192,7 @@ const content = {
                 category: 'Agriculture',
                 description: 'IoT solution for monitoring and managing high-tech agricultural production over 500ha.',
                 tags: ['Golang', 'Next.js', 'IoT', 'PostgreSQL'],
-                imageUrl: 'https://placehold.co/600x400.png',
+                imageUrl: '/rriv_logo.png',
                 aiHint: 'iot agriculture farm'
             },
             {
@@ -205,7 +201,7 @@ const content = {
                 category: 'Logistics',
                 description: 'Warehouse, import/export, and customs management solution for a logistics company, integrating goods control and e-document processes.',
                 tags: ['Python', 'React Native'],
-                imageUrl: 'https://placehold.co/600x400.png',
+                imageUrl: '/zavn_logo.png',
                 aiHint: 'warehouse logistics customs'
             },
         ]
@@ -248,23 +244,18 @@ const content = {
           description: "Kinh nghiệm thực chiến trong việc thiết kế và phát triển các hệ thống doanh nghiệp quy mô lớn.",
           type: "main",
           content: {
-            type: 'thumbnails',
-            items: [
-              { title: 'Thanh toán không tiền mặt', image: 'https://placehold.co/300x200.png', hint: 'payment gateway' },
-              { title: 'Quản lý đơn hàng', image: 'https://placehold.co/300x200.png', hint: 'inventory system' },
-              { title: 'IoT trong sản xuất', image: 'https://placehold.co/300x200.png', hint: 'iot dashboard' },
-            ]
-          }
+            type: 'icon',
+            name: 'Tech'
+          } as { type: 'icon'; name: string }
         },
         {
           title: "Linh hoạt & Thích ứng",
           description: "Khả năng thích ứng nhanh với công nghệ mới và cung cấp các giải pháp phù hợp với nhu cầu kinh doanh đa dạng.",
           type: "side",
           content: {
-            type: 'image',
-            url: 'https://placehold.co/600x800.png',
-            hint: 'team brainstorming'
-          }
+            type: 'icon',
+            name: 'Architecture'
+          } as { type: 'icon'; name: string }
         },
         {
           title: "Tư duy kiến trúc sư",
@@ -273,7 +264,7 @@ const content = {
            content: {
             type: 'icon',
             name: 'Architecture'
-          }
+          } as { type: 'icon'; name: string }
         },
         {
           title: "70% Thực hành",
@@ -282,7 +273,7 @@ const content = {
            content: {
             type: 'icon',
             name: 'Code'
-          }
+          } as { type: 'icon'; name: string }
         },
         {
           title: "Đam mê công nghệ",
@@ -291,7 +282,7 @@ const content = {
            content: {
             type: 'icon',
             name: 'Tech'
-          }
+          } as { type: 'icon'; name: string }
         }
       ]
     },
@@ -380,7 +371,7 @@ const content = {
                 category: 'Bán lẻ',
                 description: 'Giải pháp thanh toán điện tử tích hợp cho chuỗi bán lẻ lớn nhất Việt Nam, xử lý hàng triệu giao dịch mỗi tháng.',
                 tags: ['.NET Core', 'API Gateway', 'MSSQL', 'Docker'],
-                imageUrl: 'https://placehold.co/600x400.png',
+                imageUrl: '/mwg_logo.jpg',
                 aiHint: 'digital payment retail'
             },
             {
@@ -389,7 +380,7 @@ const content = {
                 category: 'Suất ăn công nghiệp',
                 description: 'Hệ thống quản lý chuỗi cung ứng cho nhà cung cấp suất ăn công nghiệp với hơn 50,000 bữa ăn/ngày.',
                 tags: ['Python', 'Java', 'Node.js', 'MongoDB'],
-                imageUrl: 'https://placehold.co/600x400.png',
+                imageUrl: '/eoc_logo.jpg',
                 aiHint: 'supply chain food'
             },
             {
@@ -398,7 +389,7 @@ const content = {
                 category: 'Nông nghiệp',
                 description: 'Giải pháp IoT giám sát và quản lý sản xuất nông nghiệp công nghệ cao trên 500ha.',
                 tags: ['Golang', 'Next.js', 'IoT', 'PostgreSQL'],
-                imageUrl: 'https://placehold.co/600x400.png',
+                imageUrl: '/rriv_logo.png',
                 aiHint: 'iot agriculture farm'
             },
             {
@@ -407,7 +398,7 @@ const content = {
                 category: 'Logistics',
                 description: 'Giải pháp quản lý kho, xuất nhập khẩu và hải quan cho công ty logistics, tích hợp kiểm soát hàng hóa và quy trình chứng từ điện tử.',
                 tags: ['Python', 'React Native'],
-                imageUrl: 'https://placehold.co/600x400.png',
+                imageUrl: '/zavn_logo.png',
                 aiHint: 'warehouse logistics customs'
             },
         ]
@@ -511,7 +502,10 @@ export default function AboutPage() {
         <section id="projects" className="scroll-mt-24 py-24">
           <div className="w-full">
               <div className="text-center">
-              <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.projects.title}</h2>
+              <div className="flex items-center justify-center gap-3">
+                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.projects.title}</h2>
+                <Badge variant="secondary" className="px-3 py-1 text-base">10+</Badge>
+              </div>
               <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
                   {c.projects.description}
               </p>
@@ -521,12 +515,12 @@ export default function AboutPage() {
                       <SectionReveal key={project.title} options={{ delay: index * 0.1 }}>
                           <Card className="bg-surface h-full flex flex-col">
                               <CardContent className="p-4 flex flex-col flex-grow">
-                                <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-4">
+                                <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-4 p-6 bg-background">
                                     <Image
                                     src={project.imageUrl}
                                     alt={project.title}
                                     fill
-                                    className="object-cover"
+                                    className="object-contain"
                                     data-ai-hint={project.aiHint}
                                     />
                                 </div>
@@ -536,6 +530,12 @@ export default function AboutPage() {
                           </Card>
                       </SectionReveal>
                   ))}
+              </div>
+              <div className="mt-4 flex justify-center">
+                <span className="inline-flex items-center gap-2 rounded-full border border-dashed border-primary/40 px-3 py-1 text-sm text-muted-foreground">
+                  <Plus className="h-6 w-6 text-primary" />
+                  {language === 'vi' ? 'Còn nhiều dự án khác' : 'More projects'}
+                </span>
               </div>
           </div>
         </section>

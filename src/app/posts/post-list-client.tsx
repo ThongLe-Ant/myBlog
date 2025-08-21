@@ -62,6 +62,15 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     router.push(`/posts/${slug}`);
   };
 
+  // Background patterns for non-image cards
+  const backgroundPatterns = [
+    '/backgrounds/pattern-1.svg',
+    '/backgrounds/pattern-2.svg',
+    '/backgrounds/pattern-3.svg',
+    '/backgrounds/pattern-4.svg',
+    '/backgrounds/dot-grid.svg',
+  ];
+
 
   return (
     <div className="space-y-8">
@@ -148,13 +157,20 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                             </div>
                           </>
                         ) : (
-                            <div className="flex flex-col h-full p-6">
-                                <div className="flex-grow">
+                            <div className="relative flex flex-col h-full p-6">
+                                <Image
+                                    src={backgroundPatterns[index % backgroundPatterns.length]}
+                                    alt=""
+                                    fill
+                                    className="object-cover opacity-20 select-none pointer-events-none"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent" />
+                                <div className="relative z-10 flex-grow">
                                   <Badge variant="secondary" className="mb-2">{post.category}</Badge>
                                   <h3 className="font-bold text-foreground group-hover:text-primary text-lg">{post.title}</h3>
                                   <p className="mt-2 text-sm text-muted-foreground">{getExcerpt(post.content, 120)}</p>
                                 </div>
-                                <div className="mt-4 flex items-center justify-between pt-4 border-t">
+                                <div className="relative z-10 mt-4 flex items-center justify-between pt-4 border-t">
                                   <Badge variant={post.published ? 'outline' : 'secondary'}>
                                       {post.published ? 'Published' : 'Draft'}
                                   </Badge>
