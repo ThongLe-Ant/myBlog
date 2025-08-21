@@ -53,7 +53,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     router.replace(`/posts?${params.toString()}`, { scroll: false });
   }
 
-  const getExcerpt = (contentStr: string, length = 150) => {
+  const getExcerpt = (contentStr: string, length = 100) => {
     if (!contentStr) return '';
     const cleanedContent = contentStr.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
     if (cleanedContent.length <= length) return cleanedContent;
@@ -63,7 +63,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
 
   return (
     <div className="space-y-8">
-      <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-xl -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-4">
+       <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-xl -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex flex-col gap-4 max-w-7xl mx-auto">
             <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -91,15 +91,19 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
           {filteredPosts.length > 0 ? (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {filteredPosts.map((post, index) => {
-                const isHero = index === 0;
+                const patternIndex = index % 6;
+                let cardClass = "h-80";
+                if (patternIndex === 0) {
+                    cardClass += " lg:col-span-2";
+                } else if (patternIndex === 5) {
+                    cardClass += " lg:col-span-2";
+                }
+
                 return (
                  <Link 
                     href={`/posts/edit/${post.slug}`} 
                     key={post.slug} 
-                    className={cn(
-                        "group relative block w-full",
-                        isHero ? "lg:col-span-2 lg:row-span-2 h-[41rem]" : "h-80"
-                    )}
+                    className={cn("group relative block w-full", cardClass)}
                 >
                     <Card className="h-full w-full overflow-hidden rounded-2xl">
                          {post.imageUrl && (
@@ -117,9 +121,9 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                                 <Badge variant="secondary" className="mb-2 max-w-min whitespace-nowrap bg-white/20 text-white border-none">{post.category}</Badge>
                                 <h3 className={cn(
                                     "font-bold transition-colors group-hover:text-primary",
-                                    isHero ? "text-2xl md:text-3xl" : "text-xl"
+                                    "text-xl"
                                 )}>{post.title}</h3>
-                                <p className="mt-2 text-sm text-white/80 opacity-90">{getExcerpt(post.content, isHero ? 200 : 120)}</p>
+                                <p className="mt-2 text-sm text-white/80 opacity-90">{getExcerpt(post.content, 120)}</p>
                              </div>
                              <div className="mt-4 flex items-center justify-between pt-4">
                                 <Badge variant={post.published ? 'default' : 'secondary'} className={cn('flex-shrink-0', post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30')}>
@@ -146,5 +150,3 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     </div>
   );
 }
-
-    
