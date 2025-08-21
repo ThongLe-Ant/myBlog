@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { FilePenLine, ArrowRight, Search } from 'lucide-react';
@@ -90,11 +90,12 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {filteredPosts.map((post, index) => {
                 const patternIndex = index % 6;
+                
                 let cardClass = "h-80";
                 
-                if (patternIndex === 0) {
+                if (patternIndex === 0) { // First item, large
                     cardClass += " lg:col-span-2";
-                } else if (patternIndex === 5) {
+                } else if (patternIndex === 5) { // Sixth item, large
                     cardClass += " lg:col-span-2";
                 }
                 
@@ -102,7 +103,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
 
                 return (
                  <Link 
-                    href={`/posts/edit/${post.slug}`} 
+                    href={`/posts/${post.slug}`}
                     key={post.slug} 
                     className={cn("group relative block w-full", cardClass)}
                 >
@@ -132,9 +133,14 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                                     <Badge variant={post.published ? 'default' : 'secondary'} className={cn('flex-shrink-0', post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30')}>
                                         {post.published ? 'Published' : 'Draft'}
                                     </Badge>
-                                    <div className="text-sm font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                                        Edit Post <ArrowRight className="inline-block h-4 w-4" />
-                                    </div>
+                                     <div className="opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                        <Link href={`/posts/edit/${post.slug}`} passHref>
+                                            <Button variant="secondary" size="sm" onClick={(e) => e.stopPropagation()}>
+                                                <FilePenLine className="mr-2 h-4 w-4" />
+                                                Edit
+                                            </Button>
+                                        </Link>
+                                     </div>
                                  </div>
                             </div>
                           </>
@@ -149,9 +155,14 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                                   <Badge variant={post.published ? 'outline' : 'secondary'}>
                                       {post.published ? 'Published' : 'Draft'}
                                   </Badge>
-                                  <div className="text-sm font-medium text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:text-primary">
-                                      Edit <ArrowRight className="inline-block h-4 w-4" />
-                                  </div>
+                                   <div className="opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                      <Link href={`/posts/edit/${post.slug}`} passHref>
+                                         <Button variant="ghost" size="sm" onClick={(e) => e.stopPropagation()}>
+                                             <FilePenLine className="mr-2 h-4 w-4" />
+                                             Edit
+                                         </Button>
+                                      </Link>
+                                   </div>
                                 </div>
                             </div>
                         )}
