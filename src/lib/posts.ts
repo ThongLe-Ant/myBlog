@@ -69,12 +69,12 @@ export async function getPosts(): Promise<Post[]> {
     }
     
     // Assign default images to posts without one
-    allPosts = allPosts.map((post) => {
+    allPosts = allPosts.map((post, index) => {
         if (!post.imageUrl) {
-            const randomIndex = Math.floor(Math.random() * defaultImages.length);
+            // Use a deterministic way to assign default images to avoid hydration issues
             return {
                 ...post,
-                imageUrl: defaultImages[randomIndex]
+                imageUrl: defaultImages[index % defaultImages.length]
             };
         }
         return post;
@@ -96,7 +96,7 @@ const createSlug = (title: string) => {
     return title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
 }
 
-export async function savePost(post: Omit<Post, 'slug'>) {
+export async function savePost(post: Omit<Post, 'slug' | 'excerpt'>) {
     await ensureDirectoryExists();
     const filePath = getCategoryFilePath(post.category);
     const categoryPosts = await readCategoryFile(filePath);
@@ -123,7 +123,7 @@ export async function savePost(post: Omit<Post, 'slug'>) {
     revalidatePath('/');
 }
 
-export async function updatePost(originalSlug: string, originalCategory: string, updatedPostData: Omit<Post, 'slug'>) {
+export async function updatePost(originalSlug: string, originalCategory: string, updatedPostData: Omit<Post, 'slug' | 'excerpt'>) {
     await ensureDirectoryExists();
     
     const { title, content, category, published, featured, imageUrl } = updatedPostData;
