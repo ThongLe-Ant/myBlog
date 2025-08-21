@@ -64,11 +64,18 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
 
   // Background patterns for non-image cards
   const backgroundPatterns = [
+    '/backgrounds/dot-grid.svg',
     '/backgrounds/pattern-1.svg',
     '/backgrounds/pattern-2.svg',
     '/backgrounds/pattern-3.svg',
     '/backgrounds/pattern-4.svg',
-    '/backgrounds/dot-grid.svg',
+    '/backgrounds/thumb-1.svg',
+    '/backgrounds/thumb-2.svg',
+    '/backgrounds/thumb-3.svg',
+    '/backgrounds/project-1.svg', 
+    '/backgrounds/project-2.svg',
+    '/backgrounds/project-3.svg',
+    '/backgrounds/project-4.svg'
   ];
 
 
