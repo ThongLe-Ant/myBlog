@@ -11,7 +11,16 @@ import {
   CheckCircle,
   Zap,
   Plus,
+  Network,
+  Boxes,
+  Wallet,
+  BarChart3,
+  Bot,
+  Gauge,
+  Users,
+  Shield,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -22,14 +31,14 @@ import { SectionReveal } from '@/components/motion/section-reveal';
 import { CardInteractive } from '@/components/motion/card-interactive';
 import React from 'react';
 import Image from 'next/image';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import Autoplay from "embla-carousel-autoplay"
 import { useLanguage } from '@/context/language-context';
 import { HeroHighlight } from '@/components/motion/hero-highlight';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { HeroBanner } from '@/components/layout/hero-banner';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { RadarChart as ReRadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
 
 const content = {
   en: {
@@ -142,25 +151,42 @@ const content = {
                 company: 'Asia Commercial Bank (ACB)',
                 period: '2022 - Present',
                 role: 'Backend Engineer',
-                description: 'Developing Digital Banking systems for one of the leading banks in Vietnam.',
+                description: 'Developing Digital Banking systems.',
+                projects: [
+                    'SmartPOS built on .NET Core & Docker',
+                    'International payments integrating ARP/MoneyGram/Western Union'
+                ],
+                result: 'Handles >10,000 transactions/day',
             },
             {
                 company: 'MoMo',
                 period: '2020 - 2021',
                 role: 'Backend Developer',
-                description: 'Developed CSM & Internal Payment systems for Vietnam\'s leading e-wallet.',
+                description: 'Developed CSM & Internal Payment systems for the leading e-wallet.',
+                projects: [
+                    'Optimized transaction platform with Golang & Kafka'
+                ],
+                result: 'Reduced processing time by ~20%',
             },
             {
                 company: 'FPT Software',
                 period: '2018 - 2020',
                 role: 'Technical Analyst',
-                description: 'Developed ERP solutions for major domestic and international clients.',
+                description: 'Delivered ERP solutions for large enterprises.',
+                projects: [
+                    'Nguyen Minh Steel – comprehensive production management',
+                    'Sacombank – centralized equipment/warehouse management'
+                ],
             },
             {
                 company: 'SamHo',
                 period: '2016 - 2018',
                 role: 'ERP Developer',
-                description: 'Developed an ERP system for a factory with over 5,000 employees.',
+                description: 'Built ERP for a factory with >5,000 employees.',
+                projects: [
+                    'Integrated HR & Payroll module',
+                    'Production management & product BOM'
+                ],
             },
         ]
     },
@@ -339,25 +365,42 @@ const content = {
                 company: 'Ngân hàng Á Châu (ACB)',
                 period: '2022 - Hiện tại',
                 role: 'Kỹ sư Backend',
-                description: 'Phát triển hệ thống Ngân hàng số cho một trong những ngân hàng hàng đầu Việt Nam.',
+                description: 'Phát triển Ngân hàng Số.',
+                projects: [
+                    'SmartPOS trên .NET Core & Docker',
+                    'Thanh toán quốc tế tích hợp ARP/MoneyGram/Western Union'
+                ],
+                result: 'Xử lý >10.000 giao dịch/ngày',
             },
             {
                 company: 'MoMo',
                 period: '2020 - 2021',
                 role: 'Lập trình viên Backend',
-                description: 'Phát triển hệ thống CSM & Thanh toán nội bộ cho ví điện tử hàng đầu Việt Nam.',
+                description: 'Phát triển CSM & Thanh toán nội bộ cho ví điện tử hàng đầu.',
+                projects: [
+                    'Tối ưu nền tảng giao dịch với Golang & Kafka'
+                ],
+                result: 'Giảm ~20% thời gian xử lý',
             },
             {
                 company: 'FPT Software',
                 period: '2018 - 2020',
                 role: 'Chuyên viên Phân tích Kỹ thuật',
-                description: 'Phát triển các giải pháp ERP cho các khách hàng lớn trong và ngoài nước.',
+                description: 'Triển khai giải pháp ERP cho doanh nghiệp lớn.',
+                projects: [
+                    'Nguyễn Minh Steel – hệ thống quản lý sản xuất toàn diện',
+                    'Sacombank – quản lý kho/thiết bị tập trung'
+                ],
             },
             {
                 company: 'SamHo',
                 period: '2016 - 2018',
                 role: 'Lập trình viên ERP',
-                description: 'Phát triển hệ thống ERP cho nhà máy có hơn 5,000 nhân viên.',
+                description: 'Xây dựng ERP cho nhà máy >5.000 nhân viên.',
+                projects: [
+                    'Nhân sự & Tính lương tích hợp',
+                    'Quản lý sản xuất & BOM sản phẩm'
+                ],
             },
         ]
     },
@@ -434,27 +477,46 @@ export default function AboutPage() {
   const c = content[language];
   const cvContentRef = React.useRef<HTMLDivElement>(null);
 
-  const autoplay = React.useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true })
-  )
+  // carousel autoplay removed
 
   const handleDownloadCV = () => {
     if (cvContentRef.current) {
+      const element = cvContentRef.current;
       const backgroundColor = window.getComputedStyle(document.body).getPropertyValue('--background').trim();
-      html2canvas(cvContentRef.current, {
+
+      html2canvas(element, {
         scale: 2,
         useCORS: true,
         backgroundColor: `hsl(${backgroundColor})`,
-        // Exclude the download button from the canvas
-        ignoreElements: (element) => element.id === 'download-cv-btn',
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
+        scrollX: 0,
+        scrollY: -window.scrollY,
+        // Exclude the download button and the noise background layer to prevent load errors
+        ignoreElements: (el) => el.id === 'download-cv-btn' || el.id === 'cv-noise-bg',
       }).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF({
-          orientation: 'p',
-          unit: 'px',
-          format: [canvas.width, canvas.height]
-        });
-        pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+        const pdf = new jsPDF('p', 'mm', 'a4');
+
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        const imgWidth = pdfWidth; // fit to page width
+        const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pdfHeight;
+
+        while (heightLeft > 0) {
+          position = heightLeft - imgHeight; // shift image up for next page
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pdfHeight;
+        }
+
         pdf.save('Le-Minh-Thong-CV.pdf');
       });
     }
@@ -462,38 +524,29 @@ export default function AboutPage() {
 
 
   return (
-    <div ref={cvContentRef}>
+    <div ref={cvContentRef} className="relative">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent" />
+      <div id="cv-noise-bg" className="pointer-events-none absolute inset-0 -z-10 bg-[url(/noise.png)] opacity-20" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <HeroBanner showContactInfo={true} onDownloadCV={handleDownloadCV} />
       </div>
 
-      {/* Strengths Carousel Section */}
+      {/* Strengths Section */}
       <section className="w-full bg-background py-16 lg:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12 text-foreground">{c.strengths.title}</h2>
-            <Carousel 
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-              plugins={[autoplay.current]}
-              className="w-full"
-            >
-              <CarouselContent>
-                {c.strengths.items.map((card, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                      <div className="p-1">
-                        <CardInteractive
-                          title={card.title}
-                          description={card.description}
-                          content={card.content}
-                          className="h-full"
-                        />
-                      </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
+            <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 bg-clip-text text-transparent">{c.strengths.title}</h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {c.strengths.items.map((card, index) => (
+                <SectionReveal key={index} options={{ delay: index * 0.1 }}>
+                  <CardInteractive
+                    title={card.title}
+                    description={card.description}
+                    content={card.content}
+                    className="h-full"
+                  />
+                </SectionReveal>
+              ))}
+            </div>
         </div>
       </section>
 
@@ -503,37 +556,48 @@ export default function AboutPage() {
           <div className="w-full">
               <div className="text-center">
               <div className="flex items-center justify-center gap-3">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.projects.title}</h2>
-                <Badge variant="secondary" className="px-3 py-1 text-base">10+</Badge>
+                <h2 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 bg-clip-text text-transparent sm:text-4xl">{c.projects.title}</h2>
+                <Badge variant="secondary" className="px-3 py-1 text-base bg-amber-500/10 text-amber-400 border border-amber-400/30">10+</Badge>
               </div>
               <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
                   {c.projects.description}
               </p>
               </div>
-              <div className="mt-12 grid gap-8 md:grid-cols-2 lg:gap-12">
+              <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
                   {c.projects.items.map((project, index) => (
                       <SectionReveal key={project.title} options={{ delay: index * 0.1 }}>
-                          <Card className="bg-surface h-full flex flex-col">
-                              <CardContent className="p-4 flex flex-col flex-grow">
-                                <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-4 p-6 bg-background">
-                                    <Image
+                          <Card className="group relative bg-white/5 dark:bg-surface/60 backdrop-blur rounded-3xl overflow-hidden border border-white/10 h-full flex flex-col">
+                              <div className="relative w-full aspect-[16/10] overflow-hidden">
+                                  <Image
                                     src={project.imageUrl}
                                     alt={project.title}
                                     fill
-                                    className="object-contain"
+                                    className="object-contain bg-background"
                                     data-ai-hint={project.aiHint}
-                                    />
-                                </div>
-                                <h3 className="text-lg font-bold text-foreground">{project.title}</h3>
-                                <p className="mt-2 text-sm text-muted-foreground flex-grow">{project.description}</p>
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                  <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                      <Button size="sm" className="bg-white text-primary hover:bg-white/90">{language === 'vi' ? 'Xem chi tiết' : 'View details'}</Button>
+                                  </div>
+                              </div>
+                              <CardContent className="p-6 flex flex-col flex-grow">
+                                  <div className="text-sm text-muted-foreground mb-1">{project.category}</div>
+                                  <div className="text-xl font-bold text-primary mb-1">{project.client}</div>
+                                  <h3 className="text-lg font-semibold text-foreground">{project.title}</h3>
+                                  <p className="mt-2 text-sm text-muted-foreground flex-grow">{project.description}</p>
+                                  <div className="flex flex-wrap gap-2 mt-4">
+                                      {project.tags.map((tag: string) => (
+                                        <Badge key={tag} variant="secondary" className="px-3 py-1">{tag}</Badge>
+                                      ))}
+                                  </div>
                               </CardContent>
                           </Card>
                       </SectionReveal>
                   ))}
               </div>
               <div className="mt-4 flex justify-center">
-                <span className="inline-flex items-center gap-2 rounded-full border border-dashed border-primary/40 px-3 py-1 text-sm text-muted-foreground">
-                  <Plus className="h-6 w-6 text-primary" />
+                <span className="inline-flex items-center gap-2 rounded-full border border-dashed border-amber-400/40 px-3 py-1 text-sm text-muted-foreground">
+                  <Plus className="h-6 w-6 text-amber-500" />
                   {language === 'vi' ? 'Còn nhiều dự án khác' : 'More projects'}
                 </span>
               </div>
@@ -595,25 +659,62 @@ export default function AboutPage() {
                   </p>
               </div>
               <div className="grid md:grid-cols-2 gap-12">
-                  <div>
-                      <h3 className="text-2xl font-bold text-foreground mb-6">{c.skills.domain.title}</h3>
-                      <div className="space-y-4">
-                          {c.skills.domain.items.map(skill => (
-                              <div key={skill.name}>
-                                  <div className="flex justify-between mb-1">
-                                      <span className="font-medium text-muted-foreground">{skill.name}</span>
-                                      <span className="text-sm font-semibold text-primary">{skill.level}</span>
-                                  </div>
+                  <div className="bg-surface/60 backdrop-blur rounded-2xl border border-white/10 p-8">
+                      <h3 className="text-2xl font-bold text-foreground mb-8">{c.skills.domain.title}</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          {c.skills.domain.items.map((skill) => {
+                            let IconComp: LucideIcon = Network;
+                            const name = skill.name.toLowerCase();
+                            if (name.includes('kiến trúc') || name.includes('architecture')) IconComp = Network;
+                            else if (name.includes('erp')) IconComp = Boxes;
+                            else if (name.includes('thanh toán') || name.includes('payment')) IconComp = Wallet;
+                            else if (name.includes('báo cáo') || name.includes('report')) IconComp = BarChart3;
+                            else if (name.includes('tự động') || name.includes('automation')) IconComp = Bot;
+                            else if (name.includes('hiệu năng') || name.includes('performance')) IconComp = Gauge;
+                            else if (name.includes('dự án') || name.includes('project')) IconComp = Users;
+                            else if (name.includes('bảo mật') || name.includes('security')) IconComp = Shield;
+
+                            return (
+                              <div key={skill.name} className="flex items-center gap-4 bg-background/40 p-4 rounded-xl border border-border/50">
+                                <div className="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                                  <IconComp className="w-6 h-6" />
+                                </div>
+                                <div className="min-w-0">
+                                  <div className="font-semibold text-foreground truncate">{skill.name}</div>
+                                  <div className="text-primary text-sm font-medium">{skill.level}</div>
+                                </div>
                               </div>
-                          ))}
+                            );
+                          })}
                       </div>
                   </div>
-                    <div>
+                  <div className="bg-surface/60 backdrop-blur rounded-2xl border border-white/10 p-8 relative overflow-hidden">
                       <h3 className="text-2xl font-bold text-foreground mb-6">{c.skills.tech.title}</h3>
-                      <div className="flex flex-wrap gap-3">
-                          {c.skills.tech.items.map(tech => (
-                              <Badge key={tech} variant="secondary" className="text-base px-4 py-2">{tech}</Badge>
-                          ))}
+                      <div className="flex justify-center">
+                        <ChartContainer
+                          config={{ skill: { label: language === 'vi' ? 'Kỹ năng' : 'Skill', color: 'hsl(var(--primary))' } }}
+                          className="aspect-square w-full max-w-[640px]"
+                        >
+                          <ReRadarChart
+                            data={[
+                              { label: '.NET/C#', value: 95 },
+                              { label: 'Golang', value: 85 },
+                              { label: 'Python', value: 80 },
+                              { label: 'Node.js', value: 90 },
+                              { label: 'React.js', value: 85 },
+                              { label: 'MSSQL/Oracle', value: 90 },
+                              { label: 'Docker', value: 80 },
+                              { label: 'Cloud Solutions', value: 85 },
+                            ]}
+                            margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
+                          >
+                            <PolarGrid />
+                            <PolarAngleAxis dataKey="label" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 14 }} />
+                            <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} />
+                            <Radar dataKey="value" stroke="var(--color-skill)" fill="var(--color-skill)" fillOpacity={0.3} dot={{ r: 3 }} />
+                            <ChartTooltip content={<ChartTooltipContent />} />
+                          </ReRadarChart>
+                        </ChartContainer>
                       </div>
                   </div>
               </div>
@@ -645,6 +746,21 @@ export default function AboutPage() {
                                   <h3 className="mt-1 text-xl font-bold text-foreground">{exp.company}</h3>
                                   <p className="text-base font-semibold text-primary/80">{exp.role}</p>
                                   <p className="mt-3 text-muted-foreground">{exp.description}</p>
+                                  {Array.isArray((exp as any).projects) && (
+                                    <div className="mt-3 space-y-2">
+                                      {(exp as any).projects.map((project: string, i: number) => (
+                                        <div key={i} className="text-muted-foreground flex items-start gap-3">
+                                          <span className="text-primary text-xl">•</span>
+                                          <span>{project}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+                                  {(exp as any).result && (
+                                    <div className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-4 py-2 rounded-full text-sm inline-block mt-4 font-medium">
+                                      {(exp as any).result}
+                                    </div>
+                                  )}
                               </motion.div>
                           </div>
                           <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 h-4 w-4 rounded-full bg-primary ring-8 ring-background" />

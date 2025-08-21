@@ -20,7 +20,7 @@ const postsDirectory = path.join(process.cwd(), 'src/data/posts');
 
 // A list of default local SVG images for posts that don't have one.
 const defaultImages = [
-  '/backgrounds/dot-grid.svg',
+   
     '/backgrounds/pattern-1.svg',
     '/backgrounds/pattern-2.svg',
     '/backgrounds/pattern-3.svg',
