@@ -12,6 +12,7 @@ import type { Post } from '@/lib/posts';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
+import Image from 'next/image';
 
 interface PostListClientProps {
     posts: Post[];
@@ -19,15 +20,6 @@ interface PostListClientProps {
     initialCategory: string;
     initialSearchTerm: string;
 }
-
-const gradientColors = [
-  "from-blue-500/20 to-cyan-500/20",
-  "from-purple-500/20 to-pink-500/20",
-  "from-green-500/20 to-teal-500/20",
-  "from-yellow-500/20 to-orange-500/20",
-  "from-red-500/20 to-rose-500/20",
-  "from-indigo-500/20 to-violet-500/20",
-];
 
 export function PostListClient({ posts, categories, initialCategory, initialSearchTerm }: PostListClientProps) {
   const router = useRouter();
@@ -47,12 +39,6 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
       post.content.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
-  
-  const getExcerpt = (content: string, length = 100) => {
-    const cleanedContent = content.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
-    if (cleanedContent.length <= length) return cleanedContent;
-    return cleanedContent.substring(0, length) + '...';
-  }
   
   const handleTabChange = (value: string) => {
     setActiveTab(value);
@@ -98,34 +84,31 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
       <div>
           {filteredPosts.length > 0 ? (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {filteredPosts.map((post, index) => (
-                 <Link href={`/posts/${post.slug}`} key={post.slug} className="group">
-                    <Card className={cn(
-                        "bg-surface/50 border-border/50 flex flex-col h-[350px] transition-all duration-300 ease-smooth group-hover:border-primary group-hover:shadow-xl group-hover:-translate-y-1 bg-gradient-to-br overflow-hidden",
-                        gradientColors[index % gradientColors.length]
-                    )}>
-                      <div className="flex-grow overflow-y-auto">
-                        <CardHeader>
-                          <div className="flex justify-between items-start">
-                            <CardTitle className="text-foreground text-xl transition-colors duration-300 group-hover:text-primary pr-2">{post.title}</CardTitle>
-                            <Badge variant={post.published ? 'default' : 'secondary'} className={cn('flex-shrink-0', post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30')}>
-                                {post.published ? 'Published' : 'Draft'}
-                            </Badge>
-                          </div>
-                          <CardDescription>{getExcerpt(post.content)}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                           <span className="text-sm font-semibold text-primary/80">{post.category}</span>
-                        </CardContent>
-                      </div>
-                      <CardFooter className="flex justify-between items-center mt-auto border-t border-border/20 pt-4 flex-shrink-0">
-                        <span className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors duration-300">
-                          Read More <ArrowRight className="inline-block h-4 w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
-                        </span>
-                        <Button variant="ghost" size="icon" onClick={(e) => { e.preventDefault(); router.push(`/posts/edit/${post.slug}`); }}>
-                            <FilePenLine className="h-4 w-4" />
-                        </Button>
-                      </CardFooter>
+              {filteredPosts.map((post) => (
+                 <Link href={`/posts/edit/${post.slug}`} key={post.slug} className="group relative block h-96 w-full">
+                    <Card className="h-full w-full overflow-hidden rounded-2xl">
+                         {post.imageUrl && (
+                             <Image
+                                src={post.imageUrl}
+                                alt={post.title}
+                                fill
+                                className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                                data-ai-hint="tech blog"
+                            />
+                         )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                        <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
+                             <Badge variant="secondary" className="mb-2 max-w-min whitespace-nowrap bg-white/20 text-white border-none">{post.category}</Badge>
+                             <h3 className="text-xl font-bold transition-colors group-hover:text-primary">{post.title}</h3>
+                             <div className="mt-4 flex items-center justify-between">
+                                <Badge variant={post.published ? 'default' : 'secondary'} className={cn('flex-shrink-0', post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30')}>
+                                    {post.published ? 'Published' : 'Draft'}
+                                </Badge>
+                                <div className="text-sm font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                    Edit Post <ArrowRight className="inline-block h-4 w-4" />
+                                </div>
+                             </div>
+                        </div>
                     </Card>
                  </Link>
               ))}
