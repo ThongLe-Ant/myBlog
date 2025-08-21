@@ -48,8 +48,6 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     } else {
       params.set('category', value);
     }
-    // We only update the category param, keeping the search param if it exists
-    // The search is now controlled by local state, so we don't push it to router here
     router.replace(`/posts?${params.toString()}`, { scroll: false });
   }
 
@@ -93,11 +91,14 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
               {filteredPosts.map((post, index) => {
                 const patternIndex = index % 6;
                 let cardClass = "h-80";
+                
                 if (patternIndex === 0) {
                     cardClass += " lg:col-span-2";
                 } else if (patternIndex === 5) {
                     cardClass += " lg:col-span-2";
                 }
+                
+                const isImageCard = patternIndex === 0 || patternIndex === 5;
 
                 return (
                  <Link 
@@ -105,35 +106,55 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                     key={post.slug} 
                     className={cn("group relative block w-full", cardClass)}
                 >
-                    <Card className="h-full w-full overflow-hidden rounded-2xl">
-                         {post.imageUrl && (
-                             <Image
-                                src={post.imageUrl}
-                                alt={post.title}
-                                fill
-                                className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
-                                data-ai-hint="tech blog"
-                            />
-                         )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                        <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                             <div className="flex-grow">
-                                <Badge variant="secondary" className="mb-2 max-w-min whitespace-nowrap bg-white/20 text-white border-none">{post.category}</Badge>
-                                <h3 className={cn(
-                                    "font-bold transition-colors group-hover:text-primary",
-                                    "text-xl"
-                                )}>{post.title}</h3>
-                                <p className="mt-2 text-sm text-white/80 opacity-90">{getExcerpt(post.content, 120)}</p>
-                             </div>
-                             <div className="mt-4 flex items-center justify-between pt-4">
-                                <Badge variant={post.published ? 'default' : 'secondary'} className={cn('flex-shrink-0', post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30')}>
-                                    {post.published ? 'Published' : 'Draft'}
-                                </Badge>
-                                <div className="text-sm font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                                    Edit Post <ArrowRight className="inline-block h-4 w-4" />
+                    <Card className={cn(
+                        "h-full w-full overflow-hidden rounded-2xl transition-all duration-300 ease-smooth group-hover:shadow-xl group-hover:-translate-y-1",
+                        !isImageCard && "bg-surface border"
+                    )}>
+                        {isImageCard ? (
+                          <>
+                             {post.imageUrl && (
+                                 <Image
+                                    src={post.imageUrl}
+                                    alt={post.title}
+                                    fill
+                                    className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                                    data-ai-hint="tech blog"
+                                />
+                             )}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                            <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
+                                 <div className="flex-grow">
+                                    <Badge variant="secondary" className="mb-2 max-w-min whitespace-nowrap bg-white/20 text-white border-none">{post.category}</Badge>
+                                    <h3 className="font-bold transition-colors group-hover:text-primary text-xl">{post.title}</h3>
+                                    <p className="mt-2 text-sm text-white/80 opacity-90">{getExcerpt(post.content, getExcerptLength(patternIndex))}</p>
+                                 </div>
+                                 <div className="mt-4 flex items-center justify-between pt-4">
+                                    <Badge variant={post.published ? 'default' : 'secondary'} className={cn('flex-shrink-0', post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30')}>
+                                        {post.published ? 'Published' : 'Draft'}
+                                    </Badge>
+                                    <div className="text-sm font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                        Edit Post <ArrowRight className="inline-block h-4 w-4" />
+                                    </div>
+                                 </div>
+                            </div>
+                          </>
+                        ) : (
+                            <div className="flex flex-col h-full p-6">
+                                <div className="flex-grow">
+                                  <Badge variant="secondary" className="mb-2">{post.category}</Badge>
+                                  <h3 className="font-bold text-foreground transition-colors group-hover:text-primary text-lg">{post.title}</h3>
+                                  <p className="mt-2 text-sm text-muted-foreground">{getExcerpt(post.content, 120)}</p>
                                 </div>
-                             </div>
-                        </div>
+                                <div className="mt-4 flex items-center justify-between pt-4 border-t">
+                                  <Badge variant={post.published ? 'outline' : 'secondary'}>
+                                      {post.published ? 'Published' : 'Draft'}
+                                  </Badge>
+                                  <div className="text-sm font-medium text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:text-primary">
+                                      Edit <ArrowRight className="inline-block h-4 w-4" />
+                                  </div>
+                                </div>
+                            </div>
+                        )}
                     </Card>
                  </Link>
                 )
@@ -150,3 +171,14 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     </div>
   );
 }
+
+
+function getExcerptLength(index: number) {
+    const patternIndex = index % 6;
+    if (patternIndex === 0 || patternIndex === 5) { // Larger cards
+        return 150;
+    }
+    return 80; // Smaller cards
+}
+
+    
