@@ -57,6 +57,10 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     if (cleanedContent.length <= length) return cleanedContent;
     return cleanedContent.substring(0, length) + '...';
   }
+  
+  const handleCardClick = (slug: string) => {
+    router.push(`/posts/${slug}`);
+  };
 
 
   return (
@@ -93,22 +97,21 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                 
                 let cardClass = "h-80";
                 
-                if (patternIndex === 0) { // First item, large
-                    cardClass += " lg:col-span-2";
-                } else if (patternIndex === 5) { // Sixth item, large
+                if (patternIndex === 0 || patternIndex === 5) { // First item, large
                     cardClass += " lg:col-span-2";
                 }
                 
                 const isImageCard = patternIndex === 0 || patternIndex === 5;
 
                 return (
-                 <Link 
-                    href={`/posts/${post.slug}`}
+                 <div
                     key={post.slug} 
                     className={cn("group relative block w-full", cardClass)}
                 >
-                    <Card className={cn(
-                        "h-full w-full overflow-hidden rounded-2xl transition-all duration-300 ease-smooth group-hover:shadow-xl group-hover:-translate-y-1",
+                    <Card
+                        onClick={() => handleCardClick(post.slug)}
+                        className={cn(
+                        "h-full w-full overflow-hidden rounded-2xl transition-all duration-300 ease-smooth group-hover:shadow-xl group-hover:-translate-y-1 cursor-pointer",
                         !isImageCard && "bg-surface border"
                     )}>
                         {isImageCard ? (
@@ -126,7 +129,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                             <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
                                  <div className="flex-grow">
                                     <Badge variant="secondary" className="mb-2 max-w-min whitespace-nowrap bg-white/20 text-white border-none">{post.category}</Badge>
-                                    <h3 className="font-bold transition-colors group-hover:text-primary text-xl">{post.title}</h3>
+                                    <h3 className="font-bold text-xl group-hover:underline">{post.title}</h3>
                                     <p className="mt-2 text-sm text-white/80 opacity-90">{getExcerpt(post.content, getExcerptLength(patternIndex))}</p>
                                  </div>
                                  <div className="mt-4 flex items-center justify-between pt-4">
@@ -148,7 +151,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                             <div className="flex flex-col h-full p-6">
                                 <div className="flex-grow">
                                   <Badge variant="secondary" className="mb-2">{post.category}</Badge>
-                                  <h3 className="font-bold text-foreground transition-colors group-hover:text-primary text-lg">{post.title}</h3>
+                                  <h3 className="font-bold text-foreground group-hover:text-primary text-lg">{post.title}</h3>
                                   <p className="mt-2 text-sm text-muted-foreground">{getExcerpt(post.content, 120)}</p>
                                 </div>
                                 <div className="mt-4 flex items-center justify-between pt-4 border-t">
@@ -156,18 +159,18 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                                       {post.published ? 'Published' : 'Draft'}
                                   </Badge>
                                    <div className="opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                                      <Link href={`/posts/edit/${post.slug}`} passHref>
-                                         <Button variant="ghost" size="sm" onClick={(e) => e.stopPropagation()}>
-                                             <FilePenLine className="mr-2 h-4 w-4" />
-                                             Edit
-                                         </Button>
-                                      </Link>
+                                        <Link href={`/posts/edit/${post.slug}`} passHref>
+                                            <Button variant="ghost" size="sm" onClick={(e) => e.stopPropagation()}>
+                                                <FilePenLine className="mr-2 h-4 w-4" />
+                                                Edit
+                                            </Button>
+                                        </Link>
                                    </div>
                                 </div>
                             </div>
                         )}
                     </Card>
-                 </Link>
+                 </div>
                 )
               })}
             </div>
@@ -175,7 +178,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
             <div className="text-center py-24 text-muted-foreground space-y-4">
                 <h3 className="text-2xl font-semibold">No Posts Found</h3>
                 <p>No articles match your current filter criteria.</p>
-                <Button variant="link" onClick={() => { setSearchTerm(''); setActiveTab('All'); router.push('/posts', { scroll: false })}}>Clear all filters</Button>
+                <Button variant="link" onClick={() => { setSearchTerm(''); setActiveTab('All'); router.replace('/posts', { scroll: false })}}>Clear all filters</Button>
             </div>
           )}
       </div>
@@ -195,3 +198,4 @@ function getExcerptLength(index: number) {
     
 
     
+
