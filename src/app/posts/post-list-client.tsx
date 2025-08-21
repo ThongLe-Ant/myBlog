@@ -53,6 +53,14 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     router.replace(`/posts?${params.toString()}`, { scroll: false });
   }
 
+  const getExcerpt = (contentStr: string, length = 100) => {
+    if (!contentStr) return '';
+    const cleanedContent = contentStr.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
+    if (cleanedContent.length <= length) return cleanedContent;
+    return cleanedContent.substring(0, length) + '...';
+  }
+
+
   return (
     <div className="space-y-8">
         <Card className="bg-surface border-border/50 sticky top-16 z-40">
@@ -98,9 +106,12 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                          )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                         <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                             <Badge variant="secondary" className="mb-2 max-w-min whitespace-nowrap bg-white/20 text-white border-none">{post.category}</Badge>
-                             <h3 className="text-xl font-bold transition-colors group-hover:text-primary">{post.title}</h3>
-                             <div className="mt-4 flex items-center justify-between">
+                             <div className="flex-grow">
+                                <Badge variant="secondary" className="mb-2 max-w-min whitespace-nowrap bg-white/20 text-white border-none">{post.category}</Badge>
+                                <h3 className="text-xl font-bold transition-colors group-hover:text-primary">{post.title}</h3>
+                                <p className="mt-2 text-sm text-white/80 opacity-90">{getExcerpt(post.excerpt || post.content)}</p>
+                             </div>
+                             <div className="mt-4 flex items-center justify-between pt-4">
                                 <Badge variant={post.published ? 'default' : 'secondary'} className={cn('flex-shrink-0', post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30')}>
                                     {post.published ? 'Published' : 'Draft'}
                                 </Badge>
