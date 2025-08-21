@@ -98,7 +98,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                     key={post.slug} 
                     className={cn(
                         "group relative block w-full",
-                        isHero ? "lg:col-span-2 lg:row-span-2 h-[32rem] md:h-[28rem]" : "h-96"
+                        isHero ? "lg:col-span-2 lg:row-span-2 h-[41rem]" : "h-80"
                     )}
                 >
                     <Card className="h-full w-full overflow-hidden rounded-2xl">
@@ -119,7 +119,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                                     "font-bold transition-colors group-hover:text-primary",
                                     isHero ? "text-2xl md:text-3xl" : "text-xl"
                                 )}>{post.title}</h3>
-                                <p className="mt-2 text-sm text-white/80 opacity-90">{getExcerpt(post.content, isHero ? 200 : 100)}</p>
+                                <p className="mt-2 text-sm text-white/80 opacity-90">{getExcerpt(post.content, isHero ? 200 : 120)}</p>
                              </div>
                              <div className="mt-4 flex items-center justify-between pt-4">
                                 <Badge variant={post.published ? 'default' : 'secondary'} className={cn('flex-shrink-0', post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30')}>
