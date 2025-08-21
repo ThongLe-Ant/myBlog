@@ -61,15 +61,13 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
                   <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 group">
                       <Link href={`/posts/${post.slug}`} className="block h-full">
                         <Card className="relative h-[450px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-xl group-hover:-translate-y-1 rounded-2xl">
-                           {post.imageUrl && (
-                              <Image
-                                  src={post.imageUrl}
-                                  alt={post.title}
-                                  fill
-                                  className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 z-0"
-                                  data-ai-hint="tech blog"
-                              />
-                           )}
+                           <Image
+                              src={post.imageUrl && (/^https?:\/\//i.test(post.imageUrl) || post.imageUrl.startsWith('/')) ? post.imageUrl : '/backgrounds/pattern-1.svg'}
+                              alt={post.title}
+                              fill
+                              className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 z-0"
+                              data-ai-hint="tech blog"
+                           />
                            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10" />
                            <div className="relative z-20 h-full flex flex-col justify-start p-6 text-white">
                                 <div className="flex gap-2 mb-2">

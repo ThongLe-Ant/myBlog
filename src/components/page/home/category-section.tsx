@@ -52,18 +52,48 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
 
     const chunkedRegularPosts = chunk(regularPosts, 4);
 
+    const backgroundPatterns = [
+        '/backgrounds/pattern-1.svg',
+        '/backgrounds/pattern-2.svg',
+        '/backgrounds/pattern-3.svg',
+        '/backgrounds/pattern-4.svg',
+        '/backgrounds/thumb-1.svg',
+        '/backgrounds/thumb-2.svg',
+        '/backgrounds/thumb-3.svg',
+        '/backgrounds/project-1.svg',
+        '/backgrounds/project-2.svg',
+        '/backgrounds/project-3.svg',
+        '/backgrounds/project-4.svg'
+    ];
+
+    const isValidImageSrc = (src: string) => {
+        if (!src) return false;
+        if (src.startsWith('/')) return true;
+        if (/^https?:\/\//i.test(src)) return true;
+        return false;
+    };
+
+    const pickPatternIndex = (seed: string) => {
+        let total = 0;
+        for (let i = 0; i < seed.length; i++) total = (total + seed.charCodeAt(i)) % backgroundPatterns.length;
+        return total;
+    };
+
+    const getSafeImageSrc = (src: string | undefined, seed: string) => {
+        if (src && isValidImageSrc(src)) return src;
+        return backgroundPatterns[pickPatternIndex(seed)];
+    };
+
     const MainPostCard = ({ post }: { post: Post }) => (
         <Link href={`/posts/${post.slug}`} className="block h-full group">
             <Card className="relative h-full min-h-[480px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2)] group-hover:-translate-y-1 rounded-2xl bg-surface/60 backdrop-blur border border-white/10">
-                {post.imageUrl && (
-                    <Image
-                        src={post.imageUrl}
-                        alt={post.title}
-                        fill
-                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
-                        data-ai-hint="tech blog"
-                    />
-                )}
+                <Image
+                    src={getSafeImageSrc(post.imageUrl, post.slug)}
+                    alt={post.title}
+                    fill
+                    className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                    data-ai-hint="tech blog"
+                />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10" />
                 <div className="relative z-20 h-full flex flex-col justify-start p-8 text-white">
                     <div className="flex gap-2 mb-2">
@@ -83,15 +113,13 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
     const SidePostCard = ({ post }: { post: Post }) => (
          <Link href={`/posts/${post.slug}`} className="block h-full group">
             <Card className="relative h-full min-h-[220px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2)] group-hover:-translate-y-1 rounded-2xl bg-surface/60 backdrop-blur border border-white/10">
-                {post.imageUrl && (
-                    <Image
-                        src={post.imageUrl}
-                        alt={post.title}
-                        fill
-                        className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 z-0"
-                        data-ai-hint="tech blog"
-                    />
-                )}
+                <Image
+                    src={getSafeImageSrc(post.imageUrl, post.slug)}
+                    alt={post.title}
+                    fill
+                    className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 z-0"
+                    data-ai-hint="tech blog"
+                />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
                 <div className="relative z-20 h-full flex flex-col justify-start p-4 text-white">
                     <h3 className="font-semibold text-white text-md group-hover:underline transition-all">{post.title}</h3>
