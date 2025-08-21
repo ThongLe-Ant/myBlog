@@ -78,6 +78,17 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     '/backgrounds/project-4.svg'
   ];
 
+  const isValidImageSrc = (src: string) => {
+    if (!src) return false;
+    if (src.startsWith('/')) return true;
+    if (/^https?:\/\//i.test(src)) return true;
+    return false;
+  };
+
+  const getSafeImageSrc = (src: string | undefined, index: number) => {
+    if (src && isValidImageSrc(src)) return src;
+    return backgroundPatterns[index % backgroundPatterns.length];
+  };
 
   return (
     <div className="space-y-8">
@@ -132,15 +143,13 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                     )}>
                         {isImageCard ? (
                           <>
-                             {post.imageUrl && (
-                                 <Image
-                                    src={post.imageUrl}
-                                    alt={post.title}
-                                    fill
-                                    className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
-                                    data-ai-hint="tech blog"
-                                />
-                             )}
+                            <Image
+                              src={getSafeImageSrc(post.imageUrl, index)}
+                              alt={post.title}
+                              fill
+                              className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
+                              data-ai-hint="tech blog"
+                            />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                             <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
                                  <div className="flex-grow">
@@ -217,6 +226,8 @@ function getExcerptLength(index: number) {
     }
     return 80; // Smaller cards
 }
+
+    
 
     
 

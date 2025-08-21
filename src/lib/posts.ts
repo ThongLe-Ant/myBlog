@@ -1,26 +1,23 @@
 
 'use server';
 
-import fs from 'fs/promises';
-import path from 'path';
 import { revalidatePath } from 'next/cache';
+import { sql } from '@/lib/db';
 
 export interface Post {
   slug: string;
   title: string;
   category: string;
-  content: string; 
+  content: string;
   published: boolean;
   featured?: boolean;
   imageUrl?: string;
   excerpt?: string;
 }
 
-const postsDirectory = path.join(process.cwd(), 'src/data/posts');
-
 // A list of default local SVG images for posts that don't have one.
 const defaultImages = [
-   
+
     '/backgrounds/pattern-1.svg',
     '/backgrounds/pattern-2.svg',
     '/backgrounds/pattern-3.svg',
@@ -28,186 +25,177 @@ const defaultImages = [
     '/backgrounds/thumb-1.svg',
     '/backgrounds/thumb-2.svg',
     '/backgrounds/thumb-3.svg',
-    '/backgrounds/project-1.svg', 
+    '/backgrounds/project-1.svg',
     '/backgrounds/project-2.svg',
     '/backgrounds/project-3.svg',
     '/backgrounds/project-4.svg'
 ];
 
-// Helper to get category file path
-const getCategoryFilePath = (category: string) => {
-    const fileName = `${category.toLowerCase().replace(/\s+/g, '-')}.json`;
-    return path.join(postsDirectory, fileName);
+const createSlug = (title: string) => {
+    return title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
 }
-
-// Helper to ensure directory exists
-const ensureDirectoryExists = async () => {
-    try {
-        await fs.access(postsDirectory);
-    } catch {
-        await fs.mkdir(postsDirectory, { recursive: true });
-    }
-}
-
-// Helper to read posts from a specific category file
-const readCategoryFile = async (filePath: string): Promise<Post[]> => {
-    try {
-        const data = await fs.readFile(filePath, 'utf-8');
-        return JSON.parse(data) as Post[];
-    } catch (error) {
-        if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-            return []; // File not found, return empty array
-        }
-        throw error; // Other errors
-    }
-};
 
 export async function getPosts(): Promise<Post[]> {
   try {
-    await ensureDirectoryExists();
-    const categoryFiles = await fs.readdir(postsDirectory);
-    let allPosts: Post[] = [];
+    const rows = await sql`
+      select
+        slug,
+        title,
+        category,
+        content,
+        published,
+        featured,
+        image_url as "imageUrl"
+      from posts
+      order by created_at desc
+    `;
 
-    for (const file of categoryFiles) {
-        if (file.endsWith('.json')) {
-            const filePath = path.join(postsDirectory, file);
-            const posts = await readCategoryFile(filePath);
-            allPosts.push(...posts);
-        }
-    }
-    
-    // Assign default images to posts without one
+    let allPosts: Post[] = rows.map((r) => ({
+      slug: r.slug,
+      title: r.title,
+      category: r.category,
+      content: r.content,
+      published: r.published,
+      featured: Boolean(r.featured || false),
+      imageUrl: r.imageUrl || undefined,
+      excerpt: r.content.substring(0, 250),
+    }));
+
+    // Assign default images to posts without one deterministically
     allPosts = allPosts.map((post, index) => {
-        if (!post.imageUrl) {
-            // Use a deterministic way to assign default images to avoid hydration issues
-            return {
-                ...post,
-                imageUrl: defaultImages[index % defaultImages.length]
-            };
-        }
-        return post;
+      if (!post.imageUrl) {
+        return {
+          ...post,
+          imageUrl: defaultImages[index % defaultImages.length]
+        };
+      }
+      return post;
     });
 
     return allPosts;
   } catch (error) {
-    console.error('Error reading posts:', error);
+    console.error('Error fetching posts from DB:', error);
     return [];
   }
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | undefined> {
-  const posts = await getPosts();
-  return posts.find(post => post.slug === slug);
-}
+  const rows = await sql`
+    select slug, title, category, content, published, featured, image_url as "imageUrl"
+    from posts
+    where slug = ${slug}
+    limit 1
+  `;
 
-const createSlug = (title: string) => {
-    return title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+  const r = rows[0];
+  if (!r) return undefined;
+  return {
+    slug: r.slug,
+    title: r.title,
+    category: r.category,
+    content: r.content,
+    published: r.published,
+    featured: Boolean(r.featured || false),
+    imageUrl: r.imageUrl || undefined,
+    excerpt: r.content.substring(0, 250),
+  };
 }
 
 export async function savePost(post: Omit<Post, 'slug' | 'excerpt'>) {
-    await ensureDirectoryExists();
-    const filePath = getCategoryFilePath(post.category);
-    const categoryPosts = await readCategoryFile(filePath);
+  const { title, content, category, published, featured, imageUrl } = post;
+  let newSlug = createSlug(title);
 
-    const newPost: Post = {
-        ...post,
-        slug: createSlug(post.title),
-        excerpt: post.content.substring(0, 250),
-        featured: post.featured || false,
-    };
+  const tryInsert = async (slugToUse: string) => {
+    await sql`
+      insert into posts (
+        slug, title, category, content, published, featured, image_url, excerpt, created_at, updated_at
+      ) values (
+        ${slugToUse}, ${title}, ${category}, ${content}, ${published}, ${featured || false}, ${imageUrl || null}, ${content.substring(0, 250)}, now(), now()
+      )
+    `;
+    return slugToUse;
+  };
 
-    // Check for duplicate slugs
-    if (categoryPosts.some(p => p.slug === newPost.slug)) {
-        // Simple strategy: append a timestamp to make it unique
-        newPost.slug = `${newPost.slug}-${Date.now()}`;
+  try {
+    try {
+      await tryInsert(newSlug);
+    } catch (err: any) {
+      // Unique violation: append timestamp for uniqueness and retry
+      if (err && err.code === '23505') {
+        newSlug = `${newSlug}-${Date.now()}`;
+        await tryInsert(newSlug);
+      } else {
+        throw err;
+      }
     }
-
-    categoryPosts.unshift(newPost);
-
-    await fs.writeFile(filePath, JSON.stringify(categoryPosts, null, 2));
 
     revalidatePath('/posts');
-    revalidatePath(`/posts/${newPost.slug}`);
+    revalidatePath(`/posts/${newSlug}`);
     revalidatePath('/');
+  } catch (error) {
+    console.error('Error saving post:', error);
+    throw error;
+  }
 }
 
-export async function updatePost(originalSlug: string, originalCategory: string, updatedPostData: Omit<Post, 'slug' | 'excerpt'>) {
-    await ensureDirectoryExists();
-    
-    const { title, content, category, published, featured, imageUrl } = updatedPostData;
-    const newSlug = createSlug(title);
+export async function updatePost(originalSlug: string, _originalCategory: string, updatedPostData: Omit<Post, 'slug' | 'excerpt'>) {
+  const { title, content, category, published, featured, imageUrl } = updatedPostData;
+  const newSlug = createSlug(title);
 
-    const originalFilePath = getCategoryFilePath(originalCategory);
-    let originalCategoryPosts = await readCategoryFile(originalFilePath);
+  try {
+    await sql`
+      update posts set
+        slug = ${newSlug},
+        title = ${title},
+        category = ${category},
+        content = ${content},
+        published = ${published},
+        featured = ${featured || false},
+        image_url = ${imageUrl || null},
+        excerpt = ${content.substring(0, 250)},
+        updated_at = now()
+      where slug = ${originalSlug}
+    `;
 
-    const postIndex = originalCategoryPosts.findIndex(p => p.slug === originalSlug);
-
-    if (postIndex === -1) {
-        throw new Error(`Post with slug "${originalSlug}" not found in category "${originalCategory}"`);
-    }
-
-    // If category has changed
-    if (originalCategory !== category) {
-        // Remove post from old category
-        const [postToMove] = originalCategoryPosts.splice(postIndex, 1);
-        await fs.writeFile(originalFilePath, JSON.stringify(originalCategoryPosts, null, 2));
-        
-        // Update post details
-        postToMove.title = title;
-        postToMove.content = content;
-        postToMove.category = category;
-        postToMove.published = published;
-        postToMove.featured = featured;
-        postToMove.slug = newSlug;
-        postToMove.imageUrl = imageUrl;
-        postToMove.excerpt = content.substring(0, 250);
-
-
-        // Add to new category
-        const newFilePath = getCategoryFilePath(category);
-        const newCategoryPosts = await readCategoryFile(newFilePath);
-        newCategoryPosts.unshift(postToMove);
-        await fs.writeFile(newFilePath, JSON.stringify(newCategoryPosts, null, 2));
-
-    } else {
-        // Just update the post in the same category
-        originalCategoryPosts[postIndex] = {
-            ...originalCategoryPosts[postIndex],
-            title,
-            content,
-            category,
-            published,
-            featured,
-            imageUrl,
-            slug: newSlug,
-            excerpt: content.substring(0, 250),
-        };
-        await fs.writeFile(originalFilePath, JSON.stringify(originalCategoryPosts, null, 2));
-    }
-    
-    // Revalidate relevant paths
     revalidatePath('/posts');
     revalidatePath('/');
     revalidatePath(`/posts/${originalSlug}`);
     if (originalSlug !== newSlug) {
       revalidatePath(`/posts/${newSlug}`);
     }
+  } catch (error: any) {
+    // Handle potential slug conflict
+    if (error && error.code === '23505') {
+      const uniqueSlug = `${newSlug}-${Date.now()}`;
+      await sql`
+        update posts set
+          slug = ${uniqueSlug},
+          title = ${title},
+          category = ${category},
+          content = ${content},
+          published = ${published},
+          featured = ${featured || false},
+          image_url = ${imageUrl || null},
+          excerpt = ${content.substring(0, 250)},
+          updated_at = now()
+        where slug = ${originalSlug}
+      `;
+      revalidatePath(`/posts/${uniqueSlug}`);
+    } else {
+      console.error('Error updating post:', error);
+      throw error;
+    }
+  }
 }
 
-export async function deletePost(slug: string, category: string) {
-    await ensureDirectoryExists();
-    const filePath = getCategoryFilePath(category);
-    let categoryPosts = await readCategoryFile(filePath);
-
-    const updatedPosts = categoryPosts.filter(p => p.slug !== slug);
-
-    if (updatedPosts.length === categoryPosts.length) {
-        throw new Error(`Post with slug "${slug}" not found in category "${category}"`);
-    }
-
-    await fs.writeFile(filePath, JSON.stringify(updatedPosts, null, 2));
-
+export async function deletePost(slug: string, _category: string) {
+  try {
+    await sql`delete from posts where slug = ${slug}`;
     revalidatePath('/posts');
     revalidatePath('/');
     revalidatePath(`/posts/${slug}`);
+  } catch (error) {
+    console.error('Error deleting post:', error);
+    throw error;
+  }
 }
