@@ -262,3 +262,5 @@ export default function CreatePostPage() {
          </Card>
       </div>
     </div>
+  );
+}
