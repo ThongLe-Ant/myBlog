@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/language-context';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ProfileAvatar } from '@/components/profile-avatar';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
@@ -54,10 +55,7 @@ export function HomeHeroBanner() {
                 transition={{ duration: 0.8, ease: 'easeOut' }}
                 className="lg:col-span-2 flex justify-center"
               >
-                <Avatar className="w-52 h-52 lg:w-64 lg:h-64 border-4 border-primary/20 shadow-xl shadow-primary/20">
-                  <AvatarImage src="https://storage.googleapis.com/maker-studio-5a93d.appspot.com/users%2FqEg2yVE49bZ230z3a42qfI4pB3t1%2Fstudios%2Fdc48b261-26c3-424a-a434-d023b36ed658%2Fimage_1724036662446_46.png" alt="Le Minh Thong Avatar" data-ai-hint="professional portrait man" />
-                  <AvatarFallback>LMT</AvatarFallback>
-                </Avatar>
+                <ProfileAvatar className="w-52 h-52 lg:w-64 lg:h-64 border-4 border-primary/20 shadow-xl shadow-primary/20" alt="Le Minh Thong Avatar" fallbackText="LMT" />
               </motion.div>
               <motion.div 
                 initial={{ opacity: 0, x: 50 }}
