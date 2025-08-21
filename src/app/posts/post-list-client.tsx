@@ -63,7 +63,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
 
   return (
     <div className="space-y-8">
-      <div className="sticky top-[6.5rem] z-40 bg-background/80 backdrop-blur-xl -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-4">
+      <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-xl -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex flex-col gap-4 max-w-7xl mx-auto">
             <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
