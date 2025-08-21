@@ -53,7 +53,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     router.replace(`/posts?${params.toString()}`, { scroll: false });
   }
 
-  const getExcerpt = (contentStr: string, length = 100) => {
+  const getExcerpt = (contentStr: string, length = 150) => {
     if (!contentStr) return '';
     const cleanedContent = contentStr.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
     if (cleanedContent.length <= length) return cleanedContent;
