@@ -21,11 +21,11 @@ export default async function PostsListPage({
   // Extract unique categories and sort them
   const categories = ['All', ...Array.from(new Set(posts.map(p => p.category))).sort()];
   
-  const pageTitle = "My Blog Posts";
-  const pageDescription = "Find, search, and manage all your articles here in your personal collection.";
+  const pageTitle = "My Collection";
+  const pageDescription = "Curate your digital space. Find, search, and manage all your articles here.";
 
   return (
-    <div className="py-12 px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8 space-y-8">
       <div className="flex justify-between items-center">
         <div>
             <h1 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{pageTitle}</h1>
