@@ -1,12 +1,12 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { FilePenLine, ArrowRight, Search } from 'lucide-react';
+import { FilePenLine, Search, ChevronLeft, ChevronRight, Tag, Code2, Database, Cpu, Wrench, BookOpen, Sparkles, Terminal, Workflow, Bot, Rocket, Palette, Server, Globe, Package } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import type { Post } from '@/lib/posts';
 import Link from 'next/link';
@@ -25,11 +25,34 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(initialCategory);
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
     // This updates the tab if the category changes via URL
     setActiveTab(initialCategory);
   }, [initialCategory]);
+
+  const searchFilteredPosts = useMemo(() => {
+    const term = searchTerm.trim().toLowerCase();
+    if (!term) return posts;
+    return posts.filter(post =>
+      post.title.toLowerCase().includes(term) ||
+      (post.excerpt && post.excerpt.toLowerCase().includes(term)) ||
+      post.content.toLowerCase().includes(term)
+    );
+  }, [posts, searchTerm]);
+
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const c of categories) counts[c] = 0;
+    for (const p of searchFilteredPosts) {
+      counts[p.category] = (counts[p.category] || 0) + 1;
+    }
+    counts['All'] = searchFilteredPosts.length;
+    return counts;
+  }, [categories, searchFilteredPosts]);
 
   const filteredPosts = posts.filter(post => {
     const matchesCategory = activeTab === 'All' || post.category === activeTab;
@@ -51,6 +74,56 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     router.replace(`/posts?${params.toString()}`, { scroll: false });
   }
 
+  const updateScrollButtons = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  };
+
+  useEffect(() => {
+    updateScrollButtons();
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScroll = () => updateScrollButtons();
+    el.addEventListener('scroll', onScroll);
+    window.addEventListener('resize', updateScrollButtons);
+    return () => {
+      el.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', updateScrollButtons);
+    };
+  }, []);
+
+  useEffect(() => {
+    updateScrollButtons();
+  }, [categories, searchTerm]);
+
+  const scrollByAmount = (direction: 'left' | 'right') => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const amount = Math.round(el.clientWidth * 0.8);
+    el.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
+  };
+
+  const getCategoryIcon = (name: string) => {
+    const n = name.toLowerCase();
+    if (n === 'all') return Sparkles;
+    if (n.includes('ai')) return Bot;
+    if (n.includes('front')) return Code2;
+    if (n.includes('back')) return Server;
+    if (n.includes('devops')) return Wrench;
+    if (n.includes('data')) return Database;
+    if (n.includes('cheat')) return Terminal;
+    if (n.includes('learn')) return BookOpen;
+    if (n.includes('life')) return Globe;
+    if (n.includes('search')) return Workflow;
+    if (n.includes('showcase') || n.includes('demo')) return Rocket;
+    if (n.includes('design')) return Palette;
+    if (n.includes('package') || n.includes('lib')) return Package;
+    if (n.includes('cpu') || n.includes('system')) return Cpu;
+    return Tag;
+  };
+
   const getExcerpt = (contentStr: string, length = 100) => {
     if (!contentStr) return '';
     const cleanedContent = contentStr.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
@@ -69,6 +142,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     '/backgrounds/pattern-2.svg',
     '/backgrounds/pattern-3.svg',
     '/backgrounds/pattern-4.svg',
+    '/backgrounds/pattern-light.svg',
     '/backgrounds/thumb-1.svg',
     '/backgrounds/thumb-2.svg',
     '/backgrounds/thumb-3.svg',
@@ -104,14 +178,68 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
-            <div className="w-full overflow-x-auto">
+            <div className="relative w-full">
                 <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-                    <TabsList className="w-full justify-start">
-                        {categories.map(category => (
-                            <TabsTrigger key={category} value={category}>{category}</TabsTrigger>
-                        ))}
-                    </TabsList>
+                    <div ref={scrollRef} className="w-full overflow-x-auto scroll-smooth px-6 sm:px-8">
+                        <TabsList className="flex w-max gap-3 bg-transparent p-0 h-11">
+                            {categories.map((category) => {
+                                const Icon = getCategoryIcon(category);
+                                const count = categoryCounts[category] ?? 0;
+                                const isActive = activeTab === category;
+                                return (
+                                    <TabsTrigger
+                                        key={category}
+                                        value={category}
+                                        className={cn(
+                                            "rounded-full h-11 px-5 border transition-colors",
+                                            "bg-background text-foreground/80 hover:bg-muted",
+                                            isActive && "bg-primary text-primary-foreground shadow"
+                                        )}
+                                    >
+                                        <Icon className="mr-2 h-4 w-4" />
+                                        <span className="whitespace-nowrap">{category}</span>
+                                        <span
+                                            className={cn(
+                                                "ml-2 shrink-0 rounded-full px-2 py-0.5 text-[11px] leading-none",
+                                                isActive ? "bg-primary-foreground/25 text-primary-foreground" : "bg-muted text-muted-foreground"
+                                            )}
+                                        >
+                                            {count}
+                                        </span>
+                                    </TabsTrigger>
+                                );
+                            })}
+                        </TabsList>
+                    </div>
                 </Tabs>
+                <div className="pointer-events-none absolute left-0 top-0 h-11 w-12 bg-gradient-to-r from-background to-transparent" />
+                <div className="pointer-events-none absolute right-0 top-0 h-11 w-12 bg-gradient-to-l from-background to-transparent" />
+                <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Scroll categories left"
+                    onClick={() => scrollByAmount('left')}
+                    className={cn(
+                        "absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-10 rounded-full border bg-background/80 backdrop-blur",
+                        canScrollLeft ? "opacity-100" : "opacity-0 pointer-events-none"
+                    )}
+                >
+                    <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Scroll categories right"
+                    onClick={() => scrollByAmount('right')}
+                    className={cn(
+                        "absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-10 rounded-full border bg-background/80 backdrop-blur",
+                        canScrollRight ? "opacity-100" : "opacity-0 pointer-events-none"
+                    )}
+                >
+                    <ChevronRight className="h-4 w-4" />
+                </Button>
             </div>
         </div>
       </div>

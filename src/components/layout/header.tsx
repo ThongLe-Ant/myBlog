@@ -12,7 +12,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Mountain, Search } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { ThemeToggle } from './theme-toggle';
 import { useRouter, usePathname } from 'next/navigation';
@@ -74,6 +74,47 @@ export function Header() {
   const currentLangConfig = languages.find(lang => lang.code === language) || languages[0];
   const router = useRouter();
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const desktopSearchRef = useRef<HTMLInputElement | null>(null);
+  const mobileSearchRef = useRef<HTMLInputElement | null>(null);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  const searchPlaceholder = language === 'vi' ? 'Tìm bài viết...' : 'Search posts...';
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 2);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '/' && !(e.target instanceof HTMLInputElement) && !(e.target instanceof HTMLTextAreaElement)) {
+        e.preventDefault();
+        if (desktopSearchRef.current) {
+          desktopSearchRef.current.focus();
+          return;
+        }
+        if (mobileSearchRef.current) {
+          mobileSearchRef.current.focus();
+        }
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  const isLinkActive = (href: string) => {
+    const [path] = href.split('#');
+    if (!hasMounted) return false;
+    return pathname === path;
+  };
 
   const handleLinkClick = (href: string) => {
     if (href.startsWith('/') && href.includes('#')) {
@@ -95,15 +136,21 @@ export function Header() {
     }
   };
 
+  const headerClassWhenMounted = `sticky top-0 z-50 w-full border-b backdrop-blur-xl transition-colors ${scrolled ? 'border-border/40 bg-background/95 shadow-sm' : 'border-border/20 bg-background/80'}`;
+  const headerClassWhenSSR = 'sticky top-0 z-50 w-full border-b border-border/20 bg-background/80 backdrop-blur-xl';
+  const effectiveHeaderClass = hasMounted ? headerClassWhenMounted : headerClassWhenSSR;
+
+  const effectivePlaceholder = hasMounted ? (language === 'vi' ? 'Tìm bài viết...' : 'Search posts...') : 'Search posts...';
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/20 bg-background/80 backdrop-blur-xl">
+    <header className={effectiveHeaderClass}>
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2 font-bold" onMouseOver={() => setHoveredPath('/')} onMouseLeave={() => setHoveredPath('')}>
             <Mountain className="h-6 w-6 text-primary" />
             <span className="text-lg font-semibold tracking-wider text-foreground">LMT</span>
           </Link>
 
-          <nav className="hidden items-center gap-2 text-sm font-medium md:flex">
+          <nav aria-label="Main navigation" className="hidden items-center gap-2 text-sm font-medium md:flex">
               {navLinks[language].map((link) => (
                 <a
                   key={link.label}
@@ -112,12 +159,13 @@ export function Header() {
                       e.preventDefault();
                       handleLinkClick(link.href);
                   }}
-                  className="relative rounded-md px-3 py-2 uppercase tracking-wider transition-colors hover:text-primary"
+                  aria-current={isLinkActive(link.href) ? 'page' : undefined}
+                  className={`relative rounded-md px-3 py-2 uppercase tracking-wider transition-colors hover:text-primary ${isLinkActive(link.href) ? 'text-primary/90 bg-primary/5' : ''}`}
                   onMouseOver={() => setHoveredPath(link.href)}
                   onMouseLeave={() => setHoveredPath('')}
                 >
                   {link.label}
-                  {hoveredPath === link.href && (
+                  {(hoveredPath === link.href) && (
                     <motion.div
                       className="absolute bottom-0 left-0 h-full w-full bg-primary/10 rounded-md -z-10"
                       layoutId="underline"
@@ -132,15 +180,16 @@ export function Header() {
 
 
           <div className="flex items-center gap-2">
-            <form onSubmit={handleSearchSubmit} className="hidden md:block">
+            <form onSubmit={handleSearchSubmit} className="hidden md:block" role="search" aria-label="Site search">
               <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                   <Input 
                       type="search" 
-                      placeholder="Search posts..." 
+                      placeholder={effectivePlaceholder} 
                       className="pl-10 w-40 lg:w-56 bg-transparent"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
+                      ref={desktopSearchRef}
                   />
               </div>
             </form>
@@ -164,7 +213,7 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
             
-            <Sheet>
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon" className="md:hidden">
                   <Menu className="h-6 w-6" />
@@ -177,15 +226,16 @@ export function Header() {
                         <Mountain className="h-6 w-6 text-primary" />
                         <span className="text-lg">LMT</span>
                     </Link>
-                    <form onSubmit={handleSearchSubmit}>
+                    <form onSubmit={handleSearchSubmit} role="search" aria-label="Site search">
                         <div className="relative">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                             <Input 
                                 type="search" 
-                                placeholder="Search posts..." 
+                                placeholder={effectivePlaceholder} 
                                 className="pl-10 w-full"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
+                                ref={mobileSearchRef}
                             />
                         </div>
                     </form>
@@ -195,9 +245,11 @@ export function Header() {
                           href={link.href}
                           onClick={(e) => {
                               e.preventDefault();
+                              setIsMobileMenuOpen(false);
                               handleLinkClick(link.href);
                           }}
-                          className="transition-colors hover:text-primary uppercase"
+                          aria-current={isLinkActive(link.href) ? 'page' : undefined}
+                          className={`transition-colors hover:text-primary uppercase ${isLinkActive(link.href) ? 'text-primary/90' : ''}`}
                         >
                           {link.label}
                         </a>

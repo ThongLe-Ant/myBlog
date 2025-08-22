@@ -78,10 +78,18 @@
   body {
     @apply antialiased;
     background-color: hsl(var(--background));
-    background-image: url('/backgrounds/dot-grid.svg');
+    background-image: url('/backgrounds/thumb-3.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+
+  .dark body {
+    background-image: url('/backgrounds/pattern-4.svg');
   }
 }
 

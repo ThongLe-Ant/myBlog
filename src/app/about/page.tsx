@@ -538,8 +538,8 @@ export default function AboutPage() {
 
   return (
     <div ref={cvContentRef} className="relative">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent" />
-      <div id="cv-noise-bg" className="pointer-events-none absolute inset-0 -z-10 bg-[url(/noise.png)] opacity-20" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent dark:from-amber-500/5" />
+      <div id="cv-noise-bg" className="pointer-events-none absolute inset-0 -z-10 bg-[url(/noise.png)] opacity-20 dark:opacity-10" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <HeroBanner showContactInfo={true} onDownloadCV={handleDownloadCV} />
       </div>
@@ -579,7 +579,7 @@ export default function AboutPage() {
               <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
                   {c.projects.items.map((project, index) => (
                       <SectionReveal key={project.title} options={{ delay: index * 0.1 }}>
-                          <Card className="group relative bg-white/5 dark:bg-surface/60 backdrop-blur rounded-3xl overflow-hidden border border-white/10 h-full flex flex-col">
+                          <Card className="group relative bg-surface/60 backdrop-blur rounded-3xl overflow-hidden border border-border/50 h-full flex flex-col">
                               <div className="relative w-full aspect-[16/10] overflow-hidden">
                                   <Image
                                     src={project.imageUrl}
@@ -672,7 +672,7 @@ export default function AboutPage() {
                   </p>
               </div>
               <div className="grid md:grid-cols-2 gap-12">
-                  <div className="bg-surface/60 backdrop-blur rounded-2xl border border-white/10 p-8">
+                  <div className="bg-surface/60 backdrop-blur rounded-2xl border border-border/50 p-8">
                       <h3 className="text-2xl font-bold text-foreground mb-8">{c.skills.domain.title}</h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           {c.skills.domain.items.map((skill) => {
@@ -701,7 +701,7 @@ export default function AboutPage() {
                           })}
                       </div>
                   </div>
-                  <div className="bg-surface/60 backdrop-blur rounded-2xl border border-white/10 p-8 relative overflow-hidden">
+                  <div className="bg-surface/60 backdrop-blur rounded-2xl border border-border/50 p-8 relative overflow-hidden">
                       <h3 className="text-2xl font-bold text-foreground mb-6">{c.skills.tech.title}</h3>
                       <div className="flex justify-center">
                         <ChartContainer

@@ -1,0 +1,61 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="wave1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:hsl(210, 20%, 70%);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:hsl(210, 20%, 85%);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="wave2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:hsl(220, 85%, 60%);stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:hsl(260, 85%, 60%);stop-opacity:0.5" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:hsl(220, 90%, 55%);stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:hsl(260, 90%, 55%);stop-opacity:0.05" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#ffffff" />
+
+  <!-- Soft accent blob -->
+  <ellipse cx="640" cy="-20" rx="220" ry="180" fill="url(#accent)" />
+
+  <!-- Waves -->
+  <path d="M0 360 C 120 320, 240 400, 360 360 C 480 320, 600 400, 800 360" fill="none" stroke="url(#wave1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M0 420 C 130 380, 260 460, 390 420 C 520 380, 640 460, 800 420" fill="none" stroke="url(#wave2)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M0 480 C 150 450, 300 520, 450 480 C 600 440, 700 520, 800 480" fill="none" stroke="hsl(210, 20%, 75%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Modern circles -->
+  <circle cx="120" cy="140" r="24" fill="none" stroke="hsl(220, 15%, 80%)" stroke-width="2" />
+  <circle cx="120" cy="140" r="8" fill="hsl(220, 90%, 56%)" fill-opacity="0.15" />
+  <circle cx="700" cy="120" r="12" fill="none" stroke="hsl(260, 15%, 80%)" stroke-width="2" />
+  <circle cx="700" cy="120" r="4" fill="hsl(260, 90%, 60%)" fill-opacity="0.15" />
+
+  <!-- Modern triangles -->
+  <polygon points="220,200 240,235 200,235" fill="none" stroke="hsl(220, 15%, 80%)" stroke-width="2" />
+  <polygon points="600,220 620,255 580,255" fill="hsl(260, 90%, 60%)" fill-opacity="0.08" />
+
+  <!-- subtle dots grid -->
+  <g fill="hsl(220, 15%, 80%)" fill-opacity="0.15">
+    <circle cx="36" cy="560" r="1" />
+    <circle cx="76" cy="560" r="1" />
+    <circle cx="116" cy="560" r="1" />
+    <circle cx="156" cy="560" r="1" />
+    <circle cx="196" cy="560" r="1" />
+    <circle cx="236" cy="560" r="1" />
+    <circle cx="276" cy="560" r="1" />
+    <circle cx="316" cy="560" r="1" />
+    <circle cx="356" cy="560" r="1" />
+    <circle cx="396" cy="560" r="1" />
+    <circle cx="436" cy="560" r="1" />
+    <circle cx="476" cy="560" r="1" />
+    <circle cx="516" cy="560" r="1" />
+    <circle cx="556" cy="560" r="1" />
+    <circle cx="596" cy="560" r="1" />
+    <circle cx="636" cy="560" r="1" />
+    <circle cx="676" cy="560" r="1" />
+    <circle cx="716" cy="560" r="1" />
+    <circle cx="756" cy="560" r="1" />
+  </g>
+</svg>
+
