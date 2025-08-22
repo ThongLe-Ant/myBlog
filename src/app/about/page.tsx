@@ -138,8 +138,8 @@ const content = {
         title: "Technology",
         items: [
             '.NET', 'Golang', 'Python', 'Java', 'Node.js', 'React', 'Next.js', 'TypeScript',
-            'SQL Server', 'PostgreSQL', 'MongoDB', 'Kafka', 'Redis', 'Docker', 'Kubernetes',
-            'AWS', 'Azure', 'CI/CD', 'Microservices', 'API Gateway'
+            'SQL Server', 'PostgreSQL','Oracle','MySQL', 'Kafka', 'Redis', 'Docker', 'Kubernetes',
+            'Azure', 'CI/CD', 'Microservices', 'API Gateway', 'AI', 'LLM'
         ]
       }
     },
@@ -153,8 +153,10 @@ const content = {
                 role: 'Backend Engineer',
                 description: 'Developing Digital Banking systems.',
                 projects: [
-                    'SmartPOS built on .NET Core & Docker',
-                    'International payments integrating ARP/MoneyGram/Western Union'
+                    'SmartPOS - Convenient payment system',
+                    'International payments integrating ARP/MoneyGram/Western Union',
+                    'Transaction reconciliation',
+                    'Distribution & payment of partner commissions'
                 ],
                 result: 'Handles >10,000 transactions/day',
             },
@@ -164,7 +166,10 @@ const content = {
                 role: 'Backend Developer',
                 description: 'Developed CSM & Internal Payment systems for the leading e-wallet.',
                 projects: [
-                    'Optimized transaction platform with Golang & Kafka'
+                    'HR & Payroll management',
+                    'Internal payment management',
+                    'Internal payment management'
+        
                 ],
                 result: 'Reduced processing time by ~20%',
             },
@@ -175,14 +180,17 @@ const content = {
                 description: 'Delivered ERP solutions for large enterprises.',
                 projects: [
                     'Nguyen Minh Steel – comprehensive production management',
-                    'Sacombank – centralized equipment/warehouse management'
+                    'Sacombank – centralized equipment/warehouse management',
+                    'Ehealth – hospital management system'
+
+
                 ],
             },
             {
                 company: 'SamHo',
                 period: '2016 - 2018',
-                role: 'ERP Developer',
-                description: 'Built ERP for a factory with >5,000 employees.',
+                role: 'ERP & MES Developer',
+                description: 'Built ERP for a factory with >12,000 employees.',
                 projects: [
                     'Integrated HR & Payroll module',
                     'Production management & product BOM'
@@ -208,7 +216,7 @@ const content = {
                 client: 'EOC',
                 category: 'Industrial Catering',
                 description: 'Supply chain management system for an industrial catering provider with over 50,000 meals/day.',
-                tags: ['Python', 'Java', 'Node.js', 'MongoDB'],
+                tags: ['Python', 'Java', 'Node.js', 'PostgreSQL'],
                 imageUrl: '/eoc_logo.jpg',
                 aiHint: 'supply chain food'
             },
@@ -343,7 +351,7 @@ const content = {
             { name: 'Hệ thống thanh toán', level: 'Nâng cao' },
             { name: 'Báo cáo & Dashboard', level: 'Chuyên gia' },
             { name: 'Tự động hóa', level: 'Nâng cao' },
-            { name: 'Tối ưu hóa hiệu năng', level: 'Chuyên gia' },
+            { name: 'Tối ưu hóa', level: 'Chuyên gia' },
             { name: 'Quản lý dự án', level: 'Nâng cao' },
             { name: 'Bảo mật hệ thống', level: 'Nâng cao' },
         ]
@@ -352,8 +360,8 @@ const content = {
         title: "Công nghệ",
         items: [
             '.NET', 'Golang', 'Python', 'Java', 'Node.js', 'React', 'Next.js', 'TypeScript',
-            'SQL Server', 'PostgreSQL', 'MongoDB', 'Kafka', 'Redis', 'Docker', 'Kubernetes',
-            'AWS', 'Azure', 'CI/CD', 'Microservices', 'API Gateway'
+            'SQL Server', 'PostgreSQL','Oracle','MySQL', 'Kafka', 'Redis', 'Docker', 'Kubernetes',
+            'Azure', 'CI/CD', 'Microservices', 'API Gateway', 'AI', 'LLM'
         ]
       }
     },
@@ -367,8 +375,10 @@ const content = {
                 role: 'Kỹ sư Backend',
                 description: 'Phát triển Ngân hàng Số.',
                 projects: [
-                    'SmartPOS trên .NET Core & Docker',
-                    'Thanh toán quốc tế tích hợp ARP/MoneyGram/Western Union'
+                    'SmartPOS hệ thống thanh toán tiện lợi',
+                    'Thanh toán quốc tế tích hợp ARP/MoneyGram/Western Union',
+                    'Đối soát giao dịch',
+                    'Phân bổ và thanh toán hoa hồng đối tác'
                 ],
                 result: 'Xử lý >10.000 giao dịch/ngày',
             },
@@ -378,7 +388,9 @@ const content = {
                 role: 'Lập trình viên Backend',
                 description: 'Phát triển CSM & Thanh toán nội bộ cho ví điện tử hàng đầu.',
                 projects: [
-                    'Tối ưu nền tảng giao dịch với Golang & Kafka'
+                    'Quản lý nhân sự & tiền lương',
+                    'Quản lý hoa hồng điểm thanh toán điện tử',
+                    'Quản lý & thanh toán nội bộ'
                 ],
                 result: 'Giảm ~20% thời gian xử lý',
             },
@@ -389,14 +401,15 @@ const content = {
                 description: 'Triển khai giải pháp ERP cho doanh nghiệp lớn.',
                 projects: [
                     'Nguyễn Minh Steel – hệ thống quản lý sản xuất toàn diện',
-                    'Sacombank – quản lý kho/thiết bị tập trung'
+                    'Sacombank – quản lý kho/thiết bị tập trung',
+                    'Ehealth – hệ thống quản lý bệnh viện'
                 ],
             },
             {
                 company: 'SamHo',
                 period: '2016 - 2018',
-                role: 'Lập trình viên ERP',
-                description: 'Xây dựng ERP cho nhà máy >5.000 nhân viên.',
+                role: 'Lập trình viên ERP, MES',
+                description: 'Xây dựng ERP cho nhà máy >12.000 nhân viên.',
                 projects: [
                     'Nhân sự & Tính lương tích hợp',
                     'Quản lý sản xuất & BOM sản phẩm'
@@ -422,7 +435,7 @@ const content = {
                 client: 'EOC',
                 category: 'Suất ăn công nghiệp',
                 description: 'Hệ thống quản lý chuỗi cung ứng cho nhà cung cấp suất ăn công nghiệp với hơn 50,000 bữa ăn/ngày.',
-                tags: ['Python', 'Java', 'Node.js', 'MongoDB'],
+                tags: ['Python', 'Java', 'Node.js', 'PostgreSQL'],
                 imageUrl: '/eoc_logo.jpg',
                 aiHint: 'supply chain food'
             },
