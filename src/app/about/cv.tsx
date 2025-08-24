@@ -348,7 +348,7 @@ export default function CVCanvas() {
   };
 
   return (
-    <div ref={cvRef} className="relative bg-white">
+    <div ref={cvRef} className="relative bg-white theme-blue">
       {/* Solid white background layer for clean export */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-white" />
 

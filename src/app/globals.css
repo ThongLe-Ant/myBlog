@@ -91,6 +91,14 @@
   .dark body {
     background-image: url('/backgrounds/pattern-4.svg');
   }
+
+  /* Scoped theme override: blue primary */
+  .theme-blue {
+    --primary: 217 91% 50%; /* blue-500 */
+    --ring: var(--primary);
+    --chart-1: hsl(var(--primary));
+    --nebula-1-color: hsla(var(--primary), 0.12);
+  }
 }
 
 @layer utilities {
