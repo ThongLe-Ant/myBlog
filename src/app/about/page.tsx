@@ -510,14 +510,15 @@ export default function AboutPage() {
 
   return (
     <div ref={cvContentRef} className="relative">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent dark:from-amber-500/5" />
-      <div id="cv-noise-bg" className="pointer-events-none absolute inset-0 -z-10 bg-[url(/noise.png)] opacity-20 dark:opacity-10" />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+       <div className="container mx-auto px-4 sm:px-6 lg:px-4">
         <HeroBanner showContactInfo={true} onDownloadCV={handleDownloadCV} />
       </div>
+      {/* <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent dark:from-amber-500/5" />
+      <div id="cv-noise-bg" className="pointer-events-none absolute inset-0 -z-10 bg-[url(/noise.png)] opacity-20 dark:opacity-10" />
+      */}
 
       {/* Strengths Section */}
-      <section className="w-full py-16 lg:py-24">
+      <section className="w-full py-4 lg:py-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 bg-clip-text text-transparent">{c.strengths.title}</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

@@ -168,9 +168,20 @@ export function Header() {
             </Link>
           </div>
 
-          <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-white/20 text-white/90"
+              onClick={() => setLanguage(language === 'vi' ? 'en' : 'vi')}
+            >
+              {language === 'vi' ? 'VI' : 'EN'}
+            </Button>
+            <button className="text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
 
         {mobileMenuOpen && (
