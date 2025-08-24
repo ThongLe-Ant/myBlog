@@ -358,7 +358,7 @@ export default function CVCanvas() {
           <button
             id="download-cv-btn"
             onClick={handleDownloadPDF}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl border shadow-sm hover:shadow transition"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl border border-blue-500 bg-blue-500 text-white shadow-sm hover:bg-blue-600 hover:shadow transition dark:bg-blue-600 dark:border-blue-700 dark:hover:bg-blue-700 dark:text-white dark:shadow-blue-900/20"
           >
             <Download className="w-4 h-4" /> Download CV
           </button>
