@@ -154,7 +154,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                         >
                             <CarouselContent>
                                 {featuredPosts.map((post) => (
-                                    <CarouselItem key={post.slug}>
+                                    <CarouselItem key={post.slug} className="py-3">
                                          <SectionReveal className="h-full" options={{ delay: 0.1 }}>
                                             <MainPostCard post={post} />
                                          </SectionReveal>
@@ -184,7 +184,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                         >
                             <CarouselContent className="-ml-4">
                                  {chunkedRegularPosts.map((postChunk, index) => (
-                                    <CarouselItem key={index} className="pl-4 basis-full">
+                                    <CarouselItem key={index} className="pl-4 basis-full py-3">
                                          <div className="grid grid-cols-2 gap-4">
                                             {postChunk.map((post) => (
                                                 <SectionReveal key={post.slug} className="h-full" options={{ delay: 0.2 + index * 0.1 }}>

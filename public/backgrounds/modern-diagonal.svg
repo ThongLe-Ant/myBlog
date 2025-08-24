@@ -1,0 +1,39 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="diagonal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#ec4899;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#f43f5e;stop-opacity:0.8" />
+    </linearGradient>
+    <pattern id="diagonalLines" patternUnits="userSpaceOnUse" width="40" height="40">
+      <path d="M -10,10 l 20,-20
+               M 0,40 l 40,-40
+               M 30,50 l 20,-20" 
+            stroke="url(#diagonal)" stroke-width="1" opacity="0.3"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bg3)" />
+  
+  <!-- Diagonal pattern -->
+  <rect width="800" height="600" fill="url(#diagonalLines)" />
+  
+  <!-- Decorative elements -->
+  <g opacity="0.2">
+    <rect x="100" y="100" width="60" height="60" fill="url(#diagonal)" transform="rotate(30 130 130)" />
+    <rect x="500" y="300" width="40" height="40" fill="url(#diagonal)" transform="rotate(-15 520 320)" />
+    <rect x="300" y="450" width="50" height="50" fill="url(#diagonal)" transform="rotate(45 325 475)" />
+  </g>
+  
+  <!-- Floating circles -->
+  <g fill="url(#diagonal)" opacity="0.3">
+    <circle cx="200" cy="200" r="8" />
+    <circle cx="600" cy="150" r="12" />
+    <circle cx="400" cy="500" r="6" />
+  </g>
+</svg>

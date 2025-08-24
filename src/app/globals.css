@@ -78,7 +78,7 @@
   body {
     @apply antialiased;
     background-color: hsl(var(--background));
-    background-image: url('/backgrounds/thumb-3.svg');
+    background-image: url('/backgrounds/modern-particle.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;

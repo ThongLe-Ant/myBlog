@@ -1,0 +1,43 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="geo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f97316;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#eab308;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#84cc16;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bg2)" />
+  
+  <!-- Geometric pattern -->
+  <g opacity="0.15">
+    <!-- Hexagons -->
+    <polygon points="200,100 220,115 220,145 200,160 180,145 180,115" fill="url(#geo)" />
+    <polygon points="600,200 620,215 620,245 600,260 580,245 580,215" fill="url(#geo)" />
+    <polygon points="400,400 420,415 420,445 400,460 380,445 380,415" fill="url(#geo)" />
+    
+    <!-- Triangles -->
+    <polygon points="100,300 130,320 100,340" fill="url(#geo)" />
+    <polygon points="700,100 730,120 700,140" fill="url(#geo)" />
+    <polygon points="500,500 530,520 500,540" fill="url(#geo)" />
+    
+    <!-- Circles -->
+    <circle cx="300" cy="150" r="15" fill="url(#geo)" />
+    <circle cx="500" cy="350" r="20" fill="url(#geo)" />
+    <circle cx="150" cy="500" r="10" fill="url(#geo)" />
+  </g>
+  
+  <!-- Floating particles -->
+  <g fill="white" opacity="0.2">
+    <circle cx="100" cy="80" r="2" />
+    <circle cx="750" cy="120" r="3" />
+    <circle cx="400" cy="60" r="1.5" />
+    <circle cx="250" cy="550" r="2.5" />
+    <circle cx="650" cy="480" r="2" />
+  </g>
+</svg>

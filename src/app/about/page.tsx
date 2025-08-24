@@ -31,8 +31,6 @@ import { SectionReveal } from '@/components/motion/section-reveal';
 import { CardInteractive } from '@/components/motion/card-interactive';
 import React from 'react';
 import Image from 'next/image';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import { useLanguage } from '@/context/language-context';
 import { HeroHighlight } from '@/components/motion/hero-highlight';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -150,7 +148,7 @@ const content = {
             {
                 company: 'Asia Commercial Bank (ACB)',
                 period: '2022 - Present',
-                role: 'Backend Engineer',
+                role: 'Technical Analyst',
                 description: 'Developing Digital Banking systems.',
                 projects: [
                     'SmartPOS - Convenient payment system',
@@ -176,7 +174,7 @@ const content = {
             {
                 company: 'FPT Software',
                 period: '2018 - 2020',
-                role: 'Technical Analyst',
+                role: 'Senior Software Engineer',
                 description: 'Delivered ERP solutions for large enterprises.',
                 projects: [
                     'Nguyen Minh Steel – comprehensive production management',
@@ -372,7 +370,7 @@ const content = {
             {
                 company: 'Ngân hàng Á Châu (ACB)',
                 period: '2022 - Hiện tại',
-                role: 'Kỹ sư Backend',
+                role: 'Chuyên viên giải pháp kỹ thuật',
                 description: 'Phát triển Ngân hàng Số.',
                 projects: [
                     'SmartPOS hệ thống thanh toán tiện lợi',
@@ -397,7 +395,7 @@ const content = {
             {
                 company: 'FPT Software',
                 period: '2018 - 2020',
-                role: 'Chuyên viên Phân tích Kỹ thuật',
+                role: 'Senior Software Engineer',
                 description: 'Triển khai giải pháp ERP cho doanh nghiệp lớn.',
                 projects: [
                     'Nguyễn Minh Steel – hệ thống quản lý sản xuất toàn diện',
@@ -493,46 +491,7 @@ export default function AboutPage() {
   // carousel autoplay removed
 
   const handleDownloadCV = () => {
-    if (cvContentRef.current) {
-      const element = cvContentRef.current;
-      const backgroundColor = window.getComputedStyle(document.body).getPropertyValue('--background').trim();
-
-      html2canvas(element, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: `hsl(${backgroundColor})`,
-        windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight,
-        scrollX: 0,
-        scrollY: -window.scrollY,
-        // Exclude the download button and the noise background layer to prevent load errors
-        ignoreElements: (el) => el.id === 'download-cv-btn' || el.id === 'cv-noise-bg',
-      }).then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'mm', 'a4');
-
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdf.internal.pageSize.getHeight();
-
-        const imgWidth = pdfWidth; // fit to page width
-        const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-
-        let heightLeft = imgHeight;
-        let position = 0;
-
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pdfHeight;
-
-        while (heightLeft > 0) {
-          position = heightLeft - imgHeight; // shift image up for next page
-          pdf.addPage();
-          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-          heightLeft -= pdfHeight;
-        }
-
-        pdf.save('Le-Minh-Thong-CV.pdf');
-      });
-    }
+    window.open('/about/cv', '_blank', 'noopener,noreferrer');
   };
 
 
@@ -545,7 +504,7 @@ export default function AboutPage() {
       </div>
 
       {/* Strengths Section */}
-      <section className="w-full bg-background py-16 lg:py-24">
+      <section className="w-full py-16 lg:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 bg-clip-text text-transparent">{c.strengths.title}</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -585,7 +544,7 @@ export default function AboutPage() {
                                     src={project.imageUrl}
                                     alt={project.title}
                                     fill
-                                    className="object-contain bg-background"
+                                    className="object-contain mt-5 p-5"
                                     data-ai-hint={project.aiHint}
                                   />
                                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

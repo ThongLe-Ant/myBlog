@@ -2,17 +2,9 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Mountain, Search } from 'lucide-react';
+import { ArrowRight, Menu, Mountain, Search, X } from 'lucide-react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/language-context';
 import { ThemeToggle } from './theme-toggle';
 import { useRouter, usePathname } from 'next/navigation';
@@ -68,51 +60,29 @@ const languages = [
 ]
 
 export function Header() {
-  const [hoveredPath, setHoveredPath] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
   const { language, setLanguage } = useLanguage();
-  const currentLangConfig = languages.find(lang => lang.code === language) || languages[0];
   const router = useRouter();
   const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [navOpacity, setNavOpacity] = useState(0);
   const [scrolled, setScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const desktopSearchRef = useRef<HTMLInputElement | null>(null);
-  const mobileSearchRef = useRef<HTMLInputElement | null>(null);
-  const [hasMounted, setHasMounted] = useState(false);
-
-  const searchPlaceholder = language === 'vi' ? 'Tìm bài viết...' : 'Search posts...';
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 2);
+    const onScroll = () => {
+      const y = window.scrollY;
+      const ratio = Math.min(y / 200, 1);
+      const computed = ratio * 0.7; // from 0.0 to 0.7
+      setNavOpacity(computed);
+      setScrolled(y > 4);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === '/' && !(e.target instanceof HTMLInputElement) && !(e.target instanceof HTMLTextAreaElement)) {
-        e.preventDefault();
-        if (desktopSearchRef.current) {
-          desktopSearchRef.current.focus();
-          return;
-        }
-        if (mobileSearchRef.current) {
-          mobileSearchRef.current.focus();
-        }
-      }
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, []);
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
   const isLinkActive = (href: string) => {
     const [path] = href.split('#');
-    if (!hasMounted) return false;
     return pathname === path;
   };
 
@@ -129,136 +99,153 @@ export function Header() {
     }
   };
 
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/posts?search=${encodeURIComponent(searchQuery.trim())}`);
-    }
-  };
-
-  const headerClassWhenMounted = `sticky top-0 z-50 w-full border-b backdrop-blur-xl transition-colors ${scrolled ? 'border-border/40 bg-background/95 shadow-sm' : 'border-border/20 bg-background/80'}`;
-  const headerClassWhenSSR = 'sticky top-0 z-50 w-full border-b border-border/20 bg-background/80 backdrop-blur-xl';
-  const effectiveHeaderClass = hasMounted ? headerClassWhenMounted : headerClassWhenSSR;
-
-  const effectivePlaceholder = hasMounted ? (language === 'vi' ? 'Tìm bài viết...' : 'Search posts...') : 'Search posts...';
-
   return (
-    <header className={effectiveHeaderClass}>
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-          <Link href="/" className="flex items-center gap-2 font-bold" onMouseOver={() => setHoveredPath('/')} onMouseLeave={() => setHoveredPath('')}>
-            <Mountain className="h-6 w-6 text-primary" />
-            <span className="text-lg font-semibold tracking-wider text-foreground">LMT</span>
+    <header>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 px-4 lg:px-8 py-4 backdrop-blur-sm transition-colors duration-300 ${scrolled ? 'border-b border-white/20' : ''}`}
+        style={{ backgroundColor: scrolled ? `rgba(0,0,0, ${navOpacity})` : 'transparent' }}
+      >
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 text-white font-semibold text-xl">
+            <Mountain className="h-6 w-6" />
+            <span>LMT</span>
           </Link>
 
-          <nav aria-label="Main navigation" className="hidden items-center gap-2 text-sm font-medium md:flex">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (searchQuery.trim()) {
+                router.push(`/posts?search=${encodeURIComponent(searchQuery.trim())}`);
+              }
+            }}
+            className="hidden md:block ml-4"
+            role="search"
+            aria-label="Site search"
+          >
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/60" />
+              <Input
+                type="search"
+                placeholder={language === 'vi' ? 'Tìm bài viết...' : 'Search posts...'}
+                className="pl-9 w-44 lg:w-56 bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+          </form>
+
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks[language].map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick(link.href);
+                }}
+                aria-current={isLinkActive(link.href) ? 'page' : undefined}
+                className="text-white/90 hover:text-white text-sm font-medium transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <div className="hidden md:flex items-center space-x-4">
+            <Link href="#" className="text-white/90 hover:text-white text-sm font-medium transition-colors">
+              Login
+            </Link>
+            <Button
+              className="bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5"
+              size="sm"
+            >
+              Get Started
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            <ThemeToggle />
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-white/20 text-white/90"
+              onClick={() => setLanguage(language === 'vi' ? 'en' : 'vi')}
+            >
+              {language === 'vi' ? 'VI' : 'EN'}
+            </Button>
+          </div>
+
+          <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+
+        {mobileMenuOpen && (
+          <div className="md:hidden mt-4 p-4 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
+            <div className="flex flex-col space-y-4">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (searchQuery.trim()) {
+                    router.push(`/posts?search=${encodeURIComponent(searchQuery.trim())}`);
+                  }
+                }}
+                role="search"
+                aria-label="Site search"
+              >
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/60" />
+                  <Input
+                    type="search"
+                    placeholder={language === 'vi' ? 'Tìm bài viết...' : 'Search posts...'}
+                    className="pl-9 w-full bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+              </form>
+
+              <div className="flex items-center gap-3">
+                <ThemeToggle />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-white/20 text-white/90"
+                  onClick={() => setLanguage(language === 'vi' ? 'en' : 'vi')}
+                >
+                  {language === 'vi' ? 'VI' : 'EN'}
+                </Button>
+              </div>
+
               {navLinks[language].map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick(link.href);
+                    e.preventDefault();
+                    setMobileMenuOpen(false);
+                    handleLinkClick(link.href);
                   }}
                   aria-current={isLinkActive(link.href) ? 'page' : undefined}
-                  className={`relative rounded-md px-3 py-2 uppercase tracking-wider transition-colors hover:text-primary ${isLinkActive(link.href) ? 'text-primary/90 bg-primary/5' : ''}`}
-                  onMouseOver={() => setHoveredPath(link.href)}
-                  onMouseLeave={() => setHoveredPath('')}
+                  className="text-white/90 hover:text-white text-sm font-medium"
                 >
                   {link.label}
-                  {(hoveredPath === link.href) && (
-                    <motion.div
-                      className="absolute bottom-0 left-0 h-full w-full bg-primary/10 rounded-md -z-10"
-                      layoutId="underline"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    />
-                  )}
                 </a>
               ))}
-          </nav>
-
-
-          <div className="flex items-center gap-2">
-            <form onSubmit={handleSearchSubmit} className="hidden md:block" role="search" aria-label="Site search">
-              <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <Input 
-                      type="search" 
-                      placeholder={effectivePlaceholder} 
-                      className="pl-10 w-40 lg:w-56 bg-transparent"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      ref={desktopSearchRef}
-                  />
-              </div>
-            </form>
-            <ThemeToggle />
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="gap-2">
-                  {currentLangConfig.flag}
-                  <span className="font-semibold">{currentLangConfig.short}</span>
-                  <span className="sr-only">Toggle language</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {languages.map((lang) => (
-                    <DropdownMenuItem key={lang.code} onClick={() => setLanguage(lang.code as 'en' | 'vi')} className="gap-2">
-                        {lang.flag}
-                        <span>{lang.label}</span>
-                    </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            
-            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="md:hidden">
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Toggle navigation menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="bg-surface">
-                <nav className="grid gap-6 p-6 text-lg font-medium">
-                    <Link href="/" className="flex items-center gap-2 font-bold mb-4">
-                        <Mountain className="h-6 w-6 text-primary" />
-                        <span className="text-lg">LMT</span>
-                    </Link>
-                    <form onSubmit={handleSearchSubmit} role="search" aria-label="Site search">
-                        <div className="relative">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                            <Input 
-                                type="search" 
-                                placeholder={effectivePlaceholder} 
-                                className="pl-10 w-full"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                ref={mobileSearchRef}
-                            />
-                        </div>
-                    </form>
-                    {navLinks[language].map((link) => (
-                        <a
-                          key={link.label}
-                          href={link.href}
-                          onClick={(e) => {
-                              e.preventDefault();
-                              setIsMobileMenuOpen(false);
-                              handleLinkClick(link.href);
-                          }}
-                          aria-current={isLinkActive(link.href) ? 'page' : undefined}
-                          className={`transition-colors hover:text-primary uppercase ${isLinkActive(link.href) ? 'text-primary/90' : ''}`}
-                        >
-                          {link.label}
-                        </a>
-                    ))}
-                </nav>
-              </SheetContent>
-            </Sheet>
+              <hr className="border-white/20" />
+              <Link href="#" className="text-white/90 hover:text-white text-sm font-medium">
+                Login
+              </Link>
+              <Button
+                className="bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm w-full justify-center"
+                size="sm"
+              >
+                Get Started
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
           </div>
-      </div>
+        )}
+      </nav>
+      <div className="h-16" />
     </header>
   );
 }

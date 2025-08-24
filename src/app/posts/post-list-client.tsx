@@ -180,7 +180,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
             </div>
             <div className="relative w-full">
                 <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-                    <div ref={scrollRef} className="w-full overflow-x-auto scroll-smooth px-6 sm:px-8">
+                    <div ref={scrollRef} className="w-full overflow-x-auto scroll-smooth px-0">
                         <TabsList className="flex w-max gap-3 bg-transparent p-0 h-11">
                             {categories.map((category) => {
                                 const Icon = getCategoryIcon(category);
@@ -212,8 +212,6 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                         </TabsList>
                     </div>
                 </Tabs>
-                <div className="pointer-events-none absolute left-0 top-0 h-11 w-12 bg-gradient-to-r from-background to-transparent" />
-                <div className="pointer-events-none absolute right-0 top-0 h-11 w-12 bg-gradient-to-l from-background to-transparent" />
                 <Button
                     type="button"
                     variant="ghost"

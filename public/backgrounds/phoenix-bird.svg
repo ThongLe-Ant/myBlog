@@ -1,0 +1,105 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="phoenixBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="phoenixBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B0000;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FF0000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B0000;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="phoenixWings" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8B0000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="phoenixTail" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8B0000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="phoenixEyes" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:1" />
+    </linearGradient>
+    
+    <radialGradient id="phoenixGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF4500" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FF4500" stop-opacity="0"/>
+    </radialGradient>
+    
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#phoenixBg)" />
+  
+  <!-- Phoenix glow effect -->
+  <circle cx="400" cy="300" r="150" fill="url(#phoenixGlow)" opacity="0.3"/>
+  
+  <!-- Phoenix body -->
+  <g transform="rotate(45 400 300)">
+    <!-- Body -->
+    <ellipse cx="400" cy="300" rx="40" ry="80" fill="url(#phoenixBody)" />
+    
+    <!-- Wings -->
+    <path d="M 360 260 Q 300 220 280 280 Q 320 300 360 320 Z" fill="url(#phoenixWings)" />
+    <path d="M 440 260 Q 500 220 520 280 Q 480 300 440 320 Z" fill="url(#phoenixWings)" />
+    
+    <!-- Tail feathers -->
+    <path d="M 360 370 Q 320 420 340 460 Q 380 440 400 400 Q 420 440 460 460 Q 480 420 440 370 Z" fill="url(#phoenixTail)" />
+    
+    <!-- Head -->
+    <circle cx="400" cy="220" r="30" fill="url(#phoenixBody)" />
+    
+    <!-- Beak -->
+    <path d="M 400 230 L 430 240 L 400 250 Z" fill="#D4AF37" />
+    
+    <!-- Crown/Plume -->
+    <path d="M 400 190 Q 390 160 400 140 Q 410 160 400 190" fill="#D4AF37" />
+    
+    <!-- Eyes -->
+    <circle cx="390" cy="210" r="5" fill="url(#phoenixEyes)" />
+    <circle cx="410" cy="210" r="5" fill="url(#phoenixEyes)" />
+    <circle cx="390" cy="210" r="2" fill="#000000" />
+    <circle cx="410" cy="210" r="2" fill="#000000" />
+    
+    <!-- Flame effect around body -->
+    <path d="M 360 280 Q 340 260 330 290 Q 350 300 360 320 Q 340 330 330 360 Q 350 340 360 320" fill="#FF4500" opacity="0.7" filter="url(#glow)"/>
+    <path d="M 440 280 Q 460 260 470 290 Q 450 300 440 320 Q 460 330 470 360 Q 450 340 440 320" fill="#FF4500" opacity="0.7" filter="url(#glow)"/>
+  </g>
+  
+  <!-- Decorative fire particles -->
+  <g fill="#FF4500" opacity="0.6">
+    <circle cx="300" cy="200" r="3">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="500" cy="400" r="2">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="350" r="2.5">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="600" cy="250" r="1.5">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Sparkle effects -->
+  <g fill="#FFD700" opacity="0.8">
+    <polygon points="100,100 102,105 107,105 103,108 105,113 100,110 95,113 97,108 93,105 98,105" />
+    <polygon points="700,150 702,155 707,155 703,158 705,163 700,160 695,163 697,158 693,155 698,155" />
+    <polygon points="250,500 252,505 257,505 253,508 255,513 250,510 245,513 247,508 243,505 248,505" />
+  </g>
+</svg>
