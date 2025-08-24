@@ -86,12 +86,12 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
 
     const MainPostCard = ({ post }: { post: Post }) => (
         <Link href={`/posts/${post.slug}`} className="block h-full group">
-            <Card className="relative h-full min-h-[480px] flex flex-col overflow-hidden transition-transform duration-500 ease-smooth group-hover:scale-[1.02] group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2)] rounded-2xl bg-surface/60 backdrop-blur border border-white/10">
+            <Card className="relative h-full min-h-[480px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2)] group-hover:-translate-y-1 rounded-2xl bg-surface/60 backdrop-blur border border-white/10">
                 <Image
                     src={getSafeImageSrc(post.imageUrl, post.slug)}
                     alt={post.title}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
                     data-ai-hint="tech blog"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10" />
@@ -112,12 +112,12 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
 
     const SidePostCard = ({ post }: { post: Post }) => (
          <Link href={`/posts/${post.slug}`} className="block h-full group">
-            <Card className="relative h-full min-h-[220px] flex flex-col overflow-hidden transition-transform duration-500 ease-smooth group-hover:scale-[1.02] group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2)] rounded-2xl bg-surface/60 backdrop-blur border border-white/10">
+            <Card className="relative h-full min-h-[220px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2)] group-hover:-translate-y-1 rounded-2xl bg-surface/60 backdrop-blur border border-white/10">
                 <Image
                     src={getSafeImageSrc(post.imageUrl, post.slug)}
                     alt={post.title}
                     fill
-                    className="object-cover z-0"
+                    className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 z-0"
                     data-ai-hint="tech blog"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
@@ -152,9 +152,9 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                                 }),
                             ]}
                         >
-                            <CarouselContent className="overflow-visible">
+                            <CarouselContent>
                                 {featuredPosts.map((post) => (
-                                    <CarouselItem key={post.slug} className="py-3">
+                                    <CarouselItem key={post.slug}>
                                          <SectionReveal className="h-full" options={{ delay: 0.1 }}>
                                             <MainPostCard post={post} />
                                          </SectionReveal>
@@ -182,9 +182,9 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                             ]}
                             className="w-full group col-span-1"
                         >
-                            <CarouselContent className="-ml-4 overflow-visible">
+                            <CarouselContent className="-ml-4">
                                  {chunkedRegularPosts.map((postChunk, index) => (
-                                    <CarouselItem key={index} className="pl-4 basis-full py-3">
+                                    <CarouselItem key={index} className="pl-4 basis-full">
                                          <div className="grid grid-cols-2 gap-4">
                                             {postChunk.map((post) => (
                                                 <SectionReveal key={post.slug} className="h-full" options={{ delay: 0.2 + index * 0.1 }}>
