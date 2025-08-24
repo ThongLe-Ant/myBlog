@@ -152,16 +152,8 @@ export function Header() {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="#" className="text-white/90 hover:text-white text-sm font-medium transition-colors">
-              Login
-            </Link>
-            <Button
-              className="bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5"
-              size="sm"
-            >
-              Get Started
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            
+           
             <ThemeToggle />
             <Button
               variant="outline"
@@ -171,6 +163,9 @@ export function Header() {
             >
               {language === 'vi' ? 'VI' : 'EN'}
             </Button>
+            <Link href="#" className="text-white/90 hover:text-white text-sm font-medium transition-colors">
+              Login
+            </Link>
           </div>
 
           <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
@@ -234,13 +229,6 @@ export function Header() {
               <Link href="#" className="text-white/90 hover:text-white text-sm font-medium">
                 Login
               </Link>
-              <Button
-                className="bg-white/10 hover:bg-white/20 border border-white/20 text-white backdrop-blur-sm w-full justify-center"
-                size="sm"
-              >
-                Get Started
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
             </div>
           </div>
         )}
