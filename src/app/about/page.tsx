@@ -132,6 +132,13 @@ const content = {
             { name: 'System Security', level: 'Advanced' },
         ]
       },
+      certificates: [
+        { title: 'Design Thinking', description: 'Design Thinking system and business model' },
+        { title: 'Agile Project Management In Bangking by IMTPM', description: 'Agile Project Management In Bangking' },
+        { title: 'Certificate of Money transfer by MONEYGRAM', description: 'Money transfer system' },
+        { title: 'Analytic Data by IMIC', description: 'Analytic Data business intelligence' },
+      ],
+
       tech: {
         title: "Technology",
         items: [
@@ -354,6 +361,12 @@ const content = {
             { name: 'Bảo mật hệ thống', level: 'Nâng cao' },
         ]
       },
+      certificates: [
+        { title: 'Design Thinking', description: 'Design Thinking system and business model' },
+        { title: 'Agile Project Management In Bangking by IMTPM', description: 'Agile Project Management In Bangking' },
+        { title: 'Certificate of Money transfer by MONEYGRAM', description: 'Money transfer system' },
+        { title: 'Analytic Data by IMIC', description: 'Analytic Data business intelligence' },
+      ],
       tech: {
         title: "Công nghệ",
         items: [
@@ -491,7 +504,7 @@ export default function AboutPage() {
   // carousel autoplay removed
 
   const handleDownloadCV = () => {
-    window.open('/about/cv', '_blank', 'noopener,noreferrer');
+    window.location.href = '/about/cv';
   };
 
 

@@ -440,12 +440,10 @@ export default function CVCanvas() {
             <SectionTitle icon={GraduationCap}>CERTIFICATES</SectionTitle>
             <ul className="mt-2 space-y-2 print:space-y-1">
               {certificates.map((cert: { title: string; description: string }) => (
-                <li key={cert.title} className="flex items-start gap-3 text-muted-foreground">
-                  <GraduationCap className="w-4 h-4 mt-0.5 text-primary" />
-                  <div>
-                    <div className="text-sm font-semibold text-foreground">{cert.title}</div>
-                    <div className="text-xs">{cert.description}</div>
-                  </div>
+                <li key={cert.title} className="inline-flex items-center gap-2 align-middle leading-none text-muted-foreground">
+                  <GraduationCap className="w-4 h-4 text-primary relative top-[1px] print:top-0" />
+                  <span className="text-sm font-semibold text-foreground leading-none">{cert.title}</span>
+                  <span className="text-xs">— {cert.description}</span>
                 </li>
               ))}
             </ul>
@@ -551,9 +549,9 @@ export default function CVCanvas() {
                 <div className="font-bold text-foreground">{aboutData.expertiseAreas.title}</div>
                 <ul className="mt-3 space-y-2">
                   {aboutData.expertiseAreas.items.map((area) => (
-                    <li key={area} className="flex items-center gap-3 text-muted-foreground">
-                      <CheckCircle className="w-5 h-5 text-primary" />
-                      <span>{area}</span>
+                    <li key={area} className="inline-flex items-center gap-2 align-middle leading-none text-muted-foreground">
+                      <CheckCircle className="w-4 h-4 text-primary relative top-[1px] print:top-0" />
+                      <span className="leading-none">{area}</span>
                     </li>
                   ))}
                 </ul>
@@ -562,9 +560,9 @@ export default function CVCanvas() {
                 <div className="font-bold text-foreground">{aboutData.keyAchievements.title}</div>
                 <ul className="mt-3 space-y-2">
                   {aboutData.keyAchievements.items.map((result) => (
-                    <li key={result} className="flex items-center gap-3 text-muted-foreground">
-                      <Zap className="w-5 h-5 text-primary" />
-                      <span>{result}</span>
+                    <li key={result} className="inline-flex items-center gap-2 align-middle leading-none text-muted-foreground">
+                      <Zap className="w-4 h-4 text-primary relative top-[1px] print:top-0" />
+                      <span className="leading-none">{result}</span>
                     </li>
                   ))}
                 </ul>
@@ -578,7 +576,7 @@ export default function CVCanvas() {
             <div className="mt-2 grid sm:grid-cols-2 gap-2 print:gap-2">
               {strengths.map((s) => (
                 <div key={s.title} className="rounded-xl border border-black/5 p-3 print:p-2 hover:shadow-sm transition">
-                  <div className="flex items-center gap-2 leading-none print:leading-none">
+                  <div className="inline-flex items-center gap-2 leading-none print:leading-none align-middle">
                     <s.icon className="w-4 h-4 flex-none opacity-70 relative top-[1px] print:top-0" />
                     <div className="leading-tight print:leading-tight align-middle">
                       <div className="font-medium align-middle">{s.title}</div>
