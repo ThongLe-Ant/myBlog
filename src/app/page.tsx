@@ -34,7 +34,16 @@ export default async function HomePage() {
     <div className="flex flex-col w-full">
         <HomeHeroBanner />
         
-        <div className="w-full px-4 sm:px-6 lg:px-8 space-y-24 pt-8 lg:pt-12">
+        <div className="w-full px-2 sm:px-6 lg:px-8 space-y-24 pt-4 lg:pt-4">
+          {/* 
+            w-full: Chiếm toàn bộ chiều rộng của phần tử cha
+            px-2: Padding theo chiều ngang 0.5rem (8px) ở màn hình nhỏ
+            sm:px-6: Padding theo chiều ngang 1.5rem (24px) từ breakpoint sm trở lên
+            lg:px-8: Padding theo chiều ngang 2rem (32px) từ breakpoint lg trở lên
+            space-y-24: Khoảng cách 6rem (96px) giữa các phần tử con theo chiều dọc
+            pt-8: Padding phía trên 2rem (32px) ở màn hình nhỏ
+            lg:pt-12: Padding phía trên 3rem (48px) từ breakpoint lg trở lên
+          */}
             <CategoryBrowser categories={sortedCategories} categoryCounts={categoryCounts} />
             
             <FeaturedPosts featuredPosts={featuredPosts} />

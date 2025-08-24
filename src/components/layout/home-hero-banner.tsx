@@ -47,8 +47,8 @@ export function HomeHeroBanner() {
   const router = useRouter();
 
   return (
-      <section className="relative w-full overflow-hidden pt-8 pb-8">
-          <div className="w-full px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 items-start gap-8 z-10 relative">
+      <section className="relative w-full overflow-hidden pt-4 pb-4">
+          <div className="w-full px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 items-start gap-3 z-10 relative">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -61,12 +61,12 @@ export function HomeHeroBanner() {
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-                className="flex flex-col gap-4 lg:col-span-3 text-center lg:text-left">
+                className="flex flex-col gap-2 lg:col-span-3 text-center lg:text-left">
                     <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl">{c.hero.title}</h1>
-                    <h2 className="mt-2 text-2xl font-semibold text-foreground">{c.hero.subtitle}</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">{c.hero.description}</p>
+                    <h2 className="mt-1 text-2xl font-semibold text-foreground">{c.hero.subtitle}</h2>
+                    <p className="mt-1 text-lg text-muted-foreground">{c.hero.description}</p>
                     
-                    <div className="mt-6 grid grid-cols-3 gap-4 text-center">
+                    <div className="mt-2 grid grid-cols-3 gap-2 text-center">
                         {c.stats.map(stat => (
                             <div key={stat.label}>
                                 <p className="text-3xl font-bold text-primary">{stat.value}</p>
@@ -75,7 +75,7 @@ export function HomeHeroBanner() {
                         ))}
                     </div>
 
-                    <div className="mt-8 flex items-center justify-center lg:justify-start gap-4">
+                    <div className="mt-2 flex items-center justify-center lg:justify-start gap-2">
                         <Button size="lg" variant="default" onClick={() => router.push('/about')}>
                             {c.readMore} <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
