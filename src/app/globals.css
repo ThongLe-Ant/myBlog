@@ -4,65 +4,73 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 71% 4%;
-    --card: 240 5% 96%;
-    --card-foreground: 224 71% 4%;
-    --popover: 240 5% 96%;
-    --popover-foreground: 224 71% 4%;
-    --primary: 45 100% 51%;
-    --primary-foreground: 224 71% 4%;
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 224 71% 4%;
-    --muted: 240 5% 90%;
-    --muted-foreground: 240 5% 45%;
-    --accent: 240 5% 96%;
-    --accent-foreground: 224 71% 4%;
+    --background: 220 20% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 224 64% 42%;
+    --primary-foreground: 210 40% 98%;
+    /* Navy gradient tokens */
+    --primary-navy-1: 222 68% 24%;
+    --primary-navy-2: 224 64% 42%;
+    --primary-gradient: linear-gradient(135deg, hsl(var(--primary-navy-1)) 0%, hsl(var(--primary-navy-2)) 100%);
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 220 14% 96%;
+    --accent-foreground: 222 47% 11%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 224 71% 4%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: var(--primary-navy-2);
     --radius-md: 0.5rem;
     --radius-xl: 1rem;
     --radius-2xl: 1.5rem;
-    --surface: 240 5% 96%;
+    --surface: 220 20% 98%;
     --chart-1: hsl(var(--primary));
     --chart-2: 35 92% 55%;
     --chart-3: 25 88% 50%;
     --chart-4: 15 84% 45%;
     --chart-5: 5 80% 40%;
     --dot-bg: hsl(var(--background));
-    --dot-color: hsl(var(--foreground) / 0.1);
+    --dot-color: hsl(var(--foreground) / 0.06);
     --dot-size: 1px;
     --dot-space: 16px;
-    --nebula-1-color: hsla(var(--primary), 0.1);
-    --nebula-2-color: hsla(var(--accent), 0.15);
+    --nebula-1-color: hsla(var(--primary), 0.12);
+    --nebula-2-color: hsla(var(--accent), 0.12);
   }
 
   .dark {
-    --background: 224 71% 4%;
+    --background: 222 47% 11%;
     --foreground: 210 40% 98%;
-    --card: 224 60% 9%;
+    --card: 222 36% 13%;
     --card-foreground: 210 40% 98%;
-    --popover: 224 60% 9%;
+    --popover: 222 36% 13%;
     --popover-foreground: 210 40% 98%;
-    --primary: 45 100% 51%;
-    --primary-foreground: 224 71% 4%;
-    --secondary: 215 28% 17%;
+    --primary: 225 76% 55%;
+    /* Navy gradient tokens (dark) */
+    --primary-navy-1: 222 64% 30%;
+    --primary-navy-2: 225 76% 55%;
+    --primary-gradient: linear-gradient(135deg, hsl(var(--primary-navy-1)) 0%, hsl(var(--primary-navy-2)) 100%);
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 215 28% 17%;
+    --muted: 217 25% 20%;
     --muted-foreground: 215 20% 65%;
-    --accent: 215 28% 17%;
+    --accent: 217 33% 17%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 215 28% 17%;
-    --input: 215 28% 17%;
-    --ring: 45 100% 51%;
-    --surface: 224 60% 9%;
+    --border: 215 28% 23%;
+    --input: 215 28% 23%;
+    --ring: var(--primary-navy-2);
+    --surface: 222 36% 13%;
     --dot-bg: hsl(var(--background));
-    --dot-color: hsl(var(--foreground) / 0.1);
+    --dot-color: hsl(var(--foreground) / 0.08);
     --nebula-1-color: hsla(var(--primary), 0.15);
     --nebula-2-color: hsla(var(--accent), 0.15);
   }
@@ -78,9 +86,15 @@
   body {
     @apply antialiased;
     background-color: hsl(var(--background));
-    /* background-image: url('/backgrounds/modern-particle.svg'); */
-    background-repeat: no-repeat;
-    background-position: center;
+    /* Layered gradients + subtle dot pattern */
+    background-image:
+      radial-gradient(600px 300px at 0% 0%, var(--nebula-1-color) 0%, transparent 70%),
+      radial-gradient(800px 400px at 100% 10%, var(--nebula-2-color) 0%, transparent 70%),
+      radial-gradient(1200px 600px at 50% 0%, color-mix(in oklab, hsl(var(--primary)) 8%, transparent) 0%, transparent 60%),
+      radial-gradient(var(--dot-color) var(--dot-size), transparent var(--dot-size));
+    background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+    background-position: center, center, top center, top left;
+    background-size: auto, auto, 120% 80%, var(--dot-space) var(--dot-space);
     background-attachment: fixed;
     background-size: cover;
     -webkit-font-smoothing: antialiased;
@@ -88,13 +102,26 @@
     text-rendering: optimizeLegibility;
   }
 
-  .dark body {
-    /* background-image: url('/backgrounds/pattern-4.svg'); */
-  }
 
   /* Scoped theme override: blue primary */
   .theme-blue {
     --primary: 217 91% 50%; /* blue-500 */
+    --ring: var(--primary);
+    --chart-1: hsl(var(--primary));
+    --nebula-1-color: hsla(var(--primary), 0.12);
+  }
+
+  /* Optional: emerald primary */
+  .theme-emerald {
+    --primary: 160 84% 39%;
+    --ring: var(--primary);
+    --chart-1: hsl(var(--primary));
+    --nebula-1-color: hsla(var(--primary), 0.12);
+  }
+
+  /* Optional: purple primary */
+  .theme-purple {
+    --primary: 262 83% 58%;
     --ring: var(--primary);
     --chart-1: hsl(var(--primary));
     --nebula-1-color: hsla(var(--primary), 0.12);
@@ -114,5 +141,80 @@
 
   .ease-smooth {
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Elegant surfaces and soft shadows */
+  .surface-glass {
+    background-color: hsl(var(--card) / 0.6);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+
+  .shadow-soft {
+    box-shadow:
+      0 1px 2px hsl(var(--foreground) / 0.08),
+      0 8px 24px hsl(var(--foreground) / 0.12);
+  }
+
+  .section-gradient {
+    background-image:
+      radial-gradient(800px 400px at 0% 0%, var(--nebula-1-color) 0%, transparent 70%),
+      radial-gradient(800px 400px at 100% 0%, var(--nebula-2-color) 0%, transparent 70%);
+    background-repeat: no-repeat;
+  }
+
+  /* Aurora animation */
+  @keyframes auroraShift {
+    0% { transform: translate3d(-10%, -10%, 0) rotate(0deg); }
+    50% { transform: translate3d(10%, 10%, 0) rotate(180deg); }
+    100% { transform: translate3d(-10%, -10%, 0) rotate(360deg); }
+  }
+
+  .aurora {
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(60% 40% at 20% 30%, hsla(var(--primary), 0.18), transparent 65%),
+      radial-gradient(55% 38% at 80% 20%, hsla(var(--accent), 0.14), transparent 65%),
+      radial-gradient(45% 35% at 50% 80%, hsla(var(--primary), 0.12), transparent 65%);
+    filter: blur(40px);
+    animation: auroraShift 20s ease-in-out infinite;
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  /* Interactive spotlight using CSS variables --mx/--my */
+  .spotlight-mask {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mix-blend-mode: soft-light;
+    background:
+      radial-gradient(200px 200px at var(--mx, 50%) var(--my, 50%), hsl(var(--primary) / 0.18) 0%, transparent 60%);
+    -webkit-mask-image: radial-gradient(260px 260px at var(--mx, 50%) var(--my, 50%), rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 45%, transparent 70%);
+    mask-image: radial-gradient(260px 260px at var(--mx, 50%) var(--my, 50%), rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 45%, transparent 70%);
+  }
+
+  /* Button and surface gradient helpers */
+  .bg-primary-gradient {
+    background-image: var(--primary-gradient);
+    color: hsl(var(--primary-foreground));
+  }
+
+  .hover\:bg-primary-gradient:hover {
+    background-image: var(--primary-gradient);
+  }
+
+  .surface-primary-gradient {
+    background-image: var(--primary-gradient);
+    color: hsl(var(--primary-foreground));
+  }
+
+  .text-primary-gradient {
+    background-image: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 }

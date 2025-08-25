@@ -4,6 +4,7 @@ import { PlusCircle } from 'lucide-react';
 import Link from 'next/link';
 import { getPosts, Post } from '@/lib/posts';
 import { PostListClient } from './post-list-client';
+import { CategoryBrowser } from '@/components/page/home/category-browser';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,7 +29,7 @@ export default async function PostsListPage({
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8 space-y-8">
       <div className="flex justify-between items-center">
         <div>
-            <h1 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{pageTitle}</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-primary-gradient sm:text-4xl">{pageTitle}</h1>
             <p className="mt-2 text-lg text-muted-foreground">
                 {pageDescription}
             </p>
@@ -41,11 +42,17 @@ export default async function PostsListPage({
         </Button>
       </div>
 
+      <CategoryBrowser 
+        categories={categories.filter(c => c !== 'All')}
+        categoryCounts={Object.fromEntries(categories.filter(c => c !== 'All').map(c => [c, posts.filter(p => p.category === c).length]))}
+      />
+
       <PostListClient 
         posts={posts} 
         categories={categories}
         initialCategory={category}
         initialSearchTerm={searchTerm}
+        hideCategoryTabs
       />
     </div>
   );

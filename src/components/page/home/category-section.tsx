@@ -28,16 +28,21 @@ const content = {
 interface CategorySectionProps {
     category: string;
     posts: Post[];
+    limit?: number;
+    totalCount?: number;
+    showViewAll?: boolean;
 }
 
-export function CategorySection({ category, posts }: CategorySectionProps) {
+export function CategorySection({ category, posts, limit, totalCount, showViewAll }: CategorySectionProps) {
     const { language } = useLanguage();
     const c = content[language];
     
     if (!posts || posts.length === 0) return null;
 
-    const featuredPosts = posts.filter(p => p.featured);
-    const regularPosts = posts.filter(p => !p.featured);
+    const effectivePosts = typeof limit === 'number' ? posts.slice(0, Math.max(0, limit)) : posts;
+
+    const featuredPosts = effectivePosts.filter(p => p.featured);
+    const regularPosts = effectivePosts.filter(p => !p.featured);
 
     const getExcerpt = (contentStr: string, length = 150) => {
         const cleanedContent = contentStr.replace(/!\[.*?\]\(.*?\)/g, "").replace(/<.*?>/g, "");
@@ -132,7 +137,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
     return (
         <SectionReveal id={category.toLowerCase().replace(/\s+/g, '-')} className="scroll-mt-24">
             <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{category}</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-primary-gradient sm:text-4xl">{category}</h2>
                 <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
                     {`The latest articles and insights on ${category}.`}
                 </p>
@@ -207,7 +212,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
                 )}
             </div>
             
-            {posts.length > 5 && (
+            {(typeof showViewAll === 'boolean' ? showViewAll : ((totalCount ?? posts.length) > (limit ?? 5))) && (
                 <div className="mt-12 text-center">
                     <Button size="lg" asChild variant="link" className="text-primary hover:text-primary/80">
                         <Link href={`/posts?category=${encodeURIComponent(category)}`}>

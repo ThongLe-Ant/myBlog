@@ -15,6 +15,7 @@ import { HeroHighlight } from '@/components/motion/hero-highlight';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ProfileAvatar } from '@/components/profile-avatar';
 import { useRouter } from 'next/navigation';
+import React, { useRef } from 'react';
 
 const content = {
   en: {
@@ -71,10 +72,24 @@ export function HeroBanner({ showContactInfo = false, onDownloadCV, showStats = 
   const { language } = useLanguage();
   const c = content[language];
   const router = useRouter();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
       <HeroHighlight>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          ref={containerRef}
+          onMouseMove={(e) => {
+            const rect = containerRef.current?.getBoundingClientRect();
+            if (!rect) return;
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            containerRef.current?.style.setProperty('--mx', `${x}%`);
+            containerRef.current?.style.setProperty('--my', `${y}%`);
+          }}
+          className="relative overflow-hidden container mx-auto px-4 sm:px-6 lg:px-8 section-gradient rounded-[var(--radius-2xl)] py-6"
+        >
+          <div className="aurora" />
+          <div className="spotlight-mask" />
           <div className="grid lg:grid-cols-5 items-center gap-4 w-full">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}

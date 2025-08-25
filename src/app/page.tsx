@@ -3,32 +3,30 @@ import React from 'react';
 import { getPosts, Post } from '@/lib/posts';
 import { CategoryBrowser } from '@/components/page/home/category-browser';
 import { FeaturedPosts } from '@/components/page/home/featured-posts';
-import { CategorySection } from '@/components/page/home/category-section';
 import { HomeHeroBanner } from '@/components/layout/home-hero-banner';
+import { CategorySection } from '@/components/page/home/category-section';
 
 export const dynamic = 'force-dynamic';
 
-export default async function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined }
+}) {
   const allPosts = await getPosts();
   const publishedPosts = allPosts.filter(p => p.published);
   
   const featuredPosts = publishedPosts.filter(p => p.featured);
-  
-  const postsByCategory = publishedPosts.reduce((acc, post) => {
-    const category = post.category;
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push(post);
-    return acc;
-  }, {} as Record<string, Post[]>);
-  
-  const sortedCategories = Object.keys(postsByCategory).sort((a, b) => a.localeCompare(b));
-  
-  const categoryCounts: Record<string, number> = {};
-  for(const category of sortedCategories) {
-    categoryCounts[category] = postsByCategory[category].length;
-  }
+
+  const categories = ['All', ...Array.from(new Set(publishedPosts.map(p => p.category))).sort()];
+  const categoryCounts = Object.fromEntries(
+    categories
+      .filter(c => c !== 'All')
+      .map(c => [c, publishedPosts.filter(p => p.category === c).length])
+  ) as Record<string, number>;
+
+  const initialSearchTerm = (searchParams?.search as string) || '';
+  const initialCategory = (searchParams?.category as string) || 'All';
 
   return (
     <div className="flex flex-col w-full">
@@ -44,18 +42,26 @@ export default async function HomePage() {
             pt-8: Padding phía trên 2rem (32px) ở màn hình nhỏ
             lg:pt-12: Padding phía trên 3rem (48px) từ breakpoint lg trở lên
           */}
-            <CategoryBrowser categories={sortedCategories} categoryCounts={categoryCounts} />
+            <CategoryBrowser 
+              categories={categories.filter(c => c !== 'All')} 
+              categoryCounts={categoryCounts} 
+            />
             
             <FeaturedPosts featuredPosts={featuredPosts} />
 
-            {/* Posts by Category Sections */}
-            {sortedCategories.map((category) => (
-                <CategorySection
-                    key={category}
-                    category={category}
-                    posts={postsByCategory[category] || []}
+            {categories.filter(c => c !== 'All').map((category) => {
+              const postsInCategory = publishedPosts.filter(p => p.category === category);
+              return (
+                <CategorySection 
+                  key={category}
+                  category={category}
+                  posts={postsInCategory}
+                  limit={6}
+                  totalCount={postsInCategory.length}
+                  showViewAll
                 />
-            ))}
+              );
+            })}
         </div>
     </div>
   );

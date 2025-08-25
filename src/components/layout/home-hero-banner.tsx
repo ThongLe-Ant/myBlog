@@ -10,7 +10,7 @@ import { useLanguage } from '@/context/language-context';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ProfileAvatar } from '@/components/profile-avatar';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useRef } from 'react';
 
 const content = {
   en: {
@@ -45,9 +45,23 @@ export function HomeHeroBanner() {
   const { language } = useLanguage();
   const c = content[language];
   const router = useRouter();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-      <section className="relative w-full overflow-hidden pt-4 pb-4">
+      <section
+        ref={containerRef}
+        onMouseMove={(e) => {
+          const rect = containerRef.current?.getBoundingClientRect();
+          if (!rect) return;
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          containerRef.current?.style.setProperty('--mx', `${x}%`);
+          containerRef.current?.style.setProperty('--my', `${y}%`);
+        }}
+        className="relative w-full overflow-hidden pt-4 pb-4 section-gradient"
+      >
+          <div className="aurora" />
+          <div className="spotlight-mask" />
           <div className="w-full px-4 sm:px-6 lg:px-8 grid lg:grid-cols-5 items-start gap-3 z-10 relative">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}

@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { FilePenLine, Search, ChevronLeft, ChevronRight, Tag, Code2, Database, Cpu, Wrench, BookOpen, Sparkles, Terminal, Workflow, Bot, Rocket, Palette, Server, Globe, Package } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import type { Post } from '@/lib/posts';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -19,15 +19,21 @@ interface PostListClientProps {
     categories: string[];
     initialCategory: string;
     initialSearchTerm: string;
+    hideCategoryTabs?: boolean;
 }
 
-export function PostListClient({ posts, categories, initialCategory, initialSearchTerm }: PostListClientProps) {
+export function PostListClient({ posts, categories, initialCategory, initialSearchTerm, hideCategoryTabs = false }: PostListClientProps) {
   const router = useRouter();
+  const pathname = usePathname() || '/posts';
   const [activeTab, setActiveTab] = useState(initialCategory);
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const INITIAL_COUNT = 12;
+  const LOAD_MORE_STEP = 8;
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     // This updates the tab if the category changes via URL
@@ -62,6 +68,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
       post.content.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
+  const visiblePosts = filteredPosts.slice(0, visibleCount);
   
   const handleTabChange = (value: string) => {
     setActiveTab(value);
@@ -71,7 +78,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     } else {
       params.set('category', value);
     }
-    router.replace(`/posts?${params.toString()}`, { scroll: false });
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
   const updateScrollButtons = () => {
@@ -97,6 +104,26 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
   useEffect(() => {
     updateScrollButtons();
   }, [categories, searchTerm]);
+
+  useEffect(() => {
+    setVisibleCount(INITIAL_COUNT);
+  }, [activeTab, searchTerm]);
+
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const first = entries[0];
+        if (first.isIntersecting) {
+          setVisibleCount((current) => Math.min(current + LOAD_MORE_STEP, filteredPosts.length));
+        }
+      },
+      { rootMargin: '300px 0px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [filteredPosts.length]);
 
   const scrollByAmount = (direction: 'left' | 'right') => {
     const el = scrollRef.current;
@@ -164,6 +191,13 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
     return backgroundPatterns[index % backgroundPatterns.length];
   };
 
+  const calculateReadingTime = (contentStr: string) => {
+    if (!contentStr) return '1 min read';
+    const words = contentStr.trim().split(/\s+/).length;
+    const minutes = Math.max(1, Math.ceil(words / 200));
+    return `${minutes} min read`;
+  };
+
   return (
     <div className="space-y-8">
        <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-xl -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-4">
@@ -178,6 +212,7 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
+            {!hideCategoryTabs && (
             <div className="relative w-full">
                 <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
                     <div ref={scrollRef} className="w-full overflow-x-auto scroll-smooth px-0">
@@ -239,13 +274,15 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                     <ChevronRight className="h-4 w-4" />
                 </Button>
             </div>
+            )}
         </div>
       </div>
       
       <div>
           {filteredPosts.length > 0 ? (
+            <>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              {filteredPosts.map((post, index) => {
+              {visiblePosts.map((post, index) => {
                 const patternIndex = index % 6;
                 
                 let cardClass = "h-80";
@@ -284,9 +321,12 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                                     <p className="mt-2 text-sm text-white/80 opacity-90">{getExcerpt(post.content, getExcerptLength(patternIndex))}</p>
                                  </div>
                                  <div className="mt-4 flex items-center justify-between pt-4">
-                                    <Badge variant={post.published ? 'default' : 'secondary'} className={cn('flex-shrink-0', post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30')}>
-                                        {post.published ? 'Published' : 'Draft'}
-                                    </Badge>
+                                    <div className="flex items-center gap-2">
+                                      <Badge variant={post.published ? 'default' : 'secondary'} className={cn('flex-shrink-0', post.published ? 'bg-green-500/20 text-green-700 border-green-500/30' : 'bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30')}>
+                                          {post.published ? 'Published' : 'Draft'}
+                                      </Badge>
+                                      <span className="text-xs text-white/80">{calculateReadingTime(post.content)}</span>
+                                    </div>
                                      <div className="opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                                         <Link href={`/posts/edit/${post.slug}`} passHref>
                                             <Button variant="secondary" size="sm" onClick={(e) => e.stopPropagation()}>
@@ -313,9 +353,12 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                                   <p className="mt-2 text-sm text-muted-foreground">{getExcerpt(post.content, 120)}</p>
                                 </div>
                                 <div className="relative z-10 mt-4 flex items-center justify-between pt-4 border-t">
-                                  <Badge variant={post.published ? 'outline' : 'secondary'}>
+                                  <div className="flex items-center gap-2">
+                                    <Badge variant={post.published ? 'outline' : 'secondary'}>
                                       {post.published ? 'Published' : 'Draft'}
-                                  </Badge>
+                                    </Badge>
+                                    <span className="text-xs text-muted-foreground">{calculateReadingTime(post.content)}</span>
+                                  </div>
                                    <div className="opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                                         <Link href={`/posts/edit/${post.slug}`} passHref>
                                             <Button variant="ghost" size="sm" onClick={(e) => e.stopPropagation()}>
@@ -332,11 +375,20 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                 )
               })}
             </div>
+            <div ref={sentinelRef} className="h-px" />
+            </>
           ) : (
             <div className="text-center py-24 text-muted-foreground space-y-4">
                 <h3 className="text-2xl font-semibold">No Posts Found</h3>
                 <p>No articles match your current filter criteria.</p>
-                <Button variant="link" onClick={() => { setSearchTerm(''); setActiveTab('All'); router.replace('/posts', { scroll: false })}}>Clear all filters</Button>
+                <Button variant="link" onClick={() => { setSearchTerm(''); setActiveTab('All'); router.replace(`${pathname}`, { scroll: false })}}>Clear all filters</Button>
+            </div>
+          )}
+          {filteredPosts.length > visibleCount && (
+            <div className="flex justify-center mt-8">
+              <Button onClick={() => setVisibleCount(c => Math.min(c + LOAD_MORE_STEP, filteredPosts.length))} variant="outline">
+                Xem thêm
+              </Button>
             </div>
           )}
       </div>

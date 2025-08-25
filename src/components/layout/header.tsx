@@ -14,15 +14,13 @@ import { Input } from '@/components/ui/input';
 const navLinks = {
   en: [
     { href: '/', label: 'Home' },
-    { href: '/products', label: 'Product' },
-    { href: '/about#projects', label: 'Project' },
+    { href: '/products', label: 'Projects' },
     { href: '/posts', label: 'Blog' },
     { href: '/about', label: 'About' },
   ],
   vi: [
       { href: '/', label: 'Trang chủ' },
-      { href: '/products', label: 'Sản phẩm' },
-      { href: '/about#projects', label: 'Dự án' },
+      { href: '/products', label: 'Dự án' },
       { href: '/posts', label: 'Bài viết' },
       { href: '/about', label: 'Giới thiệu' },
   ]
@@ -102,8 +100,15 @@ export function Header() {
   return (
     <header>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 px-4 lg:px-8 py-4 backdrop-blur-sm transition-colors duration-300 ${scrolled ? 'border-b border-border' : ''}`}
-        style={{ backgroundColor: scrolled ? `hsl(var(--background) / ${navOpacity})` : 'transparent' }}
+        className={`fixed top-0 left-0 right-0 z-50 px-4 lg:px-8 py-3 transition-colors duration-300 ${scrolled ? 'border-b border-border shadow-soft' : ''}`}
+        style={{
+          background:
+            scrolled
+              ? `linear-gradient(to bottom, hsl(var(--background) / ${Math.min(navOpacity + 0.2, 0.9)}), hsl(var(--background) / ${navOpacity}))`
+              : 'linear-gradient(to bottom, transparent, transparent)',
+          backdropFilter: scrolled ? 'blur(8px)' : undefined,
+          WebkitBackdropFilter: scrolled ? 'blur(8px)' : undefined,
+        }}
       >
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 text-foreground font-semibold text-xl">

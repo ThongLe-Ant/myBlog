@@ -154,7 +154,7 @@ const timeline = [
   {
     org: "Asia Commercial Bank (ACB)",
     role: "Technical Analyst",
-    period: "2022 - Present",
+    period: "2021 - Present",
     bullets: [
       "SmartPOS - Convenient payment system",
       "International payments integrating ARP/MoneyGram/Western Union",
@@ -357,9 +357,8 @@ export default function CVCanvas() {
   };
 
   return (
-    <div ref={cvRef} className="relative bg-white theme-blue">
-      {/* Solid white background layer for clean export */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-white" />
+    <div ref={cvRef} className="relative theme-blue">
+      {/* Removed solid white background layer to allow transparent page background */}
 
       {/* Toolbar */}
       <div className="sticky top-0 z-10 bg-white/90 backdrop-blur print:hidden">
@@ -522,7 +521,7 @@ export default function CVCanvas() {
               <div className="flex justify-center">
                 <SectionTitle icon={View}>VIEW MY BLOG</SectionTitle>
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center mt-2">
                 <Image
                   src="/my_blog.png"
                   alt="Scan to view my blog"
