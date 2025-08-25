@@ -86,7 +86,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
 
     const MainPostCard = ({ post }: { post: Post }) => (
         <Link href={`/posts/${post.slug}`} className="block h-full group">
-            <Card className="relative h-full min-h-[480px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2)] group-hover:-translate-y-1 rounded-2xl bg-surface/60 backdrop-blur border border-white/10">
+            <Card className="relative h-full min-h-[480px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-[0_0_0_1px_hsla(var(--foreground)/0.08)] group-hover:-translate-y-1 rounded-2xl bg-surface/60 backdrop-blur border border-border">
                 <Image
                     src={getSafeImageSrc(post.imageUrl, post.slug)}
                     alt={post.title}
@@ -112,7 +112,7 @@ export function CategorySection({ category, posts }: CategorySectionProps) {
 
     const SidePostCard = ({ post }: { post: Post }) => (
          <Link href={`/posts/${post.slug}`} className="block h-full group">
-            <Card className="relative h-full min-h-[220px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2)] group-hover:-translate-y-1 rounded-2xl bg-surface/60 backdrop-blur border border-white/10">
+            <Card className="relative h-full min-h-[220px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-[0_0_0_1px_hsla(var(--foreground)/0.08)] group-hover:-translate-y-1 rounded-2xl bg-surface/60 backdrop-blur border border-border">
                 <Image
                     src={getSafeImageSrc(post.imageUrl, post.slug)}
                     alt={post.title}

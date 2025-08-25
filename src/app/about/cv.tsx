@@ -101,11 +101,13 @@ const strengths = [
 ];
 
 const expertise = [
+  "Payment Systems",
   "ERP Systems",
   "Production Management",
   "HR & Payroll",
   "Warehouse & Procurement",
-  "Payment Systems",
+  "Retail",
+  "Industrial Catering"
 ];
 
 const stats = [
@@ -238,7 +240,7 @@ const projects = [
 
 const aboutData = {
   title: 'ABOUT ME',
-  subtitle: 'Software engineer with over 10 years of experience in enterprise systems and ERP solutions.',
+  subtitle: 'Software engineer with over 10 years of experience in enterprise systems.',
   p1: 'With over 10 years of experience, I specialize in designing and implementing large-scale ERP systems for leading corporations in Vietnam. I have a strong technical foundation and a deep understanding of various business domains.',
   p2: 'Successfully deployed 20+ large-scale systems for top Vietnamese corporations in finance-banking, manufacturing, and HR.',
   p3: 'I always aim to create technology solutions that not only meet technical requirements but also effectively solve complex business problems.',
@@ -443,7 +445,7 @@ export default function CVCanvas() {
                 <li key={cert.title} className="inline-flex items-center gap-2 align-middle leading-none text-muted-foreground">
                   <GraduationCap className="w-4 h-4 text-primary relative top-[1px] print:top-0" />
                   <span className="text-sm font-semibold text-foreground leading-none">{cert.title}</span>
-                  <span className="text-xs">— {cert.description}</span>
+                  {/* <span className="text-xs">— {cert.description}</span> */}
                 </li>
               ))}
             </ul>
@@ -510,19 +512,24 @@ export default function CVCanvas() {
           
           {/* Blog QR Image */}
           <div className="mt-4 print:hidden">
-          <SectionTitle icon={View}>VIEW MY BLOG</SectionTitle>
-            <div className="w-full mx-auto mt-2">
-              <Image
-                src="/my_blog.png"
-                alt="Scan to view my blog"
-                width={1024}
-                height={1024}
-                className="object-contain w-full h-auto"
-                priority
-                unoptimized
-              />
+            <div className="flex flex-col items-center mb-2">
+              <div className="flex justify-center">
+                <SectionTitle icon={View}>VIEW MY BLOG</SectionTitle>
+              </div>
+              <div className="flex justify-center">
+                <Image
+                  src="/my_blog.png"
+                  alt="Scan to view my blog"
+                  width={1024}
+                  height={1024}
+                  className="object-contain w-full h-auto max-w-[320px] print:max-w-[260px]"
+                  priority
+                  unoptimized
+                />
+              </div>
             </div>
           </div>
+          
         </aside>
 
         {/* Main column */}

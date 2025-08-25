@@ -78,7 +78,7 @@
   body {
     @apply antialiased;
     background-color: hsl(var(--background));
-    background-image: url('/backgrounds/modern-particle.svg');
+    /* background-image: url('/backgrounds/modern-particle.svg'); */
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
@@ -89,7 +89,7 @@
   }
 
   .dark body {
-    background-image: url('/backgrounds/pattern-4.svg');
+    /* background-image: url('/backgrounds/pattern-4.svg'); */
   }
 
   /* Scoped theme override: blue primary */

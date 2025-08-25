@@ -102,11 +102,11 @@ export function Header() {
   return (
     <header>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 px-4 lg:px-8 py-4 backdrop-blur-sm transition-colors duration-300 ${scrolled ? 'border-b border-white/20' : ''}`}
-        style={{ backgroundColor: scrolled ? `rgba(0,0,0, ${navOpacity})` : 'transparent' }}
+        className={`fixed top-0 left-0 right-0 z-50 px-4 lg:px-8 py-4 backdrop-blur-sm transition-colors duration-300 ${scrolled ? 'border-b border-border' : ''}`}
+        style={{ backgroundColor: scrolled ? `hsl(var(--background) / ${navOpacity})` : 'transparent' }}
       >
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-white font-semibold text-xl">
+          <Link href="/" className="flex items-center gap-2 text-foreground font-semibold text-xl">
             <Mountain className="h-6 w-6" />
             <span>LMT</span>
           </Link>
@@ -123,11 +123,11 @@ export function Header() {
             aria-label="Site search"
           >
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/60" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder={language === 'vi' ? 'Tìm bài viết...' : 'Search posts...'}
-                className="pl-9 w-44 lg:w-56 bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                className="pl-9 w-44 lg:w-56 bg-background/80 border-border text-foreground placeholder:text-muted-foreground"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -144,7 +144,7 @@ export function Header() {
                   handleLinkClick(link.href);
                 }}
                 aria-current={isLinkActive(link.href) ? 'page' : undefined}
-                className="text-white/90 hover:text-white text-sm font-medium transition-colors"
+                className="text-foreground hover:text-foreground text-sm font-medium transition-colors"
               >
                 {link.label}
               </a>
@@ -158,12 +158,12 @@ export function Header() {
             <Button
               variant="outline"
               size="sm"
-              className="border-white/20 text-white/90"
+              className="border-border text-foreground"
               onClick={() => setLanguage(language === 'vi' ? 'en' : 'vi')}
             >
               {language === 'vi' ? 'VI' : 'EN'}
             </Button>
-            <Link href="#" className="text-white/90 hover:text-white text-sm font-medium transition-colors">
+            <Link href="#" className="text-foreground hover:text-foreground text-sm font-medium transition-colors">
               Login
             </Link>
           </div>
@@ -173,19 +173,19 @@ export function Header() {
             <Button
               variant="outline"
               size="sm"
-              className="border-white/20 text-white/90"
+              className="border-border text-foreground"
               onClick={() => setLanguage(language === 'vi' ? 'en' : 'vi')}
             >
               {language === 'vi' ? 'VI' : 'EN'}
             </Button>
-            <button className="text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            <button className="text-foreground" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
         {mobileMenuOpen && (
-          <div className="md:hidden mt-4 p-4 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
+          <div className="md:hidden mt-4 p-4 bg-background/80 backdrop-blur-md rounded-lg border border-border">
             <div className="flex flex-col space-y-4">
               <form
                 onSubmit={(e) => {
@@ -198,11 +198,11 @@ export function Header() {
                 aria-label="Site search"
               >
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/60" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     type="search"
                     placeholder={language === 'vi' ? 'Tìm bài viết...' : 'Search posts...'}
-                    className="pl-9 w-full bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                    className="pl-9 w-full bg-background/80 border-border text-foreground placeholder:text-muted-foreground"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -214,7 +214,7 @@ export function Header() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-white/20 text-white/90"
+                  className="border-border text-foreground"
                   onClick={() => setLanguage(language === 'vi' ? 'en' : 'vi')}
                 >
                   {language === 'vi' ? 'VI' : 'EN'}
@@ -231,13 +231,13 @@ export function Header() {
                     handleLinkClick(link.href);
                   }}
                   aria-current={isLinkActive(link.href) ? 'page' : undefined}
-                  className="text-white/90 hover:text-white text-sm font-medium"
+                  className="text-foreground hover:text-foreground text-sm font-medium"
                 >
                   {link.label}
                 </a>
               ))}
-              <hr className="border-white/20" />
-              <Link href="#" className="text-white/90 hover:text-white text-sm font-medium">
+              <hr className="border-border" />
+              <Link href="#" className="text-foreground hover:text-foreground text-sm font-medium">
                 Login
               </Link>
             </div>
