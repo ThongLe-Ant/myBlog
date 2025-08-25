@@ -14,13 +14,15 @@ import { Input } from '@/components/ui/input';
 const navLinks = {
   en: [
     { href: '/', label: 'Home' },
-    { href: '/products', label: 'Projects' },
+    { href: '/products', label: 'Products' },
+    { href: '/projects', label: 'Projects' },
     { href: '/posts', label: 'Blog' },
     { href: '/about', label: 'About' },
   ],
   vi: [
       { href: '/', label: 'Trang chủ' },
-      { href: '/products', label: 'Dự án' },
+      { href: '/products', label: 'Sản phẩm' },
+      { href: '/projects', label: 'Dự án' },
       { href: '/posts', label: 'Bài viết' },
       { href: '/about', label: 'Giới thiệu' },
   ]

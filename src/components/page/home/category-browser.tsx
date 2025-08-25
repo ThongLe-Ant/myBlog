@@ -49,12 +49,12 @@ export function CategoryBrowser({ categories, categoryCounts }: CategoryBrowserP
                   <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.title}</h2>
                   <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">{c.description}</p>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                   {categories.map((category, index) => (
                       <Link href={`/posts?category=${encodeURIComponent(category)}`} key={category} className="group">
                         <Card
                             className={cn(
-                                'relative text-white p-6 rounded-2xl flex flex-col justify-end min-h-[120px] transition-transform duration-300 ease-smooth group-hover:scale-105 group-hover:shadow-xl overflow-hidden bg-gradient-to-br',
+                                'relative text-white p-4 rounded-2xl flex flex-col justify-end min-h-[96px] transition-transform duration-300 ease-smooth group-hover:scale-105 group-hover:shadow-xl overflow-hidden bg-gradient-to-br',
                                 fromToClasses[index % fromToClasses.length]
                             )}
                         >
@@ -65,8 +65,8 @@ export function CategoryBrowser({ categories, categoryCounts }: CategoryBrowserP
                                 }}
                             />
                             <div className="relative z-10">
-                                <h3 className="font-bold text-lg">{category}</h3>
-                                <p className="text-sm opacity-80">{`${categoryCounts[category] || 0} articles`}</p>
+                                <h3 className="font-bold text-base">{category}</h3>
+                                <p className="text-xs opacity-80">{`${categoryCounts[category] || 0} articles`}</p>
                             </div>
                         </Card>
                       </Link>
