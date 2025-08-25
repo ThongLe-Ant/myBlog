@@ -6,8 +6,6 @@ import {
   Phone,
   MapPin,
   Download,
-  User2,
-  Briefcase,
   GraduationCap,
   Wrench,
   Sparkles,
@@ -32,7 +30,7 @@ import html2canvas from "html2canvas";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { RadarChart as ReRadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, LabelList } from "recharts";
-import { Card, CardContent } from "@/components/ui/card";
+// removed unused Card imports
 import Image from "next/image";
 
 /**
@@ -105,7 +103,7 @@ const expertise = [
   "ERP Systems",
   "Production Management",
   "HR & Payroll",
-  "Warehouse & Procurement",
+  "Warehouse",
   "Retail",
   "Industrial Catering"
 ];
@@ -177,7 +175,7 @@ const timeline = [
   {
     org: "FPT Software",
     role: "Senior Software Engineer",
-    period: "2018 - 2020",
+    period: "2016 - 2020",
     bullets: [
       "Nguyen Minh Steel – comprehensive production management",
       "Sacombank – centralized equipment/warehouse management",
@@ -187,7 +185,7 @@ const timeline = [
   {
     org: "SamHo",
     role: "ERP & MES Developer",
-    period: "2016 - 2018",
+    period: "2012 - 2016",
     bullets: [
       "Integrated HR & Payroll module",
       "Production management & product BOM",
@@ -249,8 +247,8 @@ const aboutData = {
     { value: '20+', label: 'Systems Deployed' },
     { value: '5+', label: 'Areas of Expertise' },
   ],
-  expertiseAreas: { title: 'Areas of Expertise', items: ['ERP Systems', 'Production Management', 'HR & Payroll', 'Warehouse & Procurement', 'Payment Systems'] },
-  keyAchievements: { title: 'Key Achievements', items: ['Handles >10,000 transactions/day', '30% reduction in inventory time', '20% reduction in processing time', 'Automated processes', 'Optimized operational costs'] },
+  expertiseAreas: { title: 'Areas of Expertise', items: ['ERP Systems', 'Production Management', 'HR & Payroll', 'Warehouse', 'Payment Systems'] },
+  keyAchievements: { title: 'Key Achievements', items: ['Handles >10,000 transactions/day', '30% reduction in inventory time', '20% reduction in processing time', 'Automated processes'] },
 };
 const certificates = [
   {
@@ -269,6 +267,15 @@ const certificates = [
     title: 'Analytic Data by IMIC',
     description: 'Analytic Data business intelligence',
   }
+];
+
+// Impact highlights (promoted summary bullets)
+const impactHighlights: string[] = [
+  '-20% processing time @MoMo',
+  '>10,000 tx/day @Banking',
+  '-30% inventory time @Manufacturing',
+  'Automated key operational workflows',
+  'Optimized operational costs across projects',
 ];
 
 
@@ -294,8 +301,8 @@ function SectionTitle({
   children: React.ReactNode;
 }) {
   return (
-    <div className="inline-flex items-center gap-2 text-[15px] font-semibold tracking-wide text-gray-800 leading-none print:leading-none align-middle">
-      <Icon className="w-4 h-4 flex-none opacity-70 relative top-[1px] print:top-0" />
+    <div className="inline-flex items-center gap-2 text-[15px] font-semibold tracking-wide text-gray-800">
+      <Icon className="w-4 h-4 flex-none opacity-70" />
       <span>{children}</span>
     </div>
   );
@@ -370,7 +377,7 @@ export default function CVCanvas() {
       {/* Page */}
       <main className="w-full px-4 sm:px-6 lg:px-8 print:px-0 py-2 print:py-0 grid grid-cols-1 md:grid-cols-3 gap-3 print:gap-2">
         {/* Sidebar */}
-        <aside className="bg-surface/60 backdrop-blur rounded-2xl border border-border/50 p-4 print:p-3 md:col-span-1">
+        <aside className="bg-white rounded-2xl border border-border/50 p-4 print:p-3 md:col-span-1">
           <div className="flex items-center gap-4">
             <Avatar className="w-20 h-20 rounded-2xl">
               <AvatarImage src="/avatar.jpg" alt="Le Minh Thong" />
@@ -384,88 +391,88 @@ export default function CVCanvas() {
 
           {/* Contact */}
           <div className="mt-4 space-y-2 text-sm">
-            <div className="flex items-center gap-2"><Mail className="w-4 h-4"/> {hero.contact.email}</div>
-            <div className="flex items-center gap-2"><Phone className="w-4 h-4"/> {hero.contact.phone}</div>
-            <div className="flex items-center gap-2"><MapPin className="w-4 h-4"/> {hero.contact.location}</div>
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4"/>
+              <span>{hero.contact.email}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4"/>
+              <span>{hero.contact.phone}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4"/>
+              <span>{hero.contact.location}</span>
+            </div>
           </div>
 
          
           
 
-          {/* Expertise */}
-          <section className="mt-4 space-y-2 print:space-y-1">
-            <SectionTitle icon={Layers3}>AREAS OF EXPERTISE</SectionTitle>
-            <ul className="mt-1 space-y-1 text-sm list-disc list-inside">
-              {expertise.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+          {/* Skills (consolidated) */}
+          <section className="mt-4 space-y-3 print:space-y-2">
+            <SectionTitle icon={Layers3}>SKILLS</SectionTitle>
+            <div>
+              <div className="text-xs font-semibold text-muted-foreground">Domain</div>
+              <div className="mt-1 flex flex-wrap gap-1">
+                {expertise.map((item) => (
+                  <Chip key={item}>{item}</Chip>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="text-xs font-semibold text-muted-foreground">Platforms & Tools</div>
+              <div className="mt-1 flex flex-wrap gap-1">
+                {techStack.slice(0, 12).map((t) => (
+                  <Chip key={t}>{t}</Chip>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="text-xs font-semibold text-muted-foreground">Practices</div>
+              <ul className="mt-1 space-y-1 text-sm">
+                {domainSkills.map((d) => (
+                  <li key={d.name} className="flex items-center gap-1">
+                    <CheckCircle className="w-4 h-4 text-primary" />
+                    <span>{d.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </section>
           
 
           {/* Stats */}
           <section className="mt-4 grid grid-cols-3 gap-2 print:gap-1">
             {stats.map((s) => (
-              <div key={s.label} className="bg-gradient-to-br from-slate-50 to-white rounded-xl p-3 text-center border border-black/5">
+              <div key={s.label} className="bg-white rounded-xl p-3 text-center border border-black/5">
                 <div className="text-xl font-bold text-gray-900">{s.value}</div>
                 <div className="text-[11px] text-gray-600">{s.label}</div>
               </div>
             ))}
           </section>
 
-          {/* Domain Skills */}
-          <section className="mt-4 space-y-2 print:space-y-1">  
-            <SectionTitle icon={Brain}>DOMAIN SKILLS</SectionTitle>
-            <div className="mt-2 grid grid-cols-2 gap-2 print:gap-1">
-              {domainSkills.map((d) => (
-                <div key={d.name} className="flex items-start gap-2 text-muted-foreground">
-                  <div>
-                    <div className="text-sm font-semibold text-foreground flex items-center gap-1">
-                      {d.name === "System Architecture" && <LayoutGrid className="w-3 h-3" />}
-                      {d.name === "ERP Solutions" && <Database className="w-3 h-3" />}
-                      {d.name === "Payment Systems" && <CreditCard className="w-3 h-3" />}
-                      {d.name === "Reporting & Dashboards" && <BarChart className="w-3 h-3" />}
-                      {d.name === "Automation" && <Cog className="w-3 h-3" />}
-                      {d.name === "Performance Tuning" && <Gauge className="w-3 h-3" />}
-                      {d.name === "Project Management" && <ClipboardList className="w-3 h-3" />}
-                      {d.name === "System Security" && <Shield className="w-3 h-3" />}
-                      {d.name}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
+          {/* Removed separate Domain Skills (merged into Skills) */}
           {/* Certificates */}
          
-          <div className="bg-surface/60 backdrop-blur rounded-2xl border border-border/50 p-4 print:p-3 mt-4">
+          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3 mt-4">
             <SectionTitle icon={GraduationCap}>CERTIFICATES</SectionTitle>
             <ul className="mt-2 space-y-2 print:space-y-1">
               {certificates.map((cert: { title: string; description: string }) => (
-                <li key={cert.title} className="inline-flex items-center gap-2 align-middle leading-none text-muted-foreground">
-                  <GraduationCap className="w-4 h-4 text-primary relative top-[1px] print:top-0" />
-                  <span className="text-sm font-semibold text-foreground leading-none">{cert.title}</span>
+                <li key={cert.title} className="inline-flex items-center gap-2 text-muted-foreground">
+                  <GraduationCap className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-semibold text-foreground">{cert.title}</span>
                   {/* <span className="text-xs">— {cert.description}</span> */}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Tech */}
-          <section className="mt-4 space-y-2 print:space-y-1">
-            <SectionTitle icon={Wrench}>TECHNOLOGIES</SectionTitle>
-            <div className="mt-1 flex flex-wrap gap-1">
-              {techStack.map((t) => (
-                <Chip key={t}>{t}</Chip>
-              ))}
-            </div>
-          </section>
-          <section className="mt-4 space-y-2 print:space-y-1">
-             {/* Technology Radar */}
+          {/* Radar (web-only) */}
+          <section className="mt-4 space-y-2 print:space-y-1 print:hidden">
             <div className="flex justify-center">
               <ChartContainer
                 config={{ skill: { label: "Skill", color: "hsl(var(--primary))" } }}
-                className="aspect-square w-full max-w-[320px] print:max-w-[260px]"
+                className="aspect-square w-full max-w-[320px]"
               >
                 <ReRadarChart
                   data={[
@@ -506,8 +513,7 @@ export default function CVCanvas() {
                   <ChartTooltip content={<ChartTooltipContent />} />
                 </ReRadarChart>
               </ChartContainer>
-           
-          </div>
+            </div>
           </section>
           
           {/* Blog QR Image */}
@@ -534,76 +540,25 @@ export default function CVCanvas() {
 
         {/* Main column */}
         <section className="md:col-span-2 space-y-3 print:space-y-2">
-              {/* About */}
-          <div className="bg-surface/60 backdrop-blur rounded-2xl border border-border/50 p-4 print:p-3">
-            {/* <SectionTitle  icon={User2}>{aboutData.title}</SectionTitle>
-            <h3 className="mt-1 text-base font-semibold text-foreground">{aboutData.subtitle}</h3> */}
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl">{aboutData.title}</h5>
-            <h6 className="mt-2 text-sm font-semibold text-foreground">{aboutData.subtitle}</h6>
-            <p className="mt-3 text-sm text-muted-foreground">{aboutData.p1}</p>
-            <p className="mt-2 text-sm text-muted-foreground">{aboutData.p2}</p>
-            <p className="mt-2 text-sm text-muted-foreground">{aboutData.p3}</p>
-            <div className="mt-4 grid grid-cols-3 gap-3 print:gap-2 text-center">
-              {aboutData.stats.map((s) => (
-                <div key={s.label} className="bg-background p-4 rounded-lg border border-border/50">
-                  <p className="text-2xl font-bold text-primary">{s.value}</p>
-                  <p className="text-sm text-muted-foreground">{s.label}</p>
-                </div>
+          {/* Impact Highlights */}
+          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
+            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">IMPACT HIGHLIGHTS</h5>
+            <ul className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {impactHighlights.map((item) => (
+                <li key={item} className="inline-flex items-center gap-2 items-center text-muted-foreground">
+                  <Zap className="w-4 h-4 text-primary" />
+                  <span>{item}</span>
+                </li>
               ))}
-            </div>
-            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-6 print:gap-4">
-              <div>
-                <div className="font-bold text-foreground">{aboutData.expertiseAreas.title}</div>
-                <ul className="mt-3 space-y-2">
-                  {aboutData.expertiseAreas.items.map((area) => (
-                    <li key={area} className="inline-flex items-center gap-2 align-middle leading-none text-muted-foreground">
-                      <CheckCircle className="w-4 h-4 text-primary relative top-[1px] print:top-0" />
-                      <span className="leading-none">{area}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <div className="font-bold text-foreground">{aboutData.keyAchievements.title}</div>
-                <ul className="mt-3 space-y-2">
-                  {aboutData.keyAchievements.items.map((result) => (
-                    <li key={result} className="inline-flex items-center gap-2 align-middle leading-none text-muted-foreground">
-                      <Zap className="w-4 h-4 text-primary relative top-[1px] print:top-0" />
-                      <span className="leading-none">{result}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            </ul>
           </div>
-          {/* Strengths (simple version) */}
-          <div className="bg-surface/60 backdrop-blur rounded-2xl border border-border/50 p-4 print:p-3">
-            {/* <SectionTitle icon={Sparkles}>WHAT MAKES MY WORK DIFFERENT?</SectionTitle> */}
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">WHAT MAKES MY WORK DIFFERENT?</h5>
-            <div className="mt-2 grid sm:grid-cols-2 gap-2 print:gap-2">
-              {strengths.map((s) => (
-                <div key={s.title} className="rounded-xl border border-black/5 p-3 print:p-2 hover:shadow-sm transition">
-                  <div className="inline-flex items-center gap-2 leading-none print:leading-none align-middle">
-                    <s.icon className="w-4 h-4 flex-none opacity-70 relative top-[1px] print:top-0" />
-                    <div className="leading-tight print:leading-tight align-middle">
-                      <div className="font-medium align-middle">{s.title}</div>
-                      <p className="text-sm print:text-xs text-gray-700 mt-0.5 leading-snug">{s.description}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-        
 
           {/* Experience */}
-          <div className="bg-surface/60 backdrop-blur rounded-2xl border border-border/50 p-4 print:p-3">
-            {/* <SectionTitle icon={Briefcase}>PROFESSIONAL EXPERIENCE</SectionTitle> */}
+          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
             <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">PROFESSIONAL EXPERIENCE</h5>
             <div className="mt-2 space-y-4 print:space-y-3">
               {timeline.map((t) => (
-                <div key={t.org} className="relative pl-5">
+                <div key={t.org} className="relative pl-5 print:break-inside-avoid">
                   <div className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-gray-800" />
                   <div className="flex flex-wrap items-center gap-2 font-semibold">
                     <span>{t.role}</span>
@@ -622,25 +577,22 @@ export default function CVCanvas() {
             </div>
           </div>
 
-         
-
-          {/* Projects (simple version) */}
-          <div className="bg-surface/60 backdrop-blur rounded-2xl border border-border/50 p-4 print:p-3">
-            {/* <SectionTitle icon={FolderKanban}>FEATURED PROJECTS</SectionTitle> */}
+          {/* Projects */}
+          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
             <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">FEATURED PROJECTS</h5>
             <div className="mt-2 grid md:grid-cols-2 gap-2 print:gap-2">
               {projects.map((p) => (
-                <div key={p.title} className="border rounded-xl p-3 print:p-2 hover:shadow-sm transition">
+                <div key={p.title} className="border rounded-xl p-3 print:p-2 hover:shadow-sm transition print:break-inside-avoid">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10">
                       <Image src={p.imageUrl} alt={p.title} width={40} height={40} className="object-contain w-10 h-10" unoptimized />
                     </div>
                     <div>
                       <div className="font-semibold">{p.title}</div>
-                      <div className="text-sm text-gray-600">{p.client}</div>
+                      <div className="text-sm text-gray-700">{p.client}</div>
                     </div>
                   </div>
-                  <p className="mt-1 text-sm text-gray-700">{p.description}</p>
+                  <p className="mt-1 text-sm text-gray-800">{p.description}</p>
                   <div className="mt-2 flex flex-wrap gap-1 text-[11px]">
                     {p.tags.map((tag) => (
                       <span key={tag} className="px-2 py-0.5 rounded-full border">
@@ -653,9 +605,16 @@ export default function CVCanvas() {
             </div>
           </div>
 
+          {/* About (trimmed) */}
+          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
+            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl">{aboutData.title}</h5>
+            <h6 className="mt-2 text-sm font-semibold text-foreground">{aboutData.subtitle}</h6>
+            <p className="mt-3 text-sm text-muted-foreground">{aboutData.p1}</p>
+            <p className="mt-2 text-sm text-muted-foreground">{aboutData.p2}</p>
+          </div>
+
           {/* Goals */}
           <div className="bg-white rounded-2xl shadow p-4 print:p-3 border border-black/5">
-            {/* <SectionTitle icon={Target}>CAREER GOALS</SectionTitle> */}
             <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">CAREER GOALS</h5>
             <p className="mt-1 text-sm text-gray-700">
               Aiming for a Senior System Architect/Technical Product Owner role, focusing on
@@ -674,6 +633,10 @@ export default function CVCanvas() {
           .print\\:shadow-none { box-shadow: none !important; }
           @page { margin: 10mm; }
           body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+          svg { vertical-align: middle !important; }
+          .inline-flex svg { vertical-align: middle !important; }
+          .inline-flex { align-items: center !important; }
+          .text-sm, .text-xs, .text-[11px] { line-height: 1.25rem !important; }
         }
       `}</style>
     </div>
