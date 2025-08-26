@@ -26,9 +26,6 @@ export default async function HomePage({
       .map(c => [c, publishedPosts.filter(p => p.category === c).length])
   ) as Record<string, number>;
 
-  const initialSearchTerm = (searchParams?.search as string) || '';
-  const initialCategory = (searchParams?.category as string) || 'All';
-
   return (
     <div className="flex flex-col w-full">
         <HomeHeroBanner />

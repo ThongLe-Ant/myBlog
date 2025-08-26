@@ -1,5 +1,6 @@
 
 import type { Metadata } from 'next';
+import { AuthSessionProvider } from '@/components/auth-session-provider';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import './globals.css';
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   description: 'The personal blog of Le Minh Thong, sharing knowledge, experience, and projects in software engineering, system architecture, and motion design.',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -31,11 +32,13 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <AppFooter />
-            <Toaster />
-            <GoToTopButton />
+            <AuthSessionProvider>
+              <Header />
+              <main className="flex-grow">{children}</main>
+              <AppFooter />
+              <Toaster />
+              <GoToTopButton />
+            </AuthSessionProvider>
           </ThemeProvider>
         </LanguageProvider>
       </body>

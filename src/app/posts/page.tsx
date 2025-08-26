@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { getPosts, Post } from '@/lib/posts';
 import { PostListClient } from './post-list-client';
 import { CategoryBrowser } from '@/components/page/home/category-browser';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth-options';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,6 +16,7 @@ export default async function PostsListPage({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const posts: Post[] = await getPosts();
+  const session = await getServerSession(authOptions);
   // The search term from the header is still available via searchParams if needed,
   // but we will add a dedicated search on the client component.
   const searchTerm = (searchParams?.search as string) || '';
@@ -34,12 +37,14 @@ export default async function PostsListPage({
                 {pageDescription}
             </p>
         </div>
-        <Button size="lg" asChild>
-          <Link href="/posts/create">
-            <PlusCircle className="mr-2 h-5 w-5" />
-            Create New Post
-          </Link>
-        </Button>
+        {session?.user ? (
+          <Button size="lg" asChild>
+            <Link href="/posts/create">
+              <PlusCircle className="mr-2 h-5 w-5" />
+              Create New Post
+            </Link>
+          </Button>
+        ) : null}
       </div>
 
       <CategoryBrowser 

@@ -6,9 +6,20 @@ import { ArrowRight, Menu, Mountain, Search, X } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/language-context';
+import { useSession, signOut } from 'next-auth/react';
 import { ThemeToggle } from './theme-toggle';
 import { useRouter, usePathname } from 'next/navigation';
 import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Skeleton } from '@/components/ui/skeleton';
 
 
 const navLinks = {
@@ -59,14 +70,18 @@ const languages = [
     { code: 'vi', label: 'Tiếng Việt', short: 'VI', flag: <VietnamFlag /> }
 ]
 
-export function Header() {
+type AuthState = { authenticated: boolean; user?: { username: string; role: string } } | null
+
+export function Header({ initialAuth }: { initialAuth?: AuthState }) {
   const { language, setLanguage } = useLanguage();
   const router = useRouter();
   const pathname = usePathname();
+  const { data: session, status } = useSession();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navOpacity, setNavOpacity] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [auth, setAuth] = useState<AuthState>(initialAuth ?? null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -81,10 +96,20 @@ export function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    if (status === 'authenticated' && session?.user) {
+      setAuth({ authenticated: true, user: { username: session.user.email || session.user.name || 'user', role: (session.user as any).role || 'user' } });
+    } else if (status === 'unauthenticated') {
+      setAuth({ authenticated: false });
+    }
+  }, [status, session]);
+
   const isLinkActive = (href: string) => {
     const [path] = href.split('#');
     return pathname === path;
   };
+
+  const userInitial = 'U';
 
   const handleLinkClick = (href: string) => {
     if (href.startsWith('/') && href.includes('#')) {
@@ -170,9 +195,40 @@ export function Header() {
             >
               {language === 'vi' ? 'VI' : 'EN'}
             </Button>
-            <Link href="#" className="text-foreground hover:text-foreground text-sm font-medium transition-colors">
-              Login
-            </Link>
+            {auth === null ? (
+              <Skeleton className="h-8 w-8 rounded-full" />
+            ) : auth?.authenticated ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="focus:outline-none">
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src="/avatar.jpg" alt="avatar" />
+                      <AvatarFallback className="text-xs font-semibold">{userInitial}</AvatarFallback>
+                    </Avatar>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel className="space-y-1">
+                    <div className="text-sm font-medium leading-none truncate max-w-[220px]">{auth.user?.username ?? 'Account'}</div>
+                    <div className="text-xs text-muted-foreground">{auth.user?.role === 'superadmin' ? 'Super Admin' : 'User'}</div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={async () => {
+                      await signOut({ redirect: false });
+                      setAuth({ authenticated: false });
+                      router.refresh();
+                    }}
+                  >
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link href="/login" className="text-foreground hover:text-foreground text-sm font-medium transition-colors">
+                Login
+              </Link>
+            )}
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
@@ -244,9 +300,23 @@ export function Header() {
                 </a>
               ))}
               <hr className="border-border" />
-              <Link href="#" className="text-foreground hover:text-foreground text-sm font-medium">
-                Login
-              </Link>
+              {auth?.authenticated ? (
+                <button
+                  className="text-foreground hover:text-foreground text-sm font-medium text-left"
+                  onClick={async () => {
+                    await fetch('/api/logout', { method: 'POST' });
+                    setAuth({ authenticated: false });
+                    setMobileMenuOpen(false);
+                    router.refresh();
+                  }}
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link href="/login" className="text-foreground hover:text-foreground text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         )}

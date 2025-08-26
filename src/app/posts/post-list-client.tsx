@@ -10,6 +10,7 @@ import { FilePenLine, Search, ChevronLeft, ChevronRight, Tag, Code2, Database, C
 import { useRouter, usePathname } from 'next/navigation';
 import type { Post } from '@/lib/posts';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
@@ -25,6 +26,7 @@ interface PostListClientProps {
 export function PostListClient({ posts, categories, initialCategory, initialSearchTerm, hideCategoryTabs = false }: PostListClientProps) {
   const router = useRouter();
   const pathname = usePathname() || '/posts';
+  const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState(initialCategory);
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -327,14 +329,16 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                                       </Badge>
                                       <span className="text-xs text-white/80">{calculateReadingTime(post.content)}</span>
                                     </div>
-                                     <div className="opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                                        <Link href={`/posts/edit/${post.slug}`} passHref>
-                                            <Button variant="secondary" size="sm" onClick={(e) => e.stopPropagation()}>
-                                                <FilePenLine className="mr-2 h-4 w-4" />
-                                                Edit
-                                            </Button>
-                                        </Link>
-                                     </div>
+                                     {session?.user ? (
+                                       <div className="opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                          <Link href={`/posts/edit/${post.slug}`} passHref>
+                                              <Button variant="secondary" size="sm" onClick={(e) => e.stopPropagation()}>
+                                                  <FilePenLine className="mr-2 h-4 w-4" />
+                                                  Edit
+                                              </Button>
+                                          </Link>
+                                       </div>
+                                     ) : null}
                                  </div>
                             </div>
                           </>
@@ -359,14 +363,16 @@ export function PostListClient({ posts, categories, initialCategory, initialSear
                                     </Badge>
                                     <span className="text-xs text-muted-foreground">{calculateReadingTime(post.content)}</span>
                                   </div>
-                                   <div className="opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                                        <Link href={`/posts/edit/${post.slug}`} passHref>
-                                            <Button variant="ghost" size="sm" onClick={(e) => e.stopPropagation()}>
-                                                <FilePenLine className="mr-2 h-4 w-4" />
-                                                Edit
-                                            </Button>
-                                        </Link>
-                                   </div>
+                                   {session?.user ? (
+                                     <div className="opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                          <Link href={`/posts/edit/${post.slug}`} passHref>
+                                              <Button variant="ghost" size="sm" onClick={(e) => e.stopPropagation()}>
+                                                  <FilePenLine className="mr-2 h-4 w-4" />
+                                                  Edit
+                                              </Button>
+                                          </Link>
+                                     </div>
+                                   ) : null}
                                 </div>
                             </div>
                         )}
