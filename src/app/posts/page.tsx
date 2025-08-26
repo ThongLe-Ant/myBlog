@@ -13,14 +13,15 @@ export const dynamic = 'force-dynamic';
 export default async function PostsListPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const posts: Post[] = await getPosts();
   const session = await getServerSession(authOptions);
   // The search term from the header is still available via searchParams if needed,
   // but we will add a dedicated search on the client component.
-  const searchTerm = (searchParams?.search as string) || '';
-  const category = (searchParams?.category as string) || 'All';
+  const params = await searchParams;
+  const searchTerm = (params?.search as string) || '';
+  const category = (params?.category as string) || 'All';
   
   // Extract unique categories and sort them
   const categories = ['All', ...Array.from(new Set(posts.map(p => p.category))).sort()];
