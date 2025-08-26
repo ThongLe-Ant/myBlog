@@ -137,19 +137,24 @@ export function CategorySection({ category, posts, limit, totalCount, showViewAl
     );
 
     const SidePostCard = ({ post }: { post: Post }) => (
-         <Link href={`/posts/${post.slug}`} className="block h-full group">
-            <Card className="relative h-full min-h-[220px] flex flex-col overflow-hidden transition-all duration-300 ease-smooth group-hover:shadow-[0_0_0_1px_hsla(var(--foreground)/0.08)] group-hover:-translate-y-1 rounded-2xl bg-surface/60 backdrop-blur border border-border">
-                <Image
-                    src={getSafeImageSrc(post.imageUrl, post.slug)}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-105 z-0"
-                    data-ai-hint="tech blog"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
-                <div className="relative z-20 h-full flex flex-col justify-start p-4 text-white">
-                    <h3 className="font-semibold text-white text-md group-hover:underline transition-all">{post.title}</h3>
-                    <p className="mt-2 text-sm text-white/80 flex-grow">{getExcerpt(post.content, 100)}</p>
+         <Link href={`/posts/${post.slug}`} className="block">
+            <Card className="flex gap-4 items-start p-3 sm:p-4 border border-border rounded-2xl transition-colors hover:bg-muted/30">
+                <div className="relative w-28 h-20 sm:w-36 sm:h-24 flex-shrink-0 overflow-hidden rounded-xl">
+                    <Image
+                        src={getSafeImageSrc(post.imageUrl, post.slug)}
+                        alt={post.title}
+                        fill
+                        className="object-cover transition-transform duration-500 ease-smooth hover:scale-105"
+                        data-ai-hint="tech blog"
+                    />
+                </div>
+                <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                        <Badge variant="secondary" className="px-2 py-0.5 text-[10px]">{post.category}</Badge>
+                        {post.featured && <Badge className="px-2 py-0.5 text-[10px] border-none bg-primary-gradient">Hot</Badge>}
+                    </div>
+                    <h3 className="font-semibold text-foreground text-sm sm:text-base line-clamp-2">{post.title}</h3>
+                    <p className="mt-1 text-xs sm:text-sm text-muted-foreground line-clamp-2">{getExcerpt(post.content, 140)}</p>
                 </div>
             </Card>
         </Link>
@@ -203,40 +208,16 @@ export function CategorySection({ category, posts, limit, totalCount, showViewAl
                 )}
 
 
-                {/* Regular Posts Carousel */}
+                {/* Regular Posts as vertical feed */}
                 {regularPosts.length > 0 && (
-                     <div className="flex flex-col">
-                        <Carousel
-                            opts={{ align: "start", loop: chunkedRegularPosts.length > 1 }}
-                            plugins={[
-                                Autoplay({
-                                    delay: 5500,
-                                    stopOnInteraction: true,
-                                }),
-                            ]}
-                            className="w-full group col-span-1"
-                        >
-                            <CarouselContent className="-ml-4">
-                                 {chunkedRegularPosts.map((postChunk, index) => (
-                                    <CarouselItem key={index} className="pl-4 basis-full">
-                                         <div className="grid grid-cols-2 gap-4">
-                                            {postChunk.map((post) => (
-                                                <SectionReveal key={post.slug} className="h-full" options={{ delay: 0.2 + index * 0.1 }}>
-                                                    <SidePostCard post={post} />
-                                                </SectionReveal>
-                                            ))}
-                                         </div>
-                                    </CarouselItem>
-                                ))}
-                            </CarouselContent>
-                             {chunkedRegularPosts.length > 1 && (
-                                <>
-                                    <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                </>
-                             )}
-                            {chunkedRegularPosts.length > 1 && <CarouselDots />}
-                        </Carousel>
+                     <div className="flex flex-col divide-y divide-border rounded-2xl overflow-hidden">
+                        {regularPosts.map((post, index) => (
+                            <div key={post.slug} className="py-3 first:pt-0 last:pb-0">
+                                <SectionReveal className="h-full" options={{ delay: 0.05 + (index % 4) * 0.05 }}>
+                                    <SidePostCard post={post} />
+                                </SectionReveal>
+                            </div>
+                        ))}
                     </div>
                 )}
             </div>

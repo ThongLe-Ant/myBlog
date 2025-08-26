@@ -580,6 +580,14 @@ export default function CVCanvas() {
 
         {/* Main column */}
         <section className="md:col-span-2 space-y-3 print:space-y-2">
+          {/* About (trimmed) */}
+          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
+            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl">{aboutData.title}</h5>
+            <h6 className="mt-2 text-sm font-semibold text-foreground">{aboutData.subtitle}</h6>
+            <p className="mt-3 text-sm text-muted-foreground">{aboutData.p1}</p>
+            <p className="mt-2 text-sm text-muted-foreground">{aboutData.p2}</p>
+          </div>
+
           {/* Impact Highlights */}
           <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
             <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">IMPACT HIGHLIGHTS</h5>
@@ -653,13 +661,7 @@ export default function CVCanvas() {
             </div>
           </div>
 
-          {/* About (trimmed) */}
-          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl">{aboutData.title}</h5>
-            <h6 className="mt-2 text-sm font-semibold text-foreground">{aboutData.subtitle}</h6>
-            <p className="mt-3 text-sm text-muted-foreground">{aboutData.p1}</p>
-            <p className="mt-2 text-sm text-muted-foreground">{aboutData.p2}</p>
-          </div>
+          
 
           {/* Goals */}
           <div className="bg-white rounded-2xl shadow p-4 print:p-3 border border-black/5">
@@ -679,15 +681,15 @@ export default function CVCanvas() {
           .print\\:hidden { display: none !important; }
           .print\\:border { border: 1px solid #e5e7eb !important; }
           .print\\:shadow-none { box-shadow: none !important; }
-          @page { size: A4 portrait; margin: 6mm; }
+          @page { size: A4 portrait; margin: 5mm; }
           body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
           svg { vertical-align: middle !important; }
           .inline-flex svg { vertical-align: middle !important; }
           .inline-flex { align-items: center !important; }
           .text-sm, .text-xs, .text-[11px] { line-height: 1.25rem !important; }
           header, footer, nav, .print-hidden-global { display: none !important; }
-          #cv-root { transform: scale(0.93); transform-origin: top left; }
-          #cv-root main { display: grid !important; grid-template-columns: 1fr 2fr !important; gap: 6px !important; padding: 0 !important; }
+          #cv-root { transform: scale(0.96); transform-origin: top left; }
+          #cv-root main { display: grid !important; grid-template-columns: 1fr 2fr !important; gap: 5px !important; padding: 0 !important; }
           #cv-root main > aside { grid-column: auto !important; }
           #cv-root main > section { grid-column: auto !important; }
           /* Tighten common spacings */

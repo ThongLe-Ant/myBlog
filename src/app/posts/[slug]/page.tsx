@@ -3,6 +3,7 @@ import { getPostBySlug, getPosts, Post } from '@/lib/posts';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
@@ -37,31 +38,33 @@ export default async function PostPage({ params }: { params: { slug: string } })
               </div>
               <article className="prose dark:prose-invert max-w-none">
                 <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      img: ({ node, ...props }) => (
-                        <img {...props} className="rounded-lg shadow-lg mx-auto" />
-                      ),
-                      blockquote: ({ node, ...props }) => (
-                        <blockquote {...props} className="border-l-4 border-primary bg-muted/20 p-4" />
-                      ),
-                      code({node, className, children, ...props}) {
-                        const match = /language-(\w+)/.exec(className || '')
-                        return match ? (
-                          <div className="bg-surface rounded-lg p-4 my-4 overflow-x-auto">
-                             <pre><code className={className} {...props}>
-                              {children}
-                            </code></pre>
-                          </div>
-                        ) : (
-                          <code className="bg-muted text-primary rounded-sm px-1" {...props}>
-                            {children}
-                          </code>
-                        )
-                      }
-                    }}
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeHighlight]}
+                  components={{
+                    img: ({ node, ...props }) => (
+                      <img {...props} className="rounded-lg shadow-lg mx-auto" />
+                    ),
+                    blockquote: ({ node, ...props }) => (
+                      <blockquote {...props} className="border-l-4 border-primary bg-muted/20 p-4" />
+                    ),
+                    pre: ({ node, ...props }) => {
+                      // Wrap pre blocks to add copy button. Avoid server component inlining.
+                      const PreWithCopy = require('@/components/markdown-pre-with-copy').PreWithCopy;
+                      return <PreWithCopy {...props} />;
+                    },
+                    code({ node, className, children, ...props }) {
+                      const match = /language-(\w+)/.exec(className || '');
+                      return match ? (
+                        <code className={className} {...props}>{children}</code>
+                      ) : (
+                        <code className="bg-muted text-primary rounded-sm px-1" {...props}>
+                          {children}
+                        </code>
+                      );
+                    },
+                  }}
                 >
-                    {post.content}
+                  {post.content}
                 </ReactMarkdown>
               </article>
             </Card>
