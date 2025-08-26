@@ -125,6 +125,15 @@ const domainSkills = [
   { name: "System Security", level: "Advanced" },
 ];
 
+type TimelineItem = {
+  org: string;
+  role: string;
+  period: string;
+  bullets: string[];
+  logo?: string;
+  accentColor?: string;
+};
+
 const techStack = [
   ".NET",
   "Golang",
@@ -150,7 +159,7 @@ const techStack = [
   "LLM",
 ];
 
-const timeline = [
+const timeline: TimelineItem[] = [
   {
     org: "Asia Commercial Bank (ACB)",
     role: "Technical Analyst",
@@ -161,16 +170,20 @@ const timeline = [
       "Transaction reconciliation",
       "Distribution & payment of partner commissions",
     ],
+    logo: "/logo/acb_logo.svg",
+    accentColor: "#1f419b",
   },
   {
     org: "MoMo",
-    role: "Backend Developer",
+    role: "Backend",
     period: "2020 - 2021",
     bullets: [
       "HR & Payroll management",
       "Internal payment management",
       "Reduced processing time by ~20%",
     ],
+    logo: "/logo/momo_logo.png",
+    accentColor: "#a50064",
   },
   {
     org: "FPT Software",
@@ -181,6 +194,8 @@ const timeline = [
       "Sacombank – centralized equipment/warehouse management",
       "Ehealth – hospital management system",
     ],
+    logo: "/logo/fpt_logo.svg",
+    accentColor: "#1169b0",
   },
   {
     org: "SamHo",
@@ -190,6 +205,8 @@ const timeline = [
       "Integrated HR & Payroll module",
       "Production management & product BOM",
     ],
+    logo: "/logo/samho_logo.png",
+    accentColor: "#cc0000",
   },
 ];
 
@@ -285,6 +302,33 @@ const AVATAR_SRC = "/avatar_transparent.png"; // fallback to initials if not fou
 // ----------------------------
 // Helpers & small UI
 // ----------------------------
+function renderHighlighted(text: string): React.ReactNode[] {
+  const keywords = [
+    "SmartPOS",
+    "payment",
+    "payments",
+    "Payroll",
+    "reconciliation",
+    "commission",
+    "transactions",
+    "inventory",
+    "warehouse",
+    "customs",
+    "IoT",
+  ];
+  const regex = new RegExp(`(${keywords.join("|")})`, "gi");
+  const parts = text.split(regex);
+  return parts.map((part, index) => {
+    if (part.match(regex)) {
+      return (
+        <mark key={index} className="bg-primary/20 text-primary rounded px-1">
+          {part}
+        </mark>
+      );
+    }
+    return <span key={index}>{part}</span>;
+  });
+}
 function Chip({ children }: { children: React.ReactNode }) {
   return (
     <span className="px-2 py-0.5 rounded-full border border-foreground/10 text-xs">
@@ -302,7 +346,7 @@ function SectionTitle({
 }) {
   return (
     <div className="inline-flex items-center gap-2 text-[15px] font-semibold tracking-wide text-gray-800">
-      <Icon className="w-4 h-4 flex-none opacity-70" />
+      <Icon className="w-4 h-4 flex-none text-primary" />
       <span>{children}</span>
     </div>
   );
@@ -357,7 +401,7 @@ export default function CVCanvas() {
   };
 
   return (
-    <div ref={cvRef} className="relative theme-blue">
+    <div ref={cvRef} id="cv-root" className="relative theme-blue">
       {/* Removed solid white background layer to allow transparent page background */}
 
       {/* Toolbar */}
@@ -414,7 +458,9 @@ export default function CVCanvas() {
               <div className="text-xs font-semibold text-muted-foreground">Domain</div>
               <div className="mt-1 flex flex-wrap gap-1">
                 {expertise.map((item) => (
-                  <Chip key={item}>{item}</Chip>
+                  <span key={item} className="text-xs border rounded px-2 py-0.5 bg-white">
+                    {item}
+                  </span>
                 ))}
               </div>
             </div>
@@ -422,7 +468,9 @@ export default function CVCanvas() {
               <div className="text-xs font-semibold text-muted-foreground">Platforms & Tools</div>
               <div className="mt-1 flex flex-wrap gap-1">
                 {techStack.slice(0, 12).map((t) => (
-                  <Chip key={t}>{t}</Chip>
+                  <span key={t} className="text-xs border rounded px-2 py-0.5 bg-white">
+                    {t}
+                  </span>
                 ))}
               </div>
             </div>
@@ -538,7 +586,7 @@ export default function CVCanvas() {
         </aside>
 
         {/* Main column */}
-        <section className="md:col-span-2 space-y-3 print:space-y-2">
+        <section data-main-column className="md:col-span-2 space-y-3 print:space-y-2">
           {/* Impact Highlights */}
           <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
             <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">IMPACT HIGHLIGHTS</h5>
@@ -558,17 +606,25 @@ export default function CVCanvas() {
             <div className="mt-2 space-y-4 print:space-y-3">
               {timeline.map((t) => (
                 <div key={t.org} className="relative pl-5 print:break-inside-avoid">
-                  <div className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-gray-800" />
+                  <div
+                    className="absolute left-0 top-1.5 w-2 h-2 rounded-full"
+                    style={{ backgroundColor: t.accentColor || 'var(--foreground)' }}
+                  />
                   <div className="flex flex-wrap items-center gap-2 font-semibold">
-                    <span>{t.role}</span>
+                    <span className="inline-flex items-center gap-2 text-gray-700">
+                      {t.logo && (
+                        <Image src={t.logo} alt={`${t.org} logo`} width={20} height={20} className="object-contain w-5 h-5" unoptimized />
+                      )}
+                      <span>{t.org}</span>
+                    </span>
                     <span className="text-gray-500">•</span>
-                    <span className="text-gray-700">{t.org}</span>
+                    <span className="inline-flex items-center text-foreground">{t.role}</span>
                     <span className="text-gray-500">•</span>
                     <span className="text-gray-600">{t.period}</span>
                   </div>
                   <ul className="mt-1 list-disc list-inside text-sm space-y-1">
                     {t.bullets.map((b, i) => (
-                      <li key={i}>{b}</li>
+                      <li key={i}>{renderHighlighted(b)}</li>
                     ))}
                   </ul>
                 </div>
@@ -594,7 +650,7 @@ export default function CVCanvas() {
                   <p className="mt-1 text-sm text-gray-800">{p.description}</p>
                   <div className="mt-2 flex flex-wrap gap-1 text-[11px]">
                     {p.tags.map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 rounded-full border">
+                      <span key={tag} className="border rounded px-2 py-0.5 bg-white">
                         {tag}
                       </span>
                     ))}
@@ -627,11 +683,25 @@ export default function CVCanvas() {
 
       <style>{`
         @media print {
+          @page { size: A4 portrait; margin: 8mm; }
+          body { -webkit-print-color-adjust: exact; print-color-adjust: exact; margin: 0; }
           .print\\:hidden { display: none !important; }
           .print\\:border { border: 1px solid #e5e7eb !important; }
           .print\\:shadow-none { box-shadow: none !important; }
-          @page { margin: 10mm; }
-          body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+          /* Print only main content */
+          #cv-root aside { display: none !important; }
+          #cv-root main { grid-template-columns: 1fr !important; padding: 0 !important; }
+          #cv-root [data-main-column] { grid-column: 1 / -1 !important; }
+
+          /* Compress spacing and scale to fit one page */
+          #cv-root { zoom: 0.9; transform: scale(0.9); transform-origin: top left; }
+          #cv-root .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem !important; }
+          #cv-root .print\:space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.25rem !important; }
+          #cv-root .p-4 { padding: 0.5rem !important; }
+          #cv-root .py-2 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+          #cv-root .mt-4 { margin-top: 0.5rem !important; }
+
           svg { vertical-align: middle !important; }
           .inline-flex svg { vertical-align: middle !important; }
           .inline-flex { align-items: center !important; }
