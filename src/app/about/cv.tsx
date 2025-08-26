@@ -6,6 +6,7 @@ import {
   Phone,
   MapPin,
   Download,
+  Printer,
   GraduationCap,
   Wrench,
   Sparkles,
@@ -302,33 +303,6 @@ const AVATAR_SRC = "/avatar_transparent.png"; // fallback to initials if not fou
 // ----------------------------
 // Helpers & small UI
 // ----------------------------
-function renderHighlighted(text: string): React.ReactNode[] {
-  const keywords = [
-    "SmartPOS",
-    "payment",
-    "payments",
-    "Payroll",
-    "reconciliation",
-    "commission",
-    "transactions",
-    "inventory",
-    "warehouse",
-    "customs",
-    "IoT",
-  ];
-  const regex = new RegExp(`(${keywords.join("|")})`, "gi");
-  const parts = text.split(regex);
-  return parts.map((part, index) => {
-    if (part.match(regex)) {
-      return (
-        <mark key={index} className="bg-primary/20 text-primary rounded px-1">
-          {part}
-        </mark>
-      );
-    }
-    return <span key={index}>{part}</span>;
-  });
-}
 function Chip({ children }: { children: React.ReactNode }) {
   return (
     <span className="px-2 py-0.5 rounded-full border border-foreground/10 text-xs">
@@ -374,7 +348,7 @@ export default function CVCanvas() {
       scrollY: -window.scrollY,
       ignoreElements: (el) => el.id === "download-cv-btn",
     }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
+      const imgData = canvas.toDataURL("image/jpeg", 0.9);
       const pdf = new jsPDF("p", "mm", "a4");
 
       const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -386,18 +360,31 @@ export default function CVCanvas() {
       let heightLeft = imgHeight;
       let position = 0;
 
-      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight, undefined, "SLOW");
       heightLeft -= pdfHeight;
 
       while (heightLeft > 0) {
         position = heightLeft - imgHeight;
         pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight, undefined, "SLOW");
         heightLeft -= pdfHeight;
       }
 
       pdf.save("Le-Minh-Thong-CV.pdf");
     });
+  };
+
+  const handlePrint = () => {
+    // Delay to ensure print styles apply and temporarily clear title
+    const previousTitle = document.title;
+    document.title = " ";
+    setTimeout(() => {
+      window.print();
+      // Restore title after print opens
+      setTimeout(() => {
+        document.title = previousTitle;
+      }, 500);
+    }, 50);
   };
 
   return (
@@ -413,6 +400,12 @@ export default function CVCanvas() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl border border-blue-500 bg-blue-500 text-white shadow-sm hover:bg-blue-600 hover:shadow transition dark:bg-blue-600 dark:border-blue-700 dark:hover:bg-blue-700 dark:text-white dark:shadow-blue-900/20"
           >
             <Download className="w-4 h-4" /> Download CV
+          </button>
+          <button
+            onClick={handlePrint}
+            className="ml-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl border border-gray-300 bg-white text-gray-700 shadow-sm hover:bg-gray-50 hover:shadow transition"
+          >
+            <Printer className="w-4 h-4" /> Print
           </button>
         </div>
       </div>
@@ -586,7 +579,7 @@ export default function CVCanvas() {
         </aside>
 
         {/* Main column */}
-        <section data-main-column className="md:col-span-2 space-y-3 print:space-y-2">
+        <section className="md:col-span-2 space-y-3 print:space-y-2">
           {/* Impact Highlights */}
           <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
             <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">IMPACT HIGHLIGHTS</h5>
@@ -618,13 +611,13 @@ export default function CVCanvas() {
                       <span>{t.org}</span>
                     </span>
                     <span className="text-gray-500">•</span>
-                    <span className="inline-flex items-center text-foreground">{t.role}</span>
+                    <span className="inline-flex items-center text-primary font-semibold">{t.role}</span>
                     <span className="text-gray-500">•</span>
                     <span className="text-gray-600">{t.period}</span>
                   </div>
                   <ul className="mt-1 list-disc list-inside text-sm space-y-1">
                     {t.bullets.map((b, i) => (
-                      <li key={i}>{renderHighlighted(b)}</li>
+                      <li key={i}>{b}</li>
                     ))}
                   </ul>
                 </div>
@@ -683,29 +676,25 @@ export default function CVCanvas() {
 
       <style>{`
         @media print {
-          @page { size: A4 portrait; margin: 8mm; }
-          body { -webkit-print-color-adjust: exact; print-color-adjust: exact; margin: 0; }
           .print\\:hidden { display: none !important; }
           .print\\:border { border: 1px solid #e5e7eb !important; }
           .print\\:shadow-none { box-shadow: none !important; }
-
-          /* Print only main content */
-          #cv-root aside { display: none !important; }
-          #cv-root main { grid-template-columns: 1fr !important; padding: 0 !important; }
-          #cv-root [data-main-column] { grid-column: 1 / -1 !important; }
-
-          /* Compress spacing and scale to fit one page */
-          #cv-root { zoom: 0.9; transform: scale(0.9); transform-origin: top left; }
-          #cv-root .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem !important; }
-          #cv-root .print\:space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.25rem !important; }
-          #cv-root .p-4 { padding: 0.5rem !important; }
-          #cv-root .py-2 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
-          #cv-root .mt-4 { margin-top: 0.5rem !important; }
-
+          @page { size: A4 portrait; margin: 6mm; }
+          body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
           svg { vertical-align: middle !important; }
           .inline-flex svg { vertical-align: middle !important; }
           .inline-flex { align-items: center !important; }
           .text-sm, .text-xs, .text-[11px] { line-height: 1.25rem !important; }
+          header, footer, nav, .print-hidden-global { display: none !important; }
+          #cv-root { transform: scale(0.93); transform-origin: top left; }
+          #cv-root main { display: grid !important; grid-template-columns: 1fr 2fr !important; gap: 6px !important; padding: 0 !important; }
+          #cv-root main > aside { grid-column: auto !important; }
+          #cv-root main > section { grid-column: auto !important; }
+          /* Tighten common spacings */
+          #cv-root .p-4 { padding: 0.5rem !important; }
+          #cv-root .py-2 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+          #cv-root .mt-4 { margin-top: 0.5rem !important; }
+          #cv-root .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem !important; }
         }
       `}</style>
     </div>

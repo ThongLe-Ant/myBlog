@@ -76,7 +76,7 @@ export function HomeHeroBanner() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
                 className="flex flex-col gap-2 lg:col-span-3 text-center lg:text-left">
-                    <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl">{c.hero.title}</h1>
+                    <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent sm:text-5xl md:text-6xl">{c.hero.title}</h1>
                     <h2 className="mt-1 text-2xl font-semibold text-foreground">{c.hero.subtitle}</h2>
                     <p className="mt-1 text-lg text-muted-foreground">{c.hero.description}</p>
                     

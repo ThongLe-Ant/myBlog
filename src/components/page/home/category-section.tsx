@@ -17,11 +17,13 @@ import Autoplay from "embla-carousel-autoplay"
 const content = {
   en: {
     viewAll: "View All",
-    readMore: "Read More"
+    readMore: "Read More",
+    viewMore: "View more"
   },
   vi: {
     viewAll: "Xem tất cả",
-    readMore: "Đọc thêm"
+    readMore: "Đọc thêm",
+    viewMore: "Xem thêm"
   }
 };
 
@@ -56,6 +58,25 @@ export function CategorySection({ category, posts, limit, totalCount, showViewAl
     );
 
     const chunkedRegularPosts = chunk(regularPosts, 4);
+
+    const categoryGradients = [
+        'from-sky-500 to-blue-600',
+        'from-purple-500 to-indigo-600',
+        'from-emerald-500 to-green-600',
+        'from-pink-500 to-rose-600',
+        'from-amber-500 to-orange-600',
+        'from-red-500 to-red-700',
+        'from-violet-500 to-purple-600',
+        'from-teal-500 to-cyan-600',
+        'from-yellow-400 to-amber-500'
+    ];
+
+    const pickGradientIndex = (seed: string) => {
+        let total = 0;
+        for (let i = 0; i < seed.length; i++) total = (total + seed.charCodeAt(i)) % categoryGradients.length;
+        return total;
+    };
+    const gradientClass = categoryGradients[pickGradientIndex(category)];
 
     const backgroundPatterns = [
         '/backgrounds/pattern-1.svg',
@@ -136,11 +157,19 @@ export function CategorySection({ category, posts, limit, totalCount, showViewAl
 
     return (
         <SectionReveal id={category.toLowerCase().replace(/\s+/g, '-')} className="scroll-mt-24">
-            <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold tracking-tight text-primary-gradient sm:text-4xl">{category}</h2>
-                <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-                    {`The latest articles and insights on ${category}.`}
-                </p>
+            <div className="mb-8">
+                <div className="flex flex-col items-center">
+                    <div className="flex items-center gap-2 mx-auto w-fit">
+                        <span className={`h-3 w-3 rounded-full bg-gradient-to-br ${gradientClass}`} />
+                        <h2 className="text-3xl font-bold tracking-tight text-primary-gradient sm:text-4xl">{category}</h2>
+                        <Button asChild size="sm" variant="ghost" className="h-7 px-2 text-primary hover:text-primary/90">
+                            <Link href={`/posts?category=${encodeURIComponent(category)}`} className="flex items-center">
+                                {c.viewMore} <ArrowRight className="ml-1 h-4 w-4" />
+                            </Link>
+                        </Button>
+                    </div>
+                    <div className={`mt-2 h-1 w-24 rounded-full bg-gradient-to-r ${gradientClass}`} />
+                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
