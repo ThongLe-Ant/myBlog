@@ -10,6 +10,7 @@ import { Card } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselDots } from '@/components/ui/carousel';
 import { Badge } from '@/components/ui/badge';
 import { Post } from '@/lib/posts';
+import { estimateReadingMinutes, formatTimeAgo } from '@/lib/utils';
 import Autoplay from "embla-carousel-autoplay"
 
 const content = {
@@ -89,6 +90,11 @@ export function FeaturedPosts({ featuredPosts }: FeaturedPostsProps) {
                                     {post.featured && <Badge className="px-2 py-0.5 text-[10px] border-none bg-primary-gradient">{c.featuredLabel}</Badge>}
                                 </div>
                                 <h3 className="text-lg font-bold text-white transition-colors">{post.title}</h3>
+                                <div className="mt-1 text-[11px] text-white/80 flex items-center gap-2">
+                                  <span>{formatTimeAgo(post.createdAt)}</span>
+                                  <span>•</span>
+                                  <span>{estimateReadingMinutes(post.content)} phút đọc</span>
+                                </div>
                                 <p className="mt-1.5 text-xs text-white/80">{sanitizeExcerpt(post.content, EXCERPT_LENGTH)}</p>
                             </div>
                         </Card>

@@ -33,20 +33,19 @@ export function PreWithCopy(props: PreWithCopyProps) {
 
   return (
     <div className="relative">
-      <pre ref={preRef} className={`rounded-lg overflow-x-auto p-4 bg-surface ${className}`} {...rest}>
+      <pre ref={preRef} className={`rounded-lg overflow-x-auto p-3 md:p-4 pr-10 md:pr-12 bg-surface ${className}`} {...rest}>
         {children}
       </pre>
       <Button
         type="button"
-        size="sm"
         variant="secondary"
-        className="absolute top-2 right-2 h-8 px-2"
+        className="absolute top-1.5 right-1.5 h-7 w-7 p-0 md:h-8 md:w-auto md:px-2 z-10"
         onClick={handleCopy}
         aria-label="Copy code"
         title={copied ? 'Copied' : 'Copy code'}
       >
-        <Copy className="h-4 w-4 mr-1" />
-        {copied ? 'Copied' : 'Copy'}
+        <Copy className="h-3.5 w-3.5 md:h-4 md:w-4 md:mr-1" />
+        <span className="hidden md:inline">{copied ? 'Copied' : 'Copy'}</span>
       </Button>
     </div>
   );

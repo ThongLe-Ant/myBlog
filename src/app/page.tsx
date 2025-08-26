@@ -5,6 +5,7 @@ import { CategoryBrowser } from '@/components/page/home/category-browser';
 import { FeaturedPosts } from '@/components/page/home/featured-posts';
 import { HomeHeroBanner } from '@/components/layout/home-hero-banner';
 import { CategorySection } from '@/components/page/home/category-section';
+import { LatestNewsFeed } from '@/components/page/home/latest-news-feed';
 
 export const dynamic = 'force-dynamic';
 

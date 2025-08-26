@@ -10,6 +10,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Post } from '@/lib/posts';
+import { estimateReadingMinutes, formatTimeAgo } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselDots } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay"
@@ -154,6 +155,11 @@ export function CategorySection({ category, posts, limit, totalCount, showViewAl
                         {post.featured && <Badge className="px-2 py-0.5 text-[10px] border-none bg-primary-gradient">Hot</Badge>}
                     </div>
                     <h3 className="font-semibold text-foreground text-sm sm:text-base line-clamp-2">{post.title}</h3>
+                    <div className="mt-0.5 text-[11px] text-muted-foreground flex items-center gap-2">
+                        <span>{formatTimeAgo(post.createdAt)}</span>
+                        <span>•</span>
+                        <span>{estimateReadingMinutes(post.content)} phút đọc</span>
+                    </div>
                     <p className="mt-1 text-xs sm:text-sm text-muted-foreground line-clamp-2">{getExcerpt(post.content, 140)}</p>
                 </div>
             </Card>

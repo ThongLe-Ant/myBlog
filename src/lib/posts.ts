@@ -13,6 +13,7 @@ export interface Post {
   featured?: boolean;
   imageUrl?: string;
   excerpt?: string;
+  createdAt?: string;
 }
 
 // A list of default local SVG images for posts that don't have one.
@@ -45,7 +46,8 @@ export async function getPosts(): Promise<Post[]> {
         content,
         published,
         featured,
-        image_url as "imageUrl"
+        image_url as "imageUrl",
+        created_at as "createdAt"
       from posts
       order by created_at desc
     `;
@@ -59,6 +61,7 @@ export async function getPosts(): Promise<Post[]> {
       featured: Boolean(r.featured || false),
       imageUrl: r.imageUrl || undefined,
       excerpt: r.content.substring(0, 250),
+      createdAt: r.createdAt,
     }));
 
     // Assign default images to posts without one deterministically
@@ -81,7 +84,7 @@ export async function getPosts(): Promise<Post[]> {
 
 export async function getPostBySlug(slug: string): Promise<Post | undefined> {
   const rows = await sql`
-    select slug, title, category, content, published, featured, image_url as "imageUrl"
+    select slug, title, category, content, published, featured, image_url as "imageUrl", created_at as "createdAt"
     from posts
     where slug = ${slug}
     limit 1
@@ -98,6 +101,7 @@ export async function getPostBySlug(slug: string): Promise<Post | undefined> {
     featured: Boolean(r.featured || false),
     imageUrl: r.imageUrl || undefined,
     excerpt: r.content.substring(0, 250),
+    createdAt: r.createdAt,
   };
 }
 
