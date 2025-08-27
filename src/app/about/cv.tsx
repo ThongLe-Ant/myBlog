@@ -25,6 +25,7 @@ import {
   CreditCard,
   LayoutGrid,
   Brain,
+  Globe,
 } from "lucide-react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -58,6 +59,7 @@ const hero = {
     email: "thongproleminh@gmail.com",
     phone: "(+84) 396 870 644",
     location: "HCMC, Vietnam",
+    website: "https://thongle.goeat.vn",
   },
 };
 
@@ -300,6 +302,18 @@ const impactHighlights: string[] = [
 // Optional: Change this to point to your transparent avatar file placed in /public
 const AVATAR_SRC = "/avatar_transparent.png"; // fallback to initials if not found
 
+// Shared skills dataset for both radar and progress bars
+const skillRadarData: Array<{ label: string; value: number }> = [
+  { label: ".NET", value: 75 },
+  { label: "Go", value: 65 },
+  { label: "Python", value: 65 },
+  { label: "Node", value: 70 },
+  { label: "React", value: 85 },
+  { label: "SQL", value: 90 },
+  { label: "Docker", value: 75 },
+  { label: "Cloud", value: 57 },
+];
+
 // ----------------------------
 // Helpers & small UI
 // ----------------------------
@@ -412,9 +426,48 @@ export default function CVCanvas() {
 
       {/* Page */}
       <main className="w-full px-4 sm:px-6 lg:px-8 print:px-0 py-2 print:py-0 grid grid-cols-1 md:grid-cols-3 gap-3 print:gap-2">
+        {/* Recruiter-Focused Hero (desktop/print) */}
+        <section className="md:col-span-3 hidden md:block print:block print:break-inside-avoid avoid-break">
+          <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-r from-blue-50 via-white to-purple-50 print:bg-white">
+            <div className="p-5 flex items-center gap-5">
+              <Avatar className="w-16 h-16 rounded-2xl">
+                <AvatarImage src="/avatar.jpg" alt="Le Minh Thong" />
+                <AvatarFallback>LT</AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <h1 className="text-2xl font-bold tracking-tight text-primary">{hero.title}</h1>
+                <p className="text-sm text-muted-foreground mt-0.5">{hero.subtitle}</p>
+                <p className="text-sm text-foreground mt-2">
+                  Delivering enterprise systems at scale: ERP, payments, and data platforms with measurable business impact.
+                </p>
+                <div className="mt-3 flex flex-wrap items-center gap-4 text-sm">
+                  <div className="inline-flex items-center gap-1">
+                    <Mail className="w-4 h-4" />
+                    <a className="underline text-blue-600 hover:text-blue-700" href={`mailto:${hero.contact.email}`}>{hero.contact.email}</a>
+                  </div>
+                  <div className="inline-flex items-center gap-1">
+                    <Phone className="w-4 h-4" />
+                    <span>{hero.contact.phone}</span>
+                  </div>
+                  <div className="inline-flex items-center gap-1">
+                    <MapPin className="w-4 h-4" />
+                    <span>{hero.contact.location}</span>
+                  </div>
+                  <div className="inline-flex items-center gap-1">
+                    <Globe className="w-4 h-4" />
+                    <a className="underline text-blue-600 hover:text-blue-700" href={hero.contact.website} target="_blank" rel="noreferrer">
+                      {(hero.contact.website || '').replace(/^https?:\/\//, '')}
+                    </a>
+                  </div>
+                </div>
+              </div>
+              {/* Removed hero KPI chips to avoid duplication with Impact section */}
+            </div>
+          </div>
+        </section>
         {/* Sidebar */}
         <aside className="bg-white rounded-2xl border border-border/50 p-4 print:p-3 md:col-span-1">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 md:hidden print:hidden">
             <Avatar className="w-20 h-20 rounded-2xl">
               <AvatarImage src="/avatar.jpg" alt="Le Minh Thong" />
               <AvatarFallback>LT</AvatarFallback>
@@ -425,8 +478,8 @@ export default function CVCanvas() {
             </div>
           </div>
 
-          {/* Contact */}
-          <div className="mt-4 space-y-2 text-sm">
+          {/* Contact (mobile-only; hide on desktop/print to avoid duplicate with hero) */}
+          <div className="mt-4 space-y-2 text-sm md:hidden print:hidden">
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4"/>
               <span>{hero.contact.email}</span>
@@ -438,6 +491,17 @@ export default function CVCanvas() {
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4"/>
               <span>{hero.contact.location}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Globe className="w-4 h-4"/>
+              <a
+                href={hero.contact.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline text-blue-600 hover:text-blue-700 print:text-black break-all"
+              >
+                {(hero.contact.website || '').replace(/^https?:\/\//, '')}
+              </a>
             </div>
           </div>
 
@@ -507,24 +571,27 @@ export default function CVCanvas() {
             </ul>
           </div>
 
-          {/* Radar (web-only) */}
-          <section className="mt-4 space-y-2 print:space-y-1 print:hidden">
+          {/* Top Skills + Radar */}
+          <section className="mt-4 space-y-3 print:space-y-2">
+            <SectionTitle icon={BarChart}>TOP SKILLS</SectionTitle>
+            <div className="space-y-2">
+              {skillRadarData.slice(0, 6).map((s) => (
+                <div key={s.label} className="flex items-center gap-2">
+                  <div className="w-20 text-xs text-muted-foreground">{s.label}</div>
+                  <div className="flex-1 h-2 rounded bg-gray-100 overflow-hidden">
+                    <div className="h-full bg-primary" style={{ width: `${s.value}%` }} />
+                  </div>
+                  <div className="w-8 text-right text-xs">{s.value}</div>
+                </div>
+              ))}
+            </div>
             <div className="flex justify-center">
               <ChartContainer
                 config={{ skill: { label: "Skill", color: "hsl(var(--primary))" } }}
                 className="aspect-square w-full max-w-[320px]"
               >
                 <ReRadarChart
-                  data={[
-                    { label: ".NET", value: 75 },
-                    { label: "Go", value: 65 },
-                    { label: "Python", value: 65 },
-                    { label: "Node", value: 70 },
-                    { label: "React", value: 85 },
-                    { label: "SQL", value: 90 },
-                    { label: "Docker", value: 75 },
-                    { label: "Cloud", value: 57 },
-                  ]}
+                  data={skillRadarData}
                   outerRadius="75%"
                   margin={{ top: 28, right: 28, bottom: 28, left: 28 }}
                 >
@@ -557,7 +624,7 @@ export default function CVCanvas() {
           </section>
           
           {/* Blog QR Image */}
-          <div className="mt-4 print:hidden">
+          <div className="mt-4">
             <div className="flex flex-col items-center mb-2">
               <div className="flex justify-center">
                 <SectionTitle icon={View}>VIEW MY BLOG</SectionTitle>
@@ -568,7 +635,7 @@ export default function CVCanvas() {
                   alt="Scan to view my blog"
                   width={1024}
                   height={1024}
-                  className="object-contain w-full h-auto max-w-[320px] print:max-w-[260px]"
+                  className="object-contain w-full h-auto max-w-[200px] print:max-w-[200px]"
                   priority
                   unoptimized
                 />
@@ -580,37 +647,57 @@ export default function CVCanvas() {
 
         {/* Main column */}
         <section className="md:col-span-2 space-y-3 print:space-y-2">
+          {/* Value Proposition Callout */}
+          <div className="bg-gradient-to-r from-amber-50 via-white to-emerald-50 rounded-2xl border border-border/50 p-4 print:p-3 avoid-break">
+            <div className="flex flex-wrap items-start gap-3">
+              <div className="shrink-0 rounded-xl border bg-white px-3 py-1.5 text-xs font-semibold text-primary">Open to Senior System Architect</div>
+              <div className="text-sm text-foreground">
+                Driving measurable outcomes in ERP, Payments, and Data Platforms through pragmatic architecture and hands-on execution.
+              </div>
+            </div>
+            <ul className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
+              {[
+                ['Time-to-Market', 'cut by 20%+'],
+                ['Operational Cost', 'reduced 10-30%'],
+                ['Reliability', '99%+ uptime']
+              ].map(([k,v]) => (
+                <li key={k} className="rounded-xl border bg-white px-3 py-2">
+                  <div className="text-[11px] text-muted-foreground">{k}</div>
+                  <div className="text-sm font-semibold">{v}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
           {/* About (trimmed) */}
-          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl">{aboutData.title}</h5>
+          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3 avoid-break">
+            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl pl-3 border-l-4 border-primary/60">{aboutData.title}</h5>
             <h6 className="mt-2 text-sm font-semibold text-foreground">{aboutData.subtitle}</h6>
             <p className="mt-3 text-sm text-muted-foreground">{aboutData.p1}</p>
             <p className="mt-2 text-sm text-muted-foreground">{aboutData.p2}</p>
           </div>
 
           {/* Impact Highlights */}
-          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">IMPACT HIGHLIGHTS</h5>
+          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3 avoid-break">
+            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base pl-3 border-l-4 border-amber-500/70">IMPACT HIGHLIGHTS</h5>
             <ul className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
               {impactHighlights.map((item) => (
-                <li key={item} className="inline-flex items-center gap-2 items-center text-muted-foreground">
+                <li key={item} className="inline-flex items-center gap-2 items-center text-foreground">
                   <Zap className="w-4 h-4 text-primary" />
-                  <span>{item}</span>
+                  <span className="font-medium">{item}</span>
                 </li>
               ))}
             </ul>
+            {/* Removed mini-metrics to avoid duplication with overall stats */}
           </div>
 
           {/* Experience */}
-          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">PROFESSIONAL EXPERIENCE</h5>
-            <div className="mt-2 space-y-4 print:space-y-3">
+          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3 avoid-break">
+            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base pl-3 border-l-4 border-emerald-500/70">PROFESSIONAL EXPERIENCE</h5>
+            <div className="mt-2 space-y-4 print:space-y-3 relative">
+              <div className="absolute left-2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-emerald-300 via-gray-200 to-emerald-300 pointer-events-none hidden sm:block" />
               {timeline.map((t) => (
-                <div key={t.org} className="relative pl-5 print:break-inside-avoid">
-                  <div
-                    className="absolute left-0 top-1.5 w-2 h-2 rounded-full"
-                    style={{ backgroundColor: t.accentColor || 'var(--foreground)' }}
-                  />
+                <div key={t.org} className="relative pl-5 sm:pl-8 print:break-inside-avoid">
+                  <div className="absolute left-0 sm:left-1 top-1.5 w-2 h-2 rounded-full ring-4 ring-white" style={{ backgroundColor: t.accentColor || 'var(--foreground)' }} />
                   <div className="flex flex-wrap items-center gap-2 font-semibold">
                     <span className="inline-flex items-center gap-2 text-gray-700">
                       {t.logo && (
@@ -635,10 +722,10 @@ export default function CVCanvas() {
 
           {/* Projects */}
           <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">FEATURED PROJECTS</h5>
+            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base pl-3 border-l-4 border-purple-500/70">FEATURED PROJECTS</h5>
             <div className="mt-2 grid md:grid-cols-2 gap-2 print:gap-2">
               {projects.map((p) => (
-                <div key={p.title} className="border rounded-xl p-3 print:p-2 hover:shadow-sm transition print:break-inside-avoid">
+                <div key={p.title} className="border rounded-xl p-3 print:p-2 hover:shadow-md hover:-translate-y-0.5 transition print:break-inside-avoid bg-gradient-to-br from-white to-gray-50">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10">
                       <Image src={p.imageUrl} alt={p.title} width={40} height={40} className="object-contain w-10 h-10" unoptimized />
@@ -651,7 +738,7 @@ export default function CVCanvas() {
                   <p className="mt-1 text-sm text-gray-800">{p.description}</p>
                   <div className="mt-2 flex flex-wrap gap-1 text-[11px]">
                     {p.tags.map((tag) => (
-                      <span key={tag} className="border rounded px-2 py-0.5 bg-white">
+                      <span key={tag} className="border rounded px-2 py-0.5 bg-white/80">
                         {tag}
                       </span>
                     ))}
@@ -664,8 +751,8 @@ export default function CVCanvas() {
           
 
           {/* Goals */}
-          <div className="bg-white rounded-2xl shadow p-4 print:p-3 border border-black/5">
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">CAREER GOALS</h5>
+          <div className="bg-white rounded-2xl shadow p-4 print:p-3 border border-black/5 avoid-break">
+            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base pl-3 border-l-4 border-blue-500/70">CAREER GOALS</h5>
             <p className="mt-1 text-sm text-gray-700">
               Aiming for a Senior System Architect/Technical Product Owner role, focusing on
               developing enterprise-scale ERP and payment solutions. Continuously enhancing
@@ -688,7 +775,8 @@ export default function CVCanvas() {
           .inline-flex { align-items: center !important; }
           .text-sm, .text-xs, .text-[11px] { line-height: 1.25rem !important; }
           header, footer, nav, .print-hidden-global { display: none !important; }
-          #cv-root { transform: scale(0.96); transform-origin: top left; }
+          /* Avoid transforms in print to prevent blank output in some browsers */
+          #cv-root { width: 200mm !important; margin: 0 auto !important; transform: none !important; transform-origin: initial !important; }
           #cv-root main { display: grid !important; grid-template-columns: 1fr 2fr !important; gap: 5px !important; padding: 0 !important; }
           #cv-root main > aside { grid-column: auto !important; }
           #cv-root main > section { grid-column: auto !important; }
