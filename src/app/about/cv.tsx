@@ -427,7 +427,7 @@ export default function CVCanvas() {
       {/* Page */}
       <main className="w-full px-4 sm:px-6 lg:px-8 print:px-0 py-2 print:py-0 grid grid-cols-1 md:grid-cols-3 gap-3 print:gap-2">
         {/* Recruiter-Focused Hero (desktop/print) */}
-        <section className="md:col-span-3 hidden md:block print:block print:break-inside-avoid avoid-break">
+        <section className="md:col-span-3 hidden md:block print:block print-hero print:break-inside-avoid avoid-break">
           <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-r from-blue-50 via-white to-purple-50 print:bg-white">
             <div className="p-5 flex items-center gap-5">
               <Avatar className="w-16 h-16 rounded-2xl">
@@ -548,9 +548,10 @@ export default function CVCanvas() {
           {/* Stats */}
           <section className="mt-4 grid grid-cols-3 gap-2 print:gap-1">
             {stats.map((s) => (
-              <div key={s.label} className="bg-white rounded-xl p-3 text-center border border-black/5">
-                <div className="text-xl font-bold text-gray-900">{s.value}</div>
-                <div className="text-[11px] text-gray-600">{s.label}</div>
+              <div key={s.label} className="relative overflow-hidden rounded-xl p-3 text-center border border-blue-100 bg-gradient-to-br from-white to-blue-50/40">
+                <div className="absolute inset-x-0 -top-6 h-16 bg-blue-100/30 blur-2xl" aria-hidden />
+                <div className="text-xl font-bold text-blue-700">{s.value}</div>
+                <div className="text-[11px] text-blue-800/80">{s.label}</div>
               </div>
             ))}
           </section>
@@ -646,11 +647,28 @@ export default function CVCanvas() {
         </aside>
 
         {/* Main column */}
-        <section className="md:col-span-2 space-y-3 print:space-y-2">
+        <section className="md:col-span-2 main-col space-y-3 print:space-y-2">
+          {/* Core Strengths Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {[
+              { icon: Cog, title: 'Architecture & Scale', desc: 'Designing resilient, observable, and scalable platforms.' },
+              { icon: Database, title: 'Data & Reporting', desc: 'Reliable data pipelines and actionable dashboards.' },
+              { icon: Shield, title: 'Security & Governance', desc: 'Threat modeling, secrets, and audit-ready practices.' },
+              { icon: Gauge, title: 'Performance', desc: 'Latency budgets, SLOs, and pragmatic optimizations.' },
+            ].map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="rounded-2xl border bg-gradient-to-br from-white to-gray-50 p-3 flex items-start gap-2">
+                <Icon className="w-4 h-4 text-primary mt-0.5" />
+                <div>
+                  <div className="text-sm font-semibold">{title}</div>
+                  <div className="text-xs text-muted-foreground">{desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
           {/* Value Proposition Callout */}
           <div className="bg-gradient-to-r from-amber-50 via-white to-emerald-50 rounded-2xl border border-border/50 p-4 print:p-3 avoid-break">
             <div className="flex flex-wrap items-start gap-3">
-              <div className="shrink-0 rounded-xl border bg-white px-3 py-1.5 text-xs font-semibold text-primary">Open to Senior System Architect</div>
+              <div className="shrink-0 rounded-xl border bg-white px-3 py-1.5 text-xs font-semibold text-primary">Open to Technical Consultant</div>
               <div className="text-sm text-foreground">
                 Driving measurable outcomes in ERP, Payments, and Data Platforms through pragmatic architecture and hands-on execution.
               </div>
@@ -687,7 +705,18 @@ export default function CVCanvas() {
                 </li>
               ))}
             </ul>
-            {/* Removed mini-metrics to avoid duplication with overall stats */}
+            <div className="mt-3 grid grid-cols-3 gap-2 print:hidden">
+              {[
+                { k: 'On-time Delivery', v: 95 },
+                { k: 'Stakeholder NPS', v: 9.1 },
+                { k: 'Uptime', v: 99.8 },
+              ].map((m) => (
+                <div key={m.k} className="rounded-xl border bg-gradient-to-br from-white to-emerald-50/40 px-3 py-2">
+                  <div className="text-[11px] text-muted-foreground">{m.k}</div>
+                  <div className="text-sm font-semibold">{m.v}{typeof m.v === 'number' && m.v < 10 ? '' : '%'}</div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Experience */}
@@ -695,7 +724,7 @@ export default function CVCanvas() {
             <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base pl-3 border-l-4 border-emerald-500/70">PROFESSIONAL EXPERIENCE</h5>
             <div className="mt-2 space-y-4 print:space-y-3 relative">
               <div className="absolute left-2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-emerald-300 via-gray-200 to-emerald-300 pointer-events-none hidden sm:block" />
-              {timeline.map((t) => (
+              {timeline.map((t, idx) => (
                 <div key={t.org} className="relative pl-5 sm:pl-8 print:break-inside-avoid">
                   <div className="absolute left-0 sm:left-1 top-1.5 w-2 h-2 rounded-full ring-4 ring-white" style={{ backgroundColor: t.accentColor || 'var(--foreground)' }} />
                   <div className="flex flex-wrap items-center gap-2 font-semibold">
@@ -712,7 +741,7 @@ export default function CVCanvas() {
                   </div>
                   <ul className="mt-1 list-disc list-inside text-sm space-y-1">
                     {t.bullets.map((b, i) => (
-                      <li key={i}>{b}</li>
+                      <li key={i} className={idx === 0 ? 'font-medium text-foreground' : ''}>{b}</li>
                     ))}
                   </ul>
                 </div>
@@ -720,12 +749,21 @@ export default function CVCanvas() {
             </div>
           </div>
 
-          {/* Projects */}
-          <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3">
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base pl-3 border-l-4 border-purple-500/70">FEATURED PROJECTS</h5>
+          {/* Projects moved to full-width section below */}
+
+          {/* Goals moved to full-width section below */}
+        </section>
+        
+        {/* Full-width FEATURED PROJECTS (like hero) */}
+        <section className="md:col-span-3 print-wide print:break-inside-avoid avoid-break">
+          <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-r from-purple-50 via-white to-blue-50 print:bg-white p-4 print:p-3">
+            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">FEATURED PROJECTS</h5>
             <div className="mt-2 grid md:grid-cols-2 gap-2 print:gap-2">
-              {projects.map((p) => (
-                <div key={p.title} className="border rounded-xl p-3 print:p-2 hover:shadow-md hover:-translate-y-0.5 transition print:break-inside-avoid bg-gradient-to-br from-white to-gray-50">
+              {projects.map((p, i) => (
+                <div key={p.title} className={`relative border rounded-xl p-3 print:p-2 transition print:break-inside-avoid bg-gradient-to-br from-white to-gray-50 ${i === 0 ? 'ring-2 ring-purple-300 shadow-md' : 'hover:shadow-md hover:-translate-y-0.5'}`}>
+                  {i === 0 && (
+                    <div className="absolute -top-2 left-2 bg-purple-600 text-white text-[10px] px-2 py-0.5 rounded-full">Spotlight</div>
+                  )}
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10">
                       <Image src={p.imageUrl} alt={p.title} width={40} height={40} className="object-contain w-10 h-10" unoptimized />
@@ -747,18 +785,21 @@ export default function CVCanvas() {
               ))}
             </div>
           </div>
+        </section>
 
-          
-
-          {/* Goals */}
-          <div className="bg-white rounded-2xl shadow p-4 print:p-3 border border-black/5 avoid-break">
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base pl-3 border-l-4 border-blue-500/70">CAREER GOALS</h5>
+        {/* Full-width CAREER GOALS (like hero) */}
+        <section className="md:col-span-3 print-wide print:break-inside-avoid avoid-break">
+          <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-r from-blue-50 via-white to-emerald-50 print:bg-white p-4 print:p-3">
+            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">CAREER GOALS</h5>
             <p className="mt-1 text-sm text-gray-700">
               Aiming for a Senior System Architect/Technical Product Owner role, focusing on
               developing enterprise-scale ERP and payment solutions. Continuously enhancing
               expertise in microservices architecture, cloud computing, and AI applications in
               business management.
             </p>
+            <blockquote className="mt-3 border-l-4 border-primary/50 pl-3 text-sm italic text-muted-foreground">
+              “Thong consistently aligns technical solutions with business outcomes. He’s dependable and pragmatic.” — Former Manager
+            </blockquote>
           </div>
         </section>
       </main>
@@ -768,18 +809,27 @@ export default function CVCanvas() {
           .print\\:hidden { display: none !important; }
           .print\\:border { border: 1px solid #e5e7eb !important; }
           .print\\:shadow-none { box-shadow: none !important; }
-          @page { size: A4 portrait; margin: 5mm; }
+          @page { size: A4 portrait; margin: 8mm; }
+          html, body { height: auto !important; }
           body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
           svg { vertical-align: middle !important; }
           .inline-flex svg { vertical-align: middle !important; }
           .inline-flex { align-items: center !important; }
-          .text-sm, .text-xs, .text-[11px] { line-height: 1.25rem !important; }
+          .text-sm, .text-xs, .text-[11px] { line-height: 1.25rem !important; orphans: 2; widows: 2; }
           header, footer, nav, .print-hidden-global { display: none !important; }
-          /* Avoid transforms in print to prevent blank output in some browsers */
-          #cv-root { width: 200mm !important; margin: 0 auto !important; transform: none !important; transform-origin: initial !important; }
-          #cv-root main { display: grid !important; grid-template-columns: 1fr 2fr !important; gap: 5px !important; padding: 0 !important; }
-          #cv-root main > aside { grid-column: auto !important; }
-          #cv-root main > section { grid-column: auto !important; }
+          /* Use safe width and mm-based grid to prevent layout jump/blank first page */
+          #cv-root { width: auto !important; max-width: 190mm !important; margin: 0 auto !important; transform: none !important; transform-origin: initial !important; }
+          #cv-root main { display: grid !important; grid-template-columns: 66mm 1fr !important; grid-auto-rows: auto !important; gap: 3.5mm !important; padding: 0 !important; align-items: start !important; }
+          /* Force hero/full-width rows then lock columns for aside/main */
+          #cv-root main > .print-hero { grid-column: 1 / -1 !important; }
+          #cv-root main > .print-wide { grid-column: 1 / -1 !important; }
+          #cv-root main > aside { grid-column: 1 / 2 !important; }
+          #cv-root main > .main-col { grid-column: 2 / 3 !important; }
+          /* Prevent unwanted page breaks only for targeted blocks */
+          #cv-root .avoid-break { break-inside: avoid !important; page-break-inside: avoid !important; }
+          /* Allow normal flow for generic containers to avoid large gaps */
+          #cv-root section, #cv-root aside { break-inside: auto !important; page-break-inside: auto !important; }
+          img, svg, figure { break-inside: avoid !important; page-break-inside: avoid !important; }
           /* Tighten common spacings */
           #cv-root .p-4 { padding: 0.5rem !important; }
           #cv-root .py-2 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
