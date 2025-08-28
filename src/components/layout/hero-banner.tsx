@@ -66,16 +66,17 @@ interface HeroBannerProps {
     showContactInfo?: boolean;
     onDownloadCV?: () => void;
     showStats?: boolean;
+    compact?: boolean;
 }
 
-export function HeroBanner({ showContactInfo = false, onDownloadCV, showStats = false }: HeroBannerProps) {
+export function HeroBanner({ showContactInfo = false, onDownloadCV, showStats = false, compact = false }: HeroBannerProps) {
   const { language } = useLanguage();
   const c = content[language];
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-      <HeroHighlight>
+      <HeroHighlight variant={compact ? 'compact' : 'default'}>
         <div
           ref={containerRef}
           onMouseMove={(e) => {

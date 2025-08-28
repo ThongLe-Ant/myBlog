@@ -19,6 +19,7 @@ import {
   Gauge,
   Users,
   Shield,
+  GraduationCap,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -109,12 +110,30 @@ const content = {
       ],
       expertiseAreas: {
         title: "Areas of Expertise",
-        items: ['ERP Systems', 'Production Management', 'HR & Payroll', 'Warehouse & Procurement', 'Payment Systems']
+        items: ['ERP Systems', 'Production Management', 'HR & Payroll', 'Warehouse', 'Payment Systems']
       },
       keyAchievements: {
         title: "Key Achievements",
-        items: ['Handles >10,000 transactions/day', '30% reduction in inventory time', '20% reduction in processing time', 'Automated processes', 'Optimized operational costs']
+        items: ['Handles >10,000 transactions/day', '30% reduction in inventory time', '20% reduction in processing time', 'Automated processes']
       }
+    },
+    impact: {
+      title: 'Impact Highlights',
+      items: [
+        '-20% processing time @MoMo',
+        '>10,000 tx/day @Banking',
+        '-30% inventory time @Manufacturing',
+        'Automated key operational workflows',
+        'Optimized operational costs across projects',
+      ],
+    },
+    valueProp: {
+      label: 'Open to Technical Consultant',
+      metrics: [
+        { k: 'Time-to-Market', v: 'cut by 20%+' },
+        { k: 'Operational Cost', v: 'reduced 10-30%' },
+        { k: 'Reliability', v: '99%+ uptime' },
+      ],
     },
     skills: {
       title: "Core Skills",
@@ -154,7 +173,7 @@ const content = {
         items: [
             {
                 company: 'Asia Commercial Bank (ACB)',
-                period: '2022 - Present',
+                period: '2021 - Present',
                 role: 'Technical Analyst',
                 description: 'Developing Digital Banking systems.',
                 projects: [
@@ -168,19 +187,17 @@ const content = {
             {
                 company: 'MoMo',
                 period: '2020 - 2021',
-                role: 'Backend Developer',
+                role: 'Backend',
                 description: 'Developed CSM & Internal Payment systems for the leading e-wallet.',
                 projects: [
                     'HR & Payroll management',
-                    'Internal payment management',
                     'Internal payment management'
-        
                 ],
                 result: 'Reduced processing time by ~20%',
             },
             {
                 company: 'FPT Software',
-                period: '2018 - 2020',
+                period: '2016 - 2020',
                 role: 'Senior Software Engineer',
                 description: 'Delivered ERP solutions for large enterprises.',
                 projects: [
@@ -193,7 +210,7 @@ const content = {
             },
             {
                 company: 'SamHo',
-                period: '2016 - 2018',
+                period: '2012 - 2016',
                 role: 'ERP & MES Developer',
                 description: 'Built ERP for a factory with >12,000 employees.',
                 projects: [
@@ -338,12 +355,30 @@ const content = {
       ],
       expertiseAreas: {
         title: "Lĩnh vực chuyên môn",
-        items: ['Hệ thống ERP', 'Quản lý sản xuất', 'Nhân sự & Tính lương', 'Kho & Mua hàng', 'Hệ thống thanh toán']
+        items: ['Hệ thống ERP', 'Quản lý sản xuất', 'Nhân sự & Tính lương', 'Kho', 'Hệ thống thanh toán']
       },
       keyAchievements: {
         title: "Thành tựu chính",
-        items: ['Xử lý >10,000 giao dịch/ngày', 'Giảm 30% thời gian tồn kho', 'Giảm 20% thời gian xử lý', 'Tự động hóa quy trình', 'Tối ưu hóa chi phí vận hành']
+        items: ['Xử lý >10,000 giao dịch/ngày', 'Giảm 30% thời gian tồn kho', 'Giảm 20% thời gian xử lý', 'Tự động hóa quy trình']
       }
+    },
+    impact: {
+      title: 'Tác động nổi bật',
+      items: [
+        'Giảm 20% thời gian xử lý @MoMo',
+        'Hơn 10,000 giao dịch/ngày @Ngân hàng',
+        'Giảm 30% thời gian tồn kho @Sản xuất',
+        'Tự động hóa các quy trình vận hành chính',
+        'Tối ưu chi phí vận hành trên các dự án',
+      ],
+    },
+    valueProp: {
+      label: 'Sẵn sàng tư vấn kỹ thuật',
+      metrics: [
+        { k: 'Time-to-Market', v: 'giảm 20%+' },
+        { k: 'Chi phí vận hành', v: 'giảm 10–30%' },
+        { k: 'Độ tin cậy', v: '99%+ uptime' },
+      ],
     },
     skills: {
       title: "Kỹ năng chính",
@@ -382,7 +417,7 @@ const content = {
         items: [
             {
                 company: 'Ngân hàng Á Châu (ACB)',
-                period: '2022 - Hiện tại',
+                period: '2021 - Hiện tại',
                 role: 'Chuyên viên giải pháp kỹ thuật',
                 description: 'Phát triển Ngân hàng Số.',
                 projects: [
@@ -407,7 +442,7 @@ const content = {
             },
             {
                 company: 'FPT Software',
-                period: '2018 - 2020',
+                period: '2016 - 2020',
                 role: 'Senior Software Engineer',
                 description: 'Triển khai giải pháp ERP cho doanh nghiệp lớn.',
                 projects: [
@@ -418,7 +453,7 @@ const content = {
             },
             {
                 company: 'SamHo',
-                period: '2016 - 2018',
+                period: '2012 - 2016',
                 role: 'Lập trình viên ERP, MES',
                 description: 'Xây dựng ERP cho nhà máy >12.000 nhân viên.',
                 projects: [
@@ -488,7 +523,7 @@ const content = {
         },
         hero: {
           email: "thongproleminh@gmail.com",
-          phone: "0396 870 644",
+          phone: "(+84) 396 870 644",
           location: "TP.HCM, Việt Nam",
         }
     }
@@ -511,7 +546,7 @@ export default function AboutPage() {
   return (
     <div ref={cvContentRef} className="relative">
        <div className="container mx-auto px-4 sm:px-6 lg:px-4">
-        <HeroBanner showContactInfo={true} onDownloadCV={handleDownloadCV} />
+        <HeroBanner showContactInfo={true} onDownloadCV={handleDownloadCV} compact />
       </div>
       {/* <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent dark:from-amber-500/5" />
       <div id="cv-noise-bg" className="pointer-events-none absolute inset-0 -z-10 bg-[url(/noise.png)] opacity-20 dark:opacity-10" />
@@ -520,8 +555,8 @@ export default function AboutPage() {
       {/* Strengths Section */}
       <section className="w-full py-4 lg:py-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 bg-clip-text text-transparent">{c.strengths.title}</h2>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <h2 className="text-3xl lg:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 bg-clip-text text-transparent">{c.strengths.title}</h2>
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {c.strengths.items.map((card, index) => (
                 <SectionReveal key={index} options={{ delay: index * 0.1 }}>
                   <CardInteractive
@@ -538,15 +573,15 @@ export default function AboutPage() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* About Section */}
-        <SectionReveal id="about" className="scroll-mt-24 py-24">
-          <div className="w-full grid md:grid-cols-2 gap-16 items-start">
+        <SectionReveal id="about" className="scroll-mt-24 py-12">
+          <div className="w-full grid md:grid-cols-2 gap-10 items-start">
               <div>
                   <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.about.title}</h2>
                   <h3 className="mt-2 text-xl font-semibold text-foreground">{c.about.subtitle}</h3>
                   <p className="mt-4 text-lg text-muted-foreground">{c.about.p1}</p>
                   <p className="mt-4 text-lg text-muted-foreground">{c.about.p2}</p>
                   <p className="mt-4 text-lg text-muted-foreground">{c.about.p3}</p>
-                  <div className="mt-8 grid grid-cols-3 gap-4 text-center">
+                  <div className="mt-6 grid grid-cols-3 gap-4 text-center">
                       {c.about.stats.map(stat => (
                           <div key={stat.label} className="bg-surface p-4 rounded-lg">
                               <p className="text-3xl font-bold text-primary">{stat.value}</p>
@@ -556,7 +591,7 @@ export default function AboutPage() {
                   </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-0 md:pt-16">
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <h4 className="font-bold text-foreground">{c.about.expertiseAreas.title}</h4>
                   <ul className="space-y-2">
                     {c.about.expertiseAreas.items.map(area => (
@@ -567,7 +602,7 @@ export default function AboutPage() {
                     ))}
                   </ul>
                 </div>
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <h4 className="font-bold text-foreground">{c.about.keyAchievements.title}</h4>
                   <ul className="space-y-2">
                     {c.about.keyAchievements.items.map(result => (
@@ -582,18 +617,38 @@ export default function AboutPage() {
           </div>
         </SectionReveal>
         
+        {/* Value Proposition Callout */}
+        <SectionReveal className="py-6">
+          <div className="bg-gradient-to-r from-amber-50 via-white to-emerald-50 rounded-2xl border border-border/50 p-4">
+            <div className="flex flex-wrap items-start gap-3">
+              <div className="shrink-0 rounded-xl border bg-white px-3 py-1.5 text-xs font-semibold text-primary">{c.valueProp.label}</div>
+              <div className="text-sm text-foreground">
+                {c.about.p3}
+              </div>
+            </div>
+            <ul className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
+              {c.valueProp.metrics.map((m: any) => (
+                <li key={m.k} className="rounded-xl border bg-white px-3 py-2">
+                  <div className="text-[11px] text-muted-foreground">{m.k}</div>
+                  <div className="text-sm font-semibold">{m.v}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </SectionReveal>
+
         {/* Skills Section */}
-        <SectionReveal id="skills" className="scroll-mt-24 py-24">
+        <SectionReveal id="skills" className="scroll-mt-24 py-12">
           <div className="w-full">
-              <div className="text-center mb-16">
+              <div className="text-center mb-8">
                   <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.skills.title}</h2>
                   <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
                       {c.skills.description}
                   </p>
               </div>
-              <div className="grid md:grid-cols-2 gap-12">
-                  <div className="bg-surface/60 backdrop-blur rounded-2xl border border-border/50 p-8">
-                      <h3 className="text-2xl font-bold text-foreground mb-8">{c.skills.domain.title}</h3>
+              <div className="grid md:grid-cols-2 gap-8">
+                  <div className="bg-surface/60 backdrop-blur rounded-2xl border border-border/50 p-6">
+                      <h3 className="text-2xl font-bold text-foreground mb-6">{c.skills.domain.title}</h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           {c.skills.domain.items.map((skill) => {
                             let IconComp: LucideIcon = Network;
@@ -621,7 +676,7 @@ export default function AboutPage() {
                           })}
                       </div>
                   </div>
-                  <div className="bg-surface/60 backdrop-blur rounded-2xl border border-border/50 p-8 relative overflow-hidden">
+                  <div className="bg-surface/60 backdrop-blur rounded-2xl border border-border/50 p-6 relative overflow-hidden">
                       <h3 className="text-2xl font-bold text-foreground mb-6">{c.skills.tech.title}</h3>
                       <div className="flex justify-center">
                         <ChartContainer
@@ -654,9 +709,27 @@ export default function AboutPage() {
           </div>
         </SectionReveal>
 
+        {/* Certificates */}
+        <SectionReveal id="certificates" className="scroll-mt-24 py-8">
+          <div className="bg-white rounded-2xl border border-border/50 p-4">
+            <h3 className="text-2xl font-bold text-foreground mb-4">{language === 'vi' ? 'Chứng chỉ' : 'Certificates'}</h3>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {c.skills.certificates.map((cert: { title: string; description: string }) => (
+                <li key={cert.title} className="flex items-start gap-3">
+                  <GraduationCap className="w-5 h-5 text-primary mt-0.5" />
+                  <div>
+                    <div className="font-semibold text-foreground">{cert.title}</div>
+                    <div className="text-sm text-muted-foreground">{cert.description}</div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </SectionReveal>
+
         {/* Experience Section */}
-        <SectionReveal id="experience" className="scroll-mt-24 py-24">
-          <div className="text-center mb-16">
+        <SectionReveal id="experience" className="scroll-mt-24 py-12">
+          <div className="text-center mb-8">
               <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.experience.title}</h2>
               <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
                 {c.experience.description}
@@ -664,7 +737,7 @@ export default function AboutPage() {
           </div>
           <div className="relative w-full max-w-4xl mx-auto">
                 <div className="absolute left-1/2 top-0 h-full w-0.5 bg-border/50 hidden md:block" />
-                <div className="space-y-16">
+                <div className="space-y-10">
                   {c.experience.items.map((exp, index) => (
                       <div key={index} className="md:grid md:grid-cols-2 md:gap-16 relative">
                           <div className={index % 2 === 0 ? 'md:order-2' : ''}>
@@ -673,14 +746,14 @@ export default function AboutPage() {
                                   whileInView={{ opacity: 1, x: 0 }}
                                   viewport={{ once: true, amount: 0.5 }}
                                   transition={{ duration: 0.6 }}
-                                  className={`p-6 bg-surface border border-border/50 rounded-2xl w-full ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}
+                                  className={`p-4 bg-surface border border-border/50 rounded-2xl w-full ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}
                               >
                                   <p className="text-sm font-semibold text-primary">{exp.period}</p>
                                   <h3 className="mt-1 text-xl font-bold text-foreground">{exp.company}</h3>
                                   <p className="text-base font-semibold text-primary/80">{exp.role}</p>
                                   <p className="mt-3 text-muted-foreground">{exp.description}</p>
                                   {Array.isArray((exp as any).projects) && (
-                                    <div className="mt-3 space-y-2">
+                                    <div className="mt-2 space-y-1">
                                       {(exp as any).projects.map((project: string, i: number) => (
                                         <div key={i} className="text-muted-foreground flex items-start gap-3">
                                           <span className="text-primary text-xl">•</span>
@@ -690,7 +763,7 @@ export default function AboutPage() {
                                     </div>
                                   )}
                                   {(exp as any).result && (
-                                    <div className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-4 py-2 rounded-full text-sm inline-block mt-4 font-medium">
+                                    <div className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-4 py-2 rounded-full text-sm inline-block mt-3 font-medium">
                                       {(exp as any).result}
                                     </div>
                                   )}
@@ -704,27 +777,42 @@ export default function AboutPage() {
           </div>
         </SectionReveal>
 
+        {/* Impact Highlights */}
+        <SectionReveal className="py-6">
+          <div className="bg-white rounded-2xl border border-border/50 p-4">
+            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl">{c.impact.title}</h5>
+            <ul className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {c.impact.items.map((item: string) => (
+                <li key={item} className="inline-flex items-center gap-2 text-foreground">
+                  <Zap className="w-4 h-4 text-primary" />
+                  <span className="font-medium">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </SectionReveal>
+
         {/* Career Goals Section */}
-          <SectionReveal id="goals" className="scroll-mt-24 py-24">
+          <SectionReveal id="goals" className="scroll-mt-24 py-12">
             <div className="w-full text-center">
               <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.goals.title}</h2>
-              <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
+              <p className="mt-2 max-w-3xl mx-auto text-lg text-muted-foreground">
                 {c.goals.description}
               </p>
             </div>
           </SectionReveal>
         
         {/* Contact Section */}
-        <SectionReveal id="contact" className="scroll-mt-24 py-24">
+        <SectionReveal id="contact" className="scroll-mt-24 py-12">
           <div className="w-full">
-              <Card className="p-6 md:p-8 lg:p-12 bg-surface border-border/50">
-                <div className="grid md:grid-cols-2 gap-12">
+              <Card className="p-5 md:p-6 lg:p-8 bg-surface border-border/50">
+                <div className="grid md:grid-cols-2 gap-8">
                     <div>
                         <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">{c.contact.title}</h2>
                         <p className="mt-4 text-lg text-muted-foreground">
                             {c.contact.description}
                         </p>
-                        <div className="mt-8 space-y-4">
+                        <div className="mt-6 space-y-3">
                             <div className="flex items-center gap-4 text-lg">
                                 <Mail className="w-6 h-6 text-primary"/>
                                 <span className="text-muted-foreground">{c.contact.hero.email}</span>
@@ -739,7 +827,7 @@ export default function AboutPage() {
                             </div>
                         </div>
                     </div>
-                    <form className="space-y-6">
+                    <form className="space-y-4">
                         <div className="space-y-2">
                             <label htmlFor="name" className="text-sm font-medium text-foreground">{c.contact.form.name}</label>
                             <Input id="name" placeholder={c.contact.form.namePlaceholder} />

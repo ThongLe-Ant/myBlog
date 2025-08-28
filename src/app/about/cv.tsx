@@ -428,14 +428,14 @@ export default function CVCanvas() {
       <main className="w-full px-4 sm:px-6 lg:px-8 print:px-0 py-2 print:py-0 grid grid-cols-1 md:grid-cols-3 gap-3 print:gap-2">
         {/* Recruiter-Focused Hero (desktop/print) */}
         <section className="md:col-span-3 hidden md:block print:block print-hero print:break-inside-avoid avoid-break">
-          <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-r from-blue-50 via-white to-purple-50 print:bg-white">
+          <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-white">
             <div className="p-5 flex items-center gap-5">
               <Avatar className="w-16 h-16 rounded-2xl">
                 <AvatarImage src="/avatar.jpg" alt="Le Minh Thong" />
                 <AvatarFallback>LT</AvatarFallback>
               </Avatar>
               <div className="flex-1">
-                <h1 className="text-2xl font-bold tracking-tight text-primary">{hero.title}</h1>
+                <h1 className="text-2xl font-bold tracking-tight text-gray-900">{hero.title}</h1>
                 <p className="text-sm text-muted-foreground mt-0.5">{hero.subtitle}</p>
                 <p className="text-sm text-foreground mt-2">
                   Delivering enterprise systems at scale: ERP, payments, and data platforms with measurable business impact.
@@ -443,7 +443,7 @@ export default function CVCanvas() {
                 <div className="mt-3 flex flex-wrap items-center gap-4 text-sm">
                   <div className="inline-flex items-center gap-1">
                     <Mail className="w-4 h-4" />
-                    <a className="underline text-blue-600 hover:text-blue-700" href={`mailto:${hero.contact.email}`}>{hero.contact.email}</a>
+                    <a className="underline text-indigo-600 hover:text-indigo-700" href={`mailto:${hero.contact.email}`}>{hero.contact.email}</a>
                   </div>
                   <div className="inline-flex items-center gap-1">
                     <Phone className="w-4 h-4" />
@@ -455,7 +455,7 @@ export default function CVCanvas() {
                   </div>
                   <div className="inline-flex items-center gap-1">
                     <Globe className="w-4 h-4" />
-                    <a className="underline text-blue-600 hover:text-blue-700" href={hero.contact.website} target="_blank" rel="noreferrer">
+                    <a className="underline text-indigo-600 hover:text-indigo-700" href={hero.contact.website} target="_blank" rel="noreferrer">
                       {(hero.contact.website || '').replace(/^https?:\/\//, '')}
                     </a>
                   </div>
@@ -548,10 +548,10 @@ export default function CVCanvas() {
           {/* Stats */}
           <section className="mt-4 grid grid-cols-3 gap-2 print:gap-1">
             {stats.map((s) => (
-              <div key={s.label} className="relative overflow-hidden rounded-xl p-3 text-center border border-blue-100 bg-gradient-to-br from-white to-blue-50/40">
-                <div className="absolute inset-x-0 -top-6 h-16 bg-blue-100/30 blur-2xl" aria-hidden />
-                <div className="text-xl font-bold text-blue-700">{s.value}</div>
-                <div className="text-[11px] text-blue-800/80">{s.label}</div>
+              <div key={s.label} className="relative overflow-hidden rounded-xl p-3 text-center border border-slate-200 bg-gradient-to-br from-white to-slate-50">
+                <div className="absolute inset-x-0 -top-6 h-16 bg-slate-100/30 blur-2xl" aria-hidden />
+                <div className="text-xl font-bold text-indigo-700">{s.value}</div>
+                <div className="text-[11px] text-amber-700/90">{s.label}</div>
               </div>
             ))}
           </section>
@@ -580,7 +580,7 @@ export default function CVCanvas() {
                 <div key={s.label} className="flex items-center gap-2">
                   <div className="w-20 text-xs text-muted-foreground">{s.label}</div>
                   <div className="flex-1 h-2 rounded bg-gray-100 overflow-hidden">
-                    <div className="h-full bg-primary" style={{ width: `${s.value}%` }} />
+                    <div className="h-full bg-indigo-600" style={{ width: `${s.value}%` }} />
                   </div>
                   <div className="w-8 text-right text-xs">{s.value}</div>
                 </div>
@@ -610,8 +610,8 @@ export default function CVCanvas() {
                   />
                   <Radar
                     dataKey="value"
-                    stroke="var(--color-skill)"
-                    fill="var(--color-skill)"
+                    stroke="#4f46e5"
+                    fill="#4f46e5"
                     fillOpacity={0.3}
                     dot={{ r: 3 }}
                     strokeWidth={2}
@@ -648,7 +648,15 @@ export default function CVCanvas() {
 
         {/* Main column */}
         <section className="md:col-span-2 main-col space-y-3 print:space-y-2">
-          {/* Core Strengths Cards */}
+          
+          {/* Value Proposition Callout */}
+          <div className="bg-gradient-to-r from-slate-50 via-white to-indigo-50 rounded-2xl border border-border/50 p-4 print:p-3 avoid-break">
+            <div className="flex flex-wrap items-start gap-3">
+              <div className="shrink-0 rounded-xl border bg-white px-3 py-1.5 text-xs font-semibold text-primary">Open to Technical Consultant| Solutions Architect</div>
+              <div className="text-sm text-foreground">
+                Driving measurable outcomes in ERP, Payments, and Data Platforms through pragmatic architecture and hands-on execution.
+              </div>
+             {/* Core Strengths Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {[
               { icon: Cog, title: 'Architecture & Scale', desc: 'Designing resilient, observable, and scalable platforms.' },
@@ -665,13 +673,6 @@ export default function CVCanvas() {
               </div>
             ))}
           </div>
-          {/* Value Proposition Callout */}
-          <div className="bg-gradient-to-r from-amber-50 via-white to-emerald-50 rounded-2xl border border-border/50 p-4 print:p-3 avoid-break">
-            <div className="flex flex-wrap items-start gap-3">
-              <div className="shrink-0 rounded-xl border bg-white px-3 py-1.5 text-xs font-semibold text-primary">Open to Technical Consultant</div>
-              <div className="text-sm text-foreground">
-                Driving measurable outcomes in ERP, Payments, and Data Platforms through pragmatic architecture and hands-on execution.
-              </div>
             </div>
             <ul className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
               {[
@@ -681,7 +682,7 @@ export default function CVCanvas() {
               ].map(([k,v]) => (
                 <li key={k} className="rounded-xl border bg-white px-3 py-2">
                   <div className="text-[11px] text-muted-foreground">{k}</div>
-                  <div className="text-sm font-semibold">{v}</div>
+                  <div className="text-sm font-semibold text-amber-700">{v}</div>
                 </li>
               ))}
             </ul>
@@ -696,7 +697,7 @@ export default function CVCanvas() {
 
           {/* Impact Highlights */}
           <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3 avoid-break">
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base pl-3 border-l-4 border-amber-500/70">IMPACT HIGHLIGHTS</h5>
+            <h5 className="text-xl font-bold tracking-tight pl-3 border-l-4 border-emerald-600/70 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-emerald-600 sm:text-xl print:text-base">IMPACT HIGHLIGHTS</h5>
             <ul className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
               {impactHighlights.map((item) => (
                 <li key={item} className="inline-flex items-center gap-2 items-center text-foreground">
@@ -721,7 +722,7 @@ export default function CVCanvas() {
 
           {/* Experience */}
           <div className="bg-white rounded-2xl border border-border/50 p-4 print:p-3 avoid-break">
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base pl-3 border-l-4 border-emerald-500/70">PROFESSIONAL EXPERIENCE</h5>
+            <h5 className="text-xl font-bold tracking-tight pl-3 border-l-4 border-emerald-600/70 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-emerald-600 sm:text-xl print:text-base">PROFESSIONAL EXPERIENCE</h5>
             <div className="mt-2 space-y-4 print:space-y-3 relative">
               <div className="absolute left-2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-emerald-300 via-gray-200 to-emerald-300 pointer-events-none hidden sm:block" />
               {timeline.map((t, idx) => (
@@ -756,13 +757,13 @@ export default function CVCanvas() {
         
         {/* Full-width FEATURED PROJECTS (like hero) */}
         <section className="md:col-span-3 print-wide print:break-inside-avoid avoid-break">
-          <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-r from-purple-50 via-white to-blue-50 print:bg-white p-4 print:p-3">
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">FEATURED PROJECTS</h5>
+          <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-white p-4 print:p-3">
+            <h5 className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-emerald-600 sm:text-xl print:text-base">FEATURED PROJECTS</h5>
             <div className="mt-2 grid md:grid-cols-2 gap-2 print:gap-2">
               {projects.map((p, i) => (
-                <div key={p.title} className={`relative border rounded-xl p-3 print:p-2 transition print:break-inside-avoid bg-gradient-to-br from-white to-gray-50 ${i === 0 ? 'ring-2 ring-purple-300 shadow-md' : 'hover:shadow-md hover:-translate-y-0.5'}`}>
+                <div key={p.title} className={`relative border rounded-xl p-3 print:p-2 transition print:break-inside-avoid bg-gradient-to-br from-white to-gray-50 ${i === 0 ? 'ring-2 ring-indigo-300 shadow-md' : 'hover:shadow-md hover:-translate-y-0.5'}`}>
                   {i === 0 && (
-                    <div className="absolute -top-2 left-2 bg-purple-600 text-white text-[10px] px-2 py-0.5 rounded-full">Spotlight</div>
+                    <div className="absolute -top-2 left-2 bg-indigo-600 text-white text-[10px] px-2 py-0.5 rounded-full">Spotlight</div>
                   )}
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10">
@@ -789,8 +790,8 @@ export default function CVCanvas() {
 
         {/* Full-width CAREER GOALS (like hero) */}
         <section className="md:col-span-3 print-wide print:break-inside-avoid avoid-break">
-          <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-r from-blue-50 via-white to-emerald-50 print:bg-white p-4 print:p-3">
-            <h5 className="text-xl font-bold tracking-tight text-primary sm:text-xl print:text-base">CAREER GOALS</h5>
+          <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-white p-4 print:p-3">
+            <h5 className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-emerald-600 sm:text-xl print:text-base">CAREER GOALS</h5>
             <p className="mt-1 text-sm text-gray-700">
               Aiming for a Senior System Architect/Technical Product Owner role, focusing on
               developing enterprise-scale ERP and payment solutions. Continuously enhancing
