@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Le Minh Thong - Backend Engineering Leader</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+        :root {
+            --primary-color: #1f2937;
+            /* Dark Gray/Blue - Professional text color */
+            --accent-color: #2563eb;
+            /* Modern Blue - Highlights */
+            --bg-color: #ffffff;
+            --section-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-color: #334155;
+            --text-light: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f1f5f9;
+            color: var(--text-color);
+            line-height: 1.55;
+            font-size: 15px;
+            /* Increased to ~11-12pt look */
+        }
+
+        .cv-container {
+            max-width: 210mm;
+            /* A4 Width */
+            margin: 20px auto;
+            background: var(--bg-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 25px 35px;
+            /* Slightly tighter padding to compensate */
+            min-height: 297mm;
+        }
+
+        /* --- Header Section --- */
+        header {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+            /* Reduced */
+            margin-bottom: 20px;
+            /* Reduced */
+            gap: 25px;
+        }
+
+        .header-info {
+            flex: 1;
+        }
+
+        .avatar-container {
+            width: 120px;
+            /* Reduced size */
+            height: 120px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1.name {
+            font-size: 30px;
+            /* Reduced */
+            font-weight: 800;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .role-title {
+            font-size: 17px;
+            /* Reduced */
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+            /* Tighter gap */
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-icon {
+            margin-right: 6px;
+        }
+
+        /* --- Sections --- */
+        section {
+            margin-bottom: 25px;
+            /* Reduced margin */
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            background: none;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(90deg, var(--accent-color) 0%, #93c5fd 100%) 1;
+            padding: 0 0 12px 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '◆';
+            font-size: 12px;
+            margin-right: 12px;
+            color: var(--accent-color);
+        }
+
+        /* --- Content Styles --- */
+        .summary-text {
+            text-align: justify;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* 2 Columns for skills */
+            gap: 20px;
+            /* Reduced gap */
+        }
+
+        .skill-category strong {
+            display: block;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 3px;
+            font-size: 15px;
+        }
+
+        .skill-category span,
+        .skill-category ul {
+            font-size: 15px;
+            color: var(--text-color);
+        }
+
+        .skill-category ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .skill-category ul li {
+            position: relative;
+            padding-left: 14px;
+            margin-bottom: 2px;
+            /* Tighter list items */
+        }
+
+        .skill-category ul li::before {
+            content: "•";
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Job Block */
+        .job-block {
+            margin-bottom: 20px;
+            /* Reduced */
+            page-break-inside: avoid;
+            /* Prevent breaking inside a job block if possible */
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            /* Reduced */
+            padding: 8px 14px;
+            /* Reduced padding */
+            background-color: #f8fafc;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .job-company {
+            font-size: 16px;
+            /* Reduced */
+            font-weight: 800;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .job-period {
+            font-size: 13px;
+            /* Reduced */
+            font-weight: 700;
+            color: var(--primary-color);
+            background-color: #e2e8f0;
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .job-role {
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            font-style: italic;
+            font-size: 15px;
+        }
+
+        /* Sub-Projects indentation */
+        .project-sub {
+            background-color: var(--section-bg);
+            border-left: 3px solid #cbd5e1;
+            padding: 10px 14px;
+            /* Reduced padding */
+            margin-top: 10px;
+            margin-bottom: 12px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .project-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .domain-info {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+            font-style: italic;
+        }
+
+        .bullet-list {
+            margin-left: 18px;
+            list-style-type: disc;
+        }
+
+        .bullet-list li {
+            margin-bottom: 3px;
+            /* Tighter bullets */
+        }
+
+        .tech-tags {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #475569;
+            margin-top: 5px;
+        }
+
+        /* Personal Projects Section same style as job blocks */
+        .personal-project-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+
+        /* Certifications & Language */
+        .cert-lang-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+
+        /* Print & PDF Button */
+        .pdf-export-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 56px;
+            height: 56px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 1000;
+        }
+
+        .pdf-export-btn:hover {
+            transform: scale(1.05);
+            background-color: #1e40af;
+        }
+
+        @media print {
+            @page {
+                margin: 0;
+                size: A4;
+            }
+
+            body {
+                background-color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .cv-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: 100%;
+                padding: 0 15mm 15mm 15mm;
+            }
+
+            header {
+                margin-top: 35mm;
+            }
+
+            .pdf-export-btn {
+                display: none !important;
+            }
+
+            /* Ensure background colors print for project blocks */
+            .project-sub,
+            .job-header,
+            .job-period,
+            .section-title {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+
+            .contact-row {
+                justify-content: center;
+            }
+
+            .skills-grid,
+            .cert-lang-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .job-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cv-container">
+        <!-- Header -->
+        <header>
+            <div class="header-info">
+                <h1 class="name">Le Minh Thong</h1>
+                <div class="role-title">Backend Engineering Leader / Tech Lead</div>
+
+                <div class="contact-row">
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span> Ho Chi Minh City, Vietnam
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">🎂</span> 27 Jul 1989
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span> +84 396 870 644
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span> thongproleminh@gmail.com
+                    </div>
+                </div>
+            </div>
+
+            <div class="avatar-container">
+                <img src="avatar.jpg" alt="Le Minh Thong">
+            </div>
+        </header>
+
+        <!-- Summary -->
+        <section>
+            <h2 class="section-title">Professional Summary</h2>
+            <div class="summary-text">
+                <p>Backend Engineering Leader with <strong>10+ years of experience</strong> architecting and delivering
+                    high-performance, scalable systems for banking, fintech, and enterprise platforms. Proven track
+                    record in designing distributed systems, real-time platforms, and AI-integrated solutions that serve
+                    millions of users.</p>
+                <ul class="bullet-list" style="margin-top: 10px;">
+                    <li>Expert in backend system architecture, microservices design, and distributed systems patterns
+                        (CQRS, event-driven architecture, asynchronous processing)</li>
+                    <li>Led engineering teams (3–5 members) in building large-scale, high-transaction systems with focus
+                        on reliability, scalability, and performance optimization</li>
+                    <li>Strong hands-on experience with real-time platforms (WebSocket), AI integration (RAG/LLM), and
+                        system performance tuning</li>
+                    <li>Proven ability to balance architectural vision with pragmatic execution, delivering complex
+                        projects on time while maintaining high code quality</li>
+                    <li>Deep expertise in system design, technical specifications, code review, and infrastructure
+                        optimization</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Core Skills -->
+        <section>
+            <h2 class="section-title">Core Skills</h2>
+            <div class="skills-grid">
+                <div>
+                    <div class="skill-category">
+                        <strong>Backend & Distributed Systems</strong>
+                        <ul>
+                            <li><strong>Languages:</strong> Go, Java, .NET Core, Node.js, Python</li>
+                            <li><strong>Architecture:</strong> Microservices, CQRS, Event-Driven, High-availability</li>
+                            <li><strong>Practices:</strong> Scalability, Performance optimization, Fault-tolerance</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category" style="margin-top: 15px;">
+                        <strong>AI/ML & Real-time Systems</strong>
+                        <ul>
+                            <li><strong>AI:</strong> RAG, LLM, LangChain, Prompt Engineering</li>
+                            <li><strong>Real-time:</strong> WebSocket, Streaming, Low-latency systems</li>
+                            <li><strong>Techniques:</strong> Vector Search, Semantic Embedding, Ranking</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category" style="margin-top: 15px;">
+                        <strong>Database</strong>
+                        <ul>
+                            <li>Oracle, PostgreSQL, MS SQL Server, Vector Databases</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="skill-category">
+                        <strong>DevOps & Infrastructure</strong>
+                        <ul>
+                            <li><strong>Tools:</strong> Docker, Kubernetes, CI/CD, GitHub Actions</li>
+                            <li><strong>Practices:</strong> Monitoring, Alerting, Automation</li>
+                            <li><strong>Operations:</strong> System reliability, Performance monitoring</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category" style="margin-top: 15px;">
+                        <strong>Leadership & Architecture</strong>
+                        <ul>
+                            <li>Team leadership & mentoring (3-5 engineers)</li>
+                            <li>System design & technical specifications</li>
+                            <li>Code review & best practices</li>
+                            <li>Cross-functional collaboration</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category" style="margin-top: 15px;">
+                        <strong>Domain Expertise</strong>
+                        <ul>
+                            <li>Banking & Fintech, Real-time Platforms</li>
+                            <li>AI/ML (Document Intelligence)</li>
+                            <li>ERP & Enterprise Systems</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Experience -->
+        <section style="page-break-before: always;">
+            <h2 class="section-title">Work Experience</h2>
+
+            <!-- ACB -->
+            <div class="job-block">
+                <div class="job-header">
+                    <span class="job-company">Asia Commercial Bank (ACB)</span>
+                    <span class="job-period">Jan 2021 – Present</span>
+                </div>
+                <div class="job-role">Technical Lead</div>
+
+                <div class="project-sub">
+                    <div class="project-title">1. RAG System – AI-Powered Document Intelligence Platform</div>
+                    <div class="domain-info">Domain: AI/ML, Intelligent Information Retrieval</div>
+                    <ul class="bullet-list">
+                        <li><strong>Architected and led development</strong> of RAG (Retrieval-Augmented Generation)
+                            system for intelligent document search and question-answering platform</li>
+                        <li>Built high-performance document processing pipeline with advanced chunking strategies and
+                            semantic embedding using LangChain</li>
+                        <li>Implemented sophisticated ranking algorithms to optimize retrieval accuracy and response
+                            quality for banking knowledge base</li>
+                        <li>Integrated LLM for context-aware response generation, enabling natural language interaction
+                            with banking documents</li>
+                        <li><strong>Led team of 3 engineers</strong>, mentoring on AI/ML best practices, code quality,
+                            and system design</li>
+                        <li>Designed scalable architecture supporting concurrent user interactions with sub-second
+                            response times</li>
+                    </ul>
+                    <div class="tech-tags">Tech: Python, LangChain, LLM, Vector Databases, Semantic Embeddings, Ranking
+                        Algorithms</div>
+                </div>
+
+                <div class="project-sub">
+                    <div class="project-title">2. International Remittance – High-Transaction Banking Platform</div>
+                    <div class="domain-info">Domain: Banking, Remittance, Compliance</div>
+                    <ul class="bullet-list">
+                        <li><strong>Led architecture design</strong> for mission-critical remittance system
+                            (ARP/MoneyGram/Western Union) handling millions of transactions</li>
+                        <li>Designed microservices architecture using CQRS pattern for scalability, auditability, and
+                            transaction consistency across distributed services</li>
+                        <li>Architected asynchronous queue-based processing flows for high-throughput transaction
+                            handling</li>
+                        <li>Developed core backend services with focus on reliability, fault-tolerance, and system
+                            resilience</li>
+                        <li><strong>Mentored team</strong> on distributed systems design, performance optimization, and
+                            coding standards</li>
+                        <li>Implemented monitoring, alerting, and performance tracking for production systems</li>
+                    </ul>
+                    <div class="tech-tags">Tech: .NET Core, Java, Oracle, PostgreSQL, REST APIs, WebSocket,
+                        Microservices, CQRS</div>
+                </div>
+
+                <div class="project-sub">
+                    <div class="project-title">3. SmartPOS – Real-time Payment System</div>
+                    <div class="domain-info">Domain: Payment, POS, Real-time Processing</div>
+                    <ul class="bullet-list">
+                        <li>Developed high-performance backend services for POS payment processing and real-time partner
+                            commission distribution</li>
+                        <li>Implemented real-time transaction status tracking and notifications using WebSocket for
+                            instant updates</li>
+                        <li>Optimized system for low-latency, high-throughput payment processing</li>
+                    </ul>
+                    <div class="tech-tags">Tech: Java, Oracle / MS SQL Server, WebSocket, Real-time Systems</div>
+                </div>
+
+                <div class="project-sub">
+                    <div class="project-title">4. OneLink & FamilyBank – Digital Banking Platforms</div>
+                    <div class="domain-info">Domain: Digital Banking, System Integration</div>
+                    <ul class="bullet-list">
+                        <li>Led technical analysis and system integration with core banking services</li>
+                        <li>Architected scalable backend solutions for digital banking platforms</li>
+                    </ul>
+                    <div class="tech-tags">Tech: React, .NET, REST APIs</div>
+                </div>
+            </div>
+
+            <!-- MoMo -->
+            <div class="job-block">
+                <div class="job-header">
+                    <span class="job-company">M_Service (MoMo)</span>
+                    <span class="job-period">2021 – 2023</span>
+                </div>
+                <div class="job-role">Senior Software Engineer</div>
+
+                <div class="project-sub">
+                    <div class="project-title">CRM & HR Internal Systems</div>
+                    <div class="domain-info">Domain: Fintech, Enterprise Systems</div>
+                    <ul class="bullet-list">
+                        <li>Developed CRM backend systems for customer management, promotions, and commissions.</li>
+                        <li>Built HR & Payroll backend systems supporting the entire MoMo organization.</li>
+                        <li>Worked with large datasets and complex business rules.</li>
+                    </ul>
+                    <div class="tech-tags">Tech: .NET, Oracle, REST APIs</div>
+                </div>
+            </div>
+
+            <!-- FIS -->
+            <div class="job-block">
+                <div class="job-header">
+                    <span class="job-company">FPT Information System (FIS)</span>
+                    <span class="job-period">2020 – 2021</span>
+                </div>
+                <div class="job-role">Senior Software Engineer</div>
+
+                <div class="project-sub">
+                    <div class="project-title">Sacombank – Equipment & Warehouse Management</div>
+                    <div class="domain-info">Domain: Banking, Asset Management</div>
+                    <ul class="bullet-list">
+                        <li>Developed backend services for centralized equipment and warehouse management.</li>
+                        <li>Implemented data processing and reporting features for banking operations.</li>
+                    </ul>
+                    <div class="tech-tags">Tech: .NET, MS SQL Server</div>
+                </div>
+                <div class="project-sub">
+                    <div class="project-title">Nguyen Minh Steel – Production Management System</div>
+                    <div class="domain-info">Domain: Manufacturing, ERP</div>
+                    <ul class="bullet-list">
+                        <li>Developed backend modules for production planning and manufacturing.</li>
+                        <li>Supported high-volume data processing for industrial workflows.</li>
+                    </ul>
+                    <div class="tech-tags">Tech: .NET, MS SQL Server</div>
+                </div>
+
+                <div class="project-sub">
+                    <div class="project-title">E-Health – Hospital Management System</div>
+                    <div class="domain-info">Domain: Healthcare, Insurance, Billing</div>
+                    <ul class="bullet-list">
+                        <li>Developed backend modules for medical billing and insurance payment.</li>
+                        <li>Optimized systems handling high-volume healthcare transaction data.</li>
+                    </ul>
+                    <div class="tech-tags">Tech: .NET, MS SQL Server</div>
+                </div>
+            </div>
+
+            <!-- Vietnam Samho -->
+            <div class="job-block">
+                <div class="job-header">
+                    <span class="job-company">Vietnam Samho</span>
+                    <span class="job-period">2012 – 2016</span>
+                </div>
+                <div class="job-role">ERP & MES Developer</div>
+
+                <div class="project-sub">
+                    <div class="project-title">ERP & MES Modules</div>
+                    <div class="domain-info">Domain: ERP, MES</div>
+                    <ul class="bullet-list">
+                        <li>Developed ERP & MES modules including HR, Payroll, Production, and BOM management.</li>
+                    </ul>
+                    <div class="tech-tags">Tech: Java, .NET, Oracle, MS SQL Server</div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Personal Projects -->
+        <section style="page-break-before: always;">
+            <h2 class="section-title">Personal &amp; Technical Projects</h2>
+
+            <div class="job-block">
+                <div class="personal-project-header">
+                    <div class="project-title" style="font-size: 16px;">VCS IoT – Production Automation Platform</div>
+                    <div class="job-period">Aug 2024 – Mar 2025</div>
+                </div>
+                <div class="domain-info">Domain: Industrial Automation / IoT</div>
+                <ul class="bullet-list">
+                    <li>Designed domain model and backend services for automation and realtime monitoring.</li>
+                    <li>Processed realtime sensor data for large-scale agricultural production (>500 hectares).</li>
+                </ul>
+                <div class="tech-tags">Tech: Go, PostgreSQL, REST APIs</div>
+            </div>
+
+            <div class="job-block">
+                <div class="personal-project-header">
+                    <div class="project-title" style="font-size: 16px;">Cashless Payment Platform – MWG</div>
+                    <div class="job-period">Mar 2023 – Present</div>
+                </div>
+                <div class="domain-info">Domain: Payment, Retail | https://mwg-eoc.goeat.vn</div>
+                <ul class="bullet-list">
+                    <li>Designed and developed backend systems for cashless payment processing.</li>
+                    <li>Supported millions of transactions per month with reliable transaction flows.</li>
+                </ul>
+                <div class="tech-tags">Tech: .NET, Blazor, MS SQL Server</div>
+            </div>
+
+            <div class="job-block">
+                <div class="personal-project-header">
+                    <div class="project-title" style="font-size: 16px;">ERP – Purchasing, Inventory, Acc & Prod</div>
+                    <div class="job-period">Jan 2024 – Present</div>
+                </div>
+                <div class="domain-info">Domain: ERP, Supply Chain | https://erp.goeat.vn</div>
+                <ul class="bullet-list">
+                    <li>Designed and implemented full ERP domain including purchasing, inventory, accounting, and
+                        production.</li>
+                    <li>Built scalable systems supporting industrial catering operations (~50,000 meals/day).</li>
+                </ul>
+                <div class="tech-tags">Tech: Next.js, Node.js, PostgreSQL</div>
+            </div>
+
+            <div class="job-block">
+                <div class="personal-project-header">
+                    <div class="project-title" style="font-size: 16px;">ZACO – Warehouse & Import/Export Mgmt</div>
+                    <div class="job-period">Jun 2024 – Present</div>
+                </div>
+                <div class="domain-info">Domain: Warehouse, Import/Export, Customs | https://zaco.goeat.vn</div>
+                <ul class="bullet-list">
+                    <li>Designed workflows for warehouse operations, customs documentation, and goods tracking.</li>
+                    <li>Built systems integrating e-documents and import/export processes.</li>
+                </ul>
+                <div class="tech-tags">Tech: Next.js, Node.js, PostgreSQL</div>
+            </div>
+
+        </section>
+
+        <!-- Certifications & Languages -->
+        <section>
+            <h2 class="section-title">Certifications & Languages</h2>
+            <div class="cert-lang-grid">
+                <div>
+                    <div class="skill-category">
+                        <strong>Certifications</strong>
+                        <ul>
+                            <li>Design Thinking Certificate – ACB (2024)</li>
+                            <li>Data Analytics – IMIC (2023)</li>
+                            <li>Agile Project Management in Banking – IMTPM (2023)</li>
+                            <li>Money Transfer Operations Certificate – MoneyGram (2022)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="skill-category">
+                        <strong>Languages</strong>
+                        <ul>
+                            <li><strong>English:</strong> Reading & Technical Communication</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Floating Action Button for PDF Export -->
+    <div class="pdf-export-btn" onclick="window.print()" title="Download PDF">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+    </div>
+
+</body>
+
+</html>

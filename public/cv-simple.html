@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Le Minh Thong</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --text-color: #333;
+            --secondary-text: #666;
+            --line-color: #eee;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            background-color: #f9f9f9;
+            line-height: 1.6;
+            font-size: 14px;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--line-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .role {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--secondary-text);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .contact-info {
+            font-size: 13px;
+            color: var(--secondary-text);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .contact-info span {
+            display: inline-block;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 16px;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--line-color);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .summary-text {
+            text-align: justify;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .skill-category {
+            margin-bottom: 15px;
+        }
+
+        .skill-category strong {
+            display: block;
+            color: var(--primary-color);
+            margin-bottom: 3px;
+        }
+
+        .experience-item,
+        .project-item {
+            margin-bottom: 20px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+
+        .job-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--primary-color);
+        }
+
+        .company {
+            font-weight: 600;
+        }
+
+        .date {
+            font-size: 13px;
+            color: var(--secondary-text);
+            white-space: nowrap;
+        }
+
+        .job-details {
+            font-style: italic;
+            font-size: 13px;
+            color: var(--secondary-text);
+            margin-bottom: 5px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 3px;
+        }
+
+        .tech-stack {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .tech-stack strong {
+            color: #555;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 0;
+                width: 100%;
+                max-width: none;
+            }
+
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .job-header {
+                flex-direction: column;
+            }
+
+            .date {
+                margin-top: 2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Le Minh Thong</h1>
+            <div class="role">Tech Lead / Senior Full-Stack Engineer</div>
+            <div class="contact-info">
+                <span>Ho Chi Minh City, Vietnam</span>
+                <span>27 Jul 1989</span>
+                <span>+84 396 870 644</span>
+                <span>thongproleminh@gmail.com</span>
+            </div>
+        </header>
+
+        <section>
+            <h2>Professional Summary</h2>
+            <div class="summary-text">
+                <p>Hands-on Tech Lead / Senior Full-Stack Engineer with <strong>10+ years of experience</strong>
+                    delivering banking, fintech, ERP, payment, and high-transaction systems. Strong in business
+                    analysis, system design, and direct implementation, especially in payments, remittance, ERP,
+                    healthcare, supply chain, and realtime systems. Proven ability to design, code, review, and operate
+                    production systems, while leading small engineering teams (3–5 members).</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Core Skills</h2>
+            <div class="grid-2">
+                <div>
+                    <div class="skill-category">
+                        <strong>Backend & Architecture</strong>
+                        <span>.NET / .NET Core, Java, Node.js, Go, Python, Microservices, CQRS, RESTful APIs,
+                            WebSocket</span>
+                    </div>
+                    <div class="skill-category">
+                        <strong>Frontend</strong>
+                        <span>React, Next.js, Blazor, React Native</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="skill-category">
+                        <strong>Database</strong>
+                        <span>Oracle, PostgreSQL, MS SQL Server</span>
+                    </div>
+                    <div class="skill-category">
+                        <strong>DevOps & Tools</strong>
+                        <span>Docker, GitHub CI/CD</span>
+                    </div>
+                    <div class="skill-category">
+                        <strong>Domain Expertise</strong>
+                        <span>Banking, Fintech, ERP, Healthcare, Supply Chain, IoT</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Work Experience</h2>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <span class="company">Asia Commercial Bank (ACB)</span> - <span class="job-title">Technical
+                            Analyst / Senior Developer</span>
+                    </div>
+                    <span class="date">Jan 2021 – Present</span>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <strong>1. International Remittance – ARP / MoneyGram / Western Union</strong>
+                    <div class="job-details">Domain: Banking, Remittance, Compliance</div>
+                    <ul>
+                        <li>Analyzed end-to-end remittance workflows (AML/KYC, reconciliation, settlement).</li>
+                        <li>Designed microservices architecture using CQRS for scalability and auditability.</li>
+                        <li>Designed asynchronous queue-based processing flows.</li>
+                        <li>Developed core backend services using .NET Core, Java, Oracle, PostgreSQL.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <strong>2. SmartPOS – Payment System</strong>
+                    <div class="job-details">Domain: Payment, POS</div>
+                    <ul>
+                        <li>Developed backend services for POS payment processing and commission distribution.</li>
+                        <li>Implemented realtime transaction status using WebSocket.</li>
+                        <li>Tech: Java, Oracle / MS SQL Server, WebSocket.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <strong>3. OneLink & FamilyBank – Digital Banking</strong>
+                    <div class="job-details">Domain: Digital Banking</div>
+                    <ul>
+                        <li>Technical analysis and integration with core banking services.</li>
+                        <li>Participated in UI/UX design and frontend development (React, .NET).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <span class="company">M_Service (MoMo)</span> - <span class="job-title">Senior Software
+                            Engineer</span>
+                    </div>
+                    <span class="date">2021 – 2023</span>
+                </div>
+                <div class="job-details">CRM & HR Internal Systems | Domain: Fintech, Enterprise Systems</div>
+                <ul>
+                    <li>Developed CRM backend for customer management, promotions, and commissions.</li>
+                    <li>Built HR & Payroll backend systems supporting the organization.</li>
+                    <li>Worked with large datasets and complex business rules.</li>
+                    <li><span class="tech-stack"><strong>Tech:</strong> .NET, Oracle, REST APIs</span></li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <span class="company">FPT Information System (FIS)</span> - <span class="job-title">Senior
+                            Software Engineer</span>
+                    </div>
+                    <span class="date">2020 – 2021</span>
+                </div>
+                <div class="job-details">Sacombank – Equipment & Warehouse Management | Domain: Banking, Asset
+                    Management</div>
+                <ul>
+                    <li>Developed backend services for centralized equipment and warehouse management.</li>
+                    <li>Implemented data processing and reporting for banking operations.</li>
+                    <li><span class="tech-stack"><strong>Tech:</strong> .NET, MS SQL Server</span></li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <span class="company">Nguyen Minh Steel</span> - <span class="job-title">Developer</span>
+                    </div>
+                    <!-- Date not specified in source for this role, assuming range or leaving blank -->
+                    <span class="date"></span>
+                </div>
+                <div class="job-details">Production Management System | Domain: Manufacturing, ERP</div>
+                <ul>
+                    <li>Developed backend modules for production planning and manufacturing.</li>
+                    <li>Supported high-volume data processing for industrial workflows.</li>
+                    <li><span class="tech-stack"><strong>Tech:</strong> .NET, MS SQL Server</span></li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <span class="company">E-Health</span> - <span class="job-title">Developer</span>
+                    </div>
+                    <span class="date"></span>
+                </div>
+                <div class="job-details">Hospital Management System | Domain: Healthcare, Billng</div>
+                <ul>
+                    <li>Developed backend modules for medical billing and insurance payment.</li>
+                    <li>Optimized systems handling high-volume healthcare transaction data.</li>
+                    <li><span class="tech-stack"><strong>Tech:</strong> .NET, MS SQL Server</span></li>
+                </ul>
+            </div>
+
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <span class="company">Vietnam Samho</span> - <span class="job-title">ERP & MES Developer</span>
+                    </div>
+                    <span class="date">2012 – 2016</span>
+                </div>
+                <div class="job-details">Domain: ERP, MES</div>
+                <ul>
+                    <li>Developed ERP & MES modules including HR, Payroll, Production, and BOM management.</li>
+                    <li><span class="tech-stack"><strong>Tech:</strong> Java, .NET, Oracle, MS SQL Server</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Selected Projects</h2>
+
+            <div class="project-item">
+                <div class="job-header">
+                    <span class="job-title">VCS IoT – Production Automation Platform</span>
+                    <span class="date">Aug 2024 – Mar 2025</span>
+                </div>
+                <div class="job-details">Domain: Industrial Automation / IoT</div>
+                <ul>
+                    <li>Designed domain model and backend services for automation and realtime monitoring.</li>
+                    <li>Processed realtime sensor data for large-scale agricultural production (>500 hectares).</li>
+                    <li><span class="tech-stack"><strong>Tech:</strong> Go, PostgreSQL, REST APIs</span></li>
+                </ul>
+            </div>
+
+            <div class="project-item">
+                <div class="job-header">
+                    <span class="job-title">Cashless Payment Platform – MWG</span>
+                    <span class="date">Mar 2023 – Present</span>
+                </div>
+                <div class="job-details">Domain: Payment, Retail | <a href="https://mwg-eoc.goeat.vn">Link</a></div>
+                <ul>
+                    <li>Designed and developed backend systems for cashless payment processing.</li>
+                    <li>Supported millions of transactions per month.</li>
+                    <li><span class="tech-stack"><strong>Tech:</strong> .NET, Blazor, MS SQL Server</span></li>
+                </ul>
+            </div>
+
+            <div class="project-item">
+                <div class="job-header">
+                    <span class="job-title">ERP – Purchasing, Inventory, Accounting & Production</span>
+                    <span class="date">Jan 2024 – Present</span>
+                </div>
+                <div class="job-details">Domain: ERP, Supply Chain | <a href="https://erp.goeat.vn">Link</a></div>
+                <ul>
+                    <li>Designed and implemented full ERP domain (purchasing, inventory, accounting, production).</li>
+                    <li>Built scalable systems for industrial catering (~50,000 meals/day).</li>
+                    <li><span class="tech-stack"><strong>Tech:</strong> Next.js, Node.js, PostgreSQL</span></li>
+                </ul>
+            </div>
+
+            <div class="project-item">
+                <div class="job-header">
+                    <span class="job-title">ZACO – Warehouse & Import/Export Management</span>
+                    <span class="date">Jun 2024 – Present</span>
+                </div>
+                <div class="job-details">Domain: Warehouse, Import/Export | <a href="https://zaco.goeat.vn">Link</a>
+                </div>
+                <ul>
+                    <li>Designed workflows for warehouse operations and customs documentation.</li>
+                    <li>Built systems integrating e-documents and import/export processes.</li>
+                    <li><span class="tech-stack"><strong>Tech:</strong> Next.js, Node.js, PostgreSQL</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Certifications & Language</h2>
+            <ul>
+                <li>Design Thinking Certificate – ACB (2024)</li>
+                <li>Data Analytics – IMIC (2023)</li>
+                <li>Agile Project Management in Banking – IMTPM (2023)</li>
+                <li>Money Transfer Operations Certificate – MoneyGram (2022)</li>
+                <li><strong>English:</strong> Reading & Technical Communication</li>
+            </ul>
+        </section>
+    </div>
+</body>
+
+</html>
